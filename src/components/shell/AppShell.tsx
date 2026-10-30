@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { TextLink } from "@/components/links";
 import { tokens } from "@/theme/tokens";
 
+import { AccountNav } from "./AccountNav";
 import { BrandMark } from "./BrandMark";
 import { MainNav } from "./MainNav";
 
@@ -46,6 +47,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </TextLink>
           <Box sx={{ flexGrow: 1 }} />
           <MainNav />
+          <AccountNav />
         </Toolbar>
       </AppBar>
       <Box component="main" id="main" sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
@@ -59,9 +61,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               not a forecast. FieldShift is being built to use publicly available NASA data products and is not affiliated with or
               endorsed by NASA.
             </Typography>
-            <Typography variant="body2" sx={{ color: tokens.neutral[500], flexShrink: 0 }}>
-              Development build · Phase 1
-            </Typography>
+            <Stack spacing={0.5} sx={{ flexShrink: 0 }}>
+              <Typography variant="body2" sx={{ color: tokens.neutral[500] }}>
+                Development build · Phase 2
+              </Typography>
+              <Typography variant="body2">
+                <TextLink href="/setup" sx={{ color: tokens.neutral[200] }}>
+                  Setup
+                </TextLink>
+                {" · "}
+                <TextLink href="/sources" sx={{ color: tokens.neutral[200] }}>
+                  Data sources
+                </TextLink>
+              </Typography>
+            </Stack>
           </Stack>
         </Container>
       </Box>

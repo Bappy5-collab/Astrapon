@@ -4,7 +4,7 @@
  */
 export type WorkflowStep = { title: string; detail: string; phase: number };
 
-export const CURRENT_PHASE = 1;
+export const CURRENT_PHASE = 2;
 
 export const WORKFLOW_STEPS: WorkflowStep[] = [
   {

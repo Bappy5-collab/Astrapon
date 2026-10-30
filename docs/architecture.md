@@ -11,20 +11,27 @@ src/
   domain/              Pure TypeScript: no React/Next/MUI/Three/Supabase/I/O
     provenance/        Evidence classes and lineage (implemented)
     sources/           Typed data-source + reference registry (Phase 1)
-    simulation/        Rotation/water/thermal engine (Phase 4; empty by design)
+    farm/              Farmer record schemas (zod) mirroring DB constraints
+    geo/               GeoJSON boundary validation and geodesic area
+    scenario/          Scenario settings v1 (historical replay window, never a forecast)
+    reference/         Canonical JSON + sourced reference datasets for import
+    simulation/        Engine version placeholder; engine arrives in Phase 4
   lib/
     env/               Environment schemas (pure) + public env reader
     supabase/          Browser Supabase client (returns null when unconfigured)
   server/              Server-only ("server-only" import guard)
     env.ts             Secret env reader; exposes a value-free report
-    database/          Request-scoped Supabase server client; typed queries later
+    auth/              getAuth/requireUser (getClaims), auth server actions
+    farm/              Farm/field/scenario queries and server actions (user-scoped client, RLS)
+    database/          Request-scoped Supabase client, generated types, safe error messages
     providers/         Validated public clients: NASA POWER, ORNL MODIS, CMR, USDA SDA, SoilGrids (Phase 1)
       __fixtures__/    Labelled test-only captures (lint-banned outside tests)
   theme/               MUI theme + design tokens
-  proxy.ts             Supabase session refresh (pass-through when unconfigured)
-scripts/               verify-sources.mts (live verification → data/verification/)
+  proxy.ts             Session refresh + protected-route redirect (bounded; pass-through when unconfigured/unreachable)
+scripts/               verify-sources.mts; db/ (migrate, rehearse, import-reference, verify + type generation)
+tests/db/              Live two-user isolation tests (pnpm test:db)
 data/verification/     Committed live-verification records (provenance, hashes, traces)
-supabase/migrations/   SQL migrations (Phase 2 onward)
+supabase/migrations/   SQL migrations (applied to the dev project; see supabase/README.md)
 docs/                  Contract, plan, status, alignment matrix
 ```
 
@@ -56,5 +63,12 @@ Why:
 ## Environment
 
 - Public: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (read in `src/lib/env/public.ts`).
-- Server: `SUPABASE_SECRET_KEY`, `NASA_EARTHDATA_TOKEN`, `ANTHROPIC_API_KEY` (read in `src/server/env.ts`).
+- Server: `SUPABASE_SECRET_KEY`, `NASA_EARTHDATA_TOKEN`, `OPENTOPOGRAPHY_API_KEY`, `ANTHROPIC_API_KEY` (read in `src/server/env.ts`). The app never uses the secret key; scripts and DB tests do.
+- Scripts only: `SUPABASE_DB_URL`, read by `scripts/db/connect.mts`, which refuses a URL whose project ref differs from the app's.
+
+## Data security
+
+- RLS on every table: owner policies for user tables, read-only published reference data, no client writes to evidence or results.
+- Composite owner foreign keys stop a user attaching a child to another user's parent even with a guessed id.
+- Input snapshots are immutable copies with a server-computed SHA-256 and FK-pinned reference dataset versions.
 - Parsers in `src/lib/env/schema.ts` report `configured | missing | invalid` per feature and only ever name variables, never values.

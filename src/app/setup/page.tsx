@@ -39,7 +39,7 @@ export default async function SetupPage() {
       name: "Supabase project (public URL + publishable key)",
       status: publicSupabase,
       enables: "Accounts, saved farms and fields, and saved runs.",
-      implemented: "Client wiring only; auth and schema are Phase 2.",
+      implemented: "Phase 2: email/password accounts, RLS-protected farms, fields, zones, records and scenarios. Schema applied with pnpm db:migrate.",
     },
     ...(Object.keys(SERVER_FEATURE_LABELS) as ServerFeature[]).map((k) => ({
       name: SERVER_FEATURE_LABELS[k],
@@ -50,7 +50,7 @@ export default async function SetupPage() {
           ? "Not built (Phase 6)."
           : k === "nasaEarthdata" || k === "openTopography"
             ? "Researched; adapter in Phase 3 (see /sources)."
-            : "Not used yet (Phase 2).",
+            : "Used only by local database scripts (reference-data import, verification, tests). Never sent to the browser or used by app pages.",
     })),
   ];
 

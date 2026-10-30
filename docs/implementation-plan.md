@@ -32,13 +32,16 @@ Original scope:
   - provisional crop parameter tables with sources.
 - Acceptance: every planned indicator maps to a source and evidence class, or is marked unsupported.
 
-## Phase 2: Accounts, schema, farms and fields
+## Phase 2: Accounts, schema, farms and fields (done 2026-10-30)
 
-- Use the dedicated Supabase dev project. Build Auth (email magic link or OTP) and RLS on all user data.
-- Initial migrations: profiles, farms, fields (PostGIS geometry), zones, crop history, water constraints, priorities, and a source registry.
-- Location search through a geocoder chosen in Phase 1, plus a map for drawing or confirming the field boundary, with validation (area, self-intersection).
-- Generated TypeScript types for typed access.
-- Acceptance: a user signs in, creates a farm and field, draws a boundary, adds zones and history, and reloads with everything persisted under RLS.
+- Done on the owner-confirmed dev project:
+  - email/password Auth with confirmation and reset links;
+  - RLS and composite ownership keys on all user data;
+  - migrations for profiles, farms, fields (PostGIS), zones, crop history, soil observations, water/equipment, priorities, market preferences, versioned reference data, evidence metadata/aggregates, scenarios, immutable input snapshots, runs and results;
+  - generated types; idempotent reference import; live two-user tests.
+- Changed from the original plan:
+  - email/password replaced magic link/OTP, per the Phase 2 prompt (sign-up, sign-in, reset).
+  - **Moved to Phase 5:** geocoder location search and drawing the boundary on a map. Phase 2 accepts WGS84 GeoJSON with the same validation (closure, self-intersection, area, PostGIS validity, zones inside the field) and a plan-view preview.
 
 ## Phase 3: Evidence adapters and provenance
 
@@ -66,6 +69,7 @@ Adjusted by Phase 1 findings:
 ## Phase 5: 3D simulator connected to real data
 
 - Real field geometry and zones in the scene, plus a timeline to replay historical seasons, driven by engine outputs.
+- Location search (geocoder) and drawing or confirming the field boundary on a map, carried over from Phase 2.
 - Hypothetical weather/water controls in HTML/MUI, with visual state clearly labelled as hypothetical.
 - Accessible equivalents: a data table and text summary for everything the scene shows.
 - Acceptance: replay of a real field across seasons, with what-if changes visibly and textually distinguished from history.

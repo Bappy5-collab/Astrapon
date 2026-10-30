@@ -2,7 +2,7 @@
 
 FieldShift helps farmers and agronomists compare crop rotation options for a specific field. The comparison draws on environmental evidence, soil and crop history, water limits, and the farmer's priorities. It explains the tradeoffs to review locally. The main workspace is an interactive 3D farm simulator.
 
-> **Status: Phase 1 (data research and live verification).** The app shell and an *illustrative* 3D preview work. NASA POWER, MODIS (ORNL) and USDA SSURGO clients are live-verified by script. Field setup and the rotation model are not built yet. See `docs/implementation-status.md` and `/sources`.
+> **Status: Phase 2 (accounts and secure persistence).** Sign up, sign in, and save private farms, fields (GeoJSON boundaries), zones, crop history, soil observations, water/equipment limits, priorities, market preferences and scenarios with frozen input snapshots. The 3D preview is still *illustrative* and there is no rotation model yet. See `docs/implementation-status.md`.
 
 ## Requirements
 
@@ -31,6 +31,8 @@ pnpm typecheck
 pnpm test
 pnpm check          # all three
 pnpm verify:sources # live provider checks; writes data/verification/*.json
+pnpm db:status      # database scripts: see supabase/README.md
+pnpm test:db        # live two-user isolation tests against the dev project
 ```
 
 ## Configuration
@@ -39,7 +41,9 @@ The app runs with **no credentials**. To enable services:
 
 1. Create a **new, dedicated** Supabase project for FieldShift development. Do not reuse another app's project.
 2. Run `cp .env.example .env.local` and fill in the values. See the comments in the file.
-3. Restart `pnpm dev` and open `/setup` to confirm each service shows **Configured**. The page never displays values.
+3. Add `SUPABASE_DB_URL` (session pooler URI with your database password) for the database scripts, then run `pnpm db:migrate`, `pnpm db:import-reference` and `pnpm db:verify`.
+4. In Supabase → Authentication → URL Configuration, set the Site URL to `http://localhost:3000` and allow `http://localhost:3000/**` as a redirect URL.
+5. Restart `pnpm dev` and open `/setup` to confirm each service shows **Configured**. The page never displays values.
 
 `/api/health` returns the same configuration states as JSON.
 

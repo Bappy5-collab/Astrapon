@@ -16,7 +16,14 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
-    "verify:sources": "tsx scripts/verify-sources.mts"
+    "verify:sources": "tsx scripts/verify-sources.mts",
+    "test:db": "vitest run --config vitest.db.config.mts",
+    "db:status": "tsx scripts/db/migrate.mts",
+    "db:migrate": "tsx scripts/db/migrate.mts --apply",
+    "db:import-reference": "tsx scripts/db/import-reference.mts",
+    "db:types": "tsx scripts/db/verify.mts --write-types",
+    "db:verify": "tsx scripts/db/verify.mts",
+    "db:rehearse": "tsx scripts/db/rehearse.mts"
   },
   "dependencies": {
     "@emotion/cache": "11.14.0",
@@ -44,6 +51,7 @@
     "@types/three": "0.186.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.3",
+    "postgres": "3.4.7",
     "tsx": "^4.23.15",
     "typescript": "6.0.3",
     "vitest": "5.0.5"

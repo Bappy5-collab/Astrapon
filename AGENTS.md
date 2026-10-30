@@ -24,6 +24,8 @@ pnpm typecheck    # next typegen + tsc --noEmit
 pnpm test         # vitest
 pnpm check        # lint + typecheck + test
 pnpm verify:sources [power|modis|sda|soilgrids|cmr] [--write-fixtures]   # live provider checks → data/verification/
+pnpm db:status | db:rehearse | db:migrate | db:import-reference | db:types | db:verify   # see supabase/README.md
+pnpm test:db      # live two-user isolation tests (dev project; creates and deletes throwaway users)
 ```
 
 ## Rules that bite
@@ -37,6 +39,13 @@ pnpm verify:sources [power|modis|sda|soilgrids|cmr] [--write-fixtures]   # live 
 - ORNL MODIS service path is `/rst/api/v1` and needs `Accept: application/json`. SoilGrids REST is paused (can return all-null 200). IMERG V07 Final ends 2025-09-30.
 - Scripts are `.mts` (ESM) run with tsx; they must not import `server-only` modules.
 - Env: never log or render values. Use the reports from `src/lib/env/schema.ts`.
+- Database:
+  - The app uses only the user-scoped client (`src/server/database/supabase-server.ts`). There is no service-role client in the app. The secret key and `SUPABASE_DB_URL` are for `scripts/db` and `tests/db` only.
+  - Every protected page calls `requireUser()`, and every server action re-checks `getAuth()`. Handle the `unconfigured` and `unreachable` states honestly; never treat unreachable as signed out.
+  - New user tables need: `owner_id`, a composite FK `(parent_id, owner_id)`, RLS with the four owner policies, explicit grants (revoke from anon), and inclusion in `USER_TABLES` in `scripts/db/verify.mts` plus `tests/db`.
+  - Never edit an applied migration. Run `db:rehearse` before `db:migrate`, then `db:types` and `db:verify`.
+  - Snapshots, evidence rows, results and published reference data are immutable by design. Create new versions instead of updating them.
+- Forms use `ActionForm`/`FormField`/`FormSelect` (`src/components/forms`) with server actions returning `FormState`; validation schemas live in `src/domain`.
 - Pinned toolchain:
   - TypeScript is 6.0.x because typescript-eslint requires `<6.1`.
   - ESLint is 9.x for React plugin peer support.
@@ -50,7 +59,7 @@ pnpm verify:sources [power|modis|sda|soilgrids|cmr] [--write-fixtures]   # live 
 
 ## Phase status
 
-Phases 0–1 are complete. Next is Phase 2 (accounts, schema, farms/fields). Use only a newly designated FieldShift dev Supabase project; none is configured yet.
+Phases 0–2 are complete. Next is Phase 3 (evidence adapters writing to `evidence_retrievals`/`evidence_aggregates`). The designated FieldShift dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 
 ## End-of-phase duties
 
