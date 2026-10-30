@@ -1,0 +1,5 @@
+# Dependency build scripts are denied unless explicitly reviewed.
+# unrs-resolver: postinstall only re-checks its native binding; the prebuilt
+# platform binding is installed as an optional dependency.
+allowBuilds:
+  unrs-resolver: false

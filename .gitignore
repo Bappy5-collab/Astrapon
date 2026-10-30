@@ -1,0 +1,35 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next.js / build
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# testing
+/coverage
+
+# env files: only the example is committed
+.env
+.env.*
+!.env.example
+
+# supabase local state
+/supabase/.temp/
+/supabase/.branches/
+
+# secrets and keys
+*.pem
+*.key
+service-account*.json
+
+# logs / os
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.vercel
