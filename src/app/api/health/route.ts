@@ -9,12 +9,13 @@ export async function GET() {
   const server = getServerEnvReport();
   return Response.json({
     app: "fieldshift",
-    phase: 0,
+    phase: 1,
     status: "ok",
     services: {
       supabasePublic: getSupabasePublicEnv().status.state,
       supabaseAdmin: server.supabaseAdmin.state,
       nasaEarthdata: server.nasaEarthdata.state,
+      openTopography: server.openTopography.state,
       aiExplanations: server.aiExplanations.state,
     },
   });

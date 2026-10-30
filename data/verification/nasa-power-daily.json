@@ -1,0 +1,402 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
+  "sourceId": "nasa-power-daily",
+  "generatedAt": "2026-10-30T05:09:58.804Z",
+  "site": {
+    "name": "Near Ames, Iowa, USA (test point)",
+    "latitude": 42.03,
+    "longitude": -93.62
+  },
+  "outcome": "live_verified",
+  "request": {
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST",
+    "method": "GET",
+    "parameters": {
+      "latitude": 42.03,
+      "longitude": -93.62,
+      "start": "2024-01-01",
+      "end": "2024-12-31",
+      "parameters": [
+        "T2M",
+        "T2M_MAX",
+        "T2M_MIN",
+        "PRECTOTCORR",
+        "ALLSKY_SFC_SW_DWN",
+        "RH2M",
+        "WS2M",
+        "GWETROOT"
+      ]
+    }
+  },
+  "response": {
+    "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST",
+    "retrievedAt": "2026-10-30T05:09:55.887Z",
+    "status": 200,
+    "durationMs": 1894,
+    "contentType": "application/json",
+    "bodySha256": "d14a3f7389a5ba2db37e065b6d59ccfa8f35b42bf341dd9bfffc2324e50317b4",
+    "bodyBytes": 49032,
+    "header": {
+      "title": "NASA/POWER Source Native Resolution Daily Data",
+      "api": {
+        "version": "v2.10.1",
+        "name": "POWER Daily API"
+      },
+      "sources": [
+        "MERRA2",
+        "SYN1DEG",
+        "POWER"
+      ],
+      "fill_value": -999,
+      "time_standard": "LST",
+      "start": "20240101",
+      "end": "20241231"
+    },
+    "apiVersion": "v2.10.1",
+    "upstreamSources": [
+      "MERRA2",
+      "SYN1DEG",
+      "POWER"
+    ],
+    "reportedElevationM": 310.22
+  },
+  "checks": [
+    {
+      "id": "schema",
+      "passed": true,
+      "detail": "GeoJSON Feature, API POWER Daily API v2.10.1"
+    },
+    {
+      "id": "location",
+      "passed": true,
+      "detail": "requested (42.03, -93.62), returned (42.03, -93.62)"
+    },
+    {
+      "id": "period",
+      "passed": true,
+      "detail": "requested 20240101–20241231, header 20240101–20241231"
+    },
+    {
+      "id": "time-standard",
+      "passed": true,
+      "detail": "time_standard=LST"
+    },
+    {
+      "id": "fill-value",
+      "passed": true,
+      "detail": "header fill_value=-999"
+    },
+    {
+      "id": "no-messages",
+      "passed": true,
+      "detail": "no API messages"
+    },
+    {
+      "id": "T2M:units",
+      "passed": true,
+      "detail": "expected C, got C"
+    },
+    {
+      "id": "T2M:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "T2M:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "T2M:plausible",
+      "passed": true,
+      "detail": "0 values outside [-90, 60] C"
+    },
+    {
+      "id": "T2M_MAX:units",
+      "passed": true,
+      "detail": "expected C, got C"
+    },
+    {
+      "id": "T2M_MAX:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "T2M_MAX:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "T2M_MAX:plausible",
+      "passed": true,
+      "detail": "0 values outside [-90, 60] C"
+    },
+    {
+      "id": "T2M_MIN:units",
+      "passed": true,
+      "detail": "expected C, got C"
+    },
+    {
+      "id": "T2M_MIN:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "T2M_MIN:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "T2M_MIN:plausible",
+      "passed": true,
+      "detail": "0 values outside [-90, 60] C"
+    },
+    {
+      "id": "PRECTOTCORR:units",
+      "passed": true,
+      "detail": "expected mm/day, got mm/day"
+    },
+    {
+      "id": "PRECTOTCORR:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "PRECTOTCORR:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "PRECTOTCORR:plausible",
+      "passed": true,
+      "detail": "0 values outside [0, 2000] mm/day"
+    },
+    {
+      "id": "ALLSKY_SFC_SW_DWN:units",
+      "passed": true,
+      "detail": "expected MJ/m^2/day, got MJ/m^2/day"
+    },
+    {
+      "id": "ALLSKY_SFC_SW_DWN:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "ALLSKY_SFC_SW_DWN:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "ALLSKY_SFC_SW_DWN:plausible",
+      "passed": true,
+      "detail": "0 values outside [0, 50] MJ/m^2/day"
+    },
+    {
+      "id": "RH2M:units",
+      "passed": true,
+      "detail": "expected %, got %"
+    },
+    {
+      "id": "RH2M:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "RH2M:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "RH2M:plausible",
+      "passed": true,
+      "detail": "0 values outside [0, 100.5] %"
+    },
+    {
+      "id": "WS2M:units",
+      "passed": true,
+      "detail": "expected m/s, got m/s"
+    },
+    {
+      "id": "WS2M:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "WS2M:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "WS2M:plausible",
+      "passed": true,
+      "detail": "0 values outside [0, 75] m/s"
+    },
+    {
+      "id": "GWETROOT:units",
+      "passed": true,
+      "detail": "expected 1, got 1"
+    },
+    {
+      "id": "GWETROOT:dates",
+      "passed": true,
+      "detail": "366/366 dates; missing 0, unexpected 0"
+    },
+    {
+      "id": "GWETROOT:has-data",
+      "passed": true,
+      "detail": "366/366 valid; 0 trailing fill (near-real-time latency)"
+    },
+    {
+      "id": "GWETROOT:plausible",
+      "passed": true,
+      "detail": "0 values outside [0, 1] 1"
+    },
+    {
+      "id": "tmin<=tmax",
+      "passed": true,
+      "detail": "0 days with T2M_MIN > T2M_MAX"
+    }
+  ],
+  "summary": [
+    {
+      "parameter": "T2M",
+      "units": "C",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "T2M_MAX",
+      "units": "C",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "T2M_MIN",
+      "units": "C",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "PRECTOTCORR",
+      "units": "mm/day",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "ALLSKY_SFC_SW_DWN",
+      "units": "MJ/m^2/day",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "RH2M",
+      "units": "%",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "WS2M",
+      "units": "m/s",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    },
+    {
+      "parameter": "GWETROOT",
+      "units": "1",
+      "valid": 366,
+      "missing": 0,
+      "evidenceClass": "assimilated_model_product"
+    }
+  ],
+  "trace": {
+    "statement": "T2M_MAX on 2024-07-15 for the grid cell containing (42.03, -93.62) = 32.59 C",
+    "jsonPath": "properties.parameter.T2M_MAX[\"20240715\"]",
+    "rawValue": 32.59,
+    "evidenceClass": "assimilated_model_product",
+    "spatialSupport": "meteorology grid cell, ½° lat × ⅝° lon native (POWER docs also cite 0.5° × 0.5°)",
+    "reproduce": "curl \"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST\"  # compare jsonPath; body sha256 d14a3f7389a5ba2db37e065b6d59ccfa8f35b42bf341dd9bfffc2324e50317b4 (exact bytes may change if POWER reprocesses)"
+  },
+  "excerpt": {
+    "T2M": {
+      "20240714": 27.85,
+      "20240715": 27.63,
+      "20240716": 23,
+      "20240717": 21.07,
+      "20240718": 19.74
+    },
+    "T2M_MAX": {
+      "20240714": 33.82,
+      "20240715": 32.59,
+      "20240716": 26.54,
+      "20240717": 25.7,
+      "20240718": 25.52
+    },
+    "T2M_MIN": {
+      "20240714": 22.78,
+      "20240715": 22.71,
+      "20240716": 18.66,
+      "20240717": 15.91,
+      "20240718": 13.09
+    },
+    "PRECTOTCORR": {
+      "20240714": 0.91,
+      "20240715": 10.22,
+      "20240716": 0.06,
+      "20240717": 0,
+      "20240718": 0
+    },
+    "ALLSKY_SFC_SW_DWN": {
+      "20240714": 22.74,
+      "20240715": 16.52,
+      "20240716": 18.73,
+      "20240717": 28.39,
+      "20240718": 25.74
+    },
+    "RH2M": {
+      "20240714": 73.9,
+      "20240715": 84.51,
+      "20240716": 73.91,
+      "20240717": 68.39,
+      "20240718": 66.43
+    },
+    "WS2M": {
+      "20240714": 2.33,
+      "20240715": 2.16,
+      "20240716": 2.3,
+      "20240717": 2.62,
+      "20240718": 1.31
+    },
+    "GWETROOT": {
+      "20240714": 0.46,
+      "20240715": 0.46,
+      "20240716": 0.46,
+      "20240717": 0.45,
+      "20240718": 0.45
+    }
+  },
+  "nearRealTimeLatency": {
+    "checkedWindow": {
+      "start": "2026-10-10",
+      "end": "2026-10-30"
+    },
+    "T2M_MAX": {
+      "lastValidDate": "20261021",
+      "trailingFillDays": 9
+    },
+    "PRECTOTCORR": {
+      "lastValidDate": "20261021",
+      "trailingFillDays": 9
+    },
+    "ALLSKY_SFC_SW_DWN": {
+      "lastValidDate": "20261024",
+      "trailingFillDays": 6
+    }
+  }
+}

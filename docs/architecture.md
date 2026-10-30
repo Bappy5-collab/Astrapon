@@ -10,6 +10,7 @@ src/
     scene/             Client-only 3D (React Three Fiber). Loaded via next/dynamic with ssr:false
   domain/              Pure TypeScript: no React/Next/MUI/Three/Supabase/I/O
     provenance/        Evidence classes and lineage (implemented)
+    sources/           Typed data-source + reference registry (Phase 1)
     simulation/        Rotation/water/thermal engine (Phase 4; empty by design)
   lib/
     env/               Environment schemas (pure) + public env reader
@@ -17,9 +18,12 @@ src/
   server/              Server-only ("server-only" import guard)
     env.ts             Secret env reader; exposes a value-free report
     database/          Request-scoped Supabase server client; typed queries later
-    providers/         NASA/soil/geocoding adapters (Phase 3; empty by design)
+    providers/         Validated public clients: NASA POWER, ORNL MODIS, CMR, USDA SDA, SoilGrids (Phase 1)
+      __fixtures__/    Labelled test-only captures (lint-banned outside tests)
   theme/               MUI theme + design tokens
   proxy.ts             Supabase session refresh (pass-through when unconfigured)
+scripts/               verify-sources.mts (live verification → data/verification/)
+data/verification/     Committed live-verification records (provenance, hashes, traces)
 supabase/migrations/   SQL migrations (Phase 2 onward)
 docs/                  Contract, plan, status, alignment matrix
 ```

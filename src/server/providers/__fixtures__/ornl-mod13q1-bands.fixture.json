@@ -1,0 +1,113 @@
+{
+  "_fixture": {
+    "label": "TEST FIXTURE ONLY — trimmed copy of a live provider response. Never use as a measurement or production fallback.",
+    "capturedFrom": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/bands",
+    "capturedAt": "2026-10-30T05:10:50.399Z"
+  },
+  "response": {
+    "bands": [
+      {
+        "band": "250m_16_days_blue_reflectance",
+        "description": "Surface Reflectance Band 3",
+        "units": "reflectance",
+        "valid_range": "0 to 10000",
+        "fill_value": "-1000",
+        "scale_factor": "0.0001",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_composite_day_of_the_year",
+        "description": "Day of year VI pixel",
+        "units": "Julian day of the year",
+        "valid_range": "1 to 366",
+        "fill_value": "-1"
+      },
+      {
+        "band": "250m_16_days_EVI",
+        "description": "16 day EVI average",
+        "units": "EVI ratio - No units",
+        "valid_range": "-2000 to 10000",
+        "fill_value": "-3000",
+        "scale_factor": "0.0001",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_MIR_reflectance",
+        "description": "Surface Reflectance Band 7",
+        "units": "reflectance",
+        "valid_range": "0 to 10000",
+        "fill_value": "-1000",
+        "scale_factor": "0.0001",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_NDVI",
+        "description": "16 day NDVI average",
+        "units": "NDVI ratio - No units",
+        "valid_range": "-2000 to 10000",
+        "fill_value": "-3000",
+        "scale_factor": "0.0001",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_NIR_reflectance",
+        "description": "Surface Reflectance Band 2",
+        "units": "reflectance",
+        "valid_range": "0 to 10000",
+        "fill_value": "-1000",
+        "scale_factor": "0.0001",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_pixel_reliability",
+        "description": "Quality reliability of VI pixel",
+        "units": "rank",
+        "valid_range": "0 to 3",
+        "fill_value": "-1"
+      },
+      {
+        "band": "250m_16_days_red_reflectance",
+        "description": "Surface Reflectance Band 1",
+        "units": "reflectance",
+        "valid_range": "0 to 10000",
+        "fill_value": "-1000",
+        "scale_factor": "0.0001",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_relative_azimuth_angle",
+        "description": "Relative azimuth angle of VI pixel",
+        "units": "degrees",
+        "valid_range": "-3600 to 3600",
+        "fill_value": "-4000",
+        "scale_factor": "0.1",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_sun_zenith_angle",
+        "description": "Sun zenith angle of VI pixel",
+        "units": "degrees",
+        "valid_range": "-9000 to 9000",
+        "fill_value": "-10000",
+        "scale_factor": "0.01",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_view_zenith_angle",
+        "description": "View zenith angle of VI Pixel",
+        "units": "degrees",
+        "valid_range": "-9000 to 9000",
+        "fill_value": "-10000",
+        "scale_factor": "0.01",
+        "add_offset": "0"
+      },
+      {
+        "band": "250m_16_days_VI_Quality",
+        "description": "VI quality indicators",
+        "units": "bit field",
+        "valid_range": "0 to 65534",
+        "fill_value": "-1"
+      }
+    ]
+  }
+}

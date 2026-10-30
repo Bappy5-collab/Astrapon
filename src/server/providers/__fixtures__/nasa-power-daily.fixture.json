@@ -1,0 +1,173 @@
+{
+  "_fixture": {
+    "label": "TEST FIXTURE ONLY — trimmed copy of a live provider response. Never use as a measurement or production fallback.",
+    "capturedFrom": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST",
+    "capturedAt": "2026-10-30T05:09:58.810Z"
+  },
+  "response": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -93.62,
+        42.03,
+        310.22
+      ]
+    },
+    "properties": {
+      "parameter": {
+        "T2M": {
+          "20240101": -3.37,
+          "20240102": -1.54,
+          "20240103": -2.23,
+          "20240104": -3.26,
+          "20240105": -1.65,
+          "20240106": -1.44,
+          "20240107": -2.93,
+          "20240108": -2.1,
+          "20240109": -2.29,
+          "20240110": -6.04
+        },
+        "T2M_MAX": {
+          "20240101": 0.91,
+          "20240102": 3.2,
+          "20240103": 3.01,
+          "20240104": 1.16,
+          "20240105": 2.35,
+          "20240106": 1.82,
+          "20240107": -0.96,
+          "20240108": 1.05,
+          "20240109": -0.91,
+          "20240110": -1.29
+        },
+        "T2M_MIN": {
+          "20240101": -5.94,
+          "20240102": -3.64,
+          "20240103": -5.2,
+          "20240104": -6.84,
+          "20240105": -4.08,
+          "20240106": -4.27,
+          "20240107": -4.97,
+          "20240108": -5,
+          "20240109": -8.47,
+          "20240110": -10.56
+        },
+        "PRECTOTCORR": {
+          "20240101": 0,
+          "20240102": 0,
+          "20240103": 0,
+          "20240104": 0,
+          "20240105": 0.02,
+          "20240106": 0.04,
+          "20240107": 0.02,
+          "20240108": 3.47,
+          "20240109": 9.74,
+          "20240110": 2.22
+        },
+        "ALLSKY_SFC_SW_DWN": {
+          "20240101": 6.05,
+          "20240102": 6.88,
+          "20240103": 4.6,
+          "20240104": 6.04,
+          "20240105": 5.59,
+          "20240106": 4.17,
+          "20240107": 7.05,
+          "20240108": 4.33,
+          "20240109": 2.44,
+          "20240110": 4.88
+        },
+        "RH2M": {
+          "20240101": 73.91,
+          "20240102": 86.86,
+          "20240103": 81.96,
+          "20240104": 76.39,
+          "20240105": 82.57,
+          "20240106": 87.1,
+          "20240107": 75.67,
+          "20240108": 88.64,
+          "20240109": 89.46,
+          "20240110": 88.77
+        },
+        "WS2M": {
+          "20240101": 1.99,
+          "20240102": 2.85,
+          "20240103": 2.6,
+          "20240104": 1.24,
+          "20240105": 2.46,
+          "20240106": 1.16,
+          "20240107": 2.85,
+          "20240108": 4.85,
+          "20240109": 6.92,
+          "20240110": 3.41
+        },
+        "GWETROOT": {
+          "20240101": 0.44,
+          "20240102": 0.43,
+          "20240103": 0.43,
+          "20240104": 0.43,
+          "20240105": 0.43,
+          "20240106": 0.43,
+          "20240107": 0.43,
+          "20240108": 0.43,
+          "20240109": 0.43,
+          "20240110": 0.43
+        }
+      }
+    },
+    "header": {
+      "title": "NASA/POWER Source Native Resolution Daily Data",
+      "api": {
+        "version": "v2.10.1",
+        "name": "POWER Daily API"
+      },
+      "sources": [
+        "MERRA2",
+        "SYN1DEG",
+        "POWER"
+      ],
+      "fill_value": -999,
+      "time_standard": "LST",
+      "start": "20240101",
+      "end": "20240110"
+    },
+    "messages": [],
+    "parameters": {
+      "T2M": {
+        "units": "C",
+        "longname": "Temperature at 2 Meters"
+      },
+      "T2M_MAX": {
+        "units": "C",
+        "longname": "Temperature at 2 Meters Maximum"
+      },
+      "T2M_MIN": {
+        "units": "C",
+        "longname": "Temperature at 2 Meters Minimum"
+      },
+      "PRECTOTCORR": {
+        "units": "mm/day",
+        "longname": "Precipitation Corrected"
+      },
+      "ALLSKY_SFC_SW_DWN": {
+        "units": "MJ/m^2/day",
+        "longname": "All Sky Surface Shortwave Downward Irradiance"
+      },
+      "RH2M": {
+        "units": "%",
+        "longname": "Relative Humidity at 2 Meters"
+      },
+      "WS2M": {
+        "units": "m/s",
+        "longname": "Wind Speed at 2 Meters"
+      },
+      "GWETROOT": {
+        "units": "1",
+        "longname": "Root Zone Soil Wetness"
+      }
+    },
+    "times": {
+      "data": 0.407,
+      "process": 0.01
+    }
+  }
+}

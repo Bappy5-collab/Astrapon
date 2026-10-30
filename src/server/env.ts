@@ -11,6 +11,7 @@ function read() {
   return parseServerEnv({
     SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
     NASA_EARTHDATA_TOKEN: process.env.NASA_EARTHDATA_TOKEN,
+    OPENTOPOGRAPHY_API_KEY: process.env.OPENTOPOGRAPHY_API_KEY,
     ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
   });
 }

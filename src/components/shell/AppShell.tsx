@@ -32,7 +32,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         Skip to content
       </Link>
       <AppBar position="sticky" elevation={0} sx={{ bgcolor: tokens.forest[900], borderBottom: `1px solid ${tokens.forest[700]}` }}>
-        <Toolbar sx={{ gap: 2, minHeight: { xs: 60, md: 68 } }}>
+        <Toolbar sx={{ gap: { xs: 1, sm: 2 }, minHeight: { xs: 60, md: 68 }, px: { xs: 1.5, sm: 2 } }}>
           <TextLink href="/" underline="none" color="inherit" aria-label="FieldShift home">
             <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
               <BrandMark />
@@ -60,7 +60,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               endorsed by NASA.
             </Typography>
             <Typography variant="body2" sx={{ color: tokens.neutral[500], flexShrink: 0 }}>
-              Development build · Phase 0
+              Development build · Phase 1
             </Typography>
           </Stack>
         </Container>

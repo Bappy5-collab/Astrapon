@@ -20,6 +20,8 @@ Saving and reopening a run must reproduce its original result exactly. That mean
 
 ## Challenge requirements (tracked in `docs/challenge-alignment.md`)
 
+Official source: "Field Shift: Adapting Farms with NASA Data", 2026 NASA Space Apps Challenge. https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/ (verified 2026-10-30; see `docs/research/challenge-source.md`). The challenge text is phrased as options ("may"); no judging criteria are stated on the page.
+
 | ID | Requirement |
 |----|-------------|
 | C1 | NASA environmental evidence has a traceable role in a farmer decision. |

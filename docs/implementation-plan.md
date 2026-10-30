@@ -1,8 +1,21 @@
 # Staged implementation plan
 
-Phase 0 (bootstrap) is complete. Each later phase ends with the delivery contract in `docs/fieldshift-product-contract.md`: checks, UI inspection, doc updates, and a local commit.
+Phases 0 (bootstrap) and 1 (data research and live verification) are complete. Each later phase ends with the delivery contract in `docs/fieldshift-product-contract.md`: checks, UI inspection, doc updates, and a local commit.
 
-## Phase 1: Scientific and data research decisions
+## Phase 1: Scientific and data research decisions (DONE 2026-10-30)
+
+Outcome: see `docs/research/`. Initial subset:
+- POWER, MODIS MOD13Q1 (ORNL) and SSURGO: live-verified.
+- IMERG Late, SMAP L3E and NASADEM: pending credentials.
+- SoilGrids: service paused.
+
+Open items carried forward:
+- Re-check the challenge Resources tab after 13 Nov 2026.
+- Confirm MOD13Q1 reliability labels in the V6.1 guide.
+- Saxton & Rawls RMSE before any non-US water-capacity estimate.
+- FAO-56 Kc ini values and crop base/frost temperatures from primary sources.
+
+Original scope:
 
 - Select and document data sources with citations, licences, native resolution, latency, global coverage, and access method. Record each source's evidence class. Candidates to evaluate (not yet chosen):
   - NASA POWER (daily agro-meteorology),
@@ -28,6 +41,13 @@ Phase 0 (bootstrap) is complete. Each later phase ends with the delivery contrac
 - Acceptance: a user signs in, creates a farm and field, draws a boundary, adds zones and history, and reloads with everything persisted under RLS.
 
 ## Phase 3: Evidence adapters and provenance
+
+Adjusted by Phase 1 findings:
+- IMERG: use the Late run, because V07 Final is frozen at 2025-09-30 until V08. Read it via the Giovanni time-series API or h5wasm.
+- SMAP: use AppEEARS point tasks.
+- NASADEM: use the OpenTopography key server-side.
+- SoilGrids: fall back to ISRIC WebDAV COG/WCS while REST is paused.
+- POWER: cache by native grid cell.
 
 - Server-only provider adapters in `src/server/providers`, with caching and rate limits. Each value carries full `Provenance`.
 - Coverage reporting per field: which sources cover it, their resolution relative to field size, and any gaps.

@@ -1,5 +1,11 @@
-# Data providers (Phase 3)
+# Data providers
 
-This folder is intentionally empty. It will hold server-only adapters for the NASA, soil, and geocoding sources selected in Phase 1.
+Credential-free public clients, each validating content (location, period, units, fill→null, plausibility, QA) and attaching `Provenance`:
 
-Each adapter returns values with full `Provenance` and reports its coverage and failures explicitly. Adapters never fabricate fallback values.
+- `nasa-power.ts`: NASA POWER daily point (live-verified)
+- `ornl-modis.ts`: MOD13Q1 NDVI via ORNL TESViS (live-verified)
+- `usda-sda.ts`: SSURGO via Soil Data Access, US only (live-verified)
+- `cmr.ts`: collection metadata, freshness, and access probe
+- `soilgrids.ts`: ISRIC SoilGrids 2.0 (service paused; parser unverified against live values)
+
+Adapters never fabricate fallback values. `__fixtures__` are test-only. Credentialed adapters (IMERG, SMAP via AppEEARS, OpenTopography) arrive in Phase 3 and must read secrets via `@/server/env`.

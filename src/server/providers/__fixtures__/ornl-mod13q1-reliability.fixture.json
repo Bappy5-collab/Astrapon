@@ -1,0 +1,122 @@
+{
+  "_fixture": {
+    "label": "TEST FIXTURE ONLY — trimmed copy of a live provider response. Never use as a measurement or production fallback.",
+    "capturedFrom": "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_pixel_reliability&startDate=A2024001&endDate=A2024145&kmAboveBelow=0&kmLeftRight=0",
+    "capturedAt": "2026-10-30T05:10:50.405Z"
+  },
+  "response": {
+    "xllcorner": "-7732689.18",
+    "yllcorner": "4673435.41",
+    "cellsize": 231.656358264,
+    "nrows": 1,
+    "ncols": 1,
+    "band": "250m_16_days_pixel_reliability",
+    "units": "rank",
+    "scale": "Not Available",
+    "latitude": 42.03,
+    "longitude": -93.62,
+    "header": "https://modisrest.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_pixel_reliability&startDate=A2024001&endDate=A2024145&kmAboveBelow=0&kmLeftRight=0",
+    "subset": [
+      {
+        "modis_date": "A2024001",
+        "calendar_date": "2024-01-01",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024022133138",
+        "data": [
+          3
+        ]
+      },
+      {
+        "modis_date": "A2024017",
+        "calendar_date": "2024-01-17",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024038042703",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024033",
+        "calendar_date": "2024-02-02",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024051115906",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024049",
+        "calendar_date": "2024-02-18",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024066072402",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024065",
+        "calendar_date": "2024-03-05",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024085183541",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024081",
+        "calendar_date": "2024-03-21",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024099105034",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024097",
+        "calendar_date": "2024-04-06",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024115200127",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024113",
+        "calendar_date": "2024-04-22",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024133221602",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024129",
+        "calendar_date": "2024-05-08",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024153222210",
+        "data": [
+          0
+        ]
+      },
+      {
+        "modis_date": "A2024145",
+        "calendar_date": "2024-05-24",
+        "band": "250m_16_days_pixel_reliability",
+        "tile": "h11v04",
+        "proc_date": "2024162170023",
+        "data": [
+          0
+        ]
+      }
+    ]
+  }
+}

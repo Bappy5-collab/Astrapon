@@ -53,8 +53,10 @@ export type Provenance = {
   source: string;
   /** Dataset/product identifier and version when applicable. */
   product?: { id: string; version?: string; doi?: string };
-  /** Native spatial resolution in metres, when the source is gridded. */
+  /** Native spatial resolution in metres, when the source is gridded on a metric grid. */
   spatialResolutionMeters?: number;
+  /** Human-readable native support when not metric or not a simple grid, e.g. "0.5° × 0.625° grid cell". */
+  spatialSupport?: string;
   temporalCoverage?: { start: string; end: string };
   retrievedAt?: string;
   /** Provenance of inputs, for derived values. */

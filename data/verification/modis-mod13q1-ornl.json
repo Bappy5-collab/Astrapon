@@ -1,0 +1,311 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
+  "sourceId": "modis-mod13q1-ornl",
+  "generatedAt": "2026-10-30T05:10:50.397Z",
+  "site": {
+    "name": "Near Ames, Iowa, USA (test point)",
+    "latitude": 42.03,
+    "longitude": -93.62
+  },
+  "outcome": "live_verified",
+  "request": {
+    "urls": [
+      "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_NDVI&startDate=A2024001&endDate=A2024145&kmAboveBelow=0&kmLeftRight=0",
+      "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_pixel_reliability&startDate=A2024001&endDate=A2024145&kmAboveBelow=0&kmLeftRight=0",
+      "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_NDVI&startDate=A2024161&endDate=A2024305&kmAboveBelow=0&kmLeftRight=0",
+      "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_pixel_reliability&startDate=A2024161&endDate=A2024305&kmAboveBelow=0&kmLeftRight=0",
+      "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_NDVI&startDate=A2024321&endDate=A2024353&kmAboveBelow=0&kmLeftRight=0",
+      "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_pixel_reliability&startDate=A2024321&endDate=A2024353&kmAboveBelow=0&kmLeftRight=0"
+    ],
+    "method": "GET",
+    "headers": {
+      "Accept": "application/json"
+    }
+  },
+  "checks": [
+    {
+      "id": "location",
+      "passed": true,
+      "detail": "requested (42.03, -93.62)"
+    },
+    {
+      "id": "single-pixel",
+      "passed": true,
+      "detail": "1×1 pixel subset"
+    },
+    {
+      "id": "scale",
+      "passed": true,
+      "detail": "response scale 0.0001, band metadata 0.0001"
+    },
+    {
+      "id": "period",
+      "passed": true,
+      "detail": "23 composites within 2024-01-01–2024-12-31"
+    },
+    {
+      "id": "reliability-paired",
+      "passed": true,
+      "detail": "every NDVI composite has a reliability rank"
+    },
+    {
+      "id": "has-valid-samples",
+      "passed": true,
+      "detail": "19/23 usable"
+    }
+  ],
+  "cellsizeM": 231.656358264,
+  "provenance": {
+    "evidenceClass": "satellite_observation",
+    "source": "MODIS/Terra MOD13Q1 v061 via ORNL DAAC TESViS subset service (16-day maximum-value composite)",
+    "product": {
+      "id": "MOD13Q1",
+      "version": "061",
+      "doi": "10.5067/MODIS/MOD13Q1.061"
+    },
+    "spatialResolutionMeters": 231.656358264,
+    "spatialSupport": "≈231.66 m MODIS sinusoidal pixel containing the point",
+    "temporalCoverage": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "retrievedAt": "2026-10-30T05:10:01.589Z"
+  },
+  "samples": [
+    {
+      "modisDate": "A2024001",
+      "calendarDate": "2024-01-01",
+      "tile": "h11v04",
+      "processedAt": "2024022133138",
+      "rawNdvi": 3102,
+      "ndvi": null,
+      "reliability": 3,
+      "excludedBecause": "reliability rank 3 (cloudy)"
+    },
+    {
+      "modisDate": "A2024017",
+      "calendarDate": "2024-01-17",
+      "tile": "h11v04",
+      "processedAt": "2024038042703",
+      "rawNdvi": 3003,
+      "ndvi": 0.3003,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024033",
+      "calendarDate": "2024-02-02",
+      "tile": "h11v04",
+      "processedAt": "2024051115906",
+      "rawNdvi": 3126,
+      "ndvi": 0.3126,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024049",
+      "calendarDate": "2024-02-18",
+      "tile": "h11v04",
+      "processedAt": "2024066072402",
+      "rawNdvi": 2993,
+      "ndvi": 0.2993,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024065",
+      "calendarDate": "2024-03-05",
+      "tile": "h11v04",
+      "processedAt": "2024085183541",
+      "rawNdvi": 3110,
+      "ndvi": 0.311,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024081",
+      "calendarDate": "2024-03-21",
+      "tile": "h11v04",
+      "processedAt": "2024099105034",
+      "rawNdvi": 3681,
+      "ndvi": 0.3681,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024097",
+      "calendarDate": "2024-04-06",
+      "tile": "h11v04",
+      "processedAt": "2024115200127",
+      "rawNdvi": 3813,
+      "ndvi": 0.3813,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024113",
+      "calendarDate": "2024-04-22",
+      "tile": "h11v04",
+      "processedAt": "2024133221602",
+      "rawNdvi": 4807,
+      "ndvi": 0.4807,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024129",
+      "calendarDate": "2024-05-08",
+      "tile": "h11v04",
+      "processedAt": "2024153222210",
+      "rawNdvi": 5963,
+      "ndvi": 0.5963,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024145",
+      "calendarDate": "2024-05-24",
+      "tile": "h11v04",
+      "processedAt": "2024162170023",
+      "rawNdvi": 6197,
+      "ndvi": 0.6197,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024161",
+      "calendarDate": "2024-06-09",
+      "tile": "h11v04",
+      "processedAt": "2024181211324",
+      "rawNdvi": 6806,
+      "ndvi": 0.6806,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024177",
+      "calendarDate": "2024-06-25",
+      "tile": "h11v04",
+      "processedAt": "2024195022907",
+      "rawNdvi": 6548,
+      "ndvi": 0.6548,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024193",
+      "calendarDate": "2024-07-11",
+      "tile": "h11v04",
+      "processedAt": "2024212093303",
+      "rawNdvi": 6133,
+      "ndvi": 0.6133,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024209",
+      "calendarDate": "2024-07-27",
+      "tile": "h11v04",
+      "processedAt": "2024228023622",
+      "rawNdvi": 6514,
+      "ndvi": null,
+      "reliability": 1,
+      "excludedBecause": "reliability rank 1 (marginal)"
+    },
+    {
+      "modisDate": "A2024225",
+      "calendarDate": "2024-08-12",
+      "tile": "h11v04",
+      "processedAt": "2024247142355",
+      "rawNdvi": 6523,
+      "ndvi": 0.6523,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024241",
+      "calendarDate": "2024-08-28",
+      "tile": "h11v04",
+      "processedAt": "2024258125501",
+      "rawNdvi": 5994,
+      "ndvi": 0.5994,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024257",
+      "calendarDate": "2024-09-13",
+      "tile": "h11v04",
+      "processedAt": "2024275121503",
+      "rawNdvi": 5484,
+      "ndvi": 0.5484,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024273",
+      "calendarDate": "2024-09-29",
+      "tile": "h11v04",
+      "processedAt": "2024290023420",
+      "rawNdvi": 5164,
+      "ndvi": 0.5164,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024289",
+      "calendarDate": "2024-10-15",
+      "tile": "h11v04",
+      "processedAt": "2024306180804",
+      "rawNdvi": 4551,
+      "ndvi": 0.4551,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024305",
+      "calendarDate": "2024-10-31",
+      "tile": "h11v04",
+      "processedAt": "2024326213330",
+      "rawNdvi": 3943,
+      "ndvi": null,
+      "reliability": 3,
+      "excludedBecause": "reliability rank 3 (cloudy)"
+    },
+    {
+      "modisDate": "A2024321",
+      "calendarDate": "2024-11-16",
+      "tile": "h11v04",
+      "processedAt": "2025005223132",
+      "rawNdvi": 3564,
+      "ndvi": 0.3564,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024337",
+      "calendarDate": "2024-12-02",
+      "tile": "h11v04",
+      "processedAt": "2024358222159",
+      "rawNdvi": 3035,
+      "ndvi": 0.3035,
+      "reliability": 0,
+      "excludedBecause": null
+    },
+    {
+      "modisDate": "A2024353",
+      "calendarDate": "2024-12-18",
+      "tile": "h11v04",
+      "processedAt": "2025004001128",
+      "rawNdvi": 598,
+      "ndvi": null,
+      "reliability": 3,
+      "excludedBecause": "reliability rank 3 (cloudy)"
+    }
+  ],
+  "trace": {
+    "statement": "Peak usable 2024 NDVI for the MODIS pixel containing (42.03, -93.62) = 0.6806 on composite 2024-06-09 (A2024161, tile h11v04); raw 6806 × scale 0.0001; reliability rank 0",
+    "jsonPath": "subset[modis_date=\"A2024161\"].data[0]",
+    "reproduce": "curl -H \"Accept: application/json\" \"https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset?latitude=42.03&longitude=-93.62&band=250m_16_days_NDVI&startDate=A2024001&endDate=A2024145&kmAboveBelow=0&kmLeftRight=0\""
+  }
+}

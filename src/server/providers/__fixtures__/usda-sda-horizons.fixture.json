@@ -1,0 +1,71 @@
+{
+  "_fixture": {
+    "label": "TEST FIXTURE ONLY — trimmed copy of a live provider response. Never use as a measurement or production fallback.",
+    "capturedFrom": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest",
+    "capturedAt": "2026-10-30T05:10:52.514Z"
+  },
+  "response": {
+    "Table": [
+      [
+        "mukey",
+        "muname",
+        "compname",
+        "comppct_r",
+        "hzdept_r",
+        "hzdepb_r",
+        "awc_r",
+        "claytotal_r",
+        "sandtotal_r",
+        "om_r"
+      ],
+      [
+        "2765537",
+        "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+        "Clarion",
+        "85",
+        "0",
+        "23",
+        "0.21",
+        "21",
+        "45",
+        "3.5"
+      ],
+      [
+        "2765537",
+        "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+        "Clarion",
+        "85",
+        "23",
+        "35",
+        "0.18",
+        "21",
+        "45",
+        "2.5"
+      ],
+      [
+        "2765537",
+        "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+        "Clarion",
+        "85",
+        "35",
+        "84",
+        "0.18",
+        "21",
+        "45",
+        "0.75"
+      ],
+      [
+        "2765537",
+        "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+        "Clarion",
+        "85",
+        "84",
+        "200",
+        "0.18",
+        "15",
+        "49",
+        "0.25"
+      ]
+    ]
+  }
+}

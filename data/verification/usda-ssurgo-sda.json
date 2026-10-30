@@ -1,0 +1,128 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
+  "sourceId": "usda-ssurgo-sda",
+  "generatedAt": "2026-10-30T05:10:52.510Z",
+  "site": {
+    "name": "Near Ames, Iowa, USA (test point)",
+    "latitude": 42.03,
+    "longitude": -93.62
+  },
+  "outcome": "live_verified",
+  "request": {
+    "url": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest",
+    "method": "POST",
+    "query": "SELECT mu.mukey, mu.muname, c.compname, c.comppct_r, ch.hzdept_r, ch.hzdepb_r, ch.awc_r, ch.claytotal_r, ch.sandtotal_r, ch.om_r FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('point(-93.62 42.03)') AS k INNER JOIN mapunit mu ON mu.mukey = k.mukey INNER JOIN component c ON c.mukey = mu.mukey AND c.majcompflag = 'Yes' LEFT JOIN chorizon ch ON ch.cokey = c.cokey ORDER BY c.comppct_r DESC, c.compname, ch.hzdept_r",
+    "format": "JSON+COLUMNNAME"
+  },
+  "response": {
+    "url": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest (POST)",
+    "retrievedAt": "2026-10-30T05:10:50.407Z",
+    "status": 200,
+    "durationMs": 1735,
+    "contentType": "application/json; charset=utf-8",
+    "bodySha256": "1884500147459215b901fab5d7c251fddc4294417860748c3f2a5dbf4ab17c00",
+    "bodyBytes": 572
+  },
+  "checks": [
+    {
+      "id": "has-horizons",
+      "passed": true,
+      "detail": "4 horizons"
+    },
+    {
+      "id": "awc-range",
+      "passed": true,
+      "detail": "awc_r within 0–0.7 cm/cm"
+    },
+    {
+      "id": "depth-order",
+      "passed": true,
+      "detail": "every horizon bottom > top"
+    },
+    {
+      "id": "texture-range",
+      "passed": true,
+      "detail": "clay + sand ≤ 100%"
+    },
+    {
+      "id": "survey-version",
+      "passed": true,
+      "detail": "IA169 Story County, Iowa, saverest 9/8/2026 7:01:27 PM"
+    }
+  ],
+  "provenance": {
+    "evidenceClass": "ground_measurement",
+    "source": "USDA NRCS SSURGO via Soil Data Access (survey representative values for the map unit)",
+    "product": {
+      "id": "SSURGO/IA169",
+      "version": "9/8/2026 7:01:27 PM"
+    },
+    "spatialSupport": "Soil survey map-unit polygon containing the point",
+    "retrievedAt": "2026-10-30T05:10:50.407Z"
+  },
+  "horizons": [
+    {
+      "mukey": "2765537",
+      "muname": "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+      "compname": "Clarion",
+      "comppct": 85,
+      "topCm": 0,
+      "bottomCm": 23,
+      "awc": 0.21,
+      "clayPct": 21,
+      "sandPct": 45,
+      "omPct": 3.5
+    },
+    {
+      "mukey": "2765537",
+      "muname": "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+      "compname": "Clarion",
+      "comppct": 85,
+      "topCm": 23,
+      "bottomCm": 35,
+      "awc": 0.18,
+      "clayPct": 21,
+      "sandPct": 45,
+      "omPct": 2.5
+    },
+    {
+      "mukey": "2765537",
+      "muname": "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+      "compname": "Clarion",
+      "comppct": 85,
+      "topCm": 35,
+      "bottomCm": 84,
+      "awc": 0.18,
+      "clayPct": 21,
+      "sandPct": 45,
+      "omPct": 0.75
+    },
+    {
+      "mukey": "2765537",
+      "muname": "Clarion loam, Bemis moraine, 2 to 6 percent slopes",
+      "compname": "Clarion",
+      "comppct": 85,
+      "topCm": 84,
+      "bottomCm": 200,
+      "awc": 0.18,
+      "clayPct": 15,
+      "sandPct": 49,
+      "omPct": 0.25
+    }
+  ],
+  "derived": {
+    "note": "Derived by FieldShift from survey awc_r (cm/cm) × horizon thickness; not a provider value.",
+    "rootZone100cm": [
+      {
+        "compname": "Clarion",
+        "comppct": 85,
+        "depthCm": 100,
+        "awcMm": 187
+      }
+    ]
+  },
+  "trace": {
+    "statement": "Top horizon (0–23 cm) of Clarion (85% of map unit 2765537, \"Clarion loam, Bemis moraine, 2 to 6 percent slopes\") has awc_r = 0.21",
+    "reproduce": "POST the query above to the SDA endpoint with format JSON+COLUMNNAME"
+  }
+}

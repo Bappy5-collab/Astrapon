@@ -2,7 +2,7 @@
 
 FieldShift helps farmers and agronomists compare crop rotation options for a specific field. The comparison draws on environmental evidence, soil and crop history, water limits, and the farmer's priorities. It explains the tradeoffs to review locally. The main workspace is an interactive 3D farm simulator.
 
-> **Status: Phase 0 (bootstrap).** The app shell, design system, and an *illustrative* 3D preview work. Field setup, NASA/soil evidence, and the rotation model are not built yet. See `docs/implementation-status.md`.
+> **Status: Phase 1 (data research and live verification).** The app shell and an *illustrative* 3D preview work. NASA POWER, MODIS (ORNL) and USDA SSURGO clients are live-verified by script. Field setup and the rotation model are not built yet. See `docs/implementation-status.md` and `/sources`.
 
 ## Requirements
 
@@ -30,6 +30,7 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm check          # all three
+pnpm verify:sources # live provider checks; writes data/verification/*.json
 ```
 
 ## Configuration
@@ -49,5 +50,6 @@ The app runs with **no credentials**. To enable services:
 - `docs/implementation-plan.md`: phases 1–7
 - `docs/implementation-status.md`: what is done and verified
 - `docs/challenge-alignment.md`: requirement matrix C1–C8
+- `docs/research/`: challenge source and data-source research
 
 FieldShift is being built to use publicly available NASA data products. It is not affiliated with or endorsed by NASA.

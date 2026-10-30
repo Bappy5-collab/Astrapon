@@ -10,6 +10,7 @@ import { tokens } from "@/theme/tokens";
 const LINKS = [
   { href: "/", label: "Overview" },
   { href: "/workspace", label: "Workspace" },
+  { href: "/sources", label: "Sources" },
   { href: "/setup", label: "Setup" },
 ] as const;
 
@@ -29,8 +30,9 @@ export function MainNav() {
             sx={{
               color: active ? tokens.forest[950] : tokens.neutral[100],
               bgcolor: active ? tokens.lime[400] : "transparent",
-              px: { xs: 1.25, sm: 2 },
+              px: { xs: 0.9, sm: 2 },
               minWidth: 0,
+              fontSize: { xs: "0.8rem", sm: "0.875rem" },
               "&:hover": { bgcolor: active ? tokens.lime[300] : tokens.forest[700] },
             }}
           >

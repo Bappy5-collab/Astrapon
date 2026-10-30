@@ -1,0 +1,196 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
+  "sourceId": "cmr-collections",
+  "generatedAt": "2026-10-30T05:11:45.640Z",
+  "site": {
+    "name": "Near Ames, Iowa, USA (test point)",
+    "latitude": 42.03,
+    "longitude": -93.62
+  },
+  "outcome": "metadata_live_verified",
+  "note": "CMR confirms collections and granule freshness only. 'earthdata-login-required' means data values were NOT retrieved: credential-blocked.",
+  "collections": [
+    {
+      "shortName": "GPM_3IMERGDL",
+      "version": "07",
+      "conceptId": "C2723754859-GES_DISC",
+      "doi": "10.5067/GPM/IMERGDL/DAY/07",
+      "temporalStart": "1998-01-01T00:00:00.000Z",
+      "temporalEnd": null,
+      "granuleCount": 10528,
+      "latestGranuleStart": "2026-10-28T00:00:00.000Z",
+      "latestGranulePublished": "2026-10-30T00:02:19.523Z",
+      "sampleDataUrl": "https://data.gesdisc.earthdata.nasa.gov/data/GPM_L3/GPM_3IMERGDL.07/2026/10/3B-DAY-L.MS.MRG.3IMERG.20261028-S000000-E235959.V07C.nc4",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for GPM_3IMERGDL v07"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2026-10-28T00:00:00.000Z; 10528 granules"
+        }
+      ]
+    },
+    {
+      "shortName": "GPM_3IMERGDF",
+      "version": "07",
+      "conceptId": "C2723754864-GES_DISC",
+      "doi": "10.5067/GPM/IMERGDF/DAY/07",
+      "temporalStart": "1998-01-01T00:00:00.000Z",
+      "temporalEnd": "2025-09-30T23:59:59.999Z",
+      "granuleCount": 10135,
+      "latestGranuleStart": "2025-09-30T00:00:00.000Z",
+      "latestGranulePublished": "2026-05-11T17:58:30.045Z",
+      "sampleDataUrl": "https://data.gesdisc.earthdata.nasa.gov/data/GPM_L3/GPM_3IMERGDF.07/2025/09/3B-DAY.MS.MRG.3IMERG.20250930-S000000-E235959.V07B.nc4",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for GPM_3IMERGDF v07"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2025-09-30T00:00:00.000Z; 10135 granules"
+        }
+      ]
+    },
+    {
+      "shortName": "SPL3SMP_E",
+      "version": "006",
+      "conceptId": "C2938664763-NSIDC_CPRD",
+      "doi": "10.5067/M20OXIZHY3RJ",
+      "temporalStart": "2015-03-31T00:00:00.000Z",
+      "temporalEnd": null,
+      "granuleCount": 4145,
+      "latestGranuleStart": "2026-10-28T00:00:00.000Z",
+      "latestGranulePublished": "2026-10-29T19:41:03.432Z",
+      "sampleDataUrl": "https://data.nsidc.earthdatacloud.nasa.gov/nsidc-cumulus-prod-protected/SMAP/SPL3SMP_E/006/2026/10/28/SMAP_L3_SM_P_E_20261028_R19240_001.h5",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for SPL3SMP_E v006"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2026-10-28T00:00:00.000Z; 4145 granules"
+        }
+      ]
+    },
+    {
+      "shortName": "SPL4SMGP",
+      "version": "008",
+      "conceptId": "C3480440870-NSIDC_CPRD",
+      "doi": "10.5067/T5RUATAQREF8",
+      "temporalStart": "2015-03-31T00:00:00.000Z",
+      "temporalEnd": null,
+      "granuleCount": 33849,
+      "latestGranuleStart": "2026-10-27T21:00:00.000Z",
+      "latestGranulePublished": "2026-10-29T22:57:24.326Z",
+      "sampleDataUrl": "https://data.nsidc.earthdatacloud.nasa.gov/nsidc-cumulus-prod-protected/SMAP/SPL4SMGP/008/2026/10/27/SMAP_L4_SM_gph_20261027T223000_Vv8013_001.h5",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for SPL4SMGP v008"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2026-10-27T21:00:00.000Z; 33849 granules"
+        }
+      ]
+    },
+    {
+      "shortName": "MOD13Q1",
+      "version": "061",
+      "conceptId": "C1748066515-LPCLOUD",
+      "doi": "10.5067/MODIS/MOD13Q1.061",
+      "temporalStart": "2000-02-18T00:00:00.000Z",
+      "temporalEnd": null,
+      "granuleCount": 178364,
+      "latestGranuleStart": "2026-09-30T00:00:00.000Z",
+      "latestGranulePublished": "2026-10-17T04:11:47.915Z",
+      "sampleDataUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MOD13Q1.061/MOD13Q1.A2026273.h14v00.061.2026289233334/MOD13Q1.A2026273.h14v00.061.2026289233334.hdf",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for MOD13Q1 v061"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2026-09-30T00:00:00.000Z; 178364 granules"
+        }
+      ]
+    },
+    {
+      "shortName": "HLSL30",
+      "version": "2.0",
+      "conceptId": "C2021957657-LPCLOUD",
+      "doi": "10.5067/HLS/HLSL30.002",
+      "temporalStart": "2013-04-11T00:00:00.000Z",
+      "temporalEnd": null,
+      "granuleCount": 16201459,
+      "latestGranuleStart": "2026-10-26T23:56:33.967Z",
+      "latestGranulePublished": "2026-10-28T01:12:52.987Z",
+      "sampleDataUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSL30.020/HLS.L30.T58UEF.2026299T235633.v2.0/HLS.L30.T58UEF.2026299T235633.v2.0.B11.tif",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for HLSL30 v2.0"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2026-10-26T23:56:33.967Z; 16201459 granules"
+        }
+      ]
+    },
+    {
+      "shortName": "NASADEM_HGT",
+      "version": "001",
+      "conceptId": "C2763264762-LPCLOUD",
+      "doi": "10.5067/MEASURES/NASADEM/NASADEM_HGT.001",
+      "temporalStart": "2000-02-11T00:00:00.000Z",
+      "temporalEnd": "2000-02-21T23:59:59.000Z",
+      "granuleCount": 14520,
+      "latestGranuleStart": "2000-02-11T00:00:00.000Z",
+      "latestGranulePublished": "2023-12-13T19:34:43.016Z",
+      "sampleDataUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/NASADEM_HGT.001/NASADEM_HGT_s01w047/NASADEM_HGT_s01w047.zip",
+      "dataAccess": "earthdata-login-required",
+      "dataAccessDetail": "HTTP 302 redirect to Earthdata Login",
+      "checks": [
+        {
+          "id": "collection",
+          "passed": true,
+          "detail": "1 collection(s) for NASADEM_HGT v001"
+        },
+        {
+          "id": "latest-granule",
+          "passed": true,
+          "detail": "newest granule starts 2000-02-11T00:00:00.000Z; 14520 granules"
+        }
+      ]
+    }
+  ]
+}

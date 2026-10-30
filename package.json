@@ -15,7 +15,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "pnpm lint && pnpm typecheck && pnpm test"
+    "check": "pnpm lint && pnpm typecheck && pnpm test",
+    "verify:sources": "tsx scripts/verify-sources.mts"
   },
   "dependencies": {
     "@emotion/cache": "11.14.0",
@@ -43,6 +44,7 @@
     "@types/three": "0.186.0",
     "eslint": "9.39.5",
     "eslint-config-next": "16.4.3",
+    "tsx": "^4.23.15",
     "typescript": "6.0.3",
     "vitest": "5.0.5"
   }

@@ -23,7 +23,8 @@ type Row = { name: string; status: FeatureStatus; enables: string; implemented: 
 
 const ENABLES: Record<ServerFeature, string> = {
   supabaseAdmin: "Server jobs, reference-data loading, and administrative database access.",
-  nasaEarthdata: "Downloading NASA products that require Earthdata Login.",
+  nasaEarthdata: "IMERG, SMAP (via AppEEARS), and other NASA products that require Earthdata Login.",
+  openTopography: "NASADEM elevation for slope, frost-pocket, and wet-hollow indicators.",
   aiExplanations: "Optional plain-language drafting of explanations from computed results.",
 };
 
@@ -44,7 +45,12 @@ export default async function SetupPage() {
       name: SERVER_FEATURE_LABELS[k],
       status: server[k],
       enables: ENABLES[k],
-      implemented: k === "aiExplanations" ? "Not built (Phase 6)." : k === "nasaEarthdata" ? "Not built (Phase 3)." : "Not used yet (Phase 2).",
+      implemented:
+        k === "aiExplanations"
+          ? "Not built (Phase 6)."
+          : k === "nasaEarthdata" || k === "openTopography"
+            ? "Researched; adapter in Phase 3 (see /sources)."
+            : "Not used yet (Phase 2).",
     })),
   ];
 

@@ -1,0 +1,20 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
+  "sourceId": "isric-soilgrids",
+  "generatedAt": "2026-10-30T05:15:28.881Z",
+  "site": {
+    "name": "Near Ames, Iowa, USA (test point)",
+    "latitude": 42.03,
+    "longitude": -93.62
+  },
+  "outcome": "unavailable",
+  "request": {
+    "url": "https://rest.isric.org/soilgrids/v2.0/properties/query?lon=-93.62&lat=42.03&property=clay&property=sand&property=soc&depth=0-5cm&depth=30-60cm&value=Q0.05&value=Q0.5&value=Q0.95&value=mean"
+  },
+  "error": "timed out after 120000 ms",
+  "serviceRoot": {
+    "url": "https://rest.isric.org/",
+    "result": "The operation was aborted due to timeout"
+  },
+  "officialStatus": "ISRIC states the SoilGrids REST service is temporarily paused: https://www.isric.org/explore/soilgrids"
+}

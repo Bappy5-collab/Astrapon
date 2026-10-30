@@ -66,15 +66,20 @@ const nasaEarthdataShape = {
   NASA_EARTHDATA_TOKEN: z.string().min(20, "looks too short to be an Earthdata Login token"),
 };
 
+const openTopographyShape = {
+  OPENTOPOGRAPHY_API_KEY: z.string().min(16, "looks too short to be an OpenTopography API key"),
+};
+
 const aiShape = {
   ANTHROPIC_API_KEY: z.string().min(20, "looks too short to be an API key"),
 };
 
-export type ServerFeature = "supabaseAdmin" | "nasaEarthdata" | "aiExplanations";
+export type ServerFeature = "supabaseAdmin" | "nasaEarthdata" | "openTopography" | "aiExplanations";
 
 export const SERVER_FEATURE_LABELS: Record<ServerFeature, string> = {
   supabaseAdmin: "Supabase server access (migrations, jobs, reference data)",
   nasaEarthdata: "NASA Earthdata Login (authenticated NASA archives)",
+  openTopography: "OpenTopography Global DEM API (NASADEM elevation)",
   aiExplanations: "AI-assisted explanation drafting",
 };
 
@@ -83,18 +88,21 @@ export type ServerEnvReport = Record<ServerFeature, FeatureStatus>;
 export type ServerSecrets = {
   supabaseSecretKey?: string;
   nasaEarthdataToken?: string;
+  openTopographyApiKey?: string;
   anthropicApiKey?: string;
 };
 
 export function parseServerEnv(raw: RawEnv): { report: ServerEnvReport; secrets: ServerSecrets } {
   const admin = evaluate(supabaseSecretShape, raw);
   const nasa = evaluate(nasaEarthdataShape, raw);
+  const topo = evaluate(openTopographyShape, raw);
   const ai = evaluate(aiShape, raw);
   return {
-    report: { supabaseAdmin: admin.status, nasaEarthdata: nasa.status, aiExplanations: ai.status },
+    report: { supabaseAdmin: admin.status, nasaEarthdata: nasa.status, openTopography: topo.status, aiExplanations: ai.status },
     secrets: {
       supabaseSecretKey: admin.data?.SUPABASE_SECRET_KEY,
       nasaEarthdataToken: nasa.data?.NASA_EARTHDATA_TOKEN,
+      openTopographyApiKey: topo.data?.OPENTOPOGRAPHY_API_KEY,
       anthropicApiKey: ai.data?.ANTHROPIC_API_KEY,
     },
   };
