@@ -69,7 +69,7 @@ Test point: 42.03° N, 93.62° W (lat 42.03, lon −93.62), near Ames, Iowa. It 
 - **Survey version:** IA169 Story County, saverest 2026-09-08.
 - **Checks passed:** horizon depth order, awc_r within 0–0.7, clay + sand ≤ 100%.
 - **Traceable sample:** the 0–23 cm horizon has awc_r = 0.21.
-- **FieldShift-derived value:** about 187 mm available water in the top 100 cm, computed from survey values and labelled as derived. A component with any missing horizon AWC returns null rather than a smaller number.
+- **Astrapon-derived value:** about 187 mm available water in the top 100 cm, computed from survey values and labelled as derived. A component with any missing horizon AWC returns null rather than a smaller number.
 
 ### ISRIC SoilGrids: unavailable (`data/verification/isric-soilgrids.json`)
 

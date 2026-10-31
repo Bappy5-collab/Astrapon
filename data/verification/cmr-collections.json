@@ -1,7 +1,7 @@
 {
   "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
   "sourceId": "cmr-collections",
-  "generatedAt": "2026-10-30T05:11:45.640Z",
+  "generatedAt": "2026-10-30T12:58:09.432Z",
   "site": {
     "name": "Near Ames, Iowa, USA (test point)",
     "latitude": 42.03,
@@ -147,7 +147,7 @@
       "doi": "10.5067/HLS/HLSL30.002",
       "temporalStart": "2013-04-11T00:00:00.000Z",
       "temporalEnd": null,
-      "granuleCount": 16201459,
+      "granuleCount": 16201460,
       "latestGranuleStart": "2026-10-26T23:56:33.967Z",
       "latestGranulePublished": "2026-10-28T01:12:52.987Z",
       "sampleDataUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/HLSL30.020/HLS.L30.T58UEF.2026299T235633.v2.0/HLS.L30.T58UEF.2026299T235633.v2.0.B11.tif",
@@ -162,7 +162,7 @@
         {
           "id": "latest-granule",
           "passed": true,
-          "detail": "newest granule starts 2026-10-26T23:56:33.967Z; 16201459 granules"
+          "detail": "newest granule starts 2026-10-26T23:56:33.967Z; 16201460 granules"
         }
       ]
     },

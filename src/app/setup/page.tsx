@@ -63,7 +63,7 @@ export default async function SetupPage() {
         Setup status
       </Typography>
       <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 720 }}>
-        FieldShift runs without any credentials: the shell and the illustrative 3D preview always work. Features that need an
+        Astrapon runs without any credentials: the shell and the illustrative 3D preview always work. Features that need an
         external service stay unavailable, and say so, until that service is configured. Values are never shown here, only whether
         each one is present and valid.
       </Typography>
@@ -94,7 +94,7 @@ export default async function SetupPage() {
       </TableContainer>
 
       <Alert severity="info" sx={{ mt: 4 }}>
-        Copy <code>.env.example</code> to <code>.env.local</code>, fill in the values for a FieldShift development Supabase project,
+        Copy <code>.env.example</code> to <code>.env.local</code>, fill in the values for a Astrapon development Supabase project,
         and restart <code>pnpm dev</code>. See <code>README.md</code> for details.
       </Alert>
     </Container>

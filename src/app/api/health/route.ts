@@ -8,7 +8,7 @@ export async function GET() {
   await connection();
   const server = getServerEnvReport();
   return Response.json({
-    app: "fieldshift",
+    app: "astrapon",
     phase: 4,
     status: "ok",
     services: {

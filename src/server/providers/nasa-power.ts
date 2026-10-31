@@ -31,7 +31,7 @@ type ParameterSpec = {
 const MET_CELL = "meteorology grid cell, ½° lat × ⅝° lon native (POWER docs also cite 0.5° × 0.5°)";
 const SOLAR_CELL = "solar grid cell, 1° × 1°";
 
-/** Parameters FieldShift requests. Units are verified against each live response. */
+/** Parameters Astrapon requests. Units are verified against each live response. */
 export const POWER_PARAMETERS = {
   T2M: { units: "C", upstream: "MERRA-2 / GEOS-IT", evidenceClass: "assimilated_model_product", spatialSupport: MET_CELL, plausible: [-90, 60] },
   T2M_MAX: { units: "C", upstream: "MERRA-2 / GEOS-IT", evidenceClass: "assimilated_model_product", spatialSupport: MET_CELL, plausible: [-90, 60] },

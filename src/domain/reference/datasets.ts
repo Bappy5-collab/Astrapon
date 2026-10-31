@@ -3,7 +3,7 @@ import { DATA_SOURCES } from "@/domain/sources/registry";
 import type { DataSource, ReferenceSource } from "@/domain/sources/types";
 
 /**
- * Builds the reference datasets FieldShift imports into the database. Only content that is
+ * Builds the reference datasets Astrapon imports into the database. Only content that is
  * already sourced in the repository is included. Crop parameters, rotation rules and crop
  * calendars are deliberately absent: their table values have not been checked against the
  * sources yet (see docs/research/data-sources.md), so importing them would publish unverified
@@ -57,6 +57,7 @@ export function buildReferenceDatasets(): { citations: CitationRecord[]; dataset
   const datasets: DatasetDefinition[] = [
     {
       kind: "data_source_registry",
+      // Published dataset id kept from the working name; reference data is immutable and pinned by snapshots.
       name: "fieldshift-data-sources",
       description: "Environmental data sources: evidence class, coverage, access, what each supports and cannot establish, and verification status.",
       items: DATA_SOURCES.map((s) => ({ itemKey: s.id, payload: { ...s }, citationKeys: [`source-${s.id}`] })),
@@ -64,7 +65,7 @@ export function buildReferenceDatasets(): { citations: CitationRecord[]; dataset
     {
       kind: "reference_library",
       name: "agronomic-references",
-      description: "Agronomic literature and tables FieldShift may draw on, with intended use, caveats and unconfirmed points. Contains no transcribed parameter values.",
+      description: "Agronomic literature and tables Astrapon may draw on, with intended use, caveats and unconfirmed points. Contains no transcribed parameter values.",
       items: REFERENCE_SOURCES.map((r) => ({ itemKey: r.id, payload: { ...r }, citationKeys: [r.id] })),
     },
   ];

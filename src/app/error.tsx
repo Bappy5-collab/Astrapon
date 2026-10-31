@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 export default function RouteError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    console.error("[FieldShift route error]", error.digest ?? error.message);
+    console.error("[Astrapon route error]", error.digest ?? error.message);
   }, [error]);
 
   return (

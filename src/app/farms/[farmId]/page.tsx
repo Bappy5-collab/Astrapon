@@ -61,7 +61,7 @@ export default async function FarmPage({ params }: PageProps<"/farms/[farmId]">)
         </ActionForm>
       </Section>
 
-      <Section title="Market preferences" intro="Where you can sell. Farmer-reported; FieldShift does not estimate prices or profit.">
+      <Section title="Market preferences" intro="Where you can sell. Farmer-reported; Astrapon does not estimate prices or profit.">
         {farm.markets.length === 0 ? (
           <Empty>No market preferences recorded.</Empty>
         ) : (

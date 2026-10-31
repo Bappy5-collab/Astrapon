@@ -1,7 +1,7 @@
 /**
- * Evidence classes are the backbone of FieldShift's scientific contract: every
+ * Evidence classes are the backbone of Astrapon's scientific contract: every
  * value shown to a farmer carries one, and derived values carry their lineage.
- * See docs/fieldshift-product-contract.md §Scientific contract.
+ * See docs/astrapon-product-contract.md §Scientific contract.
  */
 export const EVIDENCE_CLASSES = [
   "satellite_observation",
@@ -38,7 +38,7 @@ export const EVIDENCE_CLASS_INFO: Record<EvidenceClass, { label: string; meaning
   },
   simulation_output: {
     label: "Simulation output",
-    meaning: "Computed by FieldShift's model from the listed inputs. Only as good as those inputs.",
+    meaning: "Computed by Astrapon's model from the listed inputs. Only as good as those inputs.",
   },
   illustrative: {
     label: "Illustrative",

@@ -1,5 +1,5 @@
 /**
- * Live verification of FieldShift data sources.
+ * Live verification of Astrapon data sources.
  *
  *   pnpm verify:sources                 # all sources
  *   pnpm verify:sources power modis     # subset
@@ -215,7 +215,7 @@ async function verifySda() {
     checks,
     provenance: sdaProvenance(survey, res.retrieval),
     horizons,
-    derived: { note: "Derived by FieldShift from survey awc_r (cm/cm) × horizon thickness; not a provider value.", rootZone100cm: rootZoneAwcMm(horizons, 100) },
+    derived: { note: "Derived by Astrapon from survey awc_r (cm/cm) × horizon thickness; not a provider value.", rootZone100cm: rootZoneAwcMm(horizons, 100) },
     trace: first && {
       statement: `Top horizon (${first.topCm}–${first.bottomCm} cm) of ${first.compname} (${first.comppct}% of map unit ${first.mukey}, "${first.muname}") has awc_r = ${first.awc}`,
       reproduce: "POST the query above to the SDA endpoint with format JSON+COLUMNNAME",

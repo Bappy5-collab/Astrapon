@@ -196,7 +196,7 @@ export function InspectPanel({ ws, field, coverage, evidence }: { ws: WorkspaceS
           Simulation results
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          None. The rotation engine is not built yet, so FieldShift shows no yields, water use, risks or rankings. The 3D growth stages are illustrative and are not observations or predictions.
+          None. The rotation engine is not built yet, so Astrapon shows no yields, water use, risks or rankings. The 3D growth stages are illustrative and are not observations or predictions.
         </Typography>
       </Box>
     </Stack>

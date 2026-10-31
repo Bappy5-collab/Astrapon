@@ -46,9 +46,9 @@ const worker = (env: Record<string, string> = {}) => {
   return `${r.stdout}${r.stderr}`.trim();
 };
 
-const email = `fieldshift-test-trace-${randomUUID().slice(0, 8)}@example.com`;
+const email = `astrapon-test-trace-${randomUUID().slice(0, 8)}@example.com`;
 const password = randomBytes(18).toString("base64url");
-const created = await admin.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { fieldshift_test: true } });
+const created = await admin.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { astrapon_test: true } });
 if (created.error) throw new Error(`createUser: ${created.error.message}`);
 const userId = created.data.user.id;
 const trace: Record<string, unknown> = {};
@@ -76,7 +76,7 @@ try {
   const end = lastCompleteMonthEnd(new Date(r.created_at));
   const lastChunk = powerChunks(POWER_START, end).at(-1)!;
   const key = cacheKey({ product: "POWER/daily/point/AG", location: powerCell(req.latitude, req.longitude).key, start: lastChunk.start, end: lastChunk.end, params: POWER_PIPELINE_PARAMS.join(","), timeStandard: "LST" });
-  const chunk = JSON.parse(readFileSync(path.join(process.env.FIELDSHIFT_CACHE_DIR || path.join(ROOT, ".cache", "evidence"), `${key}.json`), "utf8")) as { retrieval: { url: string; bodySha256: string; retrievedAt: string }; body: string };
+  const chunk = JSON.parse(readFileSync(path.join(process.env.ASTRAPON_CACHE_DIR || path.join(ROOT, ".cache", "evidence"), `${key}.json`), "utf8")) as { retrieval: { url: string; bodySha256: string; retrievedAt: string }; body: string };
   const raw = JSON.parse(chunk.body) as { properties: { parameter: Record<string, Record<string, number>> }; header: { api: { version: string }; fill_value: number } };
   const tmin = raw.properties.parameter.T2M_MIN!;
   const traceYear = Number(end.slice(0, 4)) - 1;
@@ -125,7 +125,7 @@ try {
   // --- simulated outage --------------------------------------------------------------------
   const empty = mkdtempSync(path.join(tmpdir(), "fs-outage-"));
   await db.rpc("request_evidence", { p_field_id: fieldId, p_source_id: "nasa-power-daily" });
-  const log3 = worker({ FIELDSHIFT_SIMULATE_OUTAGE: "power.larc.nasa.gov", FIELDSHIFT_CACHE_DIR: empty, FIELDSHIFT_RETRY_BASE_MS: "50" });
+  const log3 = worker({ ASTRAPON_SIMULATE_OUTAGE: "power.larc.nasa.gov", ASTRAPON_CACHE_DIR: empty, ASTRAPON_RETRY_BASE_MS: "50" });
   rmSync(empty, { recursive: true, force: true });
   const oj = await db.from("evidence_jobs").select("status, error_kind, error_message, attempts").eq("field_id", fieldId).eq("source_id", "nasa-power-daily").order("created_at", { ascending: false }).limit(1).single();
   const still = await db.from("evidence_retrievals").select("id").eq("id", r.id).single();

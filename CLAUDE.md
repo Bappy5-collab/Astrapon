@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Follow `AGENTS.md` (commands, rules, phase status) and the permanent contract in `docs/fieldshift-product-contract.md`.
+Follow `AGENTS.md` (commands, rules, phase status) and the permanent contract in `docs/astrapon-product-contract.md`.
 
 Key reminders:
 

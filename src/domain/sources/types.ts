@@ -15,7 +15,7 @@ export const SOURCE_DECISIONS = [
   "selected_pending_access",
   /** Useful later; not in the initial subset. */
   "deferred",
-  /** Not suitable for FieldShift's field-level decisions. */
+  /** Not suitable for Astrapon's field-level decisions. */
   "rejected",
   /** Static reference material (tables, papers), not a live data feed. */
   "reference",

@@ -10,7 +10,7 @@ import { MAX_SUPPORTED_EXTENT_M } from "@/domain/geo/local-frame";
 import { EVIDENCE_CLASSES, EVIDENCE_CLASS_INFO } from "@/domain/provenance/evidence";
 import { color, radius } from "@/theme/tokens";
 
-export const metadata: Metadata = { title: "Methodology", description: "How FieldShift handles evidence, field geometry, the 3D view, maps and search." };
+export const metadata: Metadata = { title: "Methodology", description: "How Astrapon handles evidence, field geometry, the 3D view, maps and search." };
 
 function P({ children }: { children: React.ReactNode }) {
   return (
@@ -25,7 +25,7 @@ export default function MethodologyPage() {
     <Container maxWidth="md" sx={{ py: { xs: 4, md: 6 } }}>
       <PageHeader crumbs={[]} title="Methodology">
         <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
-          What FieldShift does today, how, and what it refuses to pretend. This page changes as each part is built.
+          What Astrapon does today, how, and what it refuses to pretend. This page changes as each part is built.
         </Typography>
       </PageHeader>
 
@@ -68,7 +68,7 @@ export default function MethodologyPage() {
 
       <Section id="three-d" title="What the 3D view shows">
         <P>
-          The terrain is flat. FieldShift does not invent slopes, buildings or trees. Elevation will only appear once a terrain source is retrieved and labelled.
+          The terrain is flat. Astrapon does not invent slopes, buildings or trees. Elevation will only appear once a terrain source is retrieved and labelled.
         </P>
         <P>
           Crops are original, stylised models chosen from the crop name you recorded (tall row crop, small grain, paddy, broadleaf, flowering oilseed, fibre, cover, fallow, or a
@@ -98,7 +98,7 @@ export default function MethodologyPage() {
 
       <Section id="evidence-pipeline" title="Environmental evidence">
         <P>
-          For a saved field, FieldShift fetches NASA POWER daily weather (model-derived, one ½° × ⅝° grid cell, 1981 onwards), MODIS MOD13Q1 greenness (satellite, ≈232 m pixels,
+          For a saved field, Astrapon fetches NASA POWER daily weather (model-derived, one ½° × ⅝° grid cell, 1981 onwards), MODIS MOD13Q1 greenness (satellite, ≈232 m pixels,
           2000 onwards, good-quality composites only) and, in the United States, SSURGO soil water capacity. Downloads run in a separate background worker, never inside a web
           request; each source can be refreshed, retried or cancelled, and a failed refresh keeps the earlier data, marked stale.
         </P>
@@ -114,7 +114,7 @@ export default function MethodologyPage() {
 
       <Section id="not-yet" title="Not built yet">
         <P>
-          The rotation simulation engine, historical replay of rotations and rotation comparison are later phases. Until then FieldShift shows no yields, water balances, risks or
+          The rotation simulation engine, historical replay of rotations and rotation comparison are later phases. Until then Astrapon shows no yields, water balances, risks or
           rankings, and the run state says so.
         </P>
       </Section>

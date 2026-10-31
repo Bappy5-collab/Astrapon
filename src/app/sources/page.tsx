@@ -43,7 +43,7 @@ export default function SourcesPage() {
         Data sources
       </Typography>
       <Typography color="text.secondary" sx={{ mt: 2, maxWidth: 760 }}>
-        What FieldShift may use, what kind of evidence each source is, how it is accessed, and what it cannot tell you. “Live-verified”
+        What Astrapon may use, what kind of evidence each source is, how it is accessed, and what it cannot tell you. “Live-verified”
         means a scripted request returned real values that passed content checks; it does not mean the source is integrated into a
         field workflow yet. Hosting by NASA does not make a product a direct observation.
       </Typography>

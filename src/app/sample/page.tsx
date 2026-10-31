@@ -7,7 +7,7 @@ import { fieldCoverage } from "@/domain/sources/coverage";
 
 export const metadata: Metadata = {
   title: "Sample field",
-  description: "Explore FieldShift's 3D field workspace with an invented sample field. No account needed.",
+  description: "Explore Astrapon's 3D field workspace with an invented sample field. No account needed.",
 };
 
 export default function SamplePage() {

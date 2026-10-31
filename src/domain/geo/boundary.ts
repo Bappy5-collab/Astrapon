@@ -19,7 +19,7 @@ const EARTH_RADIUS_M = 6378137;
 export const MAX_ABS_LATITUDE = 85;
 
 export const ANTIMERIDIAN_MESSAGE =
-  "crosses the 180° meridian. FieldShift does not support fields that straddle it yet: draw the parts on each side as separate fields.";
+  "crosses the 180° meridian. Astrapon does not support fields that straddle it yet: draw the parts on each side as separate fields.";
 
 export type BoundaryResult =
   | { ok: true; geometry: BoundaryGeometry; areaHa: number; vertexCount: number; notes: string[] }
@@ -58,7 +58,7 @@ export function parseBoundary(input: unknown): BoundaryResult {
         if (lon < -180 || lon > 180 || lat < -90 || lat > 90) {
           return { ok: false, error: `${label} has a coordinate outside longitude −180…180 / latitude −90…90 (${lon}, ${lat}).` };
         }
-        if (Math.abs(lat) > MAX_ABS_LATITUDE) return { ok: false, error: `${label} is beyond latitude ±${MAX_ABS_LATITUDE}°, which FieldShift does not support.` };
+        if (Math.abs(lat) > MAX_ABS_LATITUDE) return { ok: false, error: `${label} is beyond latitude ±${MAX_ABS_LATITUDE}°, which Astrapon does not support.` };
         const prev = pts[pts.length - 1];
         if (prev && Math.abs(lon - prev[0]) > 180) return { ok: false, error: `${label} ${ANTIMERIDIAN_MESSAGE}` };
         pts.push([lon, lat]);

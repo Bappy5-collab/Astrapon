@@ -98,7 +98,7 @@ export default async function FieldPage({ params }: PageProps<"/fields/[fieldId]
         </Stack>
       </Section>
 
-      <Section id="zones" title="Planting zones" intro="Only add zones you know differ (from your own knowledge, a soil survey or yield maps). FieldShift will not invent within-field differences from coarse satellite data.">
+      <Section id="zones" title="Planting zones" intro="Only add zones you know differ (from your own knowledge, a soil survey or yield maps). Astrapon will not invent within-field differences from coarse satellite data.">
         {field.zones.length === 0 ? (
           <Empty>No zones. The field is treated as one unit.</Empty>
         ) : (

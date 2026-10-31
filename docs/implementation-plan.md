@@ -1,6 +1,6 @@
 # Staged implementation plan
 
-Phases 0–3 are complete. Phase numbers follow the owner's prompts. Prompt 3 was the art-directed 3D UI and field interaction, so the evidence-adapter work below moved to the next phase. Each later phase ends with the delivery contract in `docs/fieldshift-product-contract.md`: checks, UI inspection, doc updates, and a local commit.
+Phases 0–3 are complete. Phase numbers follow the owner's prompts. Prompt 3 was the art-directed 3D UI and field interaction, so the evidence-adapter work below moved to the next phase. Each later phase ends with the delivery contract in `docs/astrapon-product-contract.md`: checks, UI inspection, doc updates, and a local commit.
 
 ## Phase 1: Scientific and data research decisions (DONE 2026-10-30)
 

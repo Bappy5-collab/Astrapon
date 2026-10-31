@@ -32,7 +32,7 @@ export function AuthCard({ title, intro, children, footer }: { title: string; in
       <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1.1fr" }, borderRadius: `${radius.lg}px`, overflow: "hidden", border: `1px solid ${color.line}`, boxShadow: elevation.raised, bgcolor: color.surfaceRaised }}>
         <Box sx={{ display: { xs: "none", md: "block" }, bgcolor: tokens.forest[900], color: tokens.neutral[100], p: 5 }}>
           <Typography variant="overline" sx={{ color: tokens.lime[400] }}>
-            FieldShift
+            Astrapon
           </Typography>
           <Typography variant="h3" component="p" sx={{ mt: 1 }}>
             Your field, your records, private by default.

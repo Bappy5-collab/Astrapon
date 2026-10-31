@@ -27,7 +27,7 @@ export type GeocodeOutcome =
   | { ok: false; reason: "disabled" | "busy" | "upstream" | "invalid"; message: string };
 
 const ENDPOINT = "https://nominatim.openstreetmap.org/search";
-const USER_AGENT = "FieldShift/0.3 (crop-rotation decision support; development build; NASA Space Apps 2026 project)";
+const USER_AGENT = "Astrapon/0.3 (crop-rotation decision support; development build; NASA Space Apps 2026 project)";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const CACHE_MAX = 500;
 const MIN_INTERVAL_MS = 1100;

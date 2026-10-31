@@ -10,7 +10,7 @@ export default function NotFound() {
         Page not found
       </Typography>
       <Typography color="text.secondary" sx={{ mt: 2 }}>
-        This page does not exist, or it belongs to a part of FieldShift that has not been built yet.
+        This page does not exist, or it belongs to a part of Astrapon that has not been built yet.
       </Typography>
       <ButtonLink href="/" variant="contained" sx={{ mt: 4 }}>
         Back to overview

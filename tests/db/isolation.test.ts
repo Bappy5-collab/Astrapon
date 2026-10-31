@@ -1,5 +1,5 @@
 /**
- * Two-user isolation tests against the configured FieldShift DEVELOPMENT Supabase project.
+ * Two-user isolation tests against the configured Astrapon DEVELOPMENT Supabase project.
  * Run with `pnpm test:db`. Creates two throwaway confirmed users through the Auth admin API,
  * exercises reads, writes, nested ownership, reference-data and storage boundaries through the
  * public (publishable-key) API exactly as the browser/app would, and deletes both users afterwards
@@ -34,9 +34,9 @@ const admin = configured ? createClient<Database>(URL_!, SECRET!, opts) : (null 
 const users: { id: string; email: string; password: string; db: Db }[] = [];
 
 async function makeUser(label: string) {
-  const email = `fieldshift-test-${label}-${randomUUID().slice(0, 8)}@example.com`;
+  const email = `astrapon-test-${label}-${randomUUID().slice(0, 8)}@example.com`;
   const password = randomBytes(18).toString("base64url");
-  const { data, error } = await admin.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { fieldshift_test: true } });
+  const { data, error } = await admin.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { astrapon_test: true } });
   if (error) throw new Error(`createUser failed: ${error.message}`);
   const db = createClient<Database>(URL_!, PUBLISHABLE!, opts);
   const signIn = await db.auth.signInWithPassword({ email, password });
@@ -204,7 +204,7 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
   it("Storage is unused: no buckets exist and users cannot create one", async () => {
     const { data } = await admin.storage.listBuckets();
     expect(data ?? []).toEqual([]);
-    expect((await A.db.storage.createBucket("fieldshift-intruder")).error).not.toBeNull();
+    expect((await A.db.storage.createBucket("astrapon-intruder")).error).not.toBeNull();
   });
 
   it("a saved scenario reopens with identical inputs in a fresh session", async () => {

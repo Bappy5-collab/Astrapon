@@ -17,7 +17,7 @@ How it was retrieved:
 - `curl` failed certificate verification (exit 60) because of its own CA bundle. Certificate checks were **not** bypassed.
 - A URL found in search results (`/2026/challenges/field-shift-adapting-farms-with-nasa-data/`) returns the site's "Page Not Found". The working slug was found on the official `/2026/challenges/` index.
 
-**Match verification:** the page describes a decision-support tool that combines NASA Earth observations with local soil information, crop characteristics, and farmer priorities to explore crop-rotation strategies. That matches FieldShift's product question.
+**Match verification:** the page describes a decision-support tool that combines NASA Earth observations with local soil information, crop characteristics, and farmer priorities to explore crop-rotation strategies. That matches Astrapon's product question.
 
 ## Resources gap
 
@@ -62,4 +62,4 @@ On 2026-10-30 the Resources tab says resources will be available on Friday, 13 N
 
 - The page uses "may", "you may consider", and "may (but are not required to)" throughout. **No judging criteria appear on the challenge page.** We do not invent any.
 - The C1–C8 requirements in `docs/challenge-alignment.md` are our faithful structuring of this text.
-- Three-strategy comparison, specific missions, AI ("SI" on the page), and harmonisation are suggestions. FieldShift adopts three-strategy comparison as a product target, without inventing infeasible alternatives.
+- Three-strategy comparison, specific missions, AI ("SI" on the page), and harmonisation are suggestions. Astrapon adopts three-strategy comparison as a product target, without inventing infeasible alternatives.

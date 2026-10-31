@@ -14,8 +14,8 @@ import { SAMPLE_FIELD } from "@/domain/sample/sample-field";
 import { assertAllowedUrl, fetchText } from "@/server/providers/http";
 
 const dir = mkdtempSync(path.join(tmpdir(), "fs-evidence-"));
-process.env.FIELDSHIFT_CACHE_DIR = dir;
-process.env.FIELDSHIFT_RETRY_BASE_MS = "1";
+process.env.ASTRAPON_CACHE_DIR = dir;
+process.env.ASTRAPON_RETRY_BASE_MS = "1";
 
 const { lastCompleteMonthEnd, powerChunks, runPower } = await import("./power");
 const { gridKm } = await import("./modis");

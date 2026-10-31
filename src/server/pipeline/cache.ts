@@ -11,7 +11,7 @@ import type { Retrieval } from "@/server/providers/http";
  * which makes jobs resumable: a restarted job skips chunks it already downloaded.
  */
 
-const DIR = process.env.FIELDSHIFT_CACHE_DIR || path.join(process.cwd(), ".cache", "evidence");
+const DIR = process.env.ASTRAPON_CACHE_DIR || path.join(process.cwd(), ".cache", "evidence");
 
 export type CachedChunk = { key: string; retrieval: Retrieval; body: string; cachedAt: string };
 

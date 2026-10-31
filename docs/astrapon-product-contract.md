@@ -1,10 +1,10 @@
-# FieldShift product contract
+# Astrapon product contract
 
-This is the permanent contract for FieldShift. Every phase must keep it. `AGENTS.md` and `CLAUDE.md` point here. If this document conflicts with a phase prompt, raise the conflict; do not silently drop the contract.
+This is the permanent contract for Astrapon. Every phase must keep it. `AGENTS.md` and `CLAUDE.md` point here. If this document conflicts with a phase prompt, raise the conflict; do not silently drop the contract.
 
 ## Product outcome
 
-FieldShift helps a farmer answer:
+Astrapon helps a farmer answer:
 
 > "Given my field, crop history, environmental evidence, water limits, and priorities, which rotation options are plausible, and what tradeoffs should I review locally?"
 
@@ -64,7 +64,7 @@ Interpretation of the supplied brief:
 
 ## Operating contract
 
-- Use a **dedicated FieldShift development Supabase project**. Never infer it from old environment files, and never reuse or reset an older app's database.
+- Use a **dedicated Astrapon development Supabase project**. Never infer it from old environment files, and never reuse or reset an older app's database.
 - Apply only non-destructive migrations after verifying the target. Ask before destructive actions, purchases, public publishing, or production changes.
 - Never print or commit secrets. Missing credentials produce honest "not configured" states, never fake success.
 - Every phase ends by:

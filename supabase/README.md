@@ -1,6 +1,6 @@
 # Supabase
 
-FieldShift's schema lives in `migrations/` and is applied to the dedicated FieldShift **development** project only.
+Astrapon's schema lives in `migrations/` and is applied to the dedicated Astrapon **development** project only.
 
 ## Rules
 

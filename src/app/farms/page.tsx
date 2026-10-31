@@ -25,7 +25,7 @@ export default async function FarmsPage() {
       <Container maxWidth="sm" sx={{ py: 8 }}>
         <Alert severity="warning" variant="outlined">
           <AlertTitle>Database schema not applied</AlertTitle>
-          You are signed in, but the FieldShift tables do not exist in this Supabase project yet, so nothing can be saved. The
+          You are signed in, but the Astrapon tables do not exist in this Supabase project yet, so nothing can be saved. The
           project owner needs to run <code>pnpm db:migrate</code> (see supabase/README.md).
         </Alert>
       </Container>

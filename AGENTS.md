@@ -1,8 +1,8 @@
 # AGENTS.md
 
-FieldShift: crop-rotation decision support with an interactive 3D farm simulator.
+Astrapon: crop-rotation decision support with an interactive 3D farm simulator.
 
-**Read first:** `docs/fieldshift-product-contract.md`, the permanent product, scientific, design, and operating contract. It overrides convenience.
+**Read first:** `docs/astrapon-product-contract.md`, the permanent product, scientific, design, and operating contract. It overrides convenience.
 
 ## Where things are
 
@@ -91,7 +91,7 @@ Phases 0–3 are complete. Phase 3 (prompt 3) delivered:
 - crop assignment;
 - the transactional workspace save.
 
-Phase 4 (prompt 4) delivered the evidence pipeline: POWER full record, MODIS NDVI grid, SSURGO; a persisted job queue with a separate worker; indicators; an evidence inspector; footprints; and snapshot pinning. Next is the simulation engine unless the owner's next prompt says otherwise. The designated FieldShift dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
+Phase 4 (prompt 4) delivered the evidence pipeline: POWER full record, MODIS NDVI grid, SSURGO; a persisted job queue with a separate worker; indicators; an evidence inspector; footprints; and snapshot pinning. Next is the simulation engine unless the owner's next prompt says otherwise. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 
 ## End-of-phase duties
 

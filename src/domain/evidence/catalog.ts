@@ -3,7 +3,7 @@ import type { EvidenceClass } from "@/domain/provenance/evidence";
 import { BASELINE, DRY_DAY_MM, DRY_SPELL_MIN_DAYS, FROST_THRESHOLD_C, HEAT_THRESHOLD_C, NDVI_MIN_GOOD_PER_YEAR, NDVI_MIN_YEARS_FOR_TREND, YEAR_MIN_COMPLETENESS } from "./indicators";
 import { MONTH_MIN_COMPLETENESS } from "./aggregate";
 
-/** Version of FieldShift's own processing (normalisation + aggregation). Part of every cache key and retrieval. */
+/** Version of Astrapon's own processing (normalisation + aggregation). Part of every cache key and retrieval. */
 export const PROCESSING_VERSION = "evidence-1.0.0";
 
 export const PIPELINE_SOURCES = ["nasa-power-daily", "modis-mod13q1-ornl", "usda-ssurgo-sda"] as const;

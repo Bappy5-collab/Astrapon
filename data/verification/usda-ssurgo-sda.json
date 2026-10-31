@@ -1,7 +1,7 @@
 {
   "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
   "sourceId": "usda-ssurgo-sda",
-  "generatedAt": "2026-10-30T05:10:52.510Z",
+  "generatedAt": "2026-10-30T12:57:31.105Z",
   "site": {
     "name": "Near Ames, Iowa, USA (test point)",
     "latitude": 42.03,
@@ -16,9 +16,9 @@
   },
   "response": {
     "url": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest (POST)",
-    "retrievedAt": "2026-10-30T05:10:50.407Z",
+    "retrievedAt": "2026-10-30T12:57:26.845Z",
     "status": 200,
-    "durationMs": 1735,
+    "durationMs": 3743,
     "contentType": "application/json; charset=utf-8",
     "bodySha256": "1884500147459215b901fab5d7c251fddc4294417860748c3f2a5dbf4ab17c00",
     "bodyBytes": 572
@@ -58,7 +58,7 @@
       "version": "9/8/2026 7:01:27 PM"
     },
     "spatialSupport": "Soil survey map-unit polygon containing the point",
-    "retrievedAt": "2026-10-30T05:10:50.407Z"
+    "retrievedAt": "2026-10-30T12:57:26.845Z"
   },
   "horizons": [
     {

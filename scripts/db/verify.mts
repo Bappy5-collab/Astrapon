@@ -96,7 +96,7 @@ runMain(async () => {
       select p.proname as name from pg_proc p join pg_namespace n on n.oid = p.pronamespace
       where n.nspname = 'public' and has_function_privilege('anon', p.oid, 'execute')
         and not exists (select 1 from pg_depend d where d.objid = p.oid and d.deptype = 'e')`;
-    check("anon cannot execute FieldShift RPCs", anonExec.length === 0, anonExec.map((d) => d.name).join(", ") || "none");
+    check("anon cannot execute Astrapon RPCs", anonExec.length === 0, anonExec.map((d) => d.name).join(", ") || "none");
 
     const [postgis] = await sql`select extversion from pg_extension where extname = 'postgis'`;
     check("PostGIS installed", Boolean(postgis), postgis ? `postgis ${postgis.extversion}` : "missing");
@@ -119,7 +119,7 @@ runMain(async () => {
 
     const passed = checks.every((c) => c.ok);
     writeFileSync(ARTIFACT, JSON.stringify({
-      _artifact: "Live schema verification of the FieldShift development Supabase project. Produced by scripts/db/verify.mts.",
+      _artifact: "Live schema verification of the Astrapon development Supabase project. Produced by scripts/db/verify.mts.",
       project: abbreviateRef(ref),
       verifiedAt: new Date().toISOString(),
       outcome: passed ? "verified" : "failed",

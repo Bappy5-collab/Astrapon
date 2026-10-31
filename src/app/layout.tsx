@@ -17,7 +17,7 @@ const bnSans = Noto_Sans_Bengali({ subsets: ["bengali"], display: "swap", variab
 const bnSerif = Noto_Serif_Bengali({ subsets: ["bengali"], display: "swap", variable: "--font-bn-serif", weight: ["500", "600"] });
 
 export const metadata: Metadata = {
-  title: { default: "FieldShift", template: "%s · FieldShift" },
+  title: { default: "Astrapon", template: "%s · Astrapon" },
   description:
     "Draw your field, record what you grew, and compare crop rotation options against environmental evidence, water limits and your priorities.",
 };

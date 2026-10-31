@@ -105,5 +105,5 @@ None of these is crop damage, yield, disease, nutrient status or a forecast. NDV
   - A first MODIS retrieval for a new location took about 18 minutes: 124 sequential ORNL requests at ≈9 s each.
   - A first POWER retrieval took about 11 s (five 10-year chunks).
   - Cached repeats take seconds.
-  - This is why downloads never run inside a web request. FieldShift does not promise unlimited free processing: the public services are rate-limited and best-effort.
+  - This is why downloads never run inside a web request. Astrapon does not promise unlimited free processing: the public services are rate-limited and best-effort.
 - **Failure handling:** each source fails independently. A failed refresh keeps the previous retrieval visible and marks it **stale**. The UI shows queued, running, failed, stale and complete states with retry and cancel.

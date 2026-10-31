@@ -38,11 +38,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         sx={{ bgcolor: tokens.forest[900], borderBottom: `1px solid ${tokens.forest[700]}`, "& :focus-visible": { outlineColor: tokens.lime[400] } }}
       >
         <Toolbar sx={{ gap: { xs: 1, sm: 1.5 }, minHeight: { xs: 60, md: 68 }, px: { xs: 1.5, sm: 2 } }}>
-          <TextLink href="/" underline="none" color="inherit" aria-label="FieldShift home" sx={{ color: "inherit" }}>
+          <TextLink href="/" underline="none" color="inherit" aria-label="Astrapon home" sx={{ color: "inherit" }}>
             <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
               <BrandMark />
               <Typography component="span" sx={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1.3rem", display: { xs: "none", sm: "inline" } }}>
-                FieldShift
+                Astrapon
               </Typography>
             </Stack>
           </TextLink>

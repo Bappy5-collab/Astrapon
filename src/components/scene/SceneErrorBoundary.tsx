@@ -14,7 +14,7 @@ export class SceneErrorBoundary extends Component<Props, State> {
   }
 
   override componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error("[FieldShift scene]", error.message, info.componentStack);
+    console.error("[Astrapon scene]", error.message, info.componentStack);
   }
 
   override render() {

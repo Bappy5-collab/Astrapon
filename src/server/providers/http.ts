@@ -39,7 +39,7 @@ const PER_HOST_CONCURRENCY: Record<string, number> = { "modis.ornl.gov": 1 };
 const DEFAULT_CONCURRENCY = 2;
 const limitFor = (host: string) => PER_HOST_CONCURRENCY[host] ?? DEFAULT_CONCURRENCY;
 const DEFAULT_ATTEMPTS = 3;
-const USER_AGENT = "FieldShift/0.4 (crop-rotation decision support; development build)";
+const USER_AGENT = "Astrapon/0.4 (crop-rotation decision support; development build)";
 
 export class DisallowedHostError extends Error {}
 
@@ -70,11 +70,11 @@ function release(host: string) {
 }
 
 /**
- * Test hook: hosts listed in FIELDSHIFT_SIMULATE_OUTAGE (comma-separated) behave as unreachable.
+ * Test hook: hosts listed in ASTRAPON_SIMULATE_OUTAGE (comma-separated) behave as unreachable.
  * Used by the outage checks; has no effect unless the variable is set.
  */
 function simulatedOutage(host: string): boolean {
-  return (process.env.FIELDSHIFT_SIMULATE_OUTAGE ?? "").split(",").map((s) => s.trim()).includes(host);
+  return (process.env.ASTRAPON_SIMULATE_OUTAGE ?? "").split(",").map((s) => s.trim()).includes(host);
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -135,8 +135,8 @@ export async function fetchText(
 
 /** 1 s, 4 s, 9 s … with ±20% jitter, capped at 20 s. */
 function backoff(attempt: number) {
-  // FIELDSHIFT_RETRY_BASE_MS lets deterministic tests run retries without real waiting.
-  const unit = Number(process.env.FIELDSHIFT_RETRY_BASE_MS ?? 1000);
+  // ASTRAPON_RETRY_BASE_MS lets deterministic tests run retries without real waiting.
+  const unit = Number(process.env.ASTRAPON_RETRY_BASE_MS ?? 1000);
   const base = Math.min(20_000, unit * attempt * attempt);
   return base * (0.8 + Math.random() * 0.4);
 }

@@ -1,4 +1,4 @@
-# FieldShift design system
+# Astrapon design system
 
 Art direction: a calm, sophisticated agricultural simulation studio. Near-realistic materials on simple, readable geometry; restrained colour; strong type; no decorative clutter. The 3D field is the stage and the HTML/MUI interface frames it.
 

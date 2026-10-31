@@ -1,5 +1,5 @@
 /**
- * FieldShift design tokens. See docs/design-system.md for usage rules and the contrast table
+ * Astrapon design tokens. See docs/design-system.md for usage rules and the contrast table
  * (validated by src/theme/contrast.test.ts).
  *
  * Anchors: forest #102B22, leaf #3F6B4B, accent #C7E77A, surface #F5F6F0, ink #14231B.

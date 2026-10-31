@@ -1,8 +1,8 @@
 {
-  "name": "fieldshift",
+  "name": "astrapon",
   "version": "0.1.0",
   "private": true,
-  "description": "FieldShift: field-scale crop rotation decision support with an interactive 3D farm simulator.",
+  "description": "Astrapon: field-scale crop rotation decision support with an interactive 3D farm simulator.",
   "packageManager": "pnpm@12.16.1",
   "engines": {
     "node": ">=22.12.0"

@@ -151,7 +151,7 @@ export default async function HomePage() {
                 Every value says where it came from, and how coarse it is.
               </Typography>
               <Typography sx={{ mt: 2, color: color.onForestMuted }}>
-                FieldShift keeps {Object.keys(EVIDENCE_CLASS_INFO).length} evidence classes apart: satellite observations, model products, ground measurements, your reports, what-if
+                Astrapon keeps {Object.keys(EVIDENCE_CLASS_INFO).length} evidence classes apart: satellite observations, model products, ground measurements, your reports, what-if
                 inputs, simulation outputs and illustrations. Before fetching anything, it checks whether a source&apos;s grid can even see inside your field.
               </Typography>
               <ButtonLink href="/methodology" variant="outlined" sx={{ mt: 3, color: color.onForest, borderColor: tokens.forest[400], "&:hover": { borderColor: color.accent } }}>
