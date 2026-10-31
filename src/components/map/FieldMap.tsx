@@ -9,7 +9,7 @@ import { tokens } from "@/theme/tokens";
 
 import type { FieldMapProps } from "./FieldMapLeaflet";
 
-export type { Basemap, FieldMapProps, MapFocus, MapShape } from "./FieldMapLeaflet";
+export type { Basemap, FieldMapProps, MapFocus, MapOverlay, MapShape } from "./FieldMapLeaflet";
 
 const FieldMapLeaflet = dynamic(() => import("./FieldMapLeaflet"), {
   ssr: false,

@@ -1,7 +1,7 @@
 {
   "_artifact": "Live schema verification of the FieldShift development Supabase project. Produced by scripts/db/verify.mts.",
   "project": "esav…wp",
-  "verifiedAt": "2026-10-31T05:00:37.709Z",
+  "verifiedAt": "2026-10-31T06:35:06.395Z",
   "outcome": "verified",
   "migrations": [
     {
@@ -23,6 +23,14 @@
     {
       "file": "20261031100000_field_workspace.sql",
       "sha256": "4b3df71316ce625d9e5474a77d01e285ad7ee39cdad7759f81240eb82e059da2"
+    },
+    {
+      "file": "20261031130000_evidence_pipeline.sql",
+      "sha256": "a600bfd2797617292df009fbb48ed399401d7c4a3e5af5776c4352b06e10971c"
+    },
+    {
+      "file": "20261031140000_evidence_pin_cascade.sql",
+      "sha256": "1a6c5bbd78e6d85ce7d6a2319bcf038961f9ae153c7c10534dd4274d62f1e077"
     }
   ],
   "referenceDatasets": [
@@ -47,17 +55,17 @@
     {
       "name": "migrations: local == remote history",
       "ok": true,
-      "detail": "5 recorded; missing []; changed []; extra []"
+      "detail": "7 recorded; missing []; changed []; extra []"
     },
     {
       "name": "tables: exactly the expected set",
       "ok": true,
-      "detail": "found 21: unexpected [], missing []"
+      "detail": "found 23: unexpected [], missing []"
     },
     {
       "name": "RLS enabled on every public table",
       "ok": true,
-      "detail": "21 tables"
+      "detail": "23 tables"
     },
     {
       "name": "anon has no privileges on user tables",
@@ -82,7 +90,7 @@
     {
       "name": "user-table policies are authenticated + owner-scoped",
       "ok": true,
-      "detail": "55 policies"
+      "detail": "63 policies"
     },
     {
       "name": "no write policies on reference tables",

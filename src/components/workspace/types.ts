@@ -35,3 +35,9 @@ export type WorkspaceMode = "saved" | "sample";
 export type CoverageList = SourceCoverage[];
 
 export type SaveHandler = (edits: WorkspaceEdits) => Promise<SaveResult>;
+
+export type WorkspaceEvidence = {
+  data: import("@/domain/evidence/view").FieldEvidence;
+  actions: import("@/components/evidence/EvidenceDashboard").EvidenceActions;
+  renderedAt: number;
+};

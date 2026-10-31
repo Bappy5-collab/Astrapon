@@ -1,6 +1,6 @@
 # Implementation status
 
-Last updated: 2026-10-31, end of Phase 3 (prompt 3: art-directed 3D UI and field interaction).
+Last updated: 2026-10-31, end of Phase 4 (prompt 4: evidence pipeline and resolution-aware overlays).
 
 ## Summary
 
@@ -10,7 +10,11 @@ Last updated: 2026-10-31, end of Phase 3 (prompt 3: art-directed 3D UI and field
 | Challenge source verified | Done | `docs/research/challenge-source.md`. The Resources tab publishes 13 Nov 2026 and must be re-checked. |
 | Data source research | Done (Phase 1) | `docs/research/data-sources.md`, registry `src/domain/sources/`, `/sources`. |
 | NASA POWER, MODIS (ORNL), USDA SSURGO clients | **Live-verified** (Phase 1) | `src/server/providers/`, `data/verification/*.json`. |
-| IMERG / SMAP / NASADEM adapters | Pending (next phase) | Credentials are configured; the registry stays `credential_blocked` until adapters pass content checks. |
+| **Evidence pipeline** | **Done (Phase 4)** | NASA POWER (full daily record 1981 → last complete month), MODIS MOD13Q1 NDVI grid with pixel reliability, SSURGO AWC (US). Persisted job queue `evidence_jobs` processed by `pnpm evidence:worker`, a separate process. Disk cache for raw chunks, resumable. One transaction per retrieval. See `docs/evidence-methods.md`. |
+| Indicators | **Done** | Frost and hot days, longest dry spell, 10+ day dry spells, seasonal precipitation vs 1991–2020, temperature anomaly, root-zone wetness (model) vs normal, NDVI annual peak with Theil–Sen direction, SSURGO AWC 0–100 cm. Completeness gates; missing data never treated as zero; no interpolation. |
+| Evidence UX | **Done** | `/fields/[id]/evidence`: per-source status (not fetched, queued, running with progress, failed, stale, up to date, not available here) with fetch, refresh, retry and cancel; metric cards with an inspector (plain facts first, technical provenance on request); charts with table views; a data-footprint map. The workspace Inspect drawer shows status and headline metrics; the workspace map has a "Data footprints" toggle. |
+| Snapshot pinning | **Done** | Input schema v2 pins the newest valid retrieval per source by id, response hash and an aggregates digest. A pinned retrieval cannot be deleted while its field exists; refreshes never change saved snapshots. |
+| IMERG / SMAP / NASADEM / SoilGrids | Not added (by decision) / unavailable | IMERG would double-count precipitation with POWER. SMAP surface moisture is a different quantity and depth from POWER root-zone wetness, and needs an async AppEEARS job. NASADEM has no indicator yet. SoilGrids REST returned 503 on 2026-10-31. Registry statuses unchanged. |
 | Dev Supabase, schema, RLS, auth | Done (Phase 2) | 5 migrations applied. `pnpm db:verify` passes 14 checks. |
 | Design system | **Done (Phase 3)** | `docs/design-system.md`, `src/theme/tokens.ts`; 24 text/background pairings tested in `contrast.test.ts`; Latin + Bangla font stacks; three elevations; tabular numerals; reduced motion. |
 | Landing page | **Done** | Working location search (usable before 3D loads), live 3D sample hero, farmer problem, workflow with honest per-step status, grid-vs-field evidence table, no invented statistics. |
@@ -22,7 +26,50 @@ Last updated: 2026-10-31, end of Phase 3 (prompt 3: art-directed 3D UI and field
 | Crops, history, save | **Done** | Assign a crop per zone or whole field, year and season; year × zone timeline table; Inspect drawer with history, soil and evidence coverage. All edits saved atomically by `save_field_workspace` after a summary dialog. The full record forms moved to `/fields/[id]/records`. |
 | Saved runs, methodology, settings | **Done** | `/runs` (scenarios + snapshots; honest "no runs: engine not built"), `/methodology`, `/settings` (language, 3D quality, motion). |
 | Bangla interface | Partial | Navigation, workspace controls, location search, settings and landing hero. Record forms, evidence text and methodology are English (stated in Settings). |
-| Simulation engine (Phase 4) | **Pending** | Snapshots record engine `0.0.0-pre-engine`; no results exist and none are shown. |
+| Simulation engine | **Pending (next)** | Snapshots record engine `0.0.0-pre-engine`; no results exist and none are shown. |
+
+## Verified in Phase 4
+
+- Deterministic (no network): `pnpm test` passes 138 tests in 10 files. New tests:
+  - monthly aggregation completeness and no up-scaling of partial sums;
+  - threshold counts and year gating;
+  - dry spells broken by missing days;
+  - 1991–2020 normals and anomalies; hemisphere-neutral seasons;
+  - Theil–Sen; NDVI peaks and trend gates;
+  - POWER cell snapping; MODIS sinusoidal round-trip and sheared pixel footprints;
+  - host allowlist and bounded retries;
+  - a full POWER pipeline run on synthetic responses: aggregates, indicators, cache reuse, outage;
+  - the evidence view and stale state;
+  - contrast of the new chips and chart colours.
+- Live database:
+  - `pnpm db:rehearse` then `pnpm db:migrate` applied `20261031130000_evidence_pipeline.sql` and `20261031140000_evidence_pin_cascade.sql`.
+  - `pnpm db:verify`: 14/14 (7 migrations; 23 tables; 63 owner policies).
+  - `pnpm test:db`: 15/15, including job guard and dedup, snapshot pin and refresh immutability, pinned-row protection and release, and account deletion cascading with pinned evidence.
+- Live providers: `pnpm evidence:trace` 10/10 → `data/verification/evidence-trace.json`.
+  - One real NASA POWER chunk: its SHA-256 is in the stored response hash.
+  - Raw 2025 frost days (127 of 365 days) equal the stored annual aggregate. Raw January 2025 mean T2M_MIN (−12.404 °C) equals the stored monthly aggregate.
+  - The displayed "Frost days per year: 142 days/year (2016–2025)" equals the mean of the stored values.
+  - The value is pinned in a saved snapshot. A refresh left the snapshot unchanged (the worker reused the unchanged retrieval).
+  - A simulated POWER outage with an empty cache produced `unavailable`, retry scheduled, earlier data kept.
+- UI end-to-end on the production build: 19/19.
+  - Empty state; "Refresh all" returns at once with queued state; the worker completes; the page updates by polling.
+  - The displayed frost metric equals the database values. Evidence classes are labelled.
+  - The inspector shows source, units, period, coverage, completeness and limits; the technical section shows the stored response hash and processing version.
+  - Footprint map; chart table views.
+  - Workspace drawer status and metrics; workspace map footprint toggle.
+  - Outage: retry scheduled, earlier data kept, cancel works.
+  - The sample shows no invented evidence. No overflow at 390 px. No console errors.
+- Phase 3 regressions rerun: 30/30 workspace flow and 16/16 state checks.
+- Screenshots inspected at 1440, 1024 and 390 px. Throwaway users deleted; only the owner's 2 accounts remain.
+
+## Defects found and fixed in Phase 4
+
+- Deleting an account or field failed when a snapshot pinned evidence: the NO ACTION foreign key was checked mid-cascade. Fixed with a cascading pin plus a trigger that blocks deleting pinned evidence while its field exists. The DB test cleanup now asserts that deletion succeeds; earlier it ignored errors, which hid this. Leftover test users were removed.
+- The worker labelled provider outages as "internal" because `instanceof` failed across module copies. The kind is now read by name.
+- ORNL returned 502 under two parallel requests. The per-host limit for ORNL is now 1, with 5 attempts.
+- MODIS pixel coverage was wrong far from the central meridian, where sinusoidal pixels are sheared parallelograms in lon/lat. Coverage is now sampled inside each pixel's own corners.
+- Charts overflowed their grid column at desktop width, and a reference-line label was clipped. Columns use `minmax(0, 1fr)`; labels sit at the left with a halo.
+- The workspace drawer showed four POWER metrics. It now shows one per kind of evidence.
 
 ## Verified in Phase 3
 
@@ -74,6 +121,12 @@ Last updated: 2026-10-31, end of Phase 3 (prompt 3: art-directed 3D UI and field
 - A caption string was corrupted by a shell edit and has been rewritten.
 
 ## Known limitations
+
+- The first MODIS retrieval for a new location takes about 18 minutes (124 sequential ORNL requests at ≈ 9 s); repeats are cached. The worker must be running (`pnpm evidence:worker`); the UI warns when queued jobs are not picked up.
+- SSURGO's service has a nightly maintenance window (seen as a non-JSON page); jobs report it as unavailable and retry.
+- Per-pixel (within-field) greenness is stored only when at least 2 and at most 81 pixels lie ≥ 75% inside the field. The sample-sized field (≈ 20 ha) has one such pixel, so it shows a shared value.
+- Evidence is not shown for the public sample (no invented values).
+- The raw-response disk cache lives on the worker's machine and is not shared between machines.
 
 - HLS imagery is 30 m, is date-specific and may be cloudy. It is a drawing aid, not evidence. Small fields are better drawn on the street map or imported as GeoJSON.
 - Public OSM tiles and Nominatim are best-effort services, suitable for development only. Production needs a commercial or self-hosted provider (URLs are configurable; `GEOCODER_DISABLED=1` switches search off).

@@ -43,7 +43,7 @@ export function projectRefFromDbUrl(dbUrl: string): string | null {
 
 export const abbreviateRef = (ref: string) => `${ref.slice(0, 4)}…${ref.slice(-2)}`;
 
-export function connect(): { sql: postgres.Sql; ref: string } {
+export function connect({ max = 1 }: { max?: number } = {}): { sql: postgres.Sql; ref: string } {
   loadEnv();
   const dbUrl = process.env.SUPABASE_DB_URL?.trim();
   if (!dbUrl) throw new SetupError("SUPABASE_DB_URL is not set in .env.local (Supabase → Connect → Session pooler URI).");
@@ -59,7 +59,7 @@ export function connect(): { sql: postgres.Sql; ref: string } {
   if (dbRef !== apiRef) {
     throw new SetupError(`Refusing to connect: SUPABASE_DB_URL targets ${abbreviateRef(dbRef)} but the app uses ${abbreviateRef(apiRef)}.`);
   }
-  const sql = postgres(dbUrl, { max: 1, prepare: false, onnotice: () => {}, connect_timeout: 20, ssl: "require" });
+  const sql = postgres(dbUrl, { max, prepare: false, onnotice: () => {}, connect_timeout: 20, ssl: "require" });
   return { sql, ref: dbRef };
 }
 

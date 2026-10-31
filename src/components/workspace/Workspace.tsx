@@ -38,6 +38,7 @@ import { LocationSearch, type PickedLocation } from "@/components/location/Locat
 import { defaultImageryDate } from "@/components/map/basemaps";
 import { FieldMap, type Basemap, type MapFocus, type MapShape } from "@/components/map/FieldMap";
 import { ImageryControls } from "@/components/map/ImageryControls";
+import { footprintOverlays } from "@/components/evidence/EvidenceDashboard";
 import { formatLatLon } from "@/domain/geo/coordinates";
 import * as D from "@/domain/geo/drawing";
 import type { Position } from "@/domain/geo/boundary";
@@ -49,7 +50,7 @@ import { DrawPanel } from "./DrawPanel";
 import { InspectPanel } from "./InspectPanel";
 import { SaveDialog } from "./SaveDialog";
 import { SeasonTimeline } from "./SeasonTimeline";
-import type { CoverageList, SaveHandler, WorkspaceFieldData, WorkspaceMode } from "./types";
+import type { CoverageList, SaveHandler, WorkspaceEvidence, WorkspaceFieldData, WorkspaceMode } from "./types";
 import { useWorkspace, type Tool } from "./useWorkspace";
 import { CropAssign, NoBoundaryHint, PanelDivider, PanelSection, RegionList, ZoneEditor } from "./ZonePanel";
 
@@ -79,9 +80,10 @@ export type WorkspaceProps = {
   /** Called after a successful save so the page can reload saved data. */
   onSaved?: () => void;
   extraActions?: ReactNode;
+  evidence?: WorkspaceEvidence | null;
 };
 
-export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved, extraActions }: WorkspaceProps) {
+export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved, extraActions, evidence }: WorkspaceProps) {
   const t = useT();
   const ws = useWorkspace(field, currentYear);
   const desktopQ = useMedia("(min-width:900px)");
@@ -101,6 +103,8 @@ export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved,
   const [focus, setFocus] = useState<MapFocus | null>(null);
   const [located, setLocated] = useState<{ lat: number; lon: number; accuracyM: number } | null>(null);
   const [basemap, setBasemap] = useState<Basemap>("streets");
+  const [showFootprints, setShowFootprints] = useState(false);
+  const overlays = useMemo(() => (showFootprints && evidence ? footprintOverlays(evidence.data.sources, evidence.data.view.pixels) : []), [showFootprints, evidence]);
   const [imageryDate, setImageryDate] = useState(() => defaultImageryDate());
   const centre = useRef<Position | null>(null);
   const origin = useMemo(() => (ws.boundary ? boundaryOrigin(ws.boundary) : null), [ws.boundary]);
@@ -331,9 +335,23 @@ export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved,
         basemap={basemap}
         imageryDate={imageryDate}
         located={located}
+        overlays={overlays}
       />
       <Box sx={{ position: "absolute", top: 12, right: 12, zIndex: 600, maxWidth: "calc(100% - 72px)" }}>
         <ImageryControls basemap={basemap} onBasemap={setBasemap} date={imageryDate} onDate={setImageryDate} point={() => centre.current ?? origin} />
+        {evidence && (
+          <Box sx={{ mt: 1, display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              size="small"
+              variant={showFootprints ? "contained" : "outlined"}
+              aria-pressed={showFootprints}
+              onClick={() => setShowFootprints(!showFootprints)}
+              sx={{ bgcolor: showFootprints ? undefined : "rgba(250,251,247,.94)", minHeight: 40 }}
+            >
+              Data footprints
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );
@@ -359,7 +377,7 @@ export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved,
       mapView
     );
 
-  const inspect = <InspectPanel ws={ws} field={field} coverage={coverage} />;
+  const inspect = <InspectPanel ws={ws} field={field} coverage={coverage} evidence={evidence} />;
 
   const dialogs = (
     <>

@@ -96,10 +96,26 @@ export default function MethodologyPage() {
         </P>
       </Section>
 
+      <Section id="evidence-pipeline" title="Environmental evidence">
+        <P>
+          For a saved field, FieldShift fetches NASA POWER daily weather (model-derived, one ½° × ⅝° grid cell, 1981 onwards), MODIS MOD13Q1 greenness (satellite, ≈232 m pixels,
+          2000 onwards, good-quality composites only) and, in the United States, SSURGO soil water capacity. Downloads run in a separate background worker, never inside a web
+          request; each source can be refreshed, retried or cancelled, and a failed refresh keeps the earlier data, marked stale.
+        </P>
+        <P>
+          Missing days are never treated as zero or filled in. Monthly values need 90% of days, yearly counts 95%; normals use 1991–2020. Coarse sources are shown as one shared
+          value for the field; differences inside a field are shown only when at least two MODIS pixels lie mostly inside it. Indicators describe past conditions; they are not
+          crop damage, yield or forecasts, and NDVI cannot identify a crop. Saved snapshots pin the exact retrieval they used, so a later refresh never changes them.
+        </P>
+        <P>
+          Full rules are in <code>docs/evidence-methods.md</code> in the project repository.
+        </P>
+      </Section>
+
       <Section id="not-yet" title="Not built yet">
         <P>
-          The rotation simulation engine, evidence retrieval for a field, historical replay and rotation comparison are later phases. Until then FieldShift shows no yields,
-          water balances, risks or rankings, and the run state says so.
+          The rotation simulation engine, historical replay of rotations and rotation comparison are later phases. Until then FieldShift shows no yields, water balances, risks or
+          rankings, and the run state says so.
         </P>
       </Section>
     </Container>

@@ -86,7 +86,13 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
   }, 60_000);
 
   afterAll(async () => {
-    for (const u of users) await admin.auth.admin.deleteUser(u.id);
+    // Deleting the accounts must cascade cleanly, including snapshots that pin evidence.
+    const failures: string[] = [];
+    for (const u of users) {
+      const { error } = await admin.auth.admin.deleteUser(u.id);
+      if (error) failures.push(error.message);
+    }
+    expect(failures).toEqual([]);
   }, 60_000);
 
   const OWNED = ["farms", "fields", "planting_zones", "crop_history", "soil_observations", "field_constraints", "farmer_priorities", "market_preferences", "scenarios", "simulation_input_snapshots", "snapshot_reference_datasets", "profiles"] as const;
@@ -257,6 +263,74 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
     expect(del.error).toBeNull();
     expect((await A.db.from("planting_zones").select("id").eq("id", a.zone)).data).toHaveLength(1);
     expect((await A.db.from("fields").delete().eq("id", fid)).error).toBeNull();
+  });
+  it("evidence jobs: users can only request (deduplicated) and cancel; status changes are worker-only", async () => {
+    const j1 = await A.db.rpc("request_evidence", { p_field_id: a.field, p_source_id: "nasa-power-daily" });
+    expect(j1.error).toBeNull();
+    const j2 = await A.db.rpc("request_evidence", { p_field_id: a.field, p_source_id: "nasa-power-daily" });
+    expect(j2.data).toBe(j1.data);
+    const forge = await A.db.from("evidence_jobs").update({ status: "complete" }).eq("id", j1.data!);
+    expect(forge.error?.message).toMatch(/Only the evidence worker/);
+    const direct = await A.db.from("evidence_jobs").insert({ field_id: a.field, source_id: "usda-ssurgo-sda", status: "complete" } as never);
+    expect(direct.error).not.toBeNull();
+    expect((await B.db.rpc("request_evidence", { p_field_id: a.field, p_source_id: "nasa-power-daily" })).error?.message).toMatch(/not found/i);
+    expect((await B.db.from("evidence_jobs").select("id").eq("id", j1.data!)).data).toEqual([]);
+    expect((await B.db.from("evidence_jobs").update({ status: "cancelled" }).eq("id", j1.data!).select("id")).data).toEqual([]);
+    const cancel = await A.db.from("evidence_jobs").update({ status: "cancelled" }).eq("id", j1.data!).select("status, finished_at");
+    expect(cancel.data?.[0]).toMatchObject({ status: "cancelled" });
+    expect(cancel.data?.[0]?.finished_at).not.toBeNull();
+    // A worker (trusted role) can complete jobs.
+    const j3 = await A.db.rpc("request_evidence", { p_field_id: a.field, p_source_id: "nasa-power-daily" });
+    expect(j3.data).not.toBe(j1.data);
+    expect((await admin.from("evidence_jobs").update({ status: "failed", finished_at: new Date().toISOString(), error_kind: "unavailable", error_message: "test" }).eq("id", j3.data!)).error).toBeNull();
+  });
+
+  it("a saved snapshot pins its evidence: a later refresh does not change it and pinned rows cannot be deleted", async () => {
+    const mkRetrieval = async (retrievedAt: string, value: number) => {
+      const r = await admin.from("evidence_retrievals").insert({
+        owner_id: A.id, field_id: a.field, source_id: "nasa-power-daily", product_id: "POWER/daily/point/AG", product_version: "test", evidence_class: "assimilated_model_product",
+        spatial_support: "test cell", request: { test: true }, retrieved_at: retrievedAt, response_sha256: (value.toString(16).padStart(2, "0")).repeat(32), response_bytes: 1,
+        outcome: "valid", checks: [], provenance: { test: true }, processing_version: "evidence-1.0.0", observation_start: "2024-01-01", observation_end: "2024-12-31",
+      }).select("id").single();
+      expect(r.error).toBeNull();
+      const agg = await admin.from("evidence_aggregates").insert([
+        { owner_id: A.id, field_id: a.field, retrieval_id: r.data!.id, variable: "frost_days", unit: "days", aggregation: "count", period_start: "2024-01-01", period_end: "2024-12-31", value, valid_count: 366, expected_count: 366 },
+        { owner_id: A.id, field_id: a.field, retrieval_id: r.data!.id, variable: "T2M_MIN", unit: "°C", aggregation: "mean", period_start: "2024-01-01", period_end: "2024-01-31", value: -7.5, valid_count: 31, expected_count: 31 },
+      ]);
+      expect(agg.error).toBeNull();
+      return r.data!.id;
+    };
+    const r1 = await mkRetrieval("2026-10-01T00:00:00Z", 100);
+    const snap = await A.db.rpc("create_input_snapshot", { p_scenario_id: a.scenario, p_engine_version: "0.0.0-pre-engine" });
+    expect(snap.error).toBeNull();
+    const before = await A.db.from("simulation_input_snapshots").select("inputs, input_schema_version").eq("id", snap.data!).single();
+    expect(before.data?.input_schema_version).toBe(2);
+    const pinned = (before.data!.inputs as { evidence: { retrieval_id: string; aggregates_sha256: string }[] }).evidence;
+    expect(pinned).toHaveLength(1);
+    expect(pinned[0]!.retrieval_id).toBe(r1);
+    expect((await A.db.rpc("evidence_aggregates_digest", { p_retrieval_id: r1 })).data).toBe(pinned[0]!.aggregates_sha256);
+
+    // A refresh adds a newer retrieval with different values.
+    const r2 = await mkRetrieval("2026-10-31T00:00:00Z", 90);
+    const after = await A.db.from("simulation_input_snapshots").select("inputs").eq("id", snap.data!).single();
+    expect(after.data?.inputs).toEqual(before.data?.inputs);
+    expect((await A.db.rpc("evidence_aggregates_digest", { p_retrieval_id: r1 })).data).toBe(pinned[0]!.aggregates_sha256);
+    const current = await A.db.rpc("assemble_scenario_inputs", { p_scenario_id: a.scenario });
+    expect((current.data as { evidence: { retrieval_id: string }[] }).evidence[0]!.retrieval_id).toBe(r2);
+
+    // The pinned retrieval cannot be deleted; the unpinned newer one can.
+    expect((await A.db.from("evidence_retrievals").delete().eq("id", r1)).error?.message).toMatch(/pinned by a saved snapshot/);
+    expect((await A.db.from("evidence_retrievals").delete().eq("id", r2)).error).toBeNull();
+    // Pins are private to the owner and immutable.
+    expect((await B.db.from("snapshot_evidence_retrievals").select("retrieval_id").eq("snapshot_id", snap.data!)).data).toEqual([]);
+    expect((await A.db.from("snapshot_evidence_retrievals").select("retrieval_id").eq("snapshot_id", snap.data!)).data).toEqual([{ retrieval_id: r1 }]);
+    expect((await B.db.rpc("evidence_aggregates_digest", { p_retrieval_id: r1 })).data).toBeNull();
+    // Deleting the snapshot releases the pin; then the retrieval can be deleted.
+    const r3 = await mkRetrieval("2026-10-31T01:00:00Z", 80);
+    const snap2 = await A.db.rpc("create_input_snapshot", { p_scenario_id: a.scenario, p_engine_version: "0.0.0-pre-engine" });
+    expect((await A.db.from("evidence_retrievals").delete().eq("id", r3)).error?.message).toMatch(/pinned/);
+    expect((await A.db.from("simulation_input_snapshots").delete().eq("id", snap2.data!)).error).toBeNull();
+    expect((await A.db.from("evidence_retrievals").delete().eq("id", r3)).error).toBeNull();
   });
 });
 

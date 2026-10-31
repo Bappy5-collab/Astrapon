@@ -59,7 +59,14 @@ Original scope:
   - transactional save after confirmation (`save_field_workspace`).
 - Saved runs, methodology and settings pages.
 
-## Next: Evidence adapters and provenance (planned as Phase 3 before prompt 3)
+## Phase 4 (prompt 4): Evidence pipeline and resolution-aware overlays (DONE 2026-10-31)
+
+- NASA POWER full daily record, MODIS MOD13Q1 grid around the field, SSURGO (US) through a persisted job queue and a separate worker.
+- Normalisation with completeness rules, indicators, harmonisation rules (`docs/evidence-methods.md`).
+- Evidence page and inspector, footprints, workspace integration, snapshot pinning, live trace.
+- IMERG, SMAP and NASADEM were not added (double-counting, incompatible quantity, no indicator yet); SoilGrids is unavailable (503).
+
+## Earlier plan for evidence adapters (superseded by Phase 4 above)
 
 Adjusted by Phase 1 findings:
 - IMERG: use the Late run, because V07 Final is frozen at 2025-09-30 until V08. Read it via the Giovanni time-series API or h5wasm.

@@ -14,6 +14,8 @@ import { HLS_ATTRIBUTION, HLS_LAYERS, HLS_MAX_NATIVE_ZOOM, hlsTileUrl, OSM_ATTRI
 export type MapShape = { key: string; geometry: BoundaryGeometry; kind: "field" | "zone"; selected?: boolean; label?: string };
 export type MapFocus = { lat: number; lon: number; zoom?: number; bbox?: [number, number, number, number] | null; nonce: number };
 export type Basemap = "streets" | "imagery";
+/** Native data footprints (observed/model grids), drawn beneath the field and zones in a distinct style. */
+export type MapOverlay = { ring: Position[]; kind: "power_cell" | "modis_pixel"; fill?: string | null; label: string };
 
 export type FieldMapProps = {
   shapes: MapShape[];
@@ -32,6 +34,7 @@ export type FieldMapProps = {
   imageryDate: string;
   located?: { lat: number; lon: number; accuracyM: number } | null;
   label: string;
+  overlays?: MapOverlay[];
 };
 
 const ll = ([lon, lat]: Position) => L.latLng(lat, lon);
@@ -53,7 +56,7 @@ function vertexIcon(kind: "vertex" | "first" | "selected" | "mid") {
 export default function FieldMapLeaflet(props: FieldMapProps) {
   const host = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
-  const layers = useRef<{ base?: L.TileLayer; imagery: L.TileLayer[]; shapes: L.LayerGroup; draw: L.LayerGroup; located: L.LayerGroup } | null>(null);
+  const layers = useRef<{ base?: L.TileLayer; imagery: L.TileLayer[]; overlays: L.LayerGroup; shapes: L.LayerGroup; draw: L.LayerGroup; located: L.LayerGroup } | null>(null);
   const latest = useRef(props);
   useEffect(() => {
     latest.current = props;
@@ -66,7 +69,7 @@ export default function FieldMapLeaflet(props: FieldMapProps) {
     m.attributionControl.setPrefix(false);
     m.setView([20, 0], 2);
     const base = L.tileLayer(OSM_TILES, { maxZoom: 19, attribution: OSM_ATTRIBUTION, crossOrigin: false }).addTo(m);
-    layers.current = { base, imagery: [], shapes: L.layerGroup().addTo(m), draw: L.layerGroup().addTo(m), located: L.layerGroup().addTo(m) };
+    layers.current = { base, imagery: [], overlays: L.layerGroup().addTo(m), shapes: L.layerGroup().addTo(m), draw: L.layerGroup().addTo(m), located: L.layerGroup().addTo(m) };
     m.on("click", (e: L.LeafletMouseEvent) => latest.current.onAddVertex?.([e.latlng.lng, e.latlng.lat]));
     m.on("moveend", () => {
       const c = m.getCenter();
@@ -101,6 +104,26 @@ export default function FieldMapLeaflet(props: FieldMapProps) {
       ls.base?.setOpacity(0.55);
     } else ls.base?.setOpacity(1);
   }, [props.basemap, props.imageryDate]);
+
+  // Data footprints.
+  useEffect(() => {
+    const ls = layers.current;
+    if (!ls) return;
+    ls.overlays.clearLayers();
+    for (const o of props.overlays ?? []) {
+      const isCell = o.kind === "power_cell";
+      L.polygon(o.ring.map(ll), {
+        color: isCell ? "#1F7FB0" : "#0F3B57",
+        weight: isCell ? 2.5 : 1,
+        dashArray: isCell ? "10 6" : undefined,
+        fillColor: o.fill ?? "#1F7FB0",
+        fillOpacity: o.fill ? 0.55 : isCell ? 0.04 : 0,
+        interactive: true,
+      })
+        .bindTooltip(o.label, { sticky: true })
+        .addTo(ls.overlays);
+    }
+  }, [props.overlays]);
 
   // Saved shapes.
   useEffect(() => {

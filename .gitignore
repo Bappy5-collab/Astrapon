@@ -33,3 +33,6 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 .vercel
+
+# evidence pipeline raw-response cache (never committed)
+/.cache/

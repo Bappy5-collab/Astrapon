@@ -2,7 +2,9 @@
 
 FieldShift helps farmers and agronomists compare crop rotation options for a specific field. The comparison draws on environmental evidence, soil and crop history, water limits, and the farmer's priorities. It explains the tradeoffs to review locally. The main workspace is an interactive 3D farm simulator.
 
-> **Status: Phase 3 (3D field workspace).**
+> **Status: Phase 4 (evidence pipeline).** On top of the 3D field workspace, a saved field can fetch NASA POWER weather (1981 onwards), MODIS greenness and US soil survey data through a background worker, with indicators, an evidence inspector and data-footprint maps. Run `pnpm evidence:worker` beside `pnpm dev`.
+>
+> **Phase 3 (3D field workspace).**
 >
 > - Find a place by search, coordinates or device location.
 > - Draw the field boundary on a street map or NASA HLS imagery.
@@ -40,6 +42,8 @@ pnpm check          # all three
 pnpm verify:sources # live provider checks; writes data/verification/*.json
 pnpm db:status      # database scripts: see supabase/README.md
 pnpm test:db        # live two-user isolation tests against the dev project
+pnpm evidence:worker # background worker that downloads and processes evidence (needs SUPABASE_DB_URL)
+pnpm evidence:trace  # live end-to-end evidence trace (creates and deletes a throwaway user)
 ```
 
 ## Configuration

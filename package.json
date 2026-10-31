@@ -23,7 +23,9 @@
     "db:import-reference": "tsx scripts/db/import-reference.mts",
     "db:types": "tsx scripts/db/verify.mts --write-types",
     "db:verify": "tsx scripts/db/verify.mts",
-    "db:rehearse": "tsx scripts/db/rehearse.mts"
+    "db:rehearse": "tsx scripts/db/rehearse.mts",
+    "evidence:worker": "tsx scripts/evidence-worker.mts",
+    "evidence:trace": "tsx scripts/evidence-trace.mts"
   },
   "dependencies": {
     "@emotion/cache": "11.14.0",

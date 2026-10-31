@@ -26,7 +26,7 @@ export function SiteFooter() {
           </Typography>
           <Stack spacing={0.5} sx={{ flexShrink: 0 }}>
             <Typography variant="body2" sx={{ color: tokens.neutral[300] }}>
-              Development build · Phase 3
+              Development build · Phase 4
             </Typography>
             <Typography variant="body2">
               <TextLink href="/methodology" sx={{ color: tokens.lime[400] }}>

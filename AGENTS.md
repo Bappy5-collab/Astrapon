@@ -11,6 +11,7 @@ FieldShift: crop-rotation decision support with an interactive 3D farm simulator
 - `docs/challenge-alignment.md`: C1–C8 matrix. Update it every phase.
 - `docs/architecture.md`: module layout and enforced boundaries.
 - `docs/design-system.md`: tokens, contrast table, layout, 3D scene rules, map/search terms.
+- `docs/evidence-methods.md`: evidence pipeline rules (sources, completeness, harmonisation, provenance, jobs).
 - `docs/research/challenge-source.md`: verified official challenge page (Resources tab publishes 13 Nov 2026; re-check).
 - `docs/research/data-sources.md` + `src/domain/sources/`: source registry, decisions, statuses, live evidence.
 
@@ -27,6 +28,8 @@ pnpm check        # lint + typecheck + test
 pnpm verify:sources [power|modis|sda|soilgrids|cmr] [--write-fixtures]   # live provider checks → data/verification/
 pnpm db:status | db:rehearse | db:migrate | db:import-reference | db:types | db:verify   # see supabase/README.md
 pnpm test:db      # live two-user isolation tests (dev project; creates and deletes throwaway users)
+pnpm evidence:worker [--once]   # background evidence worker (needs SUPABASE_DB_URL); keep it running beside pnpm dev
+pnpm evidence:trace             # LIVE end-to-end trace → data/verification/evidence-trace.json
 ```
 
 ## Rules that bite
@@ -47,6 +50,14 @@ pnpm test:db      # live two-user isolation tests (dev project; creates and dele
 - Place search must stay submit-only through `/api/geocode`. The Nominatim policy requires a shared 1 req/s limit, a cache, no autocomplete and attribution. Map tiles must keep visible attribution; never prefetch or bulk-download tiles.
 - Save workspace edits only through `saveWorkspace` → `save_field_workspace`, after the confirmation dialog.
 - Never put device location in URLs; hand it off via sessionStorage.
+- Evidence pipeline (`src/server/pipeline`, credential-free, usable by scripts):
+  - Every provider request goes through `fetchText` (host allowlist, per-host concurrency, timeouts, bounded retries). Add a host to `ALLOWED_HOSTS` only with a reason.
+  - Downloads run only in `scripts/evidence-worker.mts`, never in a web request. The app only enqueues (`request_evidence`) and cancels.
+  - Raw responses go to the disk cache (`.cache/evidence`), never to PostgreSQL. Cache keys include product, location key, period and request parameters. Retrievals carry `PROCESSING_VERSION`: bump it when any rule in `docs/evidence-methods.md` changes.
+  - Missing = null, never zero, never interpolated. Respect the completeness thresholds in `src/domain/evidence`. Never combine incompatible quantities (moisture depths, temperature definitions, two precipitation products).
+  - Snapshots (input schema v2) pin evidence retrievals by id + hash; pinned retrievals cannot be deleted. Never update a retrieval or aggregate; refresh creates a new retrieval.
+  - Evidence UI: every metric opens `EvidenceInspector`. Label evidence classes with `EvidenceClassChip`. Show within-field variation only when the source resolves it.
+- `SUPABASE_DB_URL` is also used by the evidence worker (a script); never by the web app.
 - Provider clients (`src/server/providers`) validate content, not just HTTP 200: location, period, units, fill→null (never 0), plausibility, QA. A source is `live_verified` only with a passing committed artifact (enforced by `registry.test.ts`).
 - Fixtures live in `__fixtures__/*.fixture.json` with a `TEST FIXTURE ONLY` label; ESLint bans importing them outside tests. Never use them as fallbacks.
 - ORNL MODIS service path is `/rst/api/v1` and needs `Accept: application/json`. SoilGrids REST is paused (can return all-null 200). IMERG V07 Final ends 2025-09-30.
@@ -80,7 +91,7 @@ Phases 0–3 are complete. Phase 3 (prompt 3) delivered:
 - crop assignment;
 - the transactional workspace save.
 
-Evidence adapters, previously planned as Phase 3, are next unless the owner's next prompt says otherwise. The designated FieldShift dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
+Phase 4 (prompt 4) delivered the evidence pipeline: POWER full record, MODIS NDVI grid, SSURGO; a persisted job queue with a separate worker; indicators; an evidence inspector; footprints; and snapshot pinning. Next is the simulation engine unless the owner's next prompt says otherwise. The designated FieldShift dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 
 ## End-of-phase duties
 

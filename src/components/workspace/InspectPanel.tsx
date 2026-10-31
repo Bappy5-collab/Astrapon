@@ -1,10 +1,12 @@
 "use client";
 
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import NextLink from "next/link";
 
 import { CROP_FORM_LABELS, cropForm } from "@/domain/farm/crops";
 import { ZONE_BASIS_LABELS } from "@/domain/farm/records";
@@ -14,7 +16,22 @@ import { FIELD_KEY } from "@/components/field3d/model";
 import { useT } from "@/lib/i18n/I18nProvider";
 import { color, numeric, radius, tokens } from "@/theme/tokens";
 
-import type { CoverageList, WorkspaceFieldData } from "./types";
+import { MetricCard, useInspector } from "@/components/evidence/EvidenceDashboard";
+import { SourcePanel } from "@/components/evidence/SourcePanel";
+import type { FieldEvidence } from "@/domain/evidence/view";
+
+import type { CoverageList, WorkspaceEvidence, WorkspaceFieldData } from "./types";
+
+/** One headline per kind of evidence: weather extremes, dryness, greenness, soil. */
+const HEADLINE = ["power:frost_days", "power:dry_spell_longest", "modis:ndvi_peak", "ssurgo:awc", "power:heat_days", "power:precip_season"];
+const headlineMetrics = (ms: FieldEvidence["view"]["metrics"]) =>
+  HEADLINE.map((id) => ms.find((m) => m.id === id)).filter((m): m is FieldEvidence["view"]["metrics"][number] => Boolean(m)).slice(0, 4);
+
+/** The inspector hook needs evidence; with none, an empty placeholder keeps hook order stable. */
+const EMPTY: FieldEvidence = { sources: [], view: { metrics: [], charts: { frost: null, heat: null, seasonalPrecip: null, tempAnomaly: null, wetnessAnomaly: null, precipNormal: null, ndviPeaks: null }, pixels: null, lastCompleteYear: null }, loadErrors: {} };
+function useInspectorMaybe(e: FieldEvidence | null) {
+  return useInspector(e ?? EMPTY);
+}
 import type { WorkspaceState } from "./useWorkspace";
 
 const VERDICT: Record<CoverageVerdict, { label: string; bg: string; fg: string }> = {
@@ -50,7 +67,8 @@ function Dl({ rows }: { rows: [string, React.ReactNode][] }) {
   );
 }
 
-export function InspectPanel({ ws, field, coverage }: { ws: WorkspaceState; field: WorkspaceFieldData; coverage: CoverageList }) {
+export function InspectPanel({ ws, field, coverage, evidence }: { ws: WorkspaceState; field: WorkspaceFieldData; coverage: CoverageList; evidence?: WorkspaceEvidence | null }) {
+  const inspector = useInspectorMaybe(evidence?.data ?? null);
   const t = useT();
   const key = ws.selectedKey && ws.selectedKey !== FIELD_KEY ? ws.selectedKey : null;
   const zone = key ? ws.zones.find((z) => z.key === key) : null;
@@ -123,11 +141,36 @@ export function InspectPanel({ ws, field, coverage }: { ws: WorkspaceState; fiel
           {t("ws.evidence")}
         </Typography>
         <Typography id="inspect-evidence" variant="subtitle2" component="h3" sx={{ mb: 1 }}>
-          Which sources could describe this field
+          Environmental evidence for this field
         </Typography>
-        <Alert severity="info" sx={{ mb: 1.5 }}>
-          No environmental values have been retrieved for this field yet. Below is what each selected source&apos;s native grid means at this field&apos;s size, before any data is fetched.
-        </Alert>
+        {evidence ? (
+          <Stack spacing={1.5} sx={{ mb: 2 }}>
+            <SourcePanel sources={evidence.data.sources} actions={evidence.actions} compact renderedAt={evidence.renderedAt} />
+            {evidence.data.view.metrics.length > 0 && (
+              <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>
+                {headlineMetrics(evidence.data.view.metrics).map((m) => (
+                  <MetricCard key={m.id} metric={m} onInspect={() => inspector?.inspect(m)} />
+                ))}
+              </Box>
+            )}
+            {field.id && (
+              <Button component={NextLink} href={`/fields/${field.id}/evidence`} variant="outlined">
+                Open all evidence and charts
+              </Button>
+            )}
+            {inspector?.dialog}
+          </Stack>
+        ) : (
+          <Alert severity="info" sx={{ mb: 1.5 }}>
+            {field.id ? "Evidence could not be loaded right now. The rest of the workspace still works." : "Evidence is fetched only for saved fields. The sample shows none rather than invented values."}
+          </Alert>
+        )}
+        <Typography variant="subtitle2" component="h3" sx={{ mt: 1, mb: 1 }}>
+          What each source&apos;s grid can resolve here
+        </Typography>
+        <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 1 }}>
+          Arithmetic on documented native resolutions versus this field&apos;s size, before any value is used.
+        </Typography>
         <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>
           {coverage.map((c) => (
             <Box component="li" key={c.id} sx={{ p: 1.25, borderRadius: `${radius.md}px`, border: `1px solid ${color.line}`, bgcolor: color.surfaceRaised }}>

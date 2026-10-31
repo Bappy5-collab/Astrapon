@@ -70,6 +70,21 @@ Why:
 - Place search: `/api/geocode` → `src/server/geocode/nominatim.ts`. It is submit-only, with a shared 1 req/s queue, a 24 h cache and a kill switch.
 - i18n: `src/lib/i18n` holds an English/Bangla dictionary, read from the cookie `fs_locale`, with `useT()` on the client and `getT()` on the server.
 
+## Evidence pipeline (Phase 4)
+
+```text
+UI (evidence page / workspace drawer)
+  └─ server action requestEvidence → rpc request_evidence → evidence_jobs (queued)        [web request returns at once]
+scripts/evidence-worker.mts  (separate Node process, SUPABASE_DB_URL, trusted role)
+  └─ claim job (SKIP LOCKED + lease) → src/server/pipeline/{power,modis,ssurgo}.ts
+       └─ fetchText (allowlist, per-host limit, retries) ↔ .cache/evidence (raw chunks, atomic, resumable)
+       └─ normalise + aggregate (src/domain/evidence) → one transaction: evidence_retrievals + evidence_aggregates
+UI reads latest retrieval per source + aggregates → buildEvidenceView (pure) → metrics, charts, footprints, inspector
+create_input_snapshot → inputs.evidence (v2) + snapshot_evidence_retrievals pins (FK blocks deletion)
+```
+
+Rules: `docs/evidence-methods.md`.
+
 ## Rendering strategy for 3D
 
 - The viewport probes WebGL once with `useSyncExternalStore`:

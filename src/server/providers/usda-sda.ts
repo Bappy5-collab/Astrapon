@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import type { Provenance } from "@/domain/provenance/evidence";
 
-import { check, type Check, type Retrieval } from "./http";
+import { check, fetchText, type Check, type Retrieval } from "./http";
 
 /**
  * USDA NRCS Soil Data Access (SSURGO), US only. Public, no authentication.
@@ -111,33 +111,8 @@ export function sdaProvenance(survey: { areasymbol: string; saverest: string } |
 }
 
 export async function postSdaQuery(query: string): Promise<{ ok: true; raw: unknown; retrieval: Retrieval } | { ok: false; error: string }> {
-  const retrievedAt = new Date().toISOString();
-  const started = Date.now();
-  try {
-    const res = await fetch(SDA_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, format: "JSON+COLUMNNAME" }),
-      signal: AbortSignal.timeout(90_000),
-    });
-    const body = await res.text();
-    if (!res.ok) return { ok: false, error: `HTTP ${res.status}: ${body.slice(0, 200)}` };
-    if (!body.trim().startsWith("{")) return { ok: false, error: `non-JSON response: ${body.slice(0, 200)}` };
-    const { createHash } = await import("node:crypto");
-    return {
-      ok: true,
-      raw: JSON.parse(body),
-      retrieval: {
-        url: `${SDA_URL} (POST)`,
-        retrievedAt,
-        status: res.status,
-        durationMs: Date.now() - started,
-        contentType: res.headers.get("content-type"),
-        bodySha256: createHash("sha256").update(body).digest("hex"),
-        bodyBytes: Buffer.byteLength(body),
-      },
-    };
-  } catch (err) {
-    return { ok: false, error: (err as Error).message };
-  }
+  const res = await fetchText(SDA_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query, format: "JSON+COLUMNNAME" }), timeoutMs: 90_000 });
+  if (!res.ok) return { ok: false, error: `${res.error}${res.bodySnippet ? `: ${res.bodySnippet.slice(0, 200)}` : ""}` };
+  if (!res.body.trim().startsWith("{")) return { ok: false, error: `non-JSON response: ${res.body.slice(0, 200)}` };
+  return { ok: true, raw: JSON.parse(res.body), retrieval: { ...res.retrieval, url: `${SDA_URL} (POST)` } };
 }

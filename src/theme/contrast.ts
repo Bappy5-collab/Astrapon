@@ -41,4 +41,14 @@ export const PAIRINGS: { use: string; fg: string; bg: string; min: 4.5 | 3 }[] =
   { use: "Focus ring (accent) against forest", fg: color.accent, bg: color.forest, min: 3 },
   { use: "Input border against raised panel", fg: tokens.neutral[500], bg: color.surfaceRaised, min: 3 },
   { use: "Large display heading (forest) on surface", fg: color.forest, bg: color.surface, min: 3 },
+  // Evidence-class and job-status chips (src/components/evidence).
+  { use: "Observed (satellite) chip", fg: "#0F3B57", bg: "#DCEBF5", min: 4.5 },
+  { use: "Model-derived chip", fg: "#3E2257", bg: "#EFE6F6", min: 4.5 },
+  { use: "Survey / ground chip", fg: "#1D3B1B", bg: "#E3EFDF", min: 4.5 },
+  { use: "Hypothetical / stale chip", fg: "#5A3A00", bg: "#FBE7C6", min: 4.5 },
+  { use: "Queued / running chip", fg: "#12344F", bg: "#E5EEF6", min: 4.5 },
+  { use: "Failed / no coverage chip", fg: "#6E2A1A", bg: "#F6DED6", min: 4.5 },
+  { use: "Chart marks: below-normal pole on raised panel (non-text)", fg: "#B0652A", bg: color.surfaceRaised, min: 3 },
+  { use: "Chart marks: above-normal pole on raised panel (non-text)", fg: "#1F7FB0", bg: color.surfaceRaised, min: 3 },
+  { use: "Chart marks: single series (leaf) on raised panel (non-text)", fg: "#3F6B4B", bg: color.surfaceRaised, min: 3 },
 ];
