@@ -1,6 +1,6 @@
 # Staged implementation plan
 
-Phases 0 (bootstrap) and 1 (data research and live verification) are complete. Each later phase ends with the delivery contract in `docs/fieldshift-product-contract.md`: checks, UI inspection, doc updates, and a local commit.
+Phases 0–3 are complete. Phase numbers follow the owner's prompts. Prompt 3 was the art-directed 3D UI and field interaction, so the evidence-adapter work below moved to the next phase. Each later phase ends with the delivery contract in `docs/fieldshift-product-contract.md`: checks, UI inspection, doc updates, and a local commit.
 
 ## Phase 1: Scientific and data research decisions (DONE 2026-10-30)
 
@@ -43,7 +43,23 @@ Original scope:
   - email/password replaced magic link/OTP, per the Phase 2 prompt (sign-up, sign-in, reset).
   - **Moved to Phase 5:** geocoder location search and drawing the boundary on a map. Phase 2 accepts WGS84 GeoJSON with the same validation (closure, self-intersection, area, PostGIS validity, zones inside the field) and a plan-view preview.
 
-## Phase 3: Evidence adapters and provenance
+## Phase 3 (prompt 3): Art-directed 3D UI and field interaction (DONE 2026-10-31)
+
+- Design system and tokens with a tested contrast table (`docs/design-system.md`). Interface strings in English and Bangla.
+- Landing page with a working location search and a live 3D sample. Public sample workspace.
+- Locating and drawing (moved here from Phase 5):
+  - location search (Nominatim, submit-only), typed coordinates, explicit device location;
+  - boundary and zone drawing and editing on OSM or NASA HLS imagery.
+- Local metric frame (ECEF→ENU). Antimeridian rejection with an explanation, holes, extent limits.
+- Workspace:
+  - 3D field with zones and illustrative crop forms;
+  - compass, camera controls, quality presets, WebGL fallback and context-loss restart;
+  - zone list, crop assignment by season, seasonal timeline table;
+  - Inspect/evidence drawer with grid-vs-field coverage arithmetic;
+  - transactional save after confirmation (`save_field_workspace`).
+- Saved runs, methodology and settings pages.
+
+## Next: Evidence adapters and provenance (planned as Phase 3 before prompt 3)
 
 Adjusted by Phase 1 findings:
 - IMERG: use the Late run, because V07 Final is frozen at 2025-09-30 until V08. Read it via the Giovanni time-series API or h5wasm.
@@ -69,7 +85,7 @@ Adjusted by Phase 1 findings:
 ## Phase 5: 3D simulator connected to real data
 
 - Real field geometry and zones in the scene, plus a timeline to replay historical seasons, driven by engine outputs.
-- Location search (geocoder) and drawing or confirming the field boundary on a map, carried over from Phase 2.
+- (Location search and boundary drawing were delivered in Phase 3.)
 - Hypothetical weather/water controls in HTML/MUI, with visual state clearly labelled as hypothetical.
 - Accessible equivalents: a data table and text summary for everything the scene shows.
 - Acceptance: replay of a real field across seasons, with what-if changes visibly and textually distinguished from history.

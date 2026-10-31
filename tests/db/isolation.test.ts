@@ -217,4 +217,46 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
     expect(after.data?.inputs).toEqual(snap.data?.inputs);
     expect((await fresh.rpc("assemble_scenario_inputs", { p_scenario_id: a.scenario })).data).not.toEqual(snap.data?.inputs);
   });
+  it("workspace save applies boundary, zones and crops atomically, and only for the owner", async () => {
+    const field = await A.db.from("fields").insert({ farm_id: a.farm, name: "Workspace test" }).select("id").single();
+    expect(field.error).toBeNull();
+    const fid = field.data!.id;
+    const first = await A.db.rpc("save_field_workspace", {
+      p_field_id: fid,
+      p_edits: {
+        boundary: { geometry: FIELD, source: "farmer_drawn" },
+        deleteZoneIds: [],
+        zones: [{ id: null, ref: "new-1", name: "West", basis: "farmer_knowledge", notes: null, boundary: ZONE }],
+        crops: [{ zoneRef: "new-1", seasonYear: 2024, season: "main", cropName: "maize" }, { zoneRef: null, seasonYear: 2024, season: "main", cropName: "soybean" }],
+      },
+    });
+    expect(first.error).toBeNull();
+    const zoneId = (first.data as { zoneIds: Record<string, string> }).zoneIds["new-1"]!;
+    expect(zoneId).toMatch(/^[0-9a-f-]{36}$/);
+    const rows = await A.db.from("crop_history").select("zone_id, crop_name").eq("field_id", fid).order("crop_name");
+    expect(rows.data).toEqual([{ zone_id: zoneId, crop_name: "maize" }, { zone_id: null, crop_name: "soybean" }]);
+
+    // Re-assigning updates the existing record instead of adding another.
+    expect((await A.db.rpc("save_field_workspace", { p_field_id: fid, p_edits: { boundary: null, deleteZoneIds: [], zones: [], crops: [{ zoneRef: zoneId, seasonYear: 2024, season: "main", cropName: "wheat" }] } })).error).toBeNull();
+    expect((await A.db.from("crop_history").select("id").eq("field_id", fid)).data).toHaveLength(2);
+
+    // Shrinking the boundary so the zone falls outside fails, and nothing in the batch is kept.
+    const small = { type: "Polygon", coordinates: [[[-93.6235, 42.025], [-93.6225, 42.025], [-93.6225, 42.027], [-93.6235, 42.027], [-93.6235, 42.025]]] };
+    const bad = await A.db.rpc("save_field_workspace", { p_field_id: fid, p_edits: { boundary: { geometry: small, source: "farmer_drawn" }, deleteZoneIds: [], zones: [], crops: [{ zoneRef: null, seasonYear: 2023, season: "main", cropName: "oats" }] } });
+    expect(bad.error?.message).toMatch(/planting zone outside/);
+    expect((await A.db.from("crop_history").select("id").eq("field_id", fid)).data).toHaveLength(2);
+    // ...but shrinking while deleting that zone in the same save succeeds.
+    expect((await A.db.rpc("save_field_workspace", { p_field_id: fid, p_edits: { boundary: { geometry: small, source: "farmer_drawn" }, deleteZoneIds: [zoneId], zones: [], crops: [] } })).error).toBeNull();
+
+    // Another user can neither save to A's field nor reference A's zone from their own field.
+    const intrude = await B.db.rpc("save_field_workspace", { p_field_id: fid, p_edits: { boundary: null, deleteZoneIds: [], zones: [], crops: [] } });
+    expect(intrude.error?.message).toMatch(/not found/i);
+    const borrow = await B.db.rpc("save_field_workspace", { p_field_id: b.field, p_edits: { boundary: null, deleteZoneIds: [], zones: [], crops: [{ zoneRef: a.zone, seasonYear: 2024, season: "main", cropName: "maize" }] } });
+    expect(borrow.error?.message).toMatch(/not found/i);
+    const del = await B.db.rpc("save_field_workspace", { p_field_id: b.field, p_edits: { boundary: null, deleteZoneIds: [a.zone], zones: [], crops: [] } });
+    expect(del.error).toBeNull();
+    expect((await A.db.from("planting_zones").select("id").eq("id", a.zone)).data).toHaveLength(1);
+    expect((await A.db.from("fields").delete().eq("id", fid)).error).toBeNull();
+  });
 });
+

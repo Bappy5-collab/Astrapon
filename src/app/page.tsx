@@ -1,159 +1,223 @@
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { ButtonLink } from "@/components/links";
-import { PhaseChip } from "@/components/PhaseChip";
-import { FarmPreview } from "@/components/scene/FarmPreview";
-import { EVIDENCE_CLASSES, EVIDENCE_CLASS_INFO } from "@/domain/provenance/evidence";
-import { WORKFLOW_STEPS } from "@/lib/roadmap";
-import { tokens } from "@/theme/tokens";
+import { HeroField } from "@/components/field3d/HeroField";
+import { ButtonLink, TextLink } from "@/components/links";
+import { HeroSearch } from "@/components/location/HeroSearch";
+import { parseBoundary } from "@/domain/geo/boundary";
+import { boundaryOrigin, projectField } from "@/domain/geo/local-frame";
+import { EVIDENCE_CLASS_INFO } from "@/domain/provenance/evidence";
+import { SAMPLE_FIELD } from "@/domain/sample/sample-field";
+import { fieldCoverage } from "@/domain/sources/coverage";
+import { getT } from "@/lib/i18n/server";
+import { color, elevation, numeric, radius, tokens } from "@/theme/tokens";
 
-const GUARDRAILS = [
+const PROBLEMS = [
   {
-    title: "Replay is not a forecast",
-    body: "Past seasons show how a rotation would have fared under conditions that already happened. They do not predict next year.",
+    title: "A rotation is a multi-year bet",
+    body: "Changing what follows what affects water, soil and workload for several seasons. Trying it on the real field is slow and costly.",
   },
   {
-    title: "Coarse data stays coarse",
-    body: "A regional weather grid cannot tell two halves of your field apart. Differences between your zones come from what you tell us, not from guesses.",
+    title: "Regional data is coarse",
+    body: "Weather and soil-moisture grids are often larger than the whole farm. Tools that paint within-field detail from them are guessing.",
   },
   {
-    title: "No invented outcomes",
-    body: "FieldShift will not show yield, profit, carbon, or nitrogen-credit figures unless the model can actually support them.",
-  },
-  {
-    title: "Your judgment decides",
-    body: "Results are options to review with your agronomist, with the reasons, evidence gaps, and local checks spelled out.",
+    title: "Your records matter most",
+    body: "Which part floods, what grew last year, what water you can use: that local knowledge decides what is feasible.",
   },
 ];
 
-export default function HomePage() {
+const WORKFLOW = [
+  { n: "01", title: "Locate", body: "Search a place, type coordinates, or use your device location only when you ask.", status: "Working", href: "/fields/new" },
+  { n: "02", title: "Draw the boundary", body: "Click the corners on a street map or NASA HLS imagery; area is computed on the ellipsoid and checked before saving.", status: "Working", href: "/fields/new" },
+  { n: "03", title: "Zones and crops", body: "Mark parts you know differ, and record what grew in each, season by season. Saved together after you confirm.", status: "Working", href: "/sample" },
+  { n: "04", title: "Inspect in 3D", body: "Orbit the field, select zones by tap or from the list, and step through recorded seasons.", status: "Working", href: "/sample" },
+  { n: "05", title: "Compare rotations", body: "Replay past seasons with evidence and your limits, then compare options. Needs the simulation engine.", status: "Not built yet", href: "/methodology" },
+];
+
+export default async function HomePage() {
+  const t = await getT();
+  const sample = parseBoundary(SAMPLE_FIELD.boundary);
+  const sampleHa = sample.ok ? sample.areaHa : 0;
+  const coverage = fieldCoverage(boundaryOrigin(SAMPLE_FIELD.boundary)[1], projectField(SAMPLE_FIELD.boundary).extentM, "US").filter((c) => c.cellM);
+
   return (
     <>
-      <Box sx={{ bgcolor: tokens.neutral[100], pt: { xs: 5, md: 8 }, pb: { xs: 6, md: 10 } }}>
+      <Box component="section" aria-labelledby="hero-title" sx={{ bgcolor: color.surface, pt: { xs: 4, md: 7 }, pb: { xs: 6, md: 9 } }}>
         <Container maxWidth="lg">
-          <Grid container spacing={{ xs: 5, md: 6 }} sx={{ alignItems: "center" }}>
-            <Grid size={{ xs: 12, md: 5 }}>
-              <Typography variant="overline" sx={{ color: tokens.forest[600] }}>
-                Crop rotation decision support
+          <Grid container spacing={{ xs: 4, md: 6 }} sx={{ alignItems: "center" }}>
+            <Grid size={{ xs: 12, md: 5.5 }}>
+              <Typography variant="overline" sx={{ color: color.leaf }}>
+                {t("hero.kicker")}
               </Typography>
-              <Typography variant="h1" sx={{ mt: 1.5, color: tokens.forest[900] }}>
-                Test a new rotation on your field before you plant it.
+              <Typography id="hero-title" variant="h1" sx={{ mt: 1, color: color.forest }}>
+                {t("hero.title")}
               </Typography>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 3 }}>
-                Given your field, its crop history, environmental evidence, water limits, and your priorities: which rotation options
-                are plausible, and what tradeoffs should you review locally?
+              <Typography variant="subtitle1" color="text.secondary" sx={{ mt: 2.5, maxWidth: 560 }}>
+                {t("hero.lead")}
               </Typography>
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ mt: 4 }}>
-                <ButtonLink href="/workspace" variant="contained" size="large" endIcon={<ArrowForwardRoundedIcon />}>
-                  Open the workspace
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ mt: 3.5 }}>
+                <ButtonLink href="/sample" variant="contained" size="large" endIcon={<ArrowForwardRoundedIcon />}>
+                  {t("hero.explore")}
                 </ButtonLink>
-                <ButtonLink href="/setup" variant="outlined" size="large">
-                  Setup status
+                <ButtonLink href="/fields/new" variant="outlined" size="large">
+                  {t("hero.create")}
                 </ButtonLink>
               </Stack>
-              <Alert severity="info" variant="outlined" sx={{ mt: 4, bgcolor: tokens.neutral[50] }}>
-                Early development. Field setup, environmental evidence, and the rotation model are not connected yet, so nothing here
-                describes a real farm.
-              </Alert>
-            </Grid>
-            <Grid size={{ xs: 12, md: 7 }}>
-              <FarmPreview height={{ xs: 340, sm: 440, md: 540 }} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      <Box component="section" aria-labelledby="workflow-heading" sx={{ py: { xs: 7, md: 10 }, bgcolor: tokens.neutral[50] }}>
-        <Container maxWidth="lg">
-          <Typography variant="overline" sx={{ color: tokens.forest[600] }}>
-            How it will work
-          </Typography>
-          <Typography id="workflow-heading" variant="h2" sx={{ mt: 1, maxWidth: 720, color: tokens.forest[900] }}>
-            From a pin on the map to a rotation comparison you can defend.
-          </Typography>
-          <Box component="ol" sx={{ listStyle: "none", p: 0, m: 0, mt: 5, display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(5, 1fr)" } }}>
-            {WORKFLOW_STEPS.map((step, i) => (
-              <Card component="li" key={step.title} sx={{ height: "100%" }}>
-                <CardContent sx={{ display: "flex", flexDirection: "column", gap: 1.5, height: "100%" }}>
-                  <Typography sx={{ fontFamily: "var(--font-display)", fontSize: "2rem", lineHeight: 1, color: tokens.lime[700] }} aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </Typography>
-                  <Typography variant="h5" component="h3">
-                    {step.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
-                    {step.detail}
-                  </Typography>
-                  <Box>
-                    <PhaseChip phase={step.phase} />
-                  </Box>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
-      <Box component="section" aria-labelledby="evidence-heading" sx={{ py: { xs: 7, md: 10 }, bgcolor: tokens.forest[900], color: tokens.neutral[100] }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={6}>
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Typography variant="overline" sx={{ color: tokens.lime[400] }}>
-                Scientific contract
-              </Typography>
-              <Typography id="evidence-heading" variant="h2" sx={{ mt: 1 }}>
-                Every value says where it came from.
-              </Typography>
-              <Typography sx={{ mt: 2, color: tokens.neutral[300] }}>
-                Observations, model products, ground records, your own reports, what-if assumptions, and simulation results are kept
-                apart and labelled throughout, so you always know what you are looking at.
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12, md: 8 }}>
-              <Box component="dl" sx={{ m: 0, display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" } }}>
-                {EVIDENCE_CLASSES.map((c) => (
-                  <Box key={c} sx={{ p: 2.5, borderRadius: 3, border: `1px solid ${tokens.forest[700]}`, bgcolor: tokens.forest[800] }}>
-                    <Typography component="dt" variant="h6" sx={{ color: tokens.lime[300] }}>
-                      {EVIDENCE_CLASS_INFO[c].label}
-                    </Typography>
-                    <Typography component="dd" variant="body2" sx={{ m: 0, mt: 0.75, color: tokens.neutral[200] }}>
-                      {EVIDENCE_CLASS_INFO[c].meaning}
-                    </Typography>
-                  </Box>
-                ))}
+              <Box sx={{ mt: 4, p: { xs: 2, sm: 2.5 }, borderRadius: `${radius.lg}px`, bgcolor: color.surfaceRaised, border: `1px solid ${color.line}`, boxShadow: elevation.raised }}>
+                <Typography variant="h6" component="h2" sx={{ mb: 1 }}>
+                  {t("hero.find")}
+                </Typography>
+                <HeroSearch />
               </Box>
             </Grid>
+            <Grid size={{ xs: 12, md: 6.5 }}>
+              <HeroField />
+            </Grid>
           </Grid>
         </Container>
       </Box>
 
-      <Box component="section" aria-labelledby="guardrails-heading" sx={{ py: { xs: 7, md: 10 } }}>
+      <Box component="section" aria-labelledby="problem-title" sx={{ py: { xs: 7, md: 10 }, bgcolor: color.surfaceRaised, borderTop: `1px solid ${color.line}` }}>
         <Container maxWidth="lg">
-          <Typography id="guardrails-heading" variant="h2" sx={{ color: tokens.forest[900], maxWidth: 640 }}>
-            What FieldShift will not pretend to know.
+          <Typography variant="overline" sx={{ color: color.leaf }}>
+            The problem
           </Typography>
-          <Grid container spacing={3} sx={{ mt: 3 }}>
-            {GUARDRAILS.map((g) => (
-              <Grid key={g.title} size={{ xs: 12, sm: 6, md: 3 }}>
+          <Typography id="problem-title" variant="h2" sx={{ mt: 1, maxWidth: 760, color: color.forest }}>
+            Which rotation could work on this field, and what should be checked locally first?
+          </Typography>
+          <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mt: 2 }}>
+            {PROBLEMS.map((p) => (
+              <Grid key={p.title} size={{ xs: 12, md: 4 }}>
                 <Box sx={{ borderTop: `3px solid ${tokens.lime[500]}`, pt: 2 }}>
                   <Typography variant="h5" component="h3">
-                    {g.title}
+                    {p.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    {g.body}
+                    {p.body}
                   </Typography>
                 </Box>
               </Grid>
             ))}
           </Grid>
+        </Container>
+      </Box>
+
+      <Box component="section" aria-labelledby="workflow-title" sx={{ py: { xs: 7, md: 10 }, bgcolor: color.surface }}>
+        <Container maxWidth="lg">
+          <Typography variant="overline" sx={{ color: color.leaf }}>
+            The workflow, as built today
+          </Typography>
+          <Typography id="workflow-title" variant="h2" sx={{ mt: 1, maxWidth: 760, color: color.forest }}>
+            From a place name to a field you can inspect, in a few minutes.
+          </Typography>
+          <Box component="ol" sx={{ listStyle: "none", p: 0, m: 0, mt: 4, display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(5, 1fr)" } }}>
+            {WORKFLOW.map((s) => (
+              <Box component="li" key={s.n} sx={{ p: 2.5, borderRadius: `${radius.lg}px`, bgcolor: color.surfaceRaised, border: `1px solid ${color.line}`, boxShadow: elevation.raised, display: "flex", flexDirection: "column", gap: 1.25 }}>
+                <Typography aria-hidden="true" sx={{ fontFamily: "var(--font-display)", fontSize: "1.9rem", lineHeight: 1, color: tokens.lime[700], ...numeric }}>
+                  {s.n}
+                </Typography>
+                <Typography variant="h5" component="h3">
+                  {s.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+                  {s.body}
+                </Typography>
+                <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between", gap: 1 }}>
+                  <Chip size="small" label={s.status} sx={s.status === "Working" ? { bgcolor: tokens.lime[400], color: tokens.forest[950] } : { bgcolor: tokens.neutral[200], color: color.ink }} />
+                  <TextLink href={s.href} sx={{ fontSize: "0.875rem", fontWeight: 600 }}>
+                    {s.status === "Working" ? "Try it" : "Why"}
+                  </TextLink>
+                </Stack>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      </Box>
+
+      <Box component="section" aria-labelledby="evidence-title" sx={{ py: { xs: 7, md: 10 }, bgcolor: color.forest, color: color.onForest }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={{ xs: 4, md: 6 }}>
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Typography variant="overline" sx={{ color: color.accent }}>
+                Evidence and sources
+              </Typography>
+              <Typography id="evidence-title" variant="h2" sx={{ mt: 1 }}>
+                Every value says where it came from, and how coarse it is.
+              </Typography>
+              <Typography sx={{ mt: 2, color: color.onForestMuted }}>
+                FieldShift keeps {Object.keys(EVIDENCE_CLASS_INFO).length} evidence classes apart: satellite observations, model products, ground measurements, your reports, what-if
+                inputs, simulation outputs and illustrations. Before fetching anything, it checks whether a source&apos;s grid can even see inside your field.
+              </Typography>
+              <ButtonLink href="/methodology" variant="outlined" sx={{ mt: 3, color: color.onForest, borderColor: tokens.forest[400], "&:hover": { borderColor: color.accent } }}>
+                Read the methodology
+              </ButtonLink>
+            </Grid>
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Typography variant="h6" component="h3" sx={{ color: color.accent }}>
+                Native grid versus the {sampleHa.toFixed(1)} ha sample field
+              </Typography>
+              <Box component="table" sx={{ mt: 1.5, width: "100%", borderCollapse: "collapse", ...numeric, "& th, & td": { textAlign: "left", py: 1.1, pr: 1.5, borderBottom: `1px solid ${tokens.forest[700]}`, fontSize: "0.9rem", verticalAlign: "top" } }}>
+                <caption style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>Selected sources, their native cell size, and what that means for the sample field</caption>
+                <thead>
+                  <tr>
+                    <Box component="th" scope="col" sx={{ color: color.onForestMuted, fontWeight: 600 }}>
+                      Source
+                    </Box>
+                    <Box component="th" scope="col" sx={{ color: color.onForestMuted, fontWeight: 600 }}>
+                      Cell
+                    </Box>
+                    <Box component="th" scope="col" sx={{ color: color.onForestMuted, fontWeight: 600, display: { xs: "none", sm: "table-cell" } }}>
+                      What it means here
+                    </Box>
+                  </tr>
+                </thead>
+                <tbody>
+                  {coverage.map((c) => (
+                    <tr key={c.id}>
+                      <Box component="th" scope="row" sx={{ fontWeight: 600 }}>
+                        {c.name}
+                        <Box component="span" sx={{ display: "block", fontWeight: 400, fontSize: "0.8rem", color: color.onForestMuted }}>
+                          {EVIDENCE_CLASS_INFO[c.evidenceClass].label}
+                        </Box>
+                      </Box>
+                      <td>{c.cellM ? (Math.max(...c.cellM) >= 1000 ? `${(Math.max(...c.cellM) / 1000).toFixed(1)} km` : `${Math.round(Math.max(...c.cellM))} m`) : "—"}</td>
+                      <Box component="td" sx={{ display: { xs: "none", sm: "table-cell" }, color: color.onForestMuted }}>
+                        {c.verdict === "single_value" ? "One value for the whole field" : c.verdict === "coarse" ? "Too coarse to separate zones" : "Can show patterns inside the field"}
+                      </Box>
+                    </tr>
+                  ))}
+                </tbody>
+              </Box>
+              <Typography variant="body2" sx={{ mt: 1.5, color: color.onForestMuted }}>
+                Arithmetic on documented resolutions; no values are fetched on this page. See <TextLink href="/sources" sx={{ color: color.accent }}>Sources</TextLink> for licences and verification status.
+              </Typography>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      <Box component="section" aria-labelledby="cta-title" sx={{ py: { xs: 7, md: 9 }, bgcolor: color.surface }}>
+        <Container maxWidth="md" sx={{ textAlign: "center" }}>
+          <Typography id="cta-title" variant="h2" sx={{ color: color.forest }}>
+            Start with the sample, or with your own field.
+          </Typography>
+          <Typography color="text.secondary" sx={{ mt: 1.5 }}>
+            The sample needs no account and is clearly marked as invented. Your own fields are private to your account.
+          </Typography>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ mt: 3, justifyContent: "center" }}>
+            <ButtonLink href="/sample" variant="contained" size="large">
+              {t("hero.explore")}
+            </ButtonLink>
+            <ButtonLink href="/fields/new" variant="outlined" size="large">
+              {t("hero.create")}
+            </ButtonLink>
+          </Stack>
         </Container>
       </Box>
     </>

@@ -1,65 +1,86 @@
 # Implementation status
 
-Last updated: 2026-10-30, end of Phase 2.
+Last updated: 2026-10-31, end of Phase 3 (prompt 3: art-directed 3D UI and field interaction).
 
 ## Summary
 
 | Area | Status | Notes |
 |------|--------|-------|
-| Phase 0 foundation | Done | Scaffold, theme and shell, illustrative 3D preview, env validation, boundaries. See git history. |
-| Challenge source verified | Done | `docs/research/challenge-source.md`. The official Resources tab publishes 13 Nov 2026 and must be re-checked. |
-| Data source research | Done (Phase 1) | `docs/research/data-sources.md`, typed registry `src/domain/sources/`, `/sources` page |
-| NASA POWER, MODIS (ORNL), USDA SSURGO clients | **Live-verified** (Phase 1) | `src/server/providers/`, `data/verification/*.json` |
-| IMERG / SMAP / NASADEM | Credentials configured; adapters pending (Phase 3) | A one-off probe on 2026-10-30 read real IMERG Late (after the owner accepted the GES DISC EULA), SMAP L3 and NASADEM bytes. Registry statuses stay `credential_blocked` until Phase 3 adapters pass content checks. |
-| Dev Supabase project | **Designated and in use** | Owner confirmed it is a new FieldShift dev project. Ref verified to match between API URL and DB URL before every script run. |
-| Schema, RLS, migrations | **Applied and verified** | 4 migrations in `supabase/migrations/`, history in `supabase_migrations.schema_migrations`. `pnpm db:verify` passes 14 checks; artifact `data/verification/supabase-schema.json`. |
-| Reference data | **Imported** | Data-source registry and agronomic reference library, v1 each (13 items, 26 citations), published with content hashes. Re-import is a verified no-op. No crop parameters, rules or calendars (values not yet checked against sources). |
-| Generated DB types | Done | `src/server/database/database.types.ts` from the live catalog (`pnpm db:types`). |
-| Auth | Done | Email/password sign-up (email confirmation), sign-in, sign-out, forgot/reset password, `/auth/confirm` (token-hash and PKCE code), protected routes in `proxy.ts` plus `getClaims()` on every protected page and action. |
-| Farms, fields, zones, history, soil, water/equipment, priorities, markets, scenarios, snapshots | Done (forms + persistence) | Boundary entry is GeoJSON with validation; there is no map drawing or geocoder yet. |
-| Simulation engine (Phase 4) | **Pending** | Snapshots record engine `0.0.0-pre-engine`; no results exist. |
-| Real-data 3D simulator, comparison (Phases 5–6) | **Pending** | n/a |
+| Phase 0 foundation | Done | Scaffold, theme and shell, env validation, module boundaries. |
+| Challenge source verified | Done | `docs/research/challenge-source.md`. The Resources tab publishes 13 Nov 2026 and must be re-checked. |
+| Data source research | Done (Phase 1) | `docs/research/data-sources.md`, registry `src/domain/sources/`, `/sources`. |
+| NASA POWER, MODIS (ORNL), USDA SSURGO clients | **Live-verified** (Phase 1) | `src/server/providers/`, `data/verification/*.json`. |
+| IMERG / SMAP / NASADEM adapters | Pending (next phase) | Credentials are configured; the registry stays `credential_blocked` until adapters pass content checks. |
+| Dev Supabase, schema, RLS, auth | Done (Phase 2) | 5 migrations applied. `pnpm db:verify` passes 14 checks. |
+| Design system | **Done (Phase 3)** | `docs/design-system.md`, `src/theme/tokens.ts`; 24 text/background pairings tested in `contrast.test.ts`; Latin + Bangla font stacks; three elevations; tabular numerals; reduced motion. |
+| Landing page | **Done** | Working location search (usable before 3D loads), live 3D sample hero, farmer problem, workflow with honest per-step status, grid-vs-field evidence table, no invented statistics. |
+| Public sample | **Done** | `/sample`. Invented outline and records, labelled everywhere. Edits are saved to this browser only and survive reload; "Reset sample" restores it. |
+| Location | **Done** | Place search via Nominatim (submit-only, server queue 1 req/s, cache, attribution, kill switch); typed coordinates (decimal, N/S/E/W, DMS); device location only on button press, with denial/timeout/unsupported messages. |
+| Boundary and zone drawing | **Done** | Leaflet map on OSM streets or NASA GIBS HLS 30 m imagery (date picker + "nearest earlier" search). Click/tap corners, finish, drag, midpoint insert, select + delete, undo, cut-out areas (holes), keyboard "add point at centre". Confirmation step before saving. |
+| Geometry rules | **Done** | Local ECEF→ENU frame; holes inside shells; no overlapping parts; ±85° latitude; ≤ 30 km extent; antimeridian-crossing fields rejected with an explanation (adjacent fields work). Zones stay inside the field, checked at commit even when the boundary changes in the same save. |
+| 3D field workspace | **Done** | `/fields/[id]`: real field and zones in local metres, flat illustrative terrain, original instanced crop forms per recorded crop, illustrative growth stages, orbit/pan/zoom, compass with reset, camera buttons, click/tap or list selection with a lime outline, tint and edge ribbon, quality presets, WebGL fallback, context-loss restart. |
+| Crops, history, save | **Done** | Assign a crop per zone or whole field, year and season; year × zone timeline table; Inspect drawer with history, soil and evidence coverage. All edits saved atomically by `save_field_workspace` after a summary dialog. The full record forms moved to `/fields/[id]/records`. |
+| Saved runs, methodology, settings | **Done** | `/runs` (scenarios + snapshots; honest "no runs: engine not built"), `/methodology`, `/settings` (language, 3D quality, motion). |
+| Bangla interface | Partial | Navigation, workspace controls, location search, settings and landing hero. Record forms, evidence text and methodology are English (stated in Settings). |
+| Simulation engine (Phase 4) | **Pending** | Snapshots record engine `0.0.0-pre-engine`; no results exist and none are shown. |
 
-## Verified in Phase 2
+## Verified in Phase 3
 
-- `pnpm db:status` before applying: 0 recorded migrations, 0 tables in `public`, no drift.
-- `pnpm db:rehearse` (all migrations in one rolled-back transaction) caught a policy-name quoting bug before anything was committed; after the fix it passed.
-- `pnpm db:migrate`: 4 migrations applied, each in its own transaction, recorded in the Supabase CLI history table.
-- `pnpm db:import-reference` run twice: first run published 2 datasets and 26 citations, second run changed nothing.
-- `pnpm db:verify`: 14/14 checks pass:
-  - migrations recorded equal local files;
-  - exactly the expected 21 tables, all with RLS;
-  - anon has no privileges on user tables and cannot call RPCs;
-  - reference tables are read-only to clients;
-  - results and evidence aggregates are server-written only;
-  - derived geometry columns are not client-writable;
-  - 55 user-table policies are all `authenticated` + owner-scoped;
-  - no SECURITY DEFINER function in `public`;
-  - PostGIS 3.3.7 installed;
-  - generated types match the live schema.
-- `pnpm test:db`: 12/12 two-user tests pass against the live dev project. A separate probe confirmed every cross-user attempt fails for the intended reason (FK 23503, RLS 42501, privilege, or trigger) while an equivalent own-data insert succeeds. All throwaway test users were deleted afterwards.
-- End-to-end UI run on the production build (puppeteer, 47/47):
-  - sign-in redirect with `next`, wrong password, sign-in, create farm/field;
-  - invalid and valid boundary, zone outside/inside the field;
-  - crop history with field-level errors that keep typed values, soil with range checks, water/equipment, priorities;
-  - scenario, snapshot, edit-after-snapshot detection, reload persistence;
-  - reopen in a fresh session; second user sees "Page not found" for the first user's farm, field and scenario;
-  - 375 px no overflow on all data pages, account page, sign-out, local sign-up validation, bogus email link → honest error page, open-redirect `next` neutralised;
-  - no browser console errors.
-- `pnpm lint`, `pnpm typecheck`, `pnpm test` (48 unit tests in 6 files), `pnpm build` pass.
+- `pnpm lint`, `pnpm typecheck`, `pnpm test` (109 unit tests in 8 files), `pnpm build` pass.
+  - New tests: local frame round-trip, metres vs degrees, antimeridian continuity; boundary holes, overlaps, extent, latitude and antimeridian rejection; coordinate parsing; crop forms (English, Bangla, Banglish); crop resolution and timeline; save-payload validation; sample zones inside the sample field; source coverage vs field size; WCAG contrast of every pairing.
+- `pnpm db:rehearse` then `pnpm db:migrate` applied `20261031100000_field_workspace.sql`. `pnpm db:types` regenerated types. `pnpm db:verify`: 14/14 (5 migrations recorded, anon cannot execute the new RPC, no SECURITY DEFINER).
+- `pnpm test:db`: 13/13. The new test covers one atomic save (boundary + new zone + crops referencing it); re-assigning updates instead of duplicating; a boundary that leaves a zone outside rolls back the whole batch; the same boundary with the zone deleted succeeds; another user cannot save to the field, reference its zone, or delete it.
+- End-to-end on the production build (puppeteer, headless Chrome with SwiftShader), 30/30, run twice:
+  - sign-in redirect and return;
+  - geolocation denial message;
+  - real Nominatim search;
+  - coordinates;
+  - map attribution;
+  - drawing four corners on the map, finishing, dragging a vertex;
+  - confirmation and save of a new field and farm;
+  - 3D canvas with the illustrative label and honest run state;
+  - drawing a zone, naming it, assigning two crops, timeline cells;
+  - unsaved count;
+  - confirmation summary;
+  - save, then reload with zone and crops persisted;
+  - records page;
+  - 390 px mobile with no horizontal overflow, bottom sheet and evidence;
+  - Bangla labels with `lang="bn"`;
+  - throwaway user deleted;
+  - no console errors and no unexpected dialogs.
+- State checks, 16/16:
+  - clicking a zone in the 3D scene selects it;
+  - keyboard zone selection;
+  - growth stages;
+  - sample save → reload → reset;
+  - keyboard-only zone drawing;
+  - NASA imagery date search;
+  - forced WebGL context loss → restart;
+  - reduced motion stops the hero turning;
+  - with WebGL disabled, the sample and landing show fallbacks and keep their tables.
+- Screenshots inspected at 1440, 1024 and 390 px for the landing, sample, sign-in, methodology, settings, workspace hub, sources, new-field flow, saved workspace and Bangla workspace pages. No horizontal overflow and no console errors.
+- Only the owner's 2 accounts remain in the dev project.
 
-## Defects found and fixed in Phase 2
+## Defects found and fixed in Phase 3
 
-- Policy names were formatted as literals (`%L`) in migrations. Caught by the rehearsal, before any remote commit.
-- React hydration error #418 on the scenario page: record rows rendered chips, `<details>` and `<pre>` inside `<p>`. Rows now render as `div`.
-- A stalled connection to Supabase made every page hang (seen on this network as 10 s connect timeouts). Server and proxy Supabase calls now have time limits. An unreachable service is reported as "Account service not reachable" and is never treated as signed out.
-- The phone header clipped the Account button. Setup is now linked from the footer on phones.
+- Hydration mismatch (#418) on the sample at desktop width: the layout branch used a client-only media query. A placeholder now renders until the width is known.
+- After a successful save, leaving within ~2 s raised a false "unsaved changes" prompt and the Save button still showed the old count. The post-save state now clears both immediately.
+- The drei `<Html>` zone label threw `removeChild` when the workspace remounted after save. Replaced with an HTML overlay chip.
+- A stray-looking 3D north-arrow mesh was removed; the HTML compass is the north indicator.
+- The quality selector's floating label clipped over the scene. Replaced with a compact select.
+- The field outline had low contrast on the street map. Added a white halo.
+- The default NASA imagery date usually had no tile. Streets is now the default; choosing NASA imagery searches back for the nearest date with a tile.
+- The stage toggle and timeline header were clipped at 1024 px; they now wrap. Rail labels raised to 12 px.
+- A caption string was corrupted by a shell edit and has been rewritten.
 
 ## Known limitations
 
-- Boundaries are pasted as GeoJSON; no map, drawing tool or geocoder yet.
-- Not-found for another user's record is served with HTTP 200 because the page streams after `loading.tsx`. The body is the not-found page with no data.
-- Supabase Auth email uses the project's default sender, which is heavily rate-limited. For real sign-ups, configure SMTP, and set the Site URL and redirect allow-list (see `supabase/README.md`).
-- Storage is not used; no buckets exist (asserted by the DB tests).
-- Live verification of providers covered one location (Iowa, USA).
-- The 3D scene is still illustrative.
+- HLS imagery is 30 m, is date-specific and may be cloudy. It is a drawing aid, not evidence. Small fields are better drawn on the street map or imported as GeoJSON.
+- Public OSM tiles and Nominatim are best-effort services, suitable for development only. Production needs a commercial or self-hosted provider (URLs are configurable; `GEOCODER_DISABLED=1` switches search off).
+- Fields crossing the 180° meridian are not supported (explained to the user).
+- Crop forms are chosen from the crop name; unknown names use a generic form. Plants are drawn larger than life at an illustrative density.
+- Growth stages are illustrative controls, not observations.
+- Bangla covers the interface chrome only.
+- A zone shape edit that leaves the zone partly outside the field is caught by the client pre-check (~1 m) and finally by the database.
+- Not-found for another user's record is still served with HTTP 200 (streamed page, no data).
+- Live provider verification still covers one location (Iowa, USA).

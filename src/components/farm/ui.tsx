@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 import { TextLink } from "@/components/links";
 import { EVIDENCE_CLASS_INFO, type EvidenceClass } from "@/domain/provenance/evidence";
-import { tokens } from "@/theme/tokens";
+import { color, elevation, radius, tokens } from "@/theme/tokens";
 
 export function PageHeader({ crumbs, title, children }: { crumbs: { href: string; label: string }[]; title: string; children?: React.ReactNode }) {
   return (
@@ -30,7 +30,7 @@ export function PageHeader({ crumbs, title, children }: { crumbs: { href: string
 
 export function Section({ title, intro, children, id }: { title: string; intro?: React.ReactNode; children: React.ReactNode; id?: string }) {
   return (
-    <Box component="section" id={id} aria-labelledby={id ? `${id}-h` : undefined} sx={{ p: { xs: 2, md: 3 }, mb: 3, borderRadius: 3, border: `1px solid ${tokens.neutral[300]}`, bgcolor: tokens.neutral[50], overflowWrap: "anywhere" }}>
+    <Box component="section" id={id} aria-labelledby={id ? `${id}-h` : undefined} sx={{ p: { xs: 2, md: 3 }, mb: 3, borderRadius: `${radius.lg}px`, border: `1px solid ${color.line}`, bgcolor: color.surfaceRaised, boxShadow: elevation.raised, overflowWrap: "anywhere" }}>
       <Typography variant="h5" component="h2" id={id ? `${id}-h` : undefined}>
         {title}
       </Typography>

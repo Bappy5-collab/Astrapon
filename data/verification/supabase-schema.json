@@ -1,7 +1,7 @@
 {
   "_artifact": "Live schema verification of the FieldShift development Supabase project. Produced by scripts/db/verify.mts.",
   "project": "esav…wp",
-  "verifiedAt": "2026-10-30T15:02:57.070Z",
+  "verifiedAt": "2026-10-31T05:00:37.709Z",
   "outcome": "verified",
   "migrations": [
     {
@@ -19,6 +19,10 @@
     {
       "file": "20261030130300_evidence_and_simulation.sql",
       "sha256": "99ca21dad3067674cd6e257d12d2af3ef87e0a135769c043adc959dbd4695dd1"
+    },
+    {
+      "file": "20261031100000_field_workspace.sql",
+      "sha256": "4b3df71316ce625d9e5474a77d01e285ad7ee39cdad7759f81240eb82e059da2"
     }
   ],
   "referenceDatasets": [
@@ -43,7 +47,7 @@
     {
       "name": "migrations: local == remote history",
       "ok": true,
-      "detail": "4 recorded; missing []; changed []; extra []"
+      "detail": "5 recorded; missing []; changed []; extra []"
     },
     {
       "name": "tables: exactly the expected set",

@@ -5,7 +5,7 @@ import { getSupabasePublicEnv } from "@/lib/env/public";
 import { timeoutFetch } from "@/lib/supabase/timeout-fetch";
 
 /** Routes that need a signed-in user. Pages re-check with getClaims(); this is the first gate. */
-const PROTECTED_PREFIXES = ["/farms", "/fields", "/scenarios", "/account"];
+const PROTECTED_PREFIXES = ["/farms", "/fields", "/scenarios", "/account", "/runs"];
 
 const isProtected = (pathname: string) => PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 

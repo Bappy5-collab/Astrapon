@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { getSupabasePublicEnv } from "@/lib/env/public";
+import { useT } from "@/lib/i18n/I18nProvider";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { tokens } from "@/theme/tokens";
 
@@ -14,6 +15,7 @@ import { tokens } from "@/theme/tokens";
  * getClaims(). Hidden entirely when accounts are not configured.
  */
 export function AccountNav() {
+  const t = useT();
   const pathname = usePathname();
   const configured = getSupabasePublicEnv().config !== undefined;
   const [state, setState] = useState<"unknown" | "signed_in" | "signed_out">("unknown");
@@ -41,12 +43,13 @@ export function AccountNav() {
         borderColor: tokens.forest[400],
         px: { xs: 0.9, sm: 1.5 },
         minWidth: 0,
+        minHeight: 40,
         whiteSpace: "nowrap",
         fontSize: { xs: "0.8rem", sm: "0.875rem" },
         "&:hover": { borderColor: tokens.lime[400], bgcolor: tokens.forest[700] },
       }}
     >
-      {state === "signed_in" ? "Account" : "Sign in"}
+      {state === "signed_in" ? t("nav.account") : t("nav.signIn")}
     </Button>
   );
 }

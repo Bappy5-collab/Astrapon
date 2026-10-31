@@ -33,7 +33,7 @@ export async function getFarm(db: Db, farmId: string) {
 export type FieldGeometry = { boundary: BoundaryGeometry | null; zones: { id: string; name: string; boundary: BoundaryGeometry }[] };
 
 export async function getField(db: Db, fieldId: string) {
-  const field = await db.from("fields").select("id, farm_id, name, notes, area_ha, boundary_source, farms(name)").eq("id", fieldId).maybeSingle();
+  const field = await db.from("fields").select("id, farm_id, name, notes, area_ha, boundary_source, farms(name, country_code)").eq("id", fieldId).maybeSingle();
   if (field.error) throw new Error("Could not load field");
   if (!field.data) return null;
   const [geometry, zones, history, soil, constraints, priorities, scenarios] = await Promise.all([
@@ -49,6 +49,7 @@ export async function getField(db: Db, fieldId: string) {
   return {
     ...field.data,
     farmName: (field.data.farms as unknown as { name: string } | null)?.name ?? "",
+    countryCode: (field.data.farms as unknown as { country_code: string | null } | null)?.country_code ?? null,
     geometry: (geometry.data as unknown as FieldGeometry | null) ?? { boundary: null, zones: [] },
     zones: zones.data!,
     history: history.data!,
@@ -70,4 +71,21 @@ export async function getScenario(db: Db, scenarioId: string) {
   if (snapshots.error || current.error) throw new Error("Could not load scenario snapshots");
   const field = sc.data.fields as unknown as { name: string; farm_id: string } | null;
   return { ...sc.data, fieldName: field?.name ?? "", farmId: field?.farm_id ?? "", snapshots: snapshots.data, currentInputs: current.data };
+}
+
+/** Every scenario the user owns, with snapshot counts (saved-runs page). */
+export async function listScenarios(db: Db) {
+  const { data, error } = await db
+    .from("scenarios")
+    .select("id, name, updated_at, field_id, fields(name), simulation_input_snapshots(count)")
+    .order("updated_at", { ascending: false });
+  if (error) throw SCHEMA_MISSING.has(error.code) ? new SchemaMissingError(error.code) : new Error(`Could not load scenarios (${error.code})`);
+  return data.map((s) => ({
+    id: s.id,
+    name: s.name,
+    updatedAt: s.updated_at,
+    fieldId: s.field_id,
+    fieldName: (s.fields as unknown as { name: string } | null)?.name ?? "",
+    snapshots: (s.simulation_input_snapshots as unknown as { count: number }[])[0]?.count ?? 0,
+  }));
 }

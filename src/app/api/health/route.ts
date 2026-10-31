@@ -9,7 +9,7 @@ export async function GET() {
   const server = getServerEnvReport();
   return Response.json({
     app: "fieldshift",
-    phase: 2,
+    phase: 3,
     status: "ok",
     services: {
       supabasePublic: getSupabasePublicEnv().status.state,

@@ -49,20 +49,53 @@ Why:
 - Reproducible runs depend only on pinned inputs and the engine version.
 - Secrets can never reach a client bundle.
 
+## Field workspace (Phase 3)
+
+- Geometry pipeline (pure, `src/domain/geo`):
+  - `boundary.ts` validates GeoJSON: closure, crossings, holes inside the shell, non-overlapping parts, area, ±85° latitude and ≤ 30 km extent. It rejects rings that cross the 180° meridian, with an explanation.
+  - `drawing.ts` is the undoable map-drawing state (outer ring plus holes).
+  - `local-frame.ts` converts lon/lat to local east/north metres via WGS84 ECEF → ENU (never degrees as metres), unwrapping longitudes around the field centre.
+  - `coordinates.ts` parses typed coordinates (decimal, N/S/E/W, DMS).
+- `src/components/field3d`:
+  - `model.ts` scales the local-metre field uniformly into the scene and places plants on rows aligned with the longest edge.
+  - `plants.ts` builds original merged plant geometries per crop form, one instanced draw call per form.
+  - `FieldScene.tsx` is the R3F scene.
+  - `FieldViewport.tsx` wraps the scene with capability detection, quality presets, context-loss restart, a compass and camera controls.
+  - `HeroField.tsx` reuses the scene on the landing page.
+- `src/components/map`: Leaflet (lazy, client-only) with OSM tiles and NASA GIBS HLS imagery. A custom vertex editor supports click to add, drag, midpoint insert, select + delete, and a keyboard "add point at centre".
+- `src/components/workspace`:
+  - `useWorkspace` holds staged edits (boundary, zones, crop assignments) and produces the save payload.
+  - After the farmer confirms a change summary, `saveWorkspace` → `save_field_workspace` commits the edits together in one transaction (SECURITY INVOKER).
+  - The sample uses the same component and applies edits to localStorage instead.
+- Place search: `/api/geocode` → `src/server/geocode/nominatim.ts`. It is submit-only, with a shared 1 req/s queue, a 24 h cache and a kill switch.
+- i18n: `src/lib/i18n` holds an English/Bangla dictionary, read from the cookie `fs_locale`, with `useT()` on the client and `getT()` on the server.
+
 ## Rendering strategy for 3D
 
-- `FarmPreview` (client) probes WebGL once with `useSyncExternalStore`, then picks one of four outcomes:
-  - **checking** state during server rendering,
-  - **unavailable** message when there is no WebGL,
-  - **reduced** quality on software renderers (no shadows, DPR 1, no default auto-rotate),
-  - **full** quality otherwise.
-- The R3F scene is dynamically imported with `ssr:false`. A component error boundary and a `webglcontextlost` listener turn runtime failures into readable messages.
-- Rendering pauses (`frameloop="never"`) while the stage is offscreen or the tab is hidden. Without auto-rotate it renders on demand only.
-- Measured with headless Chrome using SwiftShader (software) at 1440×1000: full quality ran at ~1.5 fps and froze the page; the reduced tier runs at 42–61 fps.
+- The viewport probes WebGL once with `useSyncExternalStore`:
+  - **checking** during server rendering;
+  - an **unavailable** message without WebGL (the map and tables still work);
+  - otherwise, the scene at a quality preset.
+- Quality presets are set in Settings or the viewport menu and stored per device. Auto picks Low on software renderers.
+
+  | Preset | DPR | Other settings | Plants |
+  |---|---|---|---|
+  | Low | 1 | no antialias | ~2.5k |
+  | Balanced | ≤ 1.5 | | ~8k |
+  | High | ≤ 2 | shadows | ~18k |
+
+- The R3F scene is dynamically imported with `ssr:false`. An error boundary and a `webglcontextlost` listener turn failures into readable messages. After context loss there is a "Restart 3D view" action.
+- `frameloop` settings:
+  - `demand` by default, rendering only on change;
+  - `never` while the scene is offscreen or the tab is hidden;
+  - `always` only for the landing hero while it turns, and never under reduced motion.
+- Geometries and textures created outside JSX are disposed when replaced or unmounted (`useDisposable`).
+- An earlier measurement used headless Chrome with SwiftShader (software rendering) at 1440×1000. Full quality ran at ~1.5 fps; the reduced tier ran at 42–61 fps.
 
 ## Environment
 
-- Public: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (read in `src/lib/env/public.ts`).
+- Public: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (read in `src/lib/env/public.ts`). Optional `NEXT_PUBLIC_OSM_TILE_URL` replaces the OpenStreetMap tile URL.
+- Optional server switch: `GEOCODER_DISABLED=1` turns place search off without a code change.
 - Server: `SUPABASE_SECRET_KEY`, `NASA_EARTHDATA_TOKEN`, `OPENTOPOGRAPHY_API_KEY`, `ANTHROPIC_API_KEY` (read in `src/server/env.ts`). The app never uses the secret key; scripts and DB tests do.
 - Scripts only: `SUPABASE_DB_URL`, read by `scripts/db/connect.mts`, which refuses a URL whose project ref differs from the app's.
 

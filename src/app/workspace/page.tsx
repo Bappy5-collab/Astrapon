@@ -1,71 +1,58 @@
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
+import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { Metadata } from "next";
 
-import { PhaseChip } from "@/components/PhaseChip";
-import { FarmPreview } from "@/components/scene/FarmPreview";
-import { WORKFLOW_STEPS } from "@/lib/roadmap";
-import { tokens } from "@/theme/tokens";
+import { Empty, PageHeader, Section } from "@/components/farm/ui";
+import { ButtonLink, TextLink } from "@/components/links";
+import { getAuth } from "@/server/auth/session";
+import { color, numeric, radius } from "@/theme/tokens";
 
 export const metadata: Metadata = { title: "Workspace" };
 
-export default function WorkspacePage() {
+/** Entry point: open one of your fields in the workspace, start a new one, or explore the sample. */
+export default async function WorkspaceHubPage() {
+  const auth = await getAuth();
+  let fields: { id: string; name: string; area_ha: number | null; farmName: string }[] | null = null;
+  if (auth.state === "signed_in") {
+    const { data } = await auth.supabase.from("fields").select("id, name, area_ha, farms(name)").order("updated_at", { ascending: false }).limit(50);
+    fields = (data ?? []).map((f) => ({ id: f.id, name: f.name, area_ha: f.area_ha === null ? null : Number(f.area_ha), farmName: (f.farms as unknown as { name: string } | null)?.name ?? "" }));
+  }
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr", lg: "360px 1fr" },
-        gap: { xs: 2, md: 3 },
-        p: { xs: 2, md: 3 },
-        bgcolor: tokens.neutral[100],
-      }}
-    >
-      <Paper component="aside" aria-labelledby="workspace-steps" variant="outlined" sx={{ p: 3, borderRadius: 4, alignSelf: "start" }}>
-        <Typography variant="overline" sx={{ color: tokens.forest[600] }}>
-          Field workspace
-        </Typography>
-        <Typography id="workspace-steps" variant="h3" component="h1" sx={{ mt: 0.5 }}>
-          No field loaded
-        </Typography>
-        <Alert severity="info" sx={{ mt: 2 }}>
-          The field workflow is not built yet. The scene shows a placeholder farm so the 3D workspace can be developed and
-          reviewed.
-        </Alert>
-        <Divider sx={{ my: 3 }} />
-        <Stack component="ol" spacing={2.5} sx={{ listStyle: "none", p: 0, m: 0 }}>
-          {WORKFLOW_STEPS.map((step, i) => (
-            <Box component="li" key={step.title}>
-              <Stack direction="row" spacing={1.5} sx={{ alignItems: "baseline" }}>
-                <Typography sx={{ fontWeight: 700, color: tokens.neutral[500], minWidth: 20 }} aria-hidden="true">
-                  {i + 1}
-                </Typography>
-                <Box>
-                  <Typography variant="h6" component="h2">
-                    {step.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                    {step.detail}
-                  </Typography>
-                  <Box sx={{ mt: 1 }}>
-                    <PhaseChip phase={step.phase} />
-                  </Box>
-                </Box>
-              </Stack>
-            </Box>
-          ))}
+    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
+      <PageHeader crumbs={[]} title="Field workspace">
+        <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
+          <ButtonLink href="/fields/new" variant="contained">
+            Create my field
+          </ButtonLink>
+          <ButtonLink href="/sample" variant="outlined">
+            Explore the sample
+          </ButtonLink>
         </Stack>
-      </Paper>
-      <Box component="section" aria-label="3D farm view" sx={{ minWidth: 0 }}>
-        <FarmPreview
-          height={{ xs: 420, md: "calc(100dvh - 68px - 48px - 64px)" }}
-          caption="Placeholder farm for developing the 3D workspace. Real field boundaries, zones, and simulation results will replace it once those phases are built."
-        />
-      </Box>
-    </Box>
+      </PageHeader>
+      <Section title="Your fields" intro="Open a field to draw zones, assign crops by season and inspect it in 3D.">
+        {fields === null ? (
+          <Typography>
+            <TextLink href="/sign-in?next=/workspace">Sign in</TextLink> to open your own fields. The sample works without an account.
+          </Typography>
+        ) : fields.length === 0 ? (
+          <Empty>No fields yet. Create your first field from the map.</Empty>
+        ) : (
+          <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(3, 1fr)" } }}>
+            {fields.map((f) => (
+              <Box component="li" key={f.id} sx={{ p: 2, borderRadius: `${radius.md}px`, border: `1px solid ${color.line}`, bgcolor: color.surface }}>
+                <TextLink href={`/fields/${f.id}`} sx={{ fontWeight: 700 }}>
+                  {f.name}
+                </TextLink>
+                <Typography variant="body2" color="text.secondary" sx={numeric}>
+                  {f.farmName} · {f.area_ha !== null ? `${f.area_ha.toFixed(2)} ha` : "no boundary yet"}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Section>
+    </Container>
   );
 }

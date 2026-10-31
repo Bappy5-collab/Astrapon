@@ -2,7 +2,14 @@
 
 FieldShift helps farmers and agronomists compare crop rotation options for a specific field. The comparison draws on environmental evidence, soil and crop history, water limits, and the farmer's priorities. It explains the tradeoffs to review locally. The main workspace is an interactive 3D farm simulator.
 
-> **Status: Phase 2 (accounts and secure persistence).** Sign up, sign in, and save private farms, fields (GeoJSON boundaries), zones, crop history, soil observations, water/equipment limits, priorities, market preferences and scenarios with frozen input snapshots. The 3D preview is still *illustrative* and there is no rotation model yet. See `docs/implementation-status.md`.
+> **Status: Phase 3 (3D field workspace).**
+>
+> - Find a place by search, coordinates or device location.
+> - Draw the field boundary on a street map or NASA HLS imagery.
+> - Add planting zones and assign crops by season.
+> - Inspect the field in an illustrative 3D view.
+>
+> Changes are saved together after a confirmation. A public sample works without an account. There is no rotation model yet, so no results are shown. See `docs/implementation-status.md` and `docs/design-system.md`.
 
 ## Requirements
 
