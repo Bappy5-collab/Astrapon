@@ -128,7 +128,7 @@ export function InspectPanel({ ws, field, coverage, evidence }: { ws: WorkspaceS
               Soil observations
             </Typography>
             {soil.slice(0, 5).map((s) => (
-              <Typography key={s.id} variant="body2" sx={numeric}>
+              <Typography key={s.id} variant="body2" component="div" sx={numeric}>
                 {s.observed_on} · {s.label}: {s.value} <Chip size="small" label={EVIDENCE_CLASS_INFO[s.evidence_class as "farmer_report"]?.label ?? s.evidence_class} sx={{ height: 20, fontSize: "0.7rem" }} />
               </Typography>
             ))}
