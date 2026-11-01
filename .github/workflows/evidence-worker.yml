@@ -44,6 +44,21 @@ jobs:
       - name: Install
         if: steps.secret.outputs.ok == 'true'
         run: pnpm install --frozen-lockfile
+      # Keep the raw-response chunk cache between runs: a job cut off by the timeout resumes from
+      # the chunks already downloaded instead of starting over (see src/server/pipeline/cache.ts).
+      - name: Restore download cache
+        if: steps.secret.outputs.ok == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/evidence
+          key: evidence-cache-${{ github.run_id }}
+          restore-keys: evidence-cache-
       - name: Drain queue
         if: steps.secret.outputs.ok == 'true'
         run: pnpm evidence:worker --once
+      - name: Save download cache
+        if: always() && steps.secret.outputs.ok == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/evidence
+          key: evidence-cache-${{ github.run_id }}
