@@ -64,7 +64,7 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
       {active && <LinearProgress aria-label="Run in progress" />}
       {waiting && (
         <Alert severity="warning">
-          This run has been queued for over a minute. The background worker may not be running: start it with <code>pnpm evidence:worker</code>.
+          This run is waiting for the background worker, which checks the queue about every 10 minutes, so it can take up to 20 minutes to start. In local development, start it with <code>pnpm evidence:worker</code>.
         </Alert>
       )}
       {message && <Alert severity={message.ok ? "success" : "error"}>{message.text}</Alert>}

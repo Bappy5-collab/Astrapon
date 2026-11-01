@@ -1,0 +1,49 @@
+# Runs the evidence + simulation worker on a schedule so the deployed site needs no always-on server.
+# Each run drains the queue (`--once`) and exits. Requires the repository secret SUPABASE_DB_URL.
+name: Evidence worker
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: evidence-worker
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  drain-queue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      # Public project URL (also shipped in the browser bundle); used only to verify the project ref.
+      NEXT_PUBLIC_SUPABASE_URL: https://esavhptkepfkpbcwacwp.supabase.co
+    steps:
+      - name: Check secret
+        id: secret
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "SUPABASE_DB_URL repository secret is not set; skipping."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.secret.outputs.ok == 'true'
+      - uses: pnpm/action-setup@v4
+        if: steps.secret.outputs.ok == 'true'
+      - uses: actions/setup-node@v4
+        if: steps.secret.outputs.ok == 'true'
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install
+        if: steps.secret.outputs.ok == 'true'
+        run: pnpm install --frozen-lockfile
+      - name: Drain queue
+        if: steps.secret.outputs.ok == 'true'
+        run: pnpm evidence:worker --once
