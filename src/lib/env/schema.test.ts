@@ -53,6 +53,15 @@ describe("parseServerEnv", () => {
     expect(secrets.nasaEarthdataToken).toBeUndefined();
   });
 
+  it("reports the worker trigger token separately", () => {
+    const token = "github_pat_" + "x".repeat(30);
+    expect(parseServerEnv({}).report.workerDispatch).toEqual({ state: "missing", missing: ["GITHUB_DISPATCH_TOKEN"] });
+    const { report, secrets } = parseServerEnv({ GITHUB_DISPATCH_TOKEN: token });
+    expect(report.workerDispatch).toEqual({ state: "configured" });
+    expect(secrets.githubDispatchToken).toBe(token);
+    expect(JSON.stringify(report)).not.toContain(token);
+  });
+
   it("never includes secret values in the report", () => {
     const shortSecret = "short-private";
     const { report } = parseServerEnv({ SUPABASE_SECRET_KEY: fakeSecret, ANTHROPIC_API_KEY: shortSecret });

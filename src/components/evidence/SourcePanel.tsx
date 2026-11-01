@@ -77,7 +77,7 @@ export function SourcePanel({ sources, actions, compact = false, renderedAt }: {
       </Stack>
       {waitingForWorker && (
         <Alert severity="warning" sx={{ mb: 1.5 }}>
-          Jobs are queued and waiting for the background worker. Downloads run outside the website; the worker checks the queue about every 10 minutes, so this can take up to 20 minutes to start. In local development, start one with <code>pnpm evidence:worker</code>.
+          Jobs are queued and waiting for the background worker. Downloads run outside the website: the worker usually starts within a few minutes, and otherwise checks the queue about every 10 minutes. In local development, start one with <code>pnpm evidence:worker</code>.
         </Alert>
       )}
       <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>

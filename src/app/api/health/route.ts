@@ -17,6 +17,7 @@ export async function GET() {
       nasaEarthdata: server.nasaEarthdata.state,
       openTopography: server.openTopography.state,
       aiExplanations: server.aiExplanations.state,
+      workerDispatch: server.workerDispatch.state,
     },
   });
 }

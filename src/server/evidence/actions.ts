@@ -1,11 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 
 import { PIPELINE_SOURCES } from "@/domain/evidence/catalog";
 import { getAuth } from "@/server/auth/session";
 import { describeDbError } from "@/server/database/errors";
+import { dispatchWorker } from "@/server/worker/dispatch";
 
 export type EvidenceActionResult = { ok: boolean; message: string };
 
@@ -25,6 +27,7 @@ export async function requestEvidence(fieldId: string, sources: string[]): Promi
     const { error } = await auth.supabase.rpc("request_evidence", { p_field_id: p.data.fieldId, p_source_id: s });
     if (error) return { ok: false, message: describeDbError(error) };
   }
+  after(dispatchWorker);
   revalidatePath(`/fields/${p.data.fieldId}`, "layout");
   return { ok: true, message: p.data.sources.length > 1 ? "Refresh queued for all sources." : "Refresh queued." };
 }

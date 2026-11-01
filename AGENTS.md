@@ -29,7 +29,7 @@ pnpm check        # lint + typecheck + test
 pnpm verify:sources [power|modis|sda|soilgrids|cmr] [--write-fixtures]   # live provider checks → data/verification/
 pnpm db:status | db:rehearse | db:migrate | db:import-reference | db:types | db:verify   # see supabase/README.md
 pnpm test:db      # live two-user isolation tests (dev project; creates and deletes throwaway users)
-pnpm evidence:worker [--once]   # background worker for evidence jobs AND simulation runs (needs SUPABASE_DB_URL); keep it running beside pnpm dev. Deployed site: .github/workflows/evidence-worker.yml runs it with --once every 10 min (repo secret SUPABASE_DB_URL)
+pnpm evidence:worker [--once]   # background worker for evidence jobs AND simulation runs (needs SUPABASE_DB_URL); keep it running beside pnpm dev. Deployed site: .github/workflows/evidence-worker.yml runs it with --once every 10 min (repo secret SUPABASE_DB_URL); with GITHUB_DISPATCH_TOKEN set on the server, queueing also dispatches it at once (src/server/worker/dispatch.ts)
 pnpm evidence:trace             # LIVE end-to-end trace → data/verification/evidence-trace.json
 pnpm simulation:trace           # LIVE simulation trace → data/verification/simulation-trace.json
 ```

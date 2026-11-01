@@ -1,11 +1,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 
 import { ENGINE_VERSION } from "@/domain/simulation/engine-version";
 import { getAuth } from "@/server/auth/session";
 import { describeDbError } from "@/server/database/errors";
+import { dispatchWorker } from "@/server/worker/dispatch";
 
 export type SimulationActionResult = { ok: boolean; message: string; runId?: string };
 
@@ -25,6 +27,7 @@ export async function requestSimulation(scenarioId: string): Promise<SimulationA
   if (!z.uuid().safeParse(scenarioId).success) return { ok: false, message: "Unknown scenario." };
   const { data, error } = await u.auth.supabase.rpc("request_simulation", { p_scenario_id: scenarioId, p_engine_version: ENGINE_VERSION });
   if (error) return { ok: false, message: describeDbError(error) };
+  after(dispatchWorker);
   revalidatePath(`/scenarios/${scenarioId}`);
   revalidatePath("/runs");
   return { ok: true, message: "Run queued.", runId: data as string };
@@ -41,6 +44,7 @@ export async function reproduceRun(runId: string): Promise<SimulationActionResul
   if (run.engine_version !== ENGINE_VERSION) return { ok: false, message: `That run used engine ${run.engine_version}; this server runs ${ENGINE_VERSION}, so it cannot be reproduced here.` };
   const { data, error } = await u.auth.supabase.from("simulation_runs").insert({ snapshot_id: run.snapshot_id, engine_version: run.engine_version }).select("id").single();
   if (error) return { ok: false, message: error.code === "23505" ? "A run of this snapshot is already queued." : describeDbError(error) };
+  after(dispatchWorker);
   revalidatePath("/runs");
   return { ok: true, message: "Re-run queued on the same frozen inputs.", runId: data.id };
 }

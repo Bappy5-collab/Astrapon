@@ -74,13 +74,18 @@ const aiShape = {
   ANTHROPIC_API_KEY: z.string().min(20, "looks too short to be an API key"),
 };
 
-export type ServerFeature = "supabaseAdmin" | "nasaEarthdata" | "openTopography" | "aiExplanations";
+const workerDispatchShape = {
+  GITHUB_DISPATCH_TOKEN: z.string().min(20, "looks too short to be a GitHub token"),
+};
+
+export type ServerFeature = "supabaseAdmin" | "nasaEarthdata" | "openTopography" | "aiExplanations" | "workerDispatch";
 
 export const SERVER_FEATURE_LABELS: Record<ServerFeature, string> = {
   supabaseAdmin: "Supabase server access (migrations, jobs, reference data)",
   nasaEarthdata: "NASA Earthdata Login (authenticated NASA archives)",
   openTopography: "OpenTopography Global DEM API (NASADEM elevation)",
   aiExplanations: "AI-assisted explanation drafting",
+  workerDispatch: "GitHub Actions worker trigger",
 };
 
 export type ServerEnvReport = Record<ServerFeature, FeatureStatus>;
@@ -90,6 +95,7 @@ export type ServerSecrets = {
   nasaEarthdataToken?: string;
   openTopographyApiKey?: string;
   anthropicApiKey?: string;
+  githubDispatchToken?: string;
 };
 
 export function parseServerEnv(raw: RawEnv): { report: ServerEnvReport; secrets: ServerSecrets } {
@@ -97,13 +103,15 @@ export function parseServerEnv(raw: RawEnv): { report: ServerEnvReport; secrets:
   const nasa = evaluate(nasaEarthdataShape, raw);
   const topo = evaluate(openTopographyShape, raw);
   const ai = evaluate(aiShape, raw);
+  const dispatch = evaluate(workerDispatchShape, raw);
   return {
-    report: { supabaseAdmin: admin.status, nasaEarthdata: nasa.status, openTopography: topo.status, aiExplanations: ai.status },
+    report: { supabaseAdmin: admin.status, nasaEarthdata: nasa.status, openTopography: topo.status, aiExplanations: ai.status, workerDispatch: dispatch.status },
     secrets: {
       supabaseSecretKey: admin.data?.SUPABASE_SECRET_KEY,
       nasaEarthdataToken: nasa.data?.NASA_EARTHDATA_TOKEN,
       openTopographyApiKey: topo.data?.OPENTOPOGRAPHY_API_KEY,
       anthropicApiKey: ai.data?.ANTHROPIC_API_KEY,
+      githubDispatchToken: dispatch.data?.GITHUB_DISPATCH_TOKEN,
     },
   };
 }

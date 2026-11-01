@@ -26,6 +26,7 @@ const ENABLES: Record<ServerFeature, string> = {
   nasaEarthdata: "IMERG, SMAP (via AppEEARS), and other NASA products that require Earthdata Login.",
   openTopography: "NASADEM elevation for slope, frost-pocket, and wet-hollow indicators.",
   aiExplanations: "Optional plain-language drafting of explanations from computed results.",
+  workerDispatch: "Starts the GitHub Actions evidence worker as soon as a refresh or run is queued (otherwise it runs on its 10-minute schedule).",
 };
 
 export default async function SetupPage() {
@@ -48,6 +49,8 @@ export default async function SetupPage() {
       implemented:
         k === "aiExplanations"
           ? "Not built (Phase 6)."
+          : k === "workerDispatch"
+            ? "Server-only token (GitHub fine-grained, Actions read and write on this repository). Used after queueing; never sent to the browser."
           : k === "nasaEarthdata" || k === "openTopography"
             ? "Researched; not used by the app yet (see /sources)."
             : "Used only by local database scripts (reference-data import, verification, tests). Never sent to the browser or used by app pages.",
