@@ -6,7 +6,7 @@ import { check, fetchText, type Check } from "@/server/providers/http";
 import { buildPowerDailyPointUrl, parsePowerDailyPoint, type PowerDailyRequest, type PowerParameter } from "@/server/providers/nasa-power";
 
 import { cacheKey, chunkMaxAge, combinedSha, readChunk, writeChunk } from "./cache";
-import { PipelineError, type AggregateRow, type FieldContext, type PipelineOutput, type Progress } from "./types";
+import { PipelineError, type AggregateRow, type DailySeriesRow, type FieldContext, type PipelineOutput, type Progress } from "./types";
 
 /**
  * NASA POWER daily, full record from 1981-01-01 to the end of the last complete month, for the
@@ -110,6 +110,20 @@ export async function runPower(ctx: FieldContext, progress: Progress, now = new 
     aggregates.push(yearRow("dry_spells_10d", "spells", "count", year, d.spells));
   }
 
+  // Normalised daily series for the simulation engine. Dates must be consecutive.
+  const startDay = Date.parse(`${dates[0]}T00:00:00Z`) / 86_400_000;
+  const contiguous = dates.every((d, i) => Date.parse(`${d}T00:00:00Z`) / 86_400_000 === startDay + i);
+  checks.push(check("daily-contiguous", contiguous, contiguous ? `${dates.length} consecutive days` : "gap or repeat in the daily dates"));
+  const daily: DailySeriesRow[] = contiguous
+    ? [
+        { variable: "T2M_MAX", unit: "°C", startDate: dates[0]!, values: values.get("T2M_MAX")! },
+        { variable: "T2M_MIN", unit: "°C", startDate: dates[0]!, values: values.get("T2M_MIN")! },
+        { variable: "PRECTOTCORR", unit: "mm/day", startDate: dates[0]!, values: values.get("PRECTOTCORR")! },
+      ]
+    : [];
+  for (const [p, u] of [["T2M_MAX", "C"], ["T2M_MIN", "C"], ["PRECTOTCORR", "mm/day"]] as const)
+    if (units[p] !== u) throw new PipelineError(`Unexpected unit for ${p}: ${units[p] ?? "missing"}`, "invalid");
+
   const failed = checks.filter((c) => !c.passed);
   checks.push(check("record-length", dates.length > 0 && dates[0] === POWER_START && dates.at(-1) === end, `${dates[0]} → ${dates.at(-1)} (${dates.length} days)`));
   return {
@@ -143,5 +157,6 @@ export async function runPower(ctx: FieldContext, progress: Progress, now = new 
       observationEnd: dates.at(-1) ?? null,
     },
     aggregates,
+    daily,
   };
 }

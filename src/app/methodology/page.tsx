@@ -112,10 +112,30 @@ export default function MethodologyPage() {
         </P>
       </Section>
 
+      <Section id="simulation" title="Simulation and rotation comparison">
+        <P>
+          A run compares your existing rotation (from your dated crop history) with up to three agronomically distinct alternatives on the same past weather. Hard constraints
+          are applied first: crops you excluded or cannot sell, crops without a local planting window, overlapping plantings, the canola return interval, whole fallow years you
+          did not ask for, and your seasonal water allocation. Planting dates come only from your records, windows you enter, or the USDA NASS 2010 calendar of the US state you
+          choose; no region&apos;s seasons are applied anywhere else.
+        </P>
+        <P>
+          Water use follows FAO-56: reference evapotranspiration from temperature (Hargreaves), crop coefficients and stage lengths from FAO-56 tables, and a daily root-zone
+          water balance when the soil water capacity is known (your soil test, or SSURGO in the US). Without it, only potential demand is shown. Paddy rice is reported as
+          potential water use only. Every run checks that water is conserved.
+        </P>
+        <P>
+          Your priorities weight the indicators. Scores are relative among the options shown, not probabilities. Sensitivity cases (dry soil at planting, FAO-56 coefficient
+          ranges, driest and wettest thirds of years) show whether a ranking is stable or fragile. Astrapon does not estimate yield, profit, soil carbon, nutrients, erosion,
+          pests or disease. A saved run pins its frozen inputs, reference data and evidence; a re-run gives a byte-identical result. Full method:{" "}
+          <code>docs/scientific-methodology.md</code>.
+        </P>
+      </Section>
+
       <Section id="not-yet" title="Not built yet">
         <P>
-          The rotation simulation engine, historical replay of rotations and rotation comparison are later phases. Until then Astrapon shows no yields, water balances, risks or
-          rankings, and the run state says so.
+          Zone-level rotations (runs evaluate the whole field), soil-water carry-over between crops, runoff, calendars outside the US other than your own dates, and 3D scenes
+          driven by run results are not built. Plain-language AI explanations are not built.
         </P>
       </Section>
     </Container>

@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import { findSelfIntersection, parseBoundary } from "@/domain/geo/boundary";
@@ -97,12 +100,14 @@ describe("reference datasets", () => {
     expect(canonicalJson({ b: 1, a: { d: [1, { y: 2, x: 1 }], c: undefined } })).toBe('{"a":{"d":[1,{"x":1,"y":2}]},"b":1}');
   });
 
-  it("imports only sourced content, every item cites a known citation, and no parameter tables", () => {
-    const { citations, datasets } = buildReferenceDatasets();
+  it("imports only sourced content and every item cites a known citation", () => {
+    const nassText = readFileSync(path.join(process.cwd(), "data/reference/usda-nass-usual-dates-2010.txt"), "utf8");
+    const { citations, datasets } = buildReferenceDatasets({ nassText });
     const keys = new Set(citations.map((c) => c.citationKey));
     expect(keys.size).toBe(citations.length);
     for (const d of datasets) for (const i of d.items) for (const k of i.citationKeys) expect(keys.has(k)).toBe(true);
-    expect(datasets.map((d) => d.kind).sort()).toEqual(["data_source_registry", "reference_library"]);
+    expect(datasets.map((d) => d.kind).sort()).toEqual(["crop_calendar", "crop_parameters", "data_source_registry", "reference_library"]);
+    expect(buildReferenceDatasets().datasets.some((d) => d.kind === "crop_calendar")).toBe(false);
     for (const c of citations) expect(c.url === null || c.url.startsWith("https://")).toBe(true);
   });
 });

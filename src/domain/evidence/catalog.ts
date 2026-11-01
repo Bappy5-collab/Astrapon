@@ -4,7 +4,7 @@ import { BASELINE, DRY_DAY_MM, DRY_SPELL_MIN_DAYS, FROST_THRESHOLD_C, HEAT_THRES
 import { MONTH_MIN_COMPLETENESS } from "./aggregate";
 
 /** Version of Astrapon's own processing (normalisation + aggregation). Part of every cache key and retrieval. */
-export const PROCESSING_VERSION = "evidence-1.0.0";
+export const PROCESSING_VERSION = "evidence-1.1.0";
 
 export const PIPELINE_SOURCES = ["nasa-power-daily", "modis-mod13q1-ornl", "usda-ssurgo-sda"] as const;
 export type PipelineSource = (typeof PIPELINE_SOURCES)[number];

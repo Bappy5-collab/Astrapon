@@ -13,6 +13,9 @@
  * - Writes the retrieval and its aggregates in one transaction. If nothing changed since the
  *   field's latest retrieval (same cache key and response hash), the job completes by pointing at
  *   that retrieval instead of storing a duplicate.
+ * - Writes POWER daily series (the simulation engine's weather input) with the retrieval.
+ * - Also processes public.simulation_runs (scripts/simulation-runner.mts): pure engine, fast, so
+ *   runs are taken before evidence jobs.
  * - Never prints credentials.
  */
 import type postgres from "postgres";
@@ -21,6 +24,7 @@ import type { PipelineSource } from "../src/domain/evidence/catalog";
 import { RUNNERS } from "../src/server/pipeline/run";
 import { PipelineError, pipelineErrorKind, type PipelineOutput } from "../src/server/pipeline/types";
 import { connect, runMain } from "./db/connect.mts";
+import { claimRun, processRun } from "./simulation-runner.mts";
 
 const args = process.argv.slice(2);
 const ONCE = args.includes("--once");
@@ -92,6 +96,13 @@ async function store(sql: postgres.Sql, job: Job, out: PipelineOutput): Promise<
         period_start: a.periodStart, period_end: a.periodEnd, value: a.value, valid_count: a.validCount, expected_count: a.expectedCount, pixel: a.pixel,
       }));
       for (let i = 0; i < rows.length; i += 1000) await tx`insert into public.evidence_aggregates ${tx(rows.slice(i, i + 1000))}`;
+      for (const d of out.daily ?? []) {
+        if (d.values.some((v) => v != null && !Number.isFinite(v))) throw new Error(`Non-finite value in daily ${d.variable}`);
+        // Literal array keeps NULLs and the exact shortest decimal form of each value.
+        const literal = `{${d.values.map((v) => (v == null ? "NULL" : String(v))).join(",")}}`;
+        await tx`insert into public.evidence_daily_series (retrieval_id, owner_id, variable, unit, start_date, "values")
+                 values (${retrievalId}, ${job.owner_id}, ${d.variable}, ${d.unit}, ${d.startDate}, ${literal}::double precision[])`;
+      }
     }
     await tx`update public.evidence_jobs set status = 'complete', finished_at = now(), lease_until = null, retrieval_id = ${retrievalId},
                progress = ${tx.json({ step: reused ? "No change since the last retrieval" : "Saved", aggregates: out.aggregates.length })}
@@ -145,6 +156,12 @@ runMain(async () => {
   });
   const lanes = Array.from({ length: CONCURRENCY }, async () => {
     while (!stop) {
+      const run = await claimRun(sql);
+      if (run) {
+        const r = await processRun(sql, run);
+        log(`run ${run.id.slice(0, 8)}: ${r.ok ? r.message : `failed: ${r.message.slice(0, 160)}`}`);
+        continue;
+      }
       const job = await claim(sql);
       if (!job) {
         if (ONCE) return;

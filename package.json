@@ -25,7 +25,8 @@
     "db:verify": "tsx scripts/db/verify.mts",
     "db:rehearse": "tsx scripts/db/rehearse.mts",
     "evidence:worker": "tsx scripts/evidence-worker.mts",
-    "evidence:trace": "tsx scripts/evidence-trace.mts"
+    "evidence:trace": "tsx scripts/evidence-trace.mts",
+    "simulation:trace": "tsx scripts/simulation-trace.mts"
   },
   "dependencies": {
     "@emotion/cache": "11.14.0",

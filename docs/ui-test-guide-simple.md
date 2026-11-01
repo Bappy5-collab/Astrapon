@@ -15,7 +15,7 @@
 - Open the app link.
 - Use Google Chrome.
 - Have **2 email addresses** you can open. You will create 2 test accounts: **Account A** and **Account B**.
-- Some pages are not finished yet. **"Engine not built yet"**, **"Not built yet"** and **"Results: none"** are expected. They are not bugs.
+- Rotation results compare options on past weather. They are not yields or forecasts; that is expected.
 
 ---
 
@@ -134,7 +134,7 @@ Use your US field.
    - **You should see:**
      - your field in 3D;
      - the text **"Illustrative 3D · flat terrain · not satellite imagery"**;
-     - **Simulation: Engine not built yet**.
+     - **Simulation: run it from a scenario**.
 2. Choose the **Draw zone** tool and click points **inside** the field. Type a **Zone name**, choose a reason, and press **"Use this shape"**.
    - **You should see:** a new zone, and the Save button shows **"1 unsaved"**.
 3. Try to draw a zone **without a name**.
@@ -200,14 +200,36 @@ On the "All records" page:
 
 ---
 
-## Test 10 – Scenario snapshot
+## Test 10 – Rotation comparison (simulation)
 
-1. Open **Saved runs**.
-   - **You should see:** a note that no runs exist because the engine is not built, and your scenario `Test 1`.
-2. Open `Test 1`. Press **"Freeze inputs into a snapshot"**.
-   - **You should see:** a snapshot in the list and a green note "The newest snapshot matches the current inputs."
-3. Add a new crop history row on the field's records page, then come back.
-   - **You should see:** a blue note "Inputs have changed since the newest snapshot…". The old snapshot stays the same.
+> The owner must keep the background worker running (the same one as in Test 9).
+
+Use your US field. It should have evidence from Test 9, and at least two years of crop history **with planting and harvest dates**, for example Corn 2023 (05-01 to 10-15) and Soybeans 2024 (05-12 to 10-02).
+
+1. Open the scenario `Test 1` (field records page → Scenarios).
+2. In **Scenario settings**:
+   - set **Candidate crops** to `maize, soybean, oats, winter wheat`;
+   - choose **Planting calendar** "USDA NASS 2010: Iowa";
+   - set **Days between harvest and next planting** to `7`;
+   - press **Save scenario**.
+   - **You should see:** "Scenario saved".
+3. Type `13-40` in **Plant from** of planting window 1 (any crop name, `110` days) and save.
+   - **You should see:** that field turns red with "Use MM-DD". Clear the row and save again.
+4. Press **"Run simulation"**.
+   - **You should see:** **Queued**, then **Finished** after a short while. The page updates by itself.
+5. Press **"Open result"**.
+   - **You should see:**
+     - "Historical replay" with **Existing practice** and **Alternative 1, 2…**, each with a "relative score";
+     - "Why this order", "Indicators", "Sensitivity cases", "What was considered and rejected", "Questions to review locally", "Assumptions";
+     - the text that this is **not a forecast** and that scores are **not probabilities**.
+6. Back on the scenario page, press **"Re-run and compare"** on the finished run.
+   - **You should see:** after it finishes, **"Re-run gave an identical result"**.
+7. Set **Rainfall change (%)** to `-20`, save, and run again.
+   - **You should see:** the result also has a section "Scenario: rainfall -20%".
+8. Add `dragon fruit` to the candidate crops and run again.
+   - **You should see:** under "What was considered and rejected", dragon fruit is listed as "Not in the crop catalogue". It does **not** appear as an alternative.
+9. Open **Saved runs**.
+   - **You should see:** your runs with their status and an "Open result" link.
 
 ---
 
@@ -255,8 +277,9 @@ Do these on a **phone** (or in Chrome: press F12, then the phone icon, then choo
 
 ## Not bugs (expected for now)
 
-- No rotation results: the engine is not built yet.
-- The text "(Phase 4)" on the scenario page. Ignore the number.
+- Rotation results compare options on past weather only. They show no yield, profit or forecast; that is by design.
+- Outside the USA, crops without your own dates are rejected with "No local planting window". Add your planting dates in the scenario.
+- A run stays "Queued" when the background worker is not running.
 - The first satellite (MODIS) data fetch is slow, about 15–20 minutes.
 - US soil data shows "Not available here" outside the USA.
 - NASA imagery can be blank or cloudy on some dates.

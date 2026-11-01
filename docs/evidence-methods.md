@@ -1,6 +1,9 @@
 # Evidence pipeline: methods and harmonisation
 
-Processing version: **`evidence-1.0.0`** (`PROCESSING_VERSION` in `src/domain/evidence/catalog.ts`). Every retrieval row and cache key records it. A change to any rule below requires a new processing version.
+Processing version: **`evidence-1.1.0`** (`PROCESSING_VERSION` in `src/domain/evidence/catalog.ts`). Every retrieval row and cache key records it. A change to any rule below requires a new processing version.
+
+- **1.1.0** (Phase 5) adds the normalised daily series of `T2M_MAX`, `T2M_MIN` and `PRECTOTCORR` to each POWER retrieval (`public.evidence_daily_series`). The simulation engine reads its weather from these rows, which cannot be updated. A row holds the values after unit and fill checks (missing = NULL), one per consecutive day, with a server-computed SHA-256. Raw provider responses still never enter PostgreSQL.
+- **1.0.0** retrievals have no daily series. Refresh the evidence before running a simulation.
 
 ## Sources in the pipeline
 

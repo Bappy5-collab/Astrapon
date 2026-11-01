@@ -16,7 +16,7 @@ import {
   zoneInput,
 } from "@/domain/farm/records";
 import { parseBoundary } from "@/domain/geo/boundary";
-import { SCENARIO_SETTINGS_SCHEMA_VERSION, scenarioSettingsV1 } from "@/domain/scenario/settings";
+import { MAX_PLANTING_WINDOWS, SCENARIO_SETTINGS_SCHEMA_VERSION, scenarioSettingsV2 } from "@/domain/scenario/settings";
 import { ENGINE_VERSION } from "@/domain/simulation/engine-version";
 import { workspaceEditsInput } from "@/domain/workspace/workspace";
 import { formValues, type FormState } from "@/lib/forms/state";
@@ -260,27 +260,48 @@ export async function createFieldFromDrawing(raw: { boundary: unknown; farmId: s
 // -------------------------------------------------------------- scenarios ---
 
 function parseScenario(fd: FormData) {
-  const settings = scenarioSettingsV1(new Date().getUTCFullYear()).safeParse({
-    candidateCrops: String(fd.get("candidateCrops") ?? "").split(",").map((c) => c.trim()).filter(Boolean),
+  const text = (k: string) => String(fd.get(k) ?? "").trim();
+  const rows = Array.from({ length: MAX_PLANTING_WINDOWS }, (_, i) => ({
+    i, crop: text(`win_crop_${i}`), plantFrom: text(`win_from_${i}`), plantTo: text(`win_to_${i}`), lengthDays: text(`win_len_${i}`),
+  })).filter((w) => w.crop || w.plantFrom || w.plantTo || w.lengthDays);
+  const windows = rows.map((w) => ({ crop: w.crop, plantFrom: w.plantFrom, plantTo: w.plantTo, lengthDays: w.lengthDays }));
+  const settings = scenarioSettingsV2(new Date().getUTCFullYear()).safeParse({
+    candidateCrops: text("candidateCrops").split(",").map((c) => c.trim()).filter(Boolean),
     rotationYears: fd.get("rotationYears"),
     replayFromYear: fd.get("replayFromYear"),
     replayToYear: fd.get("replayToYear"),
     irrigationAssumption: fd.get("irrigationAssumption"),
-    notes: String(fd.get("notes") ?? ""),
+    calendarRegion: text("calendarRegion") || null,
+    plantingWindows: windows,
+    turnaroundDays: text("turnaroundDays") === "" ? null : text("turnaroundDays"),
+    precipitationChangePct: text("precipitationChangePct") || 0,
+    temperatureChangeC: text("temperatureChangeC") || 0,
+    notes: text("notes"),
   });
   const name = z.string().trim().min(1, "Required").max(120).safeParse(fd.get("name"));
-  return { settings, name };
+  // Map "plantingWindows.k.plantFrom" back to the form row that produced it ("win_from_<row>").
+  const FIELD: Record<string, string> = { crop: "crop", plantFrom: "from", plantTo: "to", lengthDays: "len" };
+  const errors = (): Record<string, string> => {
+    if (settings.success) return {};
+    const out: Record<string, string> = {};
+    for (const [k, v] of Object.entries(issuesByField(settings.error))) {
+      const m = /^plantingWindows\.(\d+)\.(\w+)$/.exec(k);
+      out[m ? `win_${FIELD[m[2]!] ?? m[2]}_${rows[Number(m[1])]?.i ?? 0}` : k] = v;
+    }
+    return out;
+  };
+  return { settings, name, errors };
 }
 
 export async function createScenario(fieldId: string, _: FormState, fd: FormData): Promise<FormState> {
   const u = await user();
   if (u.error) return u.error;
   if (!id.safeParse(fieldId).success) return failed("Unknown field.", fd);
-  const { settings, name } = parseScenario(fd);
+  const { settings, name, errors } = parseScenario(fd);
   if (!settings.success || !name.success) {
     return {
       status: "error", message: "Check the highlighted fields.", values: formValues(fd),
-      fieldErrors: { ...(settings.success ? {} : issuesByField(settings.error)), ...(name.success ? {} : { name: name.error.issues[0]?.message ?? "Required" }) },
+      fieldErrors: { ...errors(), ...(name.success ? {} : { name: name.error.issues[0]?.message ?? "Required" }) },
     };
   }
   const { data, error } = await u.auth.supabase
@@ -297,11 +318,11 @@ export async function updateScenario(scenarioId: string, _: FormState, fd: FormD
   const u = await user();
   if (u.error) return u.error;
   if (!id.safeParse(scenarioId).success) return failed("Unknown scenario.", fd);
-  const { settings, name } = parseScenario(fd);
+  const { settings, name, errors } = parseScenario(fd);
   if (!settings.success || !name.success) {
     return {
       status: "error", message: "Check the highlighted fields.", values: formValues(fd),
-      fieldErrors: { ...(settings.success ? {} : issuesByField(settings.error)), ...(name.success ? {} : { name: name.error.issues[0]?.message ?? "Required" }) },
+      fieldErrors: { ...errors(), ...(name.success ? {} : { name: name.error.issues[0]?.message ?? "Required" }) },
     };
   }
   const { data, error } = await u.auth.supabase

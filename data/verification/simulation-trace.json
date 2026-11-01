@@ -1,0 +1,903 @@
+{
+  "generatedAt": "2026-11-01T07:33:12.288Z",
+  "engineVersion": "1.0.0",
+  "note": "LIVE trace on the development project; throwaway user deleted afterwards. Ids refer to rows that no longer exist.",
+  "results": [
+    {
+      "step": "worker fetched POWER and SSURGO",
+      "ok": true,
+      "detail": "[[\"usda-ssurgo-sda\",\"complete\",null],[\"nasa-power-daily\",\"complete\",null]] in 30 s"
+    },
+    {
+      "step": "daily series stored with the retrieval",
+      "ok": true,
+      "detail": "T2M_MAX 16740 days from 1981-01-01; T2M_MIN 16740 days from 1981-01-01; PRECTOTCORR 16740 days from 1981-01-01"
+    },
+    {
+      "step": "raw POWER 2015-07-15 values = stored daily series",
+      "ok": true,
+      "detail": "T2M_MAX raw 27.88 stored 27.88, T2M_MIN raw 19 stored 19, PRECTOTCORR raw 16.75 stored 16.75"
+    },
+    {
+      "step": "run queued through request_simulation",
+      "ok": true,
+      "detail": "df367612"
+    },
+    {
+      "step": "run succeeded and stored an immutable result",
+      "ok": true,
+      "detail": "succeeded in 8558 ms "
+    },
+    {
+      "step": "existing practice compared with ≥ 2 distinct feasible alternatives",
+      "ok": true,
+      "detail": "Maize (grain) → Soybean vs Oats + Winter wheat → (no new planting) | Soybean + Winter wheat → (no new planting) | Maize (grain) + Winter wheat → (no new planting)"
+    },
+    {
+      "step": "water indicators use the SSURGO soil water capacity",
+      "ok": true,
+      "detail": "AWC 176 mm/m; baseline relative water supply 0.89"
+    },
+    {
+      "step": "reference data pinned (crop parameters, NASS calendar)",
+      "ok": true,
+      "detail": "crop-parameters v1, usda-nass-usual-dates-2010 v1"
+    },
+    {
+      "step": "historical replay and transformed scenario reported separately",
+      "ok": true,
+      "detail": "baseline water supply 0.89 → 0.813 under −20% rainfall"
+    },
+    {
+      "step": "ranking explained (contributions, ablation, sensitivity, stability)",
+      "ok": true,
+      "detail": "stable; cases dry_start,driest_third,wettest_third"
+    },
+    {
+      "step": "re-running the same snapshot reproduces the identical result",
+      "ok": true,
+      "detail": "result cda13703826e2142 vs cda13703826e2142"
+    },
+    {
+      "step": "unknown and window-less crops are rejected transparently",
+      "ok": true,
+      "detail": "dragon fruit: unknown_crop; Lentil: no_window"
+    },
+    {
+      "step": "throwaway user deleted",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "trace": {
+    "weather": {
+      "retrievalId": "ad0d9d52-3232-4629-9074-e26073de7b4a",
+      "responseSha256": "36278ba6e02398f89b082254fa3fa53c0a465cfd36842e4d9481da87b75150fb",
+      "chunkSha256": "7e944b14b331ea741d71996c80c7ac560ef992855ec3128648a71c36432af2ba",
+      "day": "2015-07-15",
+      "compare": [
+        {
+          "v": "T2M_MAX",
+          "raw": 27.88,
+          "stored": 27.88
+        },
+        {
+          "v": "T2M_MIN",
+          "raw": 19,
+          "stored": 19
+        },
+        {
+          "v": "PRECTOTCORR",
+          "raw": 16.75,
+          "stored": 16.75
+        }
+      ]
+    },
+    "run": {
+      "id": "df367612-c40d-47da-a94e-f79b4dc8b3a0",
+      "computeMs": 8558,
+      "inputDigest": "ae7c4234d86b781fdc3a46cfbafbc446412297be011a39fea5c210e255098e81",
+      "resultSha256": "cda13703826e214270b6a684db74227b42057d205ba51866c0b135c2d8b5f1dd",
+      "search": {
+        "slots": [
+          {
+            "crop": "Maize (grain)",
+            "days": 167,
+            "plant": "05-01",
+            "detail": "Your records (1 season, \"main\")",
+            "source": "history"
+          },
+          {
+            "crop": "Soybean",
+            "days": 143,
+            "plant": "05-12",
+            "detail": "Your records (1 season, \"main\")",
+            "source": "history"
+          },
+          {
+            "crop": "Oats",
+            "days": 100,
+            "plant": "04-17",
+            "detail": "USDA NASS 2010, Iowa, \"Oats, spring\"",
+            "source": "calendar"
+          },
+          {
+            "crop": "Winter wheat",
+            "days": 282,
+            "plant": "10-05",
+            "detail": "USDA NASS 2010, Iowa, \"Wheat, winter\"",
+            "source": "calendar"
+          }
+        ],
+        "bounded": false,
+        "feasible": 10,
+        "cropRejections": [],
+        "cropsConsidered": [
+          "Maize (grain)",
+          "Soybean",
+          "Oats",
+          "Winter wheat"
+        ],
+        "rejectionCounts": {
+          "overlap": 21,
+          "fallow_year": 4
+        },
+        "rejectedExamples": [
+          {
+            "code": "fallow_year",
+            "label": "Maize (grain) → (no new planting)",
+            "detail": "A whole year without any crop; add \"fallow\" to the candidate crops if you want to consider fallow years."
+          },
+          {
+            "code": "fallow_year",
+            "label": "Oats → (no new planting)",
+            "detail": "A whole year without any crop; add \"fallow\" to the candidate crops if you want to consider fallow years."
+          },
+          {
+            "code": "fallow_year",
+            "label": "Soybean → (no new planting)",
+            "detail": "A whole year without any crop; add \"fallow\" to the candidate crops if you want to consider fallow years."
+          },
+          {
+            "code": "overlap",
+            "label": "Maize (grain) → Maize (grain) + Winter wheat",
+            "detail": "Winter wheat is harvested after Maize (grain) must be planted again when the rotation repeats."
+          },
+          {
+            "code": "overlap",
+            "label": "Maize (grain) → Oats + Winter wheat",
+            "detail": "Winter wheat is harvested after Maize (grain) must be planted again when the rotation repeats."
+          },
+          {
+            "code": "overlap",
+            "label": "Maize (grain) → Soybean + Winter wheat",
+            "detail": "Winter wheat is harvested after Maize (grain) must be planted again when the rotation repeats."
+          }
+        ],
+        "sequencesExamined": 35
+      },
+      "historical": {
+        "baseline": {
+          "id": "baseline",
+          "kind": "baseline",
+          "label": "Maize (grain) → Soybean",
+          "plantings": [
+            {
+              "end": "10-15",
+              "crop": "Maize (grain)",
+              "days": 167,
+              "start": "05-01",
+              "cropId": "maize",
+              "family": "Poaceae",
+              "months": "May–Oct",
+              "source": "history_record",
+              "cycleYear": 0,
+              "sourceDetail": "Your record 2023-05-01 to 2023-10-15"
+            },
+            {
+              "end": "10-02",
+              "crop": "Soybean",
+              "days": 143,
+              "start": "05-12",
+              "cropId": "soybean",
+              "family": "Fabaceae",
+              "months": "May–Oct",
+              "source": "history_record",
+              "cycleYear": 1,
+              "sourceDetail": "Your record 2024-05-12 to 2024-10-02"
+            }
+          ],
+          "indicators": {
+            "hot_days": {
+              "unit": "days/year",
+              "value": 6,
+              "detail": "Hot days during crops (Tmax ≥ 35 °C; exposure, not scored)"
+            },
+            "bare_days": {
+              "unit": "days/year",
+              "value": 210,
+              "detail": "Scheduled bare-field days"
+            },
+            "frost_days": {
+              "unit": "days/year",
+              "value": 0.6,
+              "detail": "Frost days during crops (Tmin ≤ 0 °C; exposure, not scored)"
+            },
+            "market_fit": {
+              "unit": "share",
+              "value": null,
+              "detail": "Market fit (your stated preferences; not income)"
+            },
+            "crop_diversity": {
+              "unit": "crops",
+              "value": 2,
+              "detail": "Distinct crops"
+            },
+            "family_repeats": {
+              "unit": "per cycle",
+              "value": 0,
+              "detail": "Same-family plantings in a row"
+            },
+            "family_diversity": {
+              "unit": "families",
+              "value": 2,
+              "detail": "Distinct plant families"
+            },
+            "field_operations": {
+              "unit": "plantings/year",
+              "value": 1,
+              "detail": "Field operations (plantings per year; workload proxy)"
+            },
+            "legume_plantings": {
+              "unit": "per year",
+              "value": 0.5,
+              "detail": "Legume plantings"
+            },
+            "longest_bare_window": {
+              "unit": "days",
+              "value": 211,
+              "detail": "Longest scheduled bare window, starting Oct"
+            },
+            "water_supply_dry_gap": {
+              "unit": "ratio",
+              "value": 0.156,
+              "detail": "Drop in water supply in the driest third of years"
+            },
+            "deep_rooted_plantings": {
+              "unit": "per year",
+              "value": 0.5,
+              "detail": "Deep-rooted plantings (FAO-56 max root ≥ 1.5 m)"
+            },
+            "relative_water_supply": {
+              "unit": "ratio",
+              "value": 0.89,
+              "detail": "Relative water supply (rainfed, median year)"
+            }
+          },
+          "violations": [],
+          "completeness": [
+            {
+              "of": 2,
+              "have": 2,
+              "item": "Crops in the catalogue"
+            },
+            {
+              "of": 2,
+              "have": 2,
+              "item": "FAO-56 crop coefficients"
+            },
+            {
+              "of": 2,
+              "have": 2,
+              "item": "FAO-56 stage lengths"
+            },
+            {
+              "of": 1,
+              "have": 1,
+              "item": "Soil water capacity",
+              "note": "USDA SSURGO survey, 0–100 cm"
+            },
+            {
+              "of": 24,
+              "have": 24,
+              "item": "Replay years with complete weather for these crops"
+            }
+          ]
+        },
+        "alternatives": [
+          {
+            "id": "alternative-1",
+            "kind": "alternative",
+            "label": "Oats + Winter wheat → (no new planting)",
+            "plantings": [
+              {
+                "end": "07-26",
+                "crop": "Oats",
+                "days": 100,
+                "start": "04-17",
+                "cropId": "oats",
+                "family": "Poaceae",
+                "months": "Apr–Jul",
+                "source": "calendar",
+                "cycleYear": 0,
+                "sourceDetail": "USDA NASS 2010, Iowa, \"Oats, spring\""
+              },
+              {
+                "end": "07-14",
+                "crop": "Winter wheat",
+                "days": 282,
+                "start": "10-05",
+                "cropId": "winter_wheat",
+                "family": "Poaceae",
+                "months": "Oct–Jul",
+                "source": "calendar",
+                "cycleYear": 0,
+                "sourceDetail": "USDA NASS 2010, Iowa, \"Wheat, winter\""
+              }
+            ],
+            "indicators": {
+              "hot_days": {
+                "unit": "days/year",
+                "value": 1.9,
+                "detail": "Hot days during crops (Tmax ≥ 35 °C; exposure, not scored)"
+              },
+              "bare_days": {
+                "unit": "days/year",
+                "value": 174,
+                "detail": "Scheduled bare-field days"
+              },
+              "frost_days": {
+                "unit": "days/year",
+                "value": 72.7,
+                "detail": "Frost days during crops (Tmin ≤ 0 °C; exposure, not scored)"
+              },
+              "market_fit": {
+                "unit": "share",
+                "value": null,
+                "detail": "Market fit (your stated preferences; not income)"
+              },
+              "crop_diversity": {
+                "unit": "crops",
+                "value": 2,
+                "detail": "Distinct crops"
+              },
+              "family_repeats": {
+                "unit": "per cycle",
+                "value": 2,
+                "detail": "Same-family plantings in a row"
+              },
+              "family_diversity": {
+                "unit": "families",
+                "value": 1,
+                "detail": "Distinct plant families"
+              },
+              "field_operations": {
+                "unit": "plantings/year",
+                "value": 1,
+                "detail": "Field operations (plantings per year; workload proxy)"
+              },
+              "legume_plantings": {
+                "unit": "per year",
+                "value": 0,
+                "detail": "Legume plantings"
+              },
+              "longest_bare_window": {
+                "unit": "days",
+                "value": 277,
+                "detail": "Longest scheduled bare window, starting Jul"
+              },
+              "water_supply_dry_gap": {
+                "unit": "ratio",
+                "value": 0.068,
+                "detail": "Drop in water supply in the driest third of years"
+              },
+              "deep_rooted_plantings": {
+                "unit": "per year",
+                "value": 1,
+                "detail": "Deep-rooted plantings (FAO-56 max root ≥ 1.5 m)"
+              },
+              "relative_water_supply": {
+                "unit": "ratio",
+                "value": 0.99,
+                "detail": "Relative water supply (rainfed, median year)"
+              }
+            },
+            "violations": [],
+            "completeness": [
+              {
+                "of": 2,
+                "have": 2,
+                "item": "Crops in the catalogue"
+              },
+              {
+                "of": 2,
+                "have": 2,
+                "item": "FAO-56 crop coefficients"
+              },
+              {
+                "of": 2,
+                "have": 2,
+                "item": "FAO-56 stage lengths"
+              },
+              {
+                "of": 1,
+                "have": 1,
+                "item": "Soil water capacity",
+                "note": "USDA SSURGO survey, 0–100 cm"
+              },
+              {
+                "of": 24,
+                "have": 24,
+                "item": "Replay years with complete weather for these crops"
+              }
+            ]
+          },
+          {
+            "id": "alternative-2",
+            "kind": "alternative",
+            "label": "Soybean + Winter wheat → (no new planting)",
+            "plantings": [
+              {
+                "end": "10-02",
+                "crop": "Soybean",
+                "days": 143,
+                "start": "05-12",
+                "cropId": "soybean",
+                "family": "Fabaceae",
+                "months": "May–Oct",
+                "source": "history",
+                "cycleYear": 0,
+                "sourceDetail": "Your records (1 season, \"main\")"
+              },
+              {
+                "end": "07-18",
+                "crop": "Winter wheat",
+                "days": 282,
+                "start": "10-09",
+                "cropId": "winter_wheat",
+                "family": "Poaceae",
+                "months": "Oct–Jul",
+                "source": "calendar",
+                "cycleYear": 0,
+                "sourceDetail": "USDA NASS 2010, Iowa, \"Wheat, winter\""
+              }
+            ],
+            "indicators": {
+              "hot_days": {
+                "unit": "days/year",
+                "value": 3.8,
+                "detail": "Hot days during crops (Tmax ≥ 35 °C; exposure, not scored)"
+              },
+              "bare_days": {
+                "unit": "days/year",
+                "value": 152.5,
+                "detail": "Scheduled bare-field days"
+              },
+              "frost_days": {
+                "unit": "days/year",
+                "value": 71.5,
+                "detail": "Frost days during crops (Tmin ≤ 0 °C; exposure, not scored)"
+              },
+              "market_fit": {
+                "unit": "share",
+                "value": null,
+                "detail": "Market fit (your stated preferences; not income)"
+              },
+              "crop_diversity": {
+                "unit": "crops",
+                "value": 2,
+                "detail": "Distinct crops"
+              },
+              "family_repeats": {
+                "unit": "per cycle",
+                "value": 0,
+                "detail": "Same-family plantings in a row"
+              },
+              "family_diversity": {
+                "unit": "families",
+                "value": 2,
+                "detail": "Distinct plant families"
+              },
+              "field_operations": {
+                "unit": "plantings/year",
+                "value": 1,
+                "detail": "Field operations (plantings per year; workload proxy)"
+              },
+              "legume_plantings": {
+                "unit": "per year",
+                "value": 0.5,
+                "detail": "Legume plantings"
+              },
+              "longest_bare_window": {
+                "unit": "days",
+                "value": 298,
+                "detail": "Longest scheduled bare window, starting Jul"
+              },
+              "water_supply_dry_gap": {
+                "unit": "ratio",
+                "value": 0.112,
+                "detail": "Drop in water supply in the driest third of years"
+              },
+              "deep_rooted_plantings": {
+                "unit": "per year",
+                "value": 0.5,
+                "detail": "Deep-rooted plantings (FAO-56 max root ≥ 1.5 m)"
+              },
+              "relative_water_supply": {
+                "unit": "ratio",
+                "value": 0.908,
+                "detail": "Relative water supply (rainfed, median year)"
+              }
+            },
+            "violations": [],
+            "completeness": [
+              {
+                "of": 2,
+                "have": 2,
+                "item": "Crops in the catalogue"
+              },
+              {
+                "of": 2,
+                "have": 2,
+                "item": "FAO-56 crop coefficients"
+              },
+              {
+                "of": 2,
+                "have": 2,
+                "item": "FAO-56 stage lengths"
+              },
+              {
+                "of": 1,
+                "have": 1,
+                "item": "Soil water capacity",
+                "note": "USDA SSURGO survey, 0–100 cm"
+              },
+              {
+                "of": 24,
+                "have": 24,
+                "item": "Replay years with complete weather for these crops"
+              }
+            ]
+          },
+          {
+            "id": "alternative-3",
+            "kind": "alternative",
+            "label": "Maize (grain) + Winter wheat → (no new planting)",
+            "plantings": [
+              {
+                "end": "10-15",
+                "crop": "Maize (grain)",
+                "days": 167,
+                "start": "05-01",
+                "cropId": "maize",
+                "family": "Poaceae",
+                "months": "May–Oct",
+                "source": "history",
+                "cycleYear": 0,
+                "sourceDetail": "Your records (1 season, \"main\")"
+              },
+              {
+                "end": "07-31",
+                "crop": "Winter wheat",
+                "days": 282,
+                "start": "10-22",
+                "cropId": "winter_wheat",
+                "family": "Poaceae",
+                "months": "Oct–Jul",
+                "source": "calendar",
+                "cycleYear": 0,
+                "sourceDetail": "USDA NASS 2010, Iowa, \"Wheat, winter\""
+              }
+            ],
+            "indicators": {
+              "hot_days": {
+                "unit": "days/year",
+                "value": 4.6,
+                "detail": "Hot days during crops (Tmax ≥ 35 °C; exposure, not scored)"
+              },
+              "bare_days": {
+                "unit": "days/year",
+                "value": 140.5,
+                "detail": "Scheduled bare-field days"
+              },
+              "frost_days": {
+                "unit": "days/year",
+                "value": 71.2,
+                "detail": "Frost days during crops (Tmin ≤ 0 °C; exposure, not scored)"
+              },
+              "market_fit": {
+                "unit": "share",
+                "value": null,
+                "detail": "Market fit (your stated preferences; not income)"
+              },
+              "crop_diversity": {
+                "unit": "crops",
+                "value": 2,
+                "detail": "Distinct crops"
+              },
+              "family_repeats": {
+                "unit": "per cycle",
+                "value": 2,
+                "detail": "Same-family plantings in a row"
+              },
+              "family_diversity": {
+                "unit": "families",
+                "value": 1,
+                "detail": "Distinct plant families"
+              },
+              "field_operations": {
+                "unit": "plantings/year",
+                "value": 1,
+                "detail": "Field operations (plantings per year; workload proxy)"
+              },
+              "legume_plantings": {
+                "unit": "per year",
+                "value": 0,
+                "detail": "Legume plantings"
+              },
+              "longest_bare_window": {
+                "unit": "days",
+                "value": 274,
+                "detail": "Longest scheduled bare window, starting Jul"
+              },
+              "water_supply_dry_gap": {
+                "unit": "ratio",
+                "value": 0.099,
+                "detail": "Drop in water supply in the driest third of years"
+              },
+              "deep_rooted_plantings": {
+                "unit": "per year",
+                "value": 1,
+                "detail": "Deep-rooted plantings (FAO-56 max root ≥ 1.5 m)"
+              },
+              "relative_water_supply": {
+                "unit": "ratio",
+                "value": 0.946,
+                "detail": "Relative water supply (rainfed, median year)"
+              }
+            },
+            "violations": [],
+            "completeness": [
+              {
+                "of": 2,
+                "have": 2,
+                "item": "Crops in the catalogue"
+              },
+              {
+                "of": 2,
+                "have": 2,
+                "item": "FAO-56 crop coefficients"
+              },
+              {
+                "of": 2,
+                "have": 2,
+                "item": "FAO-56 stage lengths"
+              },
+              {
+                "of": 1,
+                "have": 1,
+                "item": "Soil water capacity",
+                "note": "USDA SSURGO survey, 0–100 cm"
+              },
+              {
+                "of": 24,
+                "have": 24,
+                "item": "Replay years with complete weather for these crops"
+              }
+            ]
+          }
+        ],
+        "comparison": {
+          "cases": [
+            {
+              "id": "dry_start",
+              "top": "alternative-1",
+              "label": "Dry soil at planting",
+              "ranking": [
+                "alternative-1",
+                "alternative-3",
+                "alternative-2",
+                "baseline"
+              ]
+            },
+            {
+              "id": "driest_third",
+              "top": "alternative-1",
+              "label": "Driest third of replay years",
+              "ranking": [
+                "alternative-1",
+                "alternative-2",
+                "alternative-3",
+                "baseline"
+              ]
+            },
+            {
+              "id": "wettest_third",
+              "top": "alternative-1",
+              "label": "Wettest third of replay years",
+              "ranking": [
+                "alternative-1",
+                "alternative-3",
+                "alternative-2",
+                "baseline"
+              ]
+            }
+          ],
+          "scores": {
+            "baseline": 0.328,
+            "alternative-1": 0.642,
+            "alternative-2": 0.517,
+            "alternative-3": 0.496
+          },
+          "ranking": [
+            "alternative-1",
+            "alternative-2",
+            "alternative-3",
+            "baseline"
+          ],
+          "ablation": [
+            {
+              "ranking": [
+                "alternative-2",
+                "alternative-1",
+                "alternative-3",
+                "baseline"
+              ],
+              "priority": "water_use",
+              "topChanged": true
+            },
+            {
+              "ranking": [
+                "alternative-1",
+                "alternative-3",
+                "alternative-2",
+                "baseline"
+              ],
+              "priority": "soil_health",
+              "topChanged": false
+            },
+            {
+              "ranking": [
+                "alternative-1",
+                "alternative-3",
+                "alternative-2",
+                "baseline"
+              ],
+              "priority": "diversification",
+              "topChanged": false
+            },
+            {
+              "ranking": [
+                "alternative-1",
+                "alternative-2",
+                "alternative-3",
+                "baseline"
+              ],
+              "priority": "weather_risk",
+              "topChanged": false
+            },
+            {
+              "ranking": [
+                "alternative-1",
+                "alternative-2",
+                "alternative-3",
+                "baseline"
+              ],
+              "priority": "workload",
+              "topChanged": false
+            }
+          ],
+          "changedBy": [],
+          "stability": "stable",
+          "tradeoffs": {
+            "alternative-1": [
+              "Better: Relative water supply (rainfed, median year) 0.890 → 0.990 ratio",
+              "Better: Scheduled bare-field days 210 → 174 days/year",
+              "Worse: Same-family plantings in a row 0 → 2 per cycle",
+              "Worse: Legume plantings 0.5 → 0 per year",
+              "Better: Deep-rooted plantings (FAO-56 max root ≥ 1.5 m) 0.5 → 1 per year",
+              "Worse: Distinct plant families 2 → 1 families",
+              "Better: Drop in water supply in the driest third of years 0.156 → 0.068 ratio"
+            ],
+            "alternative-2": [
+              "Better: Relative water supply (rainfed, median year) 0.890 → 0.908 ratio",
+              "Better: Scheduled bare-field days 210 → 152.5 days/year",
+              "Better: Drop in water supply in the driest third of years 0.156 → 0.112 ratio"
+            ],
+            "alternative-3": [
+              "Better: Relative water supply (rainfed, median year) 0.890 → 0.946 ratio",
+              "Better: Scheduled bare-field days 210 → 140.5 days/year",
+              "Worse: Same-family plantings in a row 0 → 2 per cycle",
+              "Worse: Legume plantings 0.5 → 0 per year",
+              "Better: Deep-rooted plantings (FAO-56 max root ≥ 1.5 m) 0.5 → 1 per year",
+              "Worse: Distinct plant families 2 → 1 families",
+              "Better: Drop in water supply in the driest third of years 0.156 → 0.099 ratio"
+            ]
+          },
+          "groupsUsed": [
+            "water_use",
+            "soil_health",
+            "diversification",
+            "weather_risk",
+            "workload"
+          ],
+          "contributions": {
+            "baseline": {
+              "workload": 0.063,
+              "water_use": 0,
+              "soil_health": 0.125,
+              "weather_risk": 0,
+              "diversification": 0.141
+            },
+            "alternative-1": {
+              "workload": 0.063,
+              "water_use": 0.25,
+              "soil_health": 0.095,
+              "weather_risk": 0.188,
+              "diversification": 0.047
+            },
+            "alternative-2": {
+              "workload": 0.063,
+              "water_use": 0.043,
+              "soil_health": 0.177,
+              "weather_risk": 0.094,
+              "diversification": 0.141
+            },
+            "alternative-3": {
+              "workload": 0.063,
+              "water_use": 0.14,
+              "soil_health": 0.125,
+              "weather_risk": 0.121,
+              "diversification": 0.047
+            }
+          },
+          "indicatorsUsed": [
+            "relative_water_supply",
+            "bare_days",
+            "family_repeats",
+            "legume_plantings",
+            "deep_rooted_plantings",
+            "crop_diversity",
+            "family_diversity",
+            "water_supply_dry_gap",
+            "field_operations"
+          ],
+          "indicatorsDropped": [
+            {
+              "key": "market_fit",
+              "reason": "Not available for every option compared"
+            }
+          ]
+        }
+      },
+      "gaps": [],
+      "assumptions": [
+        "ET0 from temperature only (FAO-56 Eq. 52, Hargreaves), not calibrated locally.",
+        "Kc from FAO-56 Table 12 without climate adjustment (RHmin ≈ 45%, u2 ≈ 2 m/s assumed).",
+        "No surface runoff and no capillary rise; water above field capacity drains the same day.",
+        "Each planting starts with the root zone at field capacity (dry-start case shown as sensitivity); no carry-over between plantings.",
+        "Roots grow from 0.15 m at planting to the FAO-56 Table 22 upper depth by the end of development.",
+        "Stage proportions from the FAO-56 Table 11 example closest in total length, scaled to the local season length.",
+        "Whole field; frost and hot days use coarse-cell air temperature (exposure, not crop damage)."
+      ]
+    },
+    "reproduction": {
+      "runId": "d75d4c4a-5632-4ecd-bbd0-1b97aaf84c33",
+      "resultSha256": "cda13703826e214270b6a684db74227b42057d205ba51866c0b135c2d8b5f1dd",
+      "inputDigest": "ae7c4234d86b781fdc3a46cfbafbc446412297be011a39fea5c210e255098e81",
+      "computeMs": 38013
+    },
+    "rejections": [
+      {
+        "code": "unknown_crop",
+        "crop": "dragon fruit",
+        "detail": "Not in the crop catalogue, so it is not offered as an alternative."
+      },
+      {
+        "code": "no_window",
+        "crop": "Lentil",
+        "detail": "No planting window: not in your records, not in your windows, and not in the Iowa calendar."
+      }
+    ]
+  }
+}

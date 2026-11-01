@@ -13,9 +13,9 @@ src/
     sources/           Typed data-source + reference registry (Phase 1)
     farm/              Farmer record schemas (zod) mirroring DB constraints
     geo/               GeoJSON boundary validation and geodesic area
-    scenario/          Scenario settings v1 (historical replay window, never a forecast)
+    scenario/          Scenario settings v1/v2 (replay window, planting windows, transformations; never a forecast)
     reference/         Canonical JSON + sourced reference datasets for import
-    simulation/        Engine version placeholder; engine arrives in Phase 4
+    simulation/        Pure rotation + FAO-56 water-balance engine (docs/scientific-methodology.md), crop catalogue, NASS parser
   lib/
     env/               Environment schemas (pure) + public env reader
     supabase/          Browser Supabase client (returns null when unconfigured)
@@ -23,6 +23,7 @@ src/
     env.ts             Secret env reader; exposes a value-free report
     auth/              getAuth/requireUser (getClaims), auth server actions
     farm/              Farm/field/scenario queries and server actions (user-scoped client, RLS)
+    simulation/        Run queries and actions (request_simulation, re-run, cancel); runs execute in the worker
     database/          Request-scoped Supabase client, generated types, safe error messages
     providers/         Validated public clients: NASA POWER, ORNL MODIS, CMR, USDA SDA, SoilGrids (Phase 1)
       __fixtures__/    Labelled test-only captures (lint-banned outside tests)

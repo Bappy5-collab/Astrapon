@@ -44,6 +44,7 @@ pnpm db:status      # database scripts: see supabase/README.md
 pnpm test:db        # live two-user isolation tests against the dev project
 pnpm evidence:worker # background worker that downloads and processes evidence (needs SUPABASE_DB_URL)
 pnpm evidence:trace  # live end-to-end evidence trace (creates and deletes a throwaway user)
+pnpm simulation:trace # live end-to-end simulation trace: real POWER + SSURGO → run → identical re-run
 ```
 
 ## Configuration
@@ -53,7 +54,7 @@ The app runs with **no credentials**. To enable services:
 1. Create a **new, dedicated** Supabase project for Astrapon development. Do not reuse another app's project.
 2. Run `cp .env.example .env.local` and fill in the values. See the comments in the file.
 3. Add `SUPABASE_DB_URL` (session pooler URI with your database password) for the database scripts, then run `pnpm db:migrate`, `pnpm db:import-reference` and `pnpm db:verify`.
-4. In Supabase → Authentication → URL Configuration, set the Site URL to `http://localhost:3000` and allow `http://localhost:3000/**` as a redirect URL.
+4. In Supabase → Authentication → URL Configuration, set the Site URL to your app URL (`http://localhost:3000` locally) and allow `http://localhost:3000/**` (and your deployed URL with `/**`) as redirect URLs. Set `NEXT_PUBLIC_SITE_URL` on the deployment so email links use it.
 5. Restart `pnpm dev` and open `/setup` to confirm each service shows **Configured**. The page never displays values.
 
 `/api/health` returns the same configuration states as JSON.

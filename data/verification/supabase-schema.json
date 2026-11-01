@@ -1,7 +1,7 @@
 {
-  "_artifact": "Live schema verification of the FieldShift development Supabase project. Produced by scripts/db/verify.mts.",
+  "_artifact": "Live schema verification of the Astrapon development Supabase project. Produced by scripts/db/verify.mts.",
   "project": "esav…wp",
-  "verifiedAt": "2026-10-31T06:35:06.395Z",
+  "verifiedAt": "2026-11-01T06:40:10.360Z",
   "outcome": "verified",
   "migrations": [
     {
@@ -31,9 +31,29 @@
     {
       "file": "20261031140000_evidence_pin_cascade.sql",
       "sha256": "1a6c5bbd78e6d85ce7d6a2319bcf038961f9ae153c7c10534dd4274d62f1e077"
+    },
+    {
+      "file": "20261101100000_simulation_engine.sql",
+      "sha256": "7635898263ff02b6c5e0323430707265945f105bc578d16b2b343725aa2edb8c"
     }
   ],
   "referenceDatasets": [
+    {
+      "kind": "crop_calendar",
+      "name": "usda-nass-usual-dates-2010",
+      "version": 1,
+      "status": "published",
+      "sha": "fe4c5c24f7f455e827a06825de4e0c0d5b48c582d4d261727448f72fc750c602",
+      "items": 271
+    },
+    {
+      "kind": "crop_parameters",
+      "name": "crop-parameters",
+      "version": 1,
+      "status": "published",
+      "sha": "00110552d61d603923803823b3cbb678cb38b7186da5eda18bb0ae1f72f27fb7",
+      "items": 28
+    },
     {
       "kind": "data_source_registry",
       "name": "fieldshift-data-sources",
@@ -46,26 +66,34 @@
       "kind": "reference_library",
       "name": "agronomic-references",
       "version": 1,
-      "status": "published",
+      "status": "retired",
       "sha": "4c9c210e8c97096d2876706de6571befcb72d7e349f73240d1add12f7a7f4005",
       "items": 13
+    },
+    {
+      "kind": "reference_library",
+      "name": "agronomic-references",
+      "version": 2,
+      "status": "published",
+      "sha": "4c7c291bb13394835785dace3a613bb2647be532ca5a16890d687f94c6dde2f9",
+      "items": 15
     }
   ],
   "checks": [
     {
       "name": "migrations: local == remote history",
       "ok": true,
-      "detail": "7 recorded; missing []; changed []; extra []"
+      "detail": "8 recorded; missing []; changed []; extra []"
     },
     {
       "name": "tables: exactly the expected set",
       "ok": true,
-      "detail": "found 23: unexpected [], missing []"
+      "detail": "found 24: unexpected [], missing []"
     },
     {
       "name": "RLS enabled on every public table",
       "ok": true,
-      "detail": "23 tables"
+      "detail": "24 tables"
     },
     {
       "name": "anon has no privileges on user tables",
@@ -78,7 +106,7 @@
       "detail": "SELECT only"
     },
     {
-      "name": "results and evidence aggregates are server-written only",
+      "name": "results, evidence aggregates and daily series are server-written only",
       "ok": true,
       "detail": "SELECT only for users"
     },
@@ -90,7 +118,7 @@
     {
       "name": "user-table policies are authenticated + owner-scoped",
       "ok": true,
-      "detail": "63 policies"
+      "detail": "64 policies"
     },
     {
       "name": "no write policies on reference tables",
@@ -103,7 +131,7 @@
       "detail": "none"
     },
     {
-      "name": "anon cannot execute FieldShift RPCs",
+      "name": "anon cannot execute Astrapon RPCs",
       "ok": true,
       "detail": "none"
     },
@@ -115,7 +143,7 @@
     {
       "name": "reference datasets imported and published",
       "ok": true,
-      "detail": "fieldshift-data-sources v1 published (13 items, 5bca7b827a88); agronomic-references v1 published (13 items, 4c9c210e8c97)"
+      "detail": "usda-nass-usual-dates-2010 v1 published (271 items, fe4c5c24f7f4); crop-parameters v1 published (28 items, 00110552d61d); fieldshift-data-sources v1 published (13 items, 5bca7b827a88); agronomic-references v1 retired (13 items, 4c9c210e8c97); agronomic-references v2 published (15 items, 4c7c291bb133)"
     },
     {
       "name": "generated types match live schema",

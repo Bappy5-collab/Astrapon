@@ -1,0 +1,2003 @@
+Field Crops
+Usual Planting and Harvesting Dates
+
+October 2010
+
+ISSN: issncode
+
+United States Department of Agriculture
+National Agricultural Statistics Service
+
+Contents
+
+Introduction.......................................................5
+Barley.............................................................6
+Barley for Grain, Harvested Acres: 2007............................6
+Fall Barley Usual Planting and Harvesting Dates - States...........7
+Spring Barley Usual Planting and Harvesting Dates - States.........7
+Corn...............................................................8
+Corn for Grain, Harvested Acres: 2007..............................8
+Corn for Grain Usual Planting and Harvesting Dates - States........9
+All Cotton........................................................10
+All Cotton, Harvested Acres: 2007.................................10
+All Cotton Usual Planting and Harvesting Dates - States...........11
+Alfalfa Hay.......................................................12
+Alfalfa Hay, Harvested Acres: 2007................................12
+Alfalfa Hay Usual Planting and Harvesting Dates - States..........13
+Other Hay.........................................................14
+Other Tame Hay, Harvested Acres: 2007.............................14
+Other Hay Usual Planting and Harvesting Dates - States............15
+Oats..............................................................16
+Oats for Grain, Harvested Acres: 2007.............................16
+Fall Oat Usual Planting and Harvesting Dates - States.............17
+Spring Oat Usual Planting and Harvesting Dates - States...........17
+Peanuts...........................................................18
+Peanuts for Nuts, Harvested Acres: 2007...........................18
+Peanut Usual Planting and Harvesting Dates - States...............19
+All Rice..........................................................20
+Rice, Harvested Acres: 2007.......................................20
+All Rice Usual Planting and Harvesting Dates - States.............21
+Sorghum...........................................................22
+Sorghum for Grain, Harvested Acres: 2007..........................22
+Sorghum for Grain Usual Planting and Harvesting Dates - States....23
+Soybeans..........................................................24
+Soybeans for Beans, Harvested Acres: 2007.........................24
+Soybean Usual Planting and Harvesting Dates - States..............25
+Sugarbeets........................................................26
+Sugarbeets for Sugar, Harvested Acres: 2007.......................26
+Sugarbeet Usual Planting and Harvesting Dates - States............27
+All Sunflowers....................................................28
+Sunflower Seed (Non-Oil Varieties), Harvested Acres: 2007.........28
+Sunflower Seed (Oil Varieties), Harvested Acres: 2007.............29
+All Sunflower Usual Planting and Harvesting Dates - States........29
+Tobacco...........................................................30
+Tobacco, Harvested Acres: 2007....................................30
+Tobacco Usual Planting and Harvesting Dates by Class - States.....31
+Durum Wheat.......................................................32
+Spring Wheat......................................................32
+Winter Wheat......................................................32
+All Wheat for Grain, Harvested Acres: 2007........................33
+Durum Wheat Usual Planting and Harvesting Dates - States..........33
+Spring Wheat Usual Planting and Harvesting Dates - States.........33
+Winter Wheat Usual Planting and Harvesting Dates - States.........34
+Usual Planting and Harvesting Dates by Crop - Alabama.............35
+Usual Planting and Harvesting Dates by Crop - Alaska..............35
+Usual Planting and Harvesting Dates by Crop - Arizona.............35
+Usual Planting and Harvesting Dates by Crop - Arkansas............36
+Usual Planting and Harvesting Dates by Crop - California..........36
+Usual Planting and Harvesting Dates by Crop - Colorado............36
+Usual Planting and Harvesting Dates by Crop - Delaware............37
+Usual Planting and Harvesting Dates by Crop - Florida.............37
+Usual Planting and Harvesting Dates by Crop - Georgia.............37
+Usual Planting and Harvesting Dates by Crop - Idaho...............38
+Usual Planting and Harvesting Dates by Crop - Illinois............38
+Usual Planting and Harvesting Dates by Crop - Indiana.............38
+Usual Planting and Harvesting Dates by Crop - Iowa................39
+Usual Planting and Harvesting Dates by Crop - Kansas..............39
+Usual Planting and Harvesting Dates by Crop - Kentucky............39
+Usual Planting and Harvesting Dates by Crop - Louisiana...........40
+Usual Planting and Harvesting Dates by Crop - Maryland............40
+Usual Planting and Harvesting Dates by Crop - Michigan............40
+Usual Planting and Harvesting Dates by Crop - Minnesota...........41
+Usual Planting and Harvesting Dates by Crop - Mississippi.........41
+Usual Planting and Harvesting Dates by Crop - Missouri............41
+Usual Planting and Harvesting Dates by Crop - Montana.............42
+Usual Planting and Harvesting Dates by Crop - Nebraska............42
+Usual Planting and Harvesting Dates by Crop - Nevada..............42
+Usual Planting and Harvesting Dates by Crop - New England.........43
+Usual Planting and Harvesting Dates by Crop - New Jersey..........43
+Usual Planting and Harvesting Dates by Crop - New Mexico..........43
+Usual Planting and Harvesting Dates by Crop - New York............44
+Usual Planting and Harvesting Dates by Crop - North Carolina......44
+Usual Planting and Harvesting Dates by Crop - North Dakota........44
+Usual Planting and Harvesting Dates by Crop - Ohio................45
+Usual Planting and Harvesting Dates by Crop - Oklahoma............45
+Usual Planting and Harvesting Dates by Crop - Oregon..............45
+Usual Planting and Harvesting Dates by Crop - Pennsylvania........46
+Usual Planting and Harvesting Dates by Crop - South Carolina......46
+Usual Planting and Harvesting Dates by Crop - South Dakota........46
+Usual Planting and Harvesting Dates by Crop - Tennessee...........47
+Usual Planting and Harvesting Dates by Crop - Texas...............47
+Usual Planting and Harvesting Dates by Crop - Utah................47
+Usual Planting and Harvesting Dates by Crop - Virginia............48
+Usual Planting and Harvesting Dates by Crop - Washington..........48
+Usual Planting and Harvesting Dates by Crop - West Virginia.......48
+Usual Planting and Harvesting Dates by Crop - Wisconsin...........49
+Usual Planting and Harvesting Dates by Crop - Wyoming.............49
+Information Contacts..............................................50
+ 
+Introduction
+
+State-level usual planting and harvesting dates for major field crops appear 
+in this report. In addition, dot maps show major areas of production based on 
+2007 Census of Agriculture data. The information was assembled by the 
+National Agricultural Statistics Service, based on the best and latest 
+information available. The same data for vegetables may be found in Usual 
+Planting and Harvesting Dates for Fresh Market and Processing Vegetables 
+Agriculture Handbook Number 507, issued May 2007.
+
+The dates shown indicate the periods in which the crops are planted and 
+harvested in most years based on 20 years of historical crop progress 
+estimates, as well as the knowledge of industry specialists. Beginning dates 
+indicate when planting or harvesting is about 5 percent complete and ending 
+dates when operations are about 95 percent complete. The "most active" range 
+indicates when between 15 and 85 percent of the crop is planted or harvested.
+
+The "usual planting dates" are the times when crops are usually planted in 
+the fields. For transplanted crops, such as tobacco, the planting period 
+refers to the time of setting plants in the field.
+
+The "harvest dates" refer to the periods during which harvest of the crop 
+actually occurs. Dates do not extend through the subsequent period in which 
+some commodities are stored in the field after harvest.
+
+Barley
+
+Producers harvested 3.11 million acres of barley in the United States during 
+2009. After reaching a peak of nearly 17 million acres in 1942, harvested 
+acreage has declined in recent years to levels reminiscent of the early 
+1880s. Yields, however, have been steadily increasing, with a record high 
+average yield of 73.0 bushels per acre recorded in 2009.
+
+North Dakota continues to be the largest barley-producing State, harvesting 
+35 percent of the total United States production in 2009. North Dakota, along 
+with Idaho and Montana, the second and third ranking States, accounted for 
+nearly three-quarters of the 2009 barley production. Only minor acreages are 
+grown in the eastern and southern States. Most barley is fed to livestock, 
+with the remainder of the crop used for malting purposes.
+
+Fall Barley Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Arizona ........:    45      Nov 10 Dec 1 - Dec 30  Feb 10  May 10 May 30 - Jun 20 Jul 10 
+California .....:    55      Sep 15 Oct 1 - Apr 15  Apr 30  May 15 Jun 1 - Jul 15  Aug 15 
+Delaware .......:    26      Sep 27 Oct 9 - Oct 27  Nov 10  Jun 5  Jun 12 - Jun 28 Jul 3  
+Kansas .........:     9      Sep 15 Oct 1 - Oct 15  Nov 1   Jun 20 Jun 15 - Jul 1  Jul 5  
+Maryland .......:    48      Sep 17 Oct 1 - Oct 21  Nov 7   Jun 12 Jun 16 - Jun 28 Jul 8  
+North Carolina .:    19      Sep 25 Oct 15 - Nov 10 Dec 1   May 25 Jun 10 - Jun 30 Jul 25 
+Pennsylvania ...:    45      Aug 25 Sep 15 - Oct 15 Oct 25  Jun 20 Jun 25 - Jul 20 Aug 10 
+Virginia .......:    43      Sep 18 Sep 26 - Oct 29 Nov 8   May 28 Jun 6 - Jun 25  Jul 1  
+------------------------------------------------------------------------------------------
+
+Spring Barley Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alaska .........:      4.4   May 5  May 10 - May 30 Jun 5   Aug 15 Aug 25 - Sep 25 Oct 1  
+California .....:       1/   Feb 20 Mar 1 - May 1   May 15  Aug 15 Sep 1 - Sep 20  Oct 1  
+Colorado .......:     77     Mar 14 Mar 26 - May 5  May 16  Jul 20 Jul 29 - Sep 6  Sep 14 
+Idaho ..........:    510     Mar 24 Apr 7 - May 5   May 26  Jul 28 Aug 11 - Sep 8  Sep 29 
+Kansas .........:       1/   Mar 1  Mar 5 - Apr 1   May 1   Jun 20 Jun 25 - Jul 1  Jul 10 
+Maine ..........:     15     May 4  May 9 - May 30  Jun 6   Aug 9  Aug 18 - Sep 18 Sep 30 
+Michigan .......:     11     Apr 10 Apr 13 - May 20 May 27  Jul 26 Aug 3 - Aug 19  Aug 31 
+Minnesota ......:     80     Apr 15 Apr 23 - May 25 Jun 3   Jul 26 Aug 1 - Sep 3   Sep 18 
+Montana ........:    720     Apr 3  Apr 13 - May 11 May 20  Jul 27 Aug 3 - Sep 2   Sep 10 
+New York .......:     10     Apr 1  Apr 7 - Apr 29  May 29  Aug 1  Aug 7 - Aug 27  Sep 12 
+                :                                                                         
+North Dakota ...:  1,130     Apr 19 Apr 26 - May 25 Jun 3   Jul 28 Aug 4 - Sep 3   Sep 16 
+Oregon .........:     32     Mar 1  Mar 30 - May 15 May 25  Jul 10 Jul 21 - Sep 1  Sep 8  
+South Dakota ...:     22     Apr 6  Apr 14 - May 17 May 24  Jul 20 Jul 27 - Aug 19 Aug 27 
+Utah ...........:     30     Mar 20 Apr 1 - Apr 20  May 10  Jul 15 Jul 25 - Aug 15 Sep 1  
+Washington .....:     97     Mar 20 Mar 30 - May 5  May 10  Jul 25 Aug 1 - Aug 30  Sep 5  
+Wisconsin ......:     25     Apr 5  Apr 10 - Apr 20 Apr 30  Aug 1  Aug 5 - Aug 15  Aug 20 
+Wyoming ........:     64     Mar 18 Mar 26 - May 2  Jun 2   Jul 24 Aug 5 - Aug 26  Sep 17 
+------------------------------------------------------------------------------------------
+1/  Harvested acreage not published by planting season. An "All Barley" harvested acreage 
+    estimate is published in the Fall Barley table.                                       
+
+Corn
+
+Corn was the leading United States crop in 2009, both in terms of value of 
+production and acreage grown. Nearly 79.6 million acres of corn were 
+harvested for grain in 2009 with acreage for grain comprising 92 percent of 
+all corn planted. More than 80 percent of the corn for grain acreage lies in 
+the Corn Belt, with Iowa leading all States and Illinois ranking second. The 
+largest acreage of record, 111 million acres was harvested in 1917. From 1950 
+to 2006, harvested acreage levels generally ranged between 60 and 75 million 
+acres. Beginning in 2007, favorable prices, driven by growing demand from 
+ethanol producers and strong export sales, encouraged farmers to plant more 
+acres to corn.
+
+Yields have generally increased since the turn of the twentieth century, with 
+more rapid increases occurring in more recent years. The 2009 National grain 
+yield was a record high 164.7 bushels per acre. The previous record corn 
+yield of 160.3 bushels per acre occurred in 2004. The rise in yield has led 
+to a steady increase in corn production beginning in the late1980s. A record 
+production of 13.1 billion bushels was recorded in 2009, with the second 
+highest production of 13.0 billion bushels recorded just two years earlier in 
+2007.
+
+Corn for Grain Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:     250    Mar 15 Mar 25 - Apr 25 May 18  Aug 2  Aug 11 - Sep 20 Oct 15 
+Arizona ........:      20    Mar 10 Apr 1 - May 15  Jun 1   Sep 1  Oct 1 - Nov 1   Dec 1  
+Arkansas .......:     410    Mar 26 Apr 1 - Apr 26  May 9   Aug 16 Aug 23 - Sep 23 Oct 6  
+California .....:     160    Mar 15 Apr 1 - Jul 1   Jul 15  Sep 1  Oct 1 - Nov 1   Nov 15 
+Colorado .......:     990    Apr 19 Apr 28 - May 20 May 29  Sep 28 Oct 8 - Nov 13  Nov 22 
+Delaware .......:     163    Apr 12 Apr 30 - May 16 May 28  Sep 10 Sep 20 - Oct 15 Nov 5  
+Florida ........:      37    Mar 1  Mar 15 - Apr 25 May 5   Jul 15 Aug 1 - Sept 10 Oct 1  
+Georgia ........:     370    Mar 14 Mar 22 - Apr 21 May 4   Aug 6  Aug 16 - Sep 22 Oct 7  
+Idaho ..........:      80    Apr 21 May 5 - May 26  Jun 9   Sep 29 Oct 20 - Nov 10 Nov 24 
+Illinois .......:  11,800    Apr 14 Apr 21 - May 23 Jun 5   Sep 14 Sep 23 - Nov 5  Nov 20 
+                :                                                                         
+Indiana ........:   5,460    Apr 20 May 1 - Jun 1   Jun 10  Sep 15 Oct 1 - Nov 10  Nov 25 
+Iowa ...........:  13,400    Apr 19 Apr 25 - May 18 May 26  Sep 21 Oct 5 - Nov 9   Nov 21 
+Kansas .........:   3,860    Apr 5  Apr 15 - May 15 May 25  Sep 1  Sep 10 - Oct 25 Nov 10 
+Kentucky .......:   1,150    Apr 6  Apr 14 - May 24 Jun 8   Sep 1  Sep 9 - Oct 24  Nov 10 
+Louisiana ......:     610    Mar 13 Mar 19 - Apr 8  Apr 16  Jul 31 Aug 9 - Sep 5   Sep 12 
+Maryland .......:     425    Apr 20 Apr 30 - May 20 Jun 7   Sep 9  Sep 22 - Oct 22 Nov 17 
+Michigan .......:   2,090    Apr 21 May 1 - May 27  Jun 6   Sep 5  Oct 10 - Nov 25 Dec 10 
+Minnesota ......:   7,150    Apr 22 Apr 26 - May 19 May 29  Sep 27 Oct 8 - Nov 8   Nov 23 
+Mississippi ....:     695    Mar 17 Mar 24 - Apr 27 May 4   Aug 11 Aug 23 - Sep 23 Oct 7  
+Missouri .......:   2,920    Apr 3  Apr 11 - May 27 Jun 12  Aug 29 Sep 8 - Nov 3   Dec 22 
+                :                                                                         
+Montana ........:      26    Apr 26 May 4 - May 28  Jun 4   Oct 4  Oct 25 - Dec 3  Dec 8  
+Nebraska .......:   8,850    Apr 19 Apr 27 - May 15 May 21  Sep 18 Oct 4 - Nov 10  Nov 20 
+New Jersey .....:      70    Apr 15 May 1 - May 20  Jun 15  Sep 25 Oct 10 - Nov 1  Nov 15 
+New Mexico .....:      50    Apr 15 Apr 20 - May 10 May 20  Sep 25 Oct 1 - Oct 30  Nov 20 
+New York .......:     595    Apr 20 May 4 - Jun 13  Jun 20  Oct 7  Oct 14 - Nov 14 Nov 25 
+North Carolina .:     800    Apr 1  Apr 10 - Apr 25 May 15  Aug 25 Sep 10 - Oct 10 Nov 1  
+North Dakota ...:   1,740    Apr 26 May 2 - May 28  Jun 4   Sep 28 Oct 8 - Nov 19  Dec 6  
+Ohio ...........:   3,140    Apr 18 Apr 24 - May 24 May 30  Sep 27 Oct 11 - Nov 20 Dec 1  
+Oklahoma .......:     320    Mar 21 Apr 2 - May 8   May 17  Aug 20 Aug 29 - Oct 9  Oct 20 
+Oregon .........:      32    Mar 25 Apr 25 - Jun 5  Jun 15  Oct 10 Oct 20 - Nov 20 Dec 5  
+                :                                                                         
+Pennsylvania ...:     920    Apr 30 May 10 - May 25 Jun 15  Sep 25 Oct 15 - Nov 20 Dec 10 
+South Carolina .:     320    Mar 10 Mar 20 - Apr 20 May 15  Jul 25 Aug 20 - Sep 25 Oct 10 
+South Dakota ...:   4,680    Apr 26 May 2 - May 27  Jun 10  Sep 24 Oct 6 - Nov 16  Dec 3  
+Tennessee ......:     590    Apr 1  Apr 5 - May 10  May 25  Aug 25 Sep 1 - Oct 10  Oct 30 
+Texas ..........:   1,960    Mar 1  Mar 8 - May 7   May 17  Jul 18 Aug 1 - Oct 11  Nov 8  
+Utah ...........:      17    Apr 15 Apr 30 - May 20 Jun 5   Sep 25 Oct 10 - Oct 30 Dec 10 
+Virginia .......:     330    Apr 5  Apr 11 - May 20 May 29  Aug 31 Sep 6 - Oct 28  Nov 9  
+Washington .....:     105    Apr 10 Apr 20 - May 20 Jun 1   Sep 25 Oct 5 - Nov 15  Nov 25 
+West Virginia ..:      30    Apr 20 May 1 - Jun 5   Jun 20  Sep 15 Sep 30 - Nov 20 Dec 1  
+Wisconsin ......:   2,930    Apr 26 May 2 - May 27  Jun 4   Oct 2  Oct 14 - Nov 17 Nov 28 
+Wyoming ........:      45    Apr 24 May 3 - May 21  Jun 6   Oct 5  Oct 18 - Nov 24 Dec 10 
+------------------------------------------------------------------------------------------
+
+All Cotton
+
+Cotton is grown in the southern United States, mostly south of the 36th 
+parallel, with concentrations in the Texas High Plains, the Delta region, and 
+Georgia. Unlike in the tropics where cotton is grown as a perennial, United 
+States cotton is grown as an annual from seed planted each year. Most United 
+States cotton is Upland cotton, which usually has a staple length of 1 to 
+11/4 inches. Extra-long staple American Pima cotton, which has a staple length 
+of 11/4 inches or longer, is grown in California, Arizona, New Mexico, and 
+Texas.
+
+Cotton acreage increased until 1925, when nearly 46 million acres were 
+planted, then generally declined until the 1960s. Since then, acreage has 
+ranged between 9 and 15 million acres. Producers planted just over 9 million 
+acres in 2009, the lowest area since 1983. Cotton yields have trended upward 
+since the mid 1960s, with a record high yield of 879 pounds per acre of 
+cotton harvested in 2007. With the increases in yield, cotton production in 
+recent years has reached the same levels that were produced in the 1920s and 
+1930s when acreage was at its peak. In 2009, producers harvested nearly 
+8 million acres of cotton, accounting for just over 12 million bales.
+
+All Cotton Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:    248.0   Apr 5  Apr 24 - May 24 Jun 6   Sep 5  Sep 20 - Oct 20 Dec 1  
+Arizona ........:    145.6   Mar 15 Apr 1 - Apr 30  May 15  Sep 15 Oct 10 - Nov 10 Dec 25 
+Arkansas .......:    500.0   Apr 23 Apr 30 - May 23 May 31  Sep 20 Sep 29 - Nov 6  Nov 20 
+California .....:    186.0   Apr 1  Apr 10 - May 5  May 15  Oct 5  Oct 10 - Nov 1  Nov 20 
+Florida ........:     78.0   Apr 15 Apr 25 - May 25 Jun 15  Sep 20 Oct 1 - Nov 20  Dec 15 
+Georgia ........:    990.0   Apr 23 May 2 - May 31  Jun 11  Sep 23 Oct 10 - Dec 2  Dec 18 
+Kansas .........:     34.0   May 10 May 20 - Jun 15 Jun 25  Oct 15 Oct 25 - Dec 15 Dec 30 
+Louisiana ......:    225.0   Apr 17 Apr 24 - May 17 May 26  Sep 14 Sep 23 - Oct 23 Nov 6  
+Mississippi ....:    290.0   Apr 20 Apr 27 - May 19 May 29  Sep 15 Sep 27 - Oct 29 Nov 12 
+Missouri .......:    260.0   Apr 22 Apr 29 - May 23 May 29  Sep 17 Sep 27 - Nov 9  Nov 24 
+                :                                                                         
+New Mexico .....:     32.3   Apr 10 Apr 20 - May 10 May 20  Oct 10 Oct 25 - Nov 30 Dec 20 
+North Carolina .:    370.0   Apr 20 May 1 - May 20  Jun 1   Sep 30 Oct 10 - Nov 15 Dec 15 
+Oklahoma .......:    195.0   May 2  May 11 - Jun 10 Jun 18  Oct 4  Oct 15 - Dec 9  Dec 24 
+South Carolina .:    114.0   Apr 24 May 1 - May 20  Jun 1   Sep 23 Oct 15 - Nov 13 Dec 5  
+Tennessee ......:    280.0   Apr 25 May 1 - May 25  Jun 5   Sep 20 Sep 30 - Nov 10 Nov 25 
+Texas ..........:  3,517.8   Mar 22 Apr 8 - Jun 7   Jun 20  Aug 10 Sep 13 - Dec 21 Jan 11 
+Virginia .......:     63.0   Apr 23 Apr 25 - May 11 May 16  Sep 30 Oct 8 - Nov 20  Nov 27 
+------------------------------------------------------------------------------------------
+
+Alfalfa Hay
+
+Alfalfa hay, which includes alfalfa and alfalfa mixtures, comprised 36 
+percent of the total acreage harvested for hay in 2009. Alfalfa is common in 
+all regions except the Southeast, where the humid climate and sandy soils do 
+not favor production. In most areas, the crop is harvested at least two or 
+three times a year. 
+
+There were over 21 million acres of alfalfa hay harvested in the United 
+States during 2009. California was the leading alfalfa hay-producing State, 
+harvesting 7.0 million tons from nearly one million acres in 2009. Alfalfa 
+hay production increased steadily until the mid 1980s, when a record 
+production of 92 million tons was harvested in 1986. Production has since 
+gradually declined. Growers harvested 71 million tons in 2009 with a yield of 
+3.35 tons per acre.
+
+Alfalfa Hay Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Arizona ........:     280     (NA)        (NA)       (NA)   Feb 15 (NA)            Dec 1  
+Arkansas .......:      15     (NA)        (NA)       (NA)   May 1  May 15 - Sep 1  Sep 15 
+California .....:     980     (NA)        (NA)       (NA)   Feb 15 (NA)            Nov 20 
+Colorado .......:     850     (NA)        (NA)       (NA)   May 23 May 30 - Oct 6  Nov 9  
+Delaware .......:       5     (NA)        (NA)       (NA)   May 13 (NA)            Nov 19 
+Idaho ..........:   1,140     (NA)        (NA)       (NA)   May 22 (NA)            Oct 20 
+Illinois .......:     340     (NA)        (NA)       (NA)   May 9  May 19 - Sep 8  Sep 21 
+Indiana ........:     300     (NA)        (NA)       (NA)   May 15 (NA)            Sep 20 
+Iowa ...........:     920     (NA)        (NA)       (NA)   May 24 May 30 - Sep 15 Sep 29 
+Kansas .........:     850     (NA)        (NA)       (NA)   May 10 May 20 - Oct 15 Nov 1  
+                :                                                                         
+Kentucky .......:     220     (NA)        (NA)       (NA)   May 5  May 15 - Sep 1  Sep 15 
+Maryland .......:      40     (NA)        (NA)       (NA)   May 12 (NA)            Nov 30 
+Michigan .......:     700     (NA)        (NA)       (NA)   May 31 Jun 15 - Sep 11 Oct 14 
+Minnesota ......:   1,300     (NA)        (NA)       (NA)   May 25 (NA)            Sep 24 
+Missouri .......:     280     (NA)        (NA)       (NA)   May 16 Jun 28 - Aug 14 Sep 1  
+Montana ........:   1,700     (NA)        (NA)       (NA)   Jun 18 (NA)            Sep 23 
+Nebraska .......:     950     (NA)        (NA)       (NA)   May 19 (NA)            Oct 15 
+Nevada .........:     280     (NA)        (NA)       (NA)   May 20 (NA)            Oct 15 
+New England 1/ .:      65     (NA)        (NA)       (NA)   May 25 (NA)            Oct 31 
+New Jersey .....:      25     (NA)        (NA)       (NA)   May 15 (NA)            Nov 1  
+                :                                                                         
+New Mexico .....:     240     (NA)        (NA)       (NA)   May 1  (NA)            Oct 20 
+New York .......:     350     (NA)        (NA)       (NA)   May 25 (NA)            Oct 10 
+North Carolina .:       7     (NA)        (NA)       (NA)   Apr 30 (NA)            Nov 15 
+North Dakota ...:   1,780     (NA)        (NA)       (NA)   Jun 10 (NA)            Sep 6  
+Ohio ...........:     380     (NA)        (NA)       (NA)   May 17 May 25 - Sep 11 Sep 24 
+Oklahoma .......:     320     (NA)        (NA)       (NA)   Apr 20 (NA)            Oct 13 
+Oregon .........:     400     (NA)        (NA)       (NA)   May 5  (NA)            Sep 20 
+Pennsylvania ...:     500     (NA)        (NA)       (NA)   May 15 (NA)            Nov 15 
+South Dakota ...:   2,500     (NA)        (NA)       (NA)   May 29 Jun 5 - Sep 12  Sep 20 
+Tennessee ......:      15     (NA)        (NA)       (NA)   May 1  (NA)            Oct 1  
+                :                                                                         
+Texas ..........:     120     (NA)        (NA)       (NA)   Apr 15 (NA)            Sep 20 
+Utah ...........:     530     (NA)        (NA)       (NA)   Jun 1  (NA)            Oct 25 
+Virginia .......:      90     (NA)        (NA)       (NA)   May 1  (NA)            Oct 20 
+Washington .....:     490     (NA)        (NA)       (NA)   May 15 Jun 1 - Sep 5   Oct 1  
+West Virginia ..:      25     (NA)        (NA)       (NA)   May 20 (NA)            Oct 1  
+Wisconsin ......:   1,550     (NA)        (NA)       (NA)   May 20 (NA)            Oct 10 
+Wyoming ........:     690     (NA)        (NA)       (NA)   Jun 6  (NA)            Oct 5  
+------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                      
+1/    New England includes Connecticut, Maine, Massachusetts, New Hampshire, Rhode Island,
+      and Vermont.                                                                        
+
+Other Hay
+
+In those States which estimate alfalfa hay, other hay includes all crops 
+harvested for hay except alfalfa and alfalfa mixtures. Other hay includes 
+alfalfa in Alabama, Florida, Georgia, Louisiana, Mississippi, and South 
+Carolina. Crops grown for hay include clover-timothy mixtures, Bermuda grass, 
+wild grasses (prairie hay), and small grains among others. 
+
+There were nearly 39 million acres of other hay harvested in the United 
+States in 2009 with a yield of 1.98 tons per acre. Other hay production for 
+2009 was 76 million tons, the fifth highest total on record. Kentucky, 
+Missouri, Oklahoma, Tennessee, and Texas led the Nation in other hay 
+production in 2009. Nationally, yield has followed a gradual increasing trend 
+since records began in 1934.
+
+Other Hay Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:     800     (NA)        (NA)       (NA)   May 10 Jun 20 - Sep 1  Oct 15 
+Alaska .........:      20     (NA)        (NA)       (NA)   Jun 20 Jul 1 - Sep 15  Oct 10 
+Arizona ........:      30     (NA)        (NA)       (NA)   Feb 15 (NA)            Dec 1  
+Arkansas .......:   1,400     (NA)        (NA)       (NA)   May 1  May 15 - Sep 1  Sep 15 
+California .....:     540     (NA)        (NA)       (NA)   May 1  (NA)            Oct 1  
+Colorado .......:     750     (NA)        (NA)       (NA)   Jun 20 Jul 5 - Aug 10  Sep 15 
+Delaware .......:      12     (NA)        (NA)       (NA)   May 10 (NA)            Nov 8  
+Florida ........:     300     (NA)        (NA)       (NA)   May 10 Jun 1 - Sep 15  Nov 20 
+Georgia ........:     700     (NA)        (NA)       (NA)   May 15 (NA)            Nov 1  
+Idaho ..........:     370     (NA)        (NA)       (NA)   Jun 1  (NA)            Sep 10 
+                :                                                                         
+Illinois .......:     270     (NA)        (NA)       (NA)   May 11 May 20 - Jun 28 Jul 17 
+Indiana ........:     320     (NA)        (NA)       (NA)   May 15 (NA)            Sep 20 
+Iowa ...........:     300     (NA)        (NA)       (NA)   Jun 5  Jun 14 - Aug 17 Sep 3  
+Kansas .........:   1,700     (NA)        (NA)       (NA)   May 25 Jun 1 - Sep 1   Sep 15 
+Kentucky .......:   2,300     (NA)        (NA)       (NA)   May 15 Jun 1 - Sep 1   Oct 10 
+Louisiana ......:     380     (NA)        (NA)       (NA)   Apr 17 (NA)            Sep 14 
+Maryland .......:     170     (NA)        (NA)       (NA)   May 10 (NA)            Nov 19 
+Michigan .......:     290     (NA)        (NA)       (NA)   May 31 Jul 28 - Sep 11 Oct 14 
+Minnesota ......:     750     (NA)        (NA)       (NA)   Jun 5  (NA)            Aug 30 
+Mississippi ....:     700     (NA)        (NA)       (NA)   Apr 10 (NA)            Sep 26 
+                :                                                                         
+Missouri .......:   3,600     (NA)        (NA)       (NA)   May 17 Jun 24 - Jul 14 Aug 5  
+Montana ........:     800     (NA)        (NA)       (NA)   Jun 20 (NA)            Oct 7  
+Nebraska .......:   1,750     (NA)        (NA)       (NA)   Jun 5  (NA)            Sep 20 
+Nevada .........:     210     (NA)        (NA)       (NA)   Jun 15 (NA)            Sep 15 
+New England 1/ .:     481     (NA)        (NA)       (NA)   May 25 (NA)            Oct 31 
+New Jersey .....:      85     (NA)        (NA)       (NA)   May 10 (NA)            Oct 15 
+New Mexico .....:      80     (NA)        (NA)       (NA)   May 1  (NA)            Oct 20 
+New York .......:   1,010     (NA)        (NA)       (NA)   May 25 (NA)            Oct 15 
+North Carolina .:     840     (NA)        (NA)       (NA)   Apr 30 (NA)            Nov 15 
+North Dakota ...:   1,180     (NA)        (NA)       (NA)   Jun 19 (NA)            Sep 2  
+                :                                                                         
+Ohio ...........:     660     (NA)        (NA)       (NA)   May 20 May 27 - Oct 2  Oct 13 
+Oklahoma .......:   2,900     (NA)        (NA)       (NA)   Apr 20 (NA)            Oct 20 
+Oregon .........:     630     (NA)        (NA)       (NA)   May 20 (NA)            Oct 15 
+Pennsylvania ...:   1,050     (NA)        (NA)       (NA)   May 30 (NA)            Sep 25 
+South Carolina .:     350     (NA)        (NA)       (NA)   May 15 (NA)            Nov 13 
+South Dakota ...:   1,300     (NA)        (NA)       (NA)   Jun 11 Jun 20 - Aug 14 Aug 24 
+Tennessee ......:   1,900     (NA)        (NA)       (NA)   May 1  (NA)            Oct 1  
+Texas ..........:   4,500     (NA)        (NA)       (NA)   May 1  (NA)            Sep 30 
+Utah ...........:     160     (NA)        (NA)       (NA)   Jul 10 (NA)            Aug 25 
+Virginia .......:   1,090     (NA)        (NA)       (NA)   May 25 (NA)            Oct 1  
+                :                                                                         
+Washington .....:     320     (NA)        (NA)       (NA)   May 15 Jun 1 - Aug 20  Sep 15 
+West Virginia ..:     600     (NA)        (NA)       (NA)   May 20 (NA)            Nov 10 
+Wisconsin ......:     370     (NA)        (NA)       (NA)   May 27 (NA)            Sep 15 
+Wyoming ........:     580     (NA)        (NA)       (NA)   Jun 19 (NA)            Sep 9  
+------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                      
+1/    New England includes Connecticut, Maine, Massachusetts, New Hampshire, Rhode Island,
+      and Vermont.                                                                        
+
+Oats
+
+Production and acreage of oats have declined steadily since 1945 when a 
+record 1.52 billion bushels were produced on 42 million acres. In 2009, only 
+93 million bushels were harvested from 1.4 million acres. This was the third 
+lowest production and lowest harvested acreage since records were first kept 
+in 1866.
+
+Over half of the grain crop is grown in Iowa, Minnesota, North Dakota, South 
+Dakota, and Wisconsin. The grain crop is produced most extensively throughout 
+the Corn Belt, Great Lakes States, and Northern Plains. Relatively few oats 
+are grown in the Southern and Western States, with the exception of 
+California and Texas, who cut most of their acres for hay. Nationally, about 
+40 percent of the planted acreage is harvested for grain with the majority of 
+the remaining acres cut for hay.
+
+Fall Oat Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:    11      Sep 1  Sep 15 - Oct 15 Dec 1   May 1  May 25 - Jun 25 Jul 1  
+Arkansas .......:     8      Sep 15 Oct 1 - Nov 15  Dec 1   May 15 May 25 - Jun 15 Jul 1  
+California .....:    30      Sep 15 Oct 1 - Mar 1   Mar 15  Jun 15 Jul 15 - Sep 1  Sep 15 
+Georgia ........:    20      Sep 27 Oct 10 - Dec 5  Dec 13  May 25 Jun 1 - Jun 22  Jul 3  
+North Carolina .:    15      Sep 25 Oct 15 - Nov 25 Dec 10  May 30 Jun 10 - Jun 30 Jul 25 
+Oregon .........:    22      Sep 15 Oct 15 - Nov 15 Dec 10  Jul 10 Aug 10 - Aug 20 Sep 1  
+South Carolina .:    15      Sep 23 Oct 15 - Nov 20 Dec 15  May 25 Jun 3 - Jun 20  Jul 3  
+Texas ..........:    60      Sep 7  Sep 20 - Nov 5  Nov 25  May 13 May 23 - Jun 22 Jul 4  
+Virginia .......:     4      Sep 15 Sep 27 - Oct 29 Nov 9   May 28 Jun 9 - Jul 3   Jul 20 
+------------------------------------------------------------------------------------------
+
+Spring Oat Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alaska .........:     0.9    May 5  May 15 - May 30 Jun 5   Sep 1  Sep 5 - Sep 30  Oct 10 
+California .....:      1/    Feb 20 Mar 1 - May 15  May 30  Aug 15 Sep 1 - Sep 20  Oct 1  
+Colorado .......:     9      Mar 17 Mar 28 - May 14 May 23  Jul 13 Jul 19 - Sep 13 Sep 25 
+Idaho ..........:    25      Mar 31 Apr 14 - May 19 Jun 2   Jul 21 Aug 11 - Sep 8  Sep 29 
+Illinois .......:    25      Mar 20 Mar 29 - Apr 30 May 12  Jul 4  Jul 14 - Aug 7  Aug 13 
+Indiana ........:     7      Apr 1  Apr 5 - Apr 25  May 10  Jul 10 Jul 15 - Aug 5  Aug 10 
+Iowa ...........:    95      Mar 25 Apr 2 - May 2   May 13  Jul 9  Jul 17 - Aug 5  Aug 11 
+Kansas .........:    35      Feb 20 Mar 5 - Apr 1   May 1   Jul 10 Jul 15 - Aug 1  Aug 10 
+Maine ..........:    31      May 5  May 10 - May 31 Jun 7   Aug 11 Aug 21 - Sep 22 Oct 4  
+Michigan .......:    55      Apr 10 Apr 13 - May 14 May 22  Jul 19 Jul 28 - Aug 24 Sep 2  
+                :                                                                         
+Minnesota ......:   170      Apr 11 Apr 19 - May 15 May 26  Jul 21 Jul 26 - Aug 24 Sep 4  
+Missouri .......:     9      Mar 1  Mar 15 - Apr 20 Apr 30  Jun 20 Jul 1 - Jul 25  Aug 1  
+Montana ........:    32      Apr 18 Apr 26 - May 28 Jun 5   Aug 8  Aug 15 - Sep 9  Sep 22 
+Nebraska .......:    30      Mar 26 Apr 1 - Apr 24  May 3   Jul 4  Jul 10 - Jul 30 Aug 7  
+New York .......:    60      Mar 25 Apr 1 - Apr 22  May 29  Jul 30 Aug 4 - Aug 24  Sep 9  
+North Dakota ...:   165      Apr 19 Apr 26 - May 25 Jun 3   Jul 28 Aug 5 - Sep 5   Sep 18 
+Ohio ...........:    45      Apr 4  Apr 9 - May 5   May 13  Jul 13 Jul 20 - Aug 7  Aug 11 
+Oklahoma .......:    15      Feb 15 Feb 22 - Mar 17 Mar 26  Jun 4  Jun 10 - Jul 4  Jul 13 
+Pennsylvania ...:    80      Apr 15 Apr 15 - May 10 May 25  Jul 20 Jul 25 - Aug 20 Aug 30 
+South Dakota ...:    90      Apr 3  Apr 10 - May 15 May 23  Jul 14 Jul 21 - Aug 15 Aug 23 
+                :                                                                         
+Utah ...........:     5      Mar 20 Apr 10 - May 5  Jun 1   Jul 25 Aug 15 - Sep 10 Sep 30 
+Washington .....:     6      Mar 5  Mar 10 - Apr 10 Apr 20  Jul 15 Aug 1 - Aug 30  Sep 10 
+Wisconsin ......:   195      Apr 11 Apr 20 - May 11 May 18  Jul 22 Jul 28 - Aug 24 Aug 30 
+Wyoming ........:    10      Apr 3  Apr 14 - May 18 Jun 9   Jul 18 Jul 23 - Sep 1  Sep 15 
+------------------------------------------------------------------------------------------
+1/  Harvested acreage not published by planting season. An "All Oat" harvested acreage    
+    estimate is published in the Fall Oat table.                                          
+
+Peanuts
+
+Peanut production is confined mostly to the South. There are three main 
+producing areas: the Virginia-Carolina area, where Virginia type peanuts 
+dominate; the Southeast, where the crop is mainly Runners and Virginia types; 
+and the Southwest, where the acreage is planted to Runner and Spanish types 
+of peanuts. Valencias, a roasting type peanut, account for less than 1 
+percent of United States production and are grown mainly in New Mexico.
+
+Georgia continues to be the leading peanut-producing State, accounting for 
+49 percent of the total United States production in 2009. Texas and Alabama 
+rank second and third in peanut production, representing 14 and 13 percent, 
+respectively, in 2009. A total of 1.12 million acres of peanuts were planted 
+in 2009. Planted acreage peaked at over 5 million acres during World War II, 
+but then fell below 2 million acres in 1952. Farmers have planted between 
+1.5 and 2 million acres per year since the early 1950s. Yields and production 
+improved steadily from the 1950s until 1980, but have leveled off since.
+
+Peanut Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:    152     Apr 16 Apr 25 - May 25 Jun 15  Sep 15 Sep 22 - Oct 22 Nov 20 
+Florida ........:    105     Apr 10 Apr 25 - May 30 Jun 15  Aug 15 Sep 10 - Nov 30 Dec 15 
+Georgia ........:    505     Apr 27 May 6 - May 31  Jun 7   Sep 15 Sep 25 - Oct 31 Nov 11 
+Mississippi ....:     18     Apr 25 May 6 - May 31  Jun 15  Sep 20 Sep 29 - Oct 31 Nov 10 
+New Mexico .....:      7     May 10 May 15 - May 25 Jun 1   Oct 1  Oct 10 - Oct 30 Nov 10 
+North Carolina .:     66     Apr 30 May 10 - May 30 Jun 1   Sep 25 Oct 10 - Oct 30 Nov 15 
+Oklahoma .......:     13     Apr 28 May 7 - Jun 6   Jun 11  Oct 2  Oct 9 - Nov 16  Nov 26 
+South Carolina .:     48     Apr 20 Apr 25 - May 15 Jun 5   Sep 8  Oct 2 - Nov 1   Nov 10 
+Texas ..........:    155     May 1  May 6 - Jun 5   Jun 15  Sep 25 Oct 7 - Nov 16  Nov 30 
+Virginia .......:     12     Apr 25 Apr 30 - May 18 May 25  Sep 18 Sep 25 - Oct 17 Oct 24 
+------------------------------------------------------------------------------------------
+
+All Rice
+
+United States rice production is mainly confined to three areas: the coastal 
+prairie region of southwestern Louisiana and southeastern Texas; eastern 
+Arkansas, southeastern Missouri, and northwestern Mississippi; and the 
+Sacramento and northern San Joaquin Valleys of California. Area planted to 
+rice in 2009 totaled 3.14 million acres. Rice plantings have steadily 
+increased since the late 1800s. The peak planting year came in 1981, when 
+over 3.8 million acres were planted.
+
+Yield and has also steadily increased over the years. Yield per acre in 2009 
+averaged 7,085 pounds for a total production of 220 million cwt. The record 
+high yield of 7,219 pounds per acre was attained in 2007. Arkansas was the 
+leading rice-producing State in 2009, accounting for 45 percent of total 
+United States production, followed by California and Louisiana, at 22 and 
+13 percent, respectively.
+
+All Rice Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Arkansas .......:   1,470    Apr 6  Apr 14 - May 19 Jun 2   Aug 29 Sep 9 - Oct 10  Oct 24 
+California .....:     556    Apr 20 May 1 - May 25  Jun 10  Sep 5  Sep 15 - Nov 1  Nov 10 
+Louisiana ......:     464    Mar 20 Mar 28 - May 1  May 15  Jul 27 Aug 4 - Sep 15  Sep 28 
+Mississippi ....:     243    Apr 6  Apr 18 - May 16 May 24  Aug 29 Sep 5 - Oct 6   Oct 20 
+Missouri .......:     200    Apr 10 Apr 20 - May 19 May 26  Sep 6  Sep 14 - Oct 18 Oct 30 
+Texas ..........:     170    Mar 17 Mar 23 - Apr 26 May 10  Jul 29 Aug 7 - Sep 4   Sep 20 
+------------------------------------------------------------------------------------------
+
+Sorghum
+
+Most sorghum is grown in the central and southern Plains States, where it is 
+well adapted to heat and tolerant of limited moisture conditions. Sorghum is 
+used primarily as a livestock feed, with the majority of the acreage not 
+harvested for grain harvested as silage. Of the 5.52 million acres of sorghum 
+harvested for grain in 2009, eighty-three percent was grown in Kansas and 
+Texas. After reaching a peak of 19.7 million acres in 1957, harvested area 
+held fairly steady from the late 1950s through the mid 1980s when area began 
+a rapid decline. Sorghum grain yields have for the most part increased 
+steadily from the late 1950s, with a record high average yield of 
+73.2 bushels per acre produced in 2007.
+
+Sorghum for Grain Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Arizona ........:       8    Mar 10 Apr 1 - May 15  Jun 1   Sep 1  Oct 1 - Nov 1   Dec 1  
+Arkansas .......:      37    Apr 5  Apr 13 - May 23 Jun 5   Aug 22 Aug 27 - Oct 3  Oct 16 
+Colorado .......:     150    May 9  May 19 - Jun 23 Jul 1   Sep 29 Oct 11 - Nov 18 Nov 29 
+Georgia ........:      40    Apr 17 Apr 30 - Jun 26 Jul 12  Aug 21 Sep 4 - Nov 19  Dec 9  
+Illinois .......:      36    May 4  May 17 - Jun 26 Jul 6   Sep 18 Sep 30 - Nov 8  Nov 20 
+Kansas .........:   2,550    May 5  May 15 - Jun 20 Jul 15  Sep 10 Sep 25 - Nov 10 Nov 25 
+Louisiana ......:      65    Apr 6  Apr 11 - May 15 May 29  Aug 7  Aug 16 - Sep 10 Sep 24 
+Mississippi ....:      11    Apr 8  Apr 14 - May 21 Jun 3   Aug 19 Aug 29 - Sep 27 Oct 8  
+Missouri .......:      43    Apr 23 May 6 - Jun 18  Jun 28  Sep 6  Sep 16 - Nov 7  Nov 22 
+Nebraska .......:     140    May 9  May 16 - Jun 9  Jun 16  Sep 26 Oct 8 - Nov 8   Nov 17 
+                :                                                                         
+New Mexico .....:      50    May 15 May 20 - Jun 15 Jul 10  Oct 15 Oct 20 - Nov 15 Dec 15 
+Oklahoma .......:     220    Apr 24 May 12 - Jun 25 Jul 6   Sep 9  Sep 26 - Nov 21 Dec 2  
+South Dakota ...:     120    May 11 May 20 - Jun 20 Jun 30  Sep 21 Oct 1 - Nov 6   Nov 17 
+Texas ..........:   2,050    Mar 1  Mar 11 - Jun 15 Jul 5   Jun 25 Jul 8 - Nov 16  Dec 6  
+------------------------------------------------------------------------------------------
+
+Soybeans
+
+Soybeans are grown primarily for beans which are processed into oil and meal. 
+The main soybean producing area is in the Corn Belt and the lower Mississippi 
+Valley. The three top producing States in 2009 - Illinois, Iowa, and 
+Minnesota - accounted for 36 percent of the total United States production.
+
+There were 77.5 million acres of soybeans planted in 2009, the highest on 
+record. Planted area increased rapidly during the 1960s and 1970s until 1979, 
+when 71.4 million acres were planted which was a record at that time. Acreage 
+declined during the 1980s, but rebounded in the 1990s. In 2007, planted area 
+dropped by over 10 million acres from the previous year, but rebounded in 
+2008 and 2009 to record levels. The 2009 yield, of 44.0 bushels per acre, was 
+the highest yield since records were first kept in 1924. Production topped 
+3.35 billion bushels in 2009, more than 5 percent above the previous record 
+high set in 2006.
+
+Soybean Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:     430    Apr 15 May 25 - Jun 25 Jul 3   Sep 3  Oct 28 - Nov 28 Dec 15 
+Arkansas .......:   3,270    Apr 19 May 5 - Jun 22  Jul 5   Sep 10 Sep 29 - Nov 13 Nov 26 
+Delaware .......:     183    May 11 May 30 - Jun 28 Jul 11  Oct 5  Oct 22 - Nov 14 Nov 25 
+Florida ........:      34    Apr 20 May 1 - Jun 15  Jul 1   Oct 1  Oct 15 - Nov 25 Dec 1  
+Georgia ........:     440    May 5  May 17 - Jun 26 Jul 5   Oct 11 Oct 25 - Dec 8  Dec 17 
+Illinois .......:   9,350    May 2  May 8 - Jun 12  Jun 24  Sep 19 Sep 26 - Oct 26 Nov 7  
+Indiana ........:   5,440    May 1  May 5 - Jun 10  Jun 25  Sep 20 Oct 1 - Nov 1   Nov 10 
+Iowa ...........:   9,530    May 2  May 8 - Jun 2   Jun 16  Sep 21 Sep 28 - Oct 20 Oct 31 
+Kansas .........:   3,650    May 5  May 15 - Jun 20 Jul 1   Sep 20 Oct 1 - Nov 1   Nov 15 
+Kentucky .......:   1,420    May 4  May 16 - Jun 27 Jul 7   Sep 25 Oct 10 - Nov 14 Nov 25 
+                :                                                                         
+Louisiana ......:     940    Apr 18 Apr 23 - Jun 4  Jun 16  Aug 28 Sep 3 - Oct 25  Oct 31 
+Maryland .......:     475    May 11 May 28 - Jun 26 Jul 16  Oct 5  Oct 18 - Nov 15 Dec 1  
+Michigan .......:   1,990    May 2  May 11 - Jun 9  Jun 18  Sep 25 Oct 3 - Nov 3   Nov 13 
+Minnesota ......:   7,120    May 2  May 8 - Jun 2   Jun 13  Sep 20 Sep 27 - Oct 20 Oct 31 
+Mississippi ....:   2,030    Apr 19 Apr 26 - May 31 Jun 17  Sep 10 Sep 13 - Oct 31 Nov 9  
+Missouri .......:   5,300    May 2  May 13 - Jun 24 Jul 4   Sep 25 Oct 3 - Nov 8   Nov 23 
+Nebraska .......:   4,760    May 5  May 11 - May 31 Jun 8   Sep 23 Sep 29 - Oct 24 Nov 2  
+New Jersey .....:      87    May 10 May 20 - Jul 1  Jul 10  Oct 1  Oct 20 - Nov 10 Nov 15 
+New York .......:     254    May 12 May 19 - Jun 22 Jun 29  Sep 27 Oct 7 - Nov 14  Nov 20 
+North Carolina .:   1,750    May 1  May 20 - Jun 30 Jul 20  Oct 10 Nov 10 - Dec 5  Dec 20 
+                :                                                                         
+North Dakota ...:   3,870    May 7  May 14 - Jun 3  Jun 11  Sep 17 Sep 24 - Oct 21 Nov 5  
+Ohio ...........:   4,530    Apr 26 May 3 - May 30  Jun 10  Sep 23 Sep 30 - Oct 31 Nov 12 
+Oklahoma .......:     390    Apr 15 Apr 27 - Jun 27 Jul 9   Sep 9  Sep 22 - Nov 20 Dec 1  
+Pennsylvania ...:     445    May 10 May 20 - Jun 10 Jul 5   Oct 5  Oct 20 - Nov 10 Nov 30 
+South Carolina .:     565    May 10 May 27 - Jun 27 Jul 11  Oct 20 Nov 10 - Dec 10 Dec 30 
+South Dakota ...:   4,190    May 8  May 15 - Jun 11 Jun 21  Sep 22 Sep 28 - Oct 24 Nov 3  
+Tennessee ......:   1,530    May 5  May 15 - Jun 25 Jul 5   Sep 25 Oct 5 - Nov 20  Nov 30 
+Texas ..........:     190    Mar 24 Mar 30 - May 30 Jun 12  Aug 18 Aug 22 - Oct 17 Nov 7  
+Virginia .......:     570    May 5  May 15 - Jul 3  Jul 9   Oct 4  Oct 16 - Nov 28 Dec 4  
+West Virginia ..:      19    May 5  May 10 - Jun 30 Jul 5   Sep 25 Oct 5 - Nov 30  Dec 1  
+Wisconsin ......:   1,620    May 7  May 12 - Jun 5  Jun 14  Sep 29 Oct 4 - Oct 29  Nov 8  
+------------------------------------------------------------------------------------------
+
+Sugarbeets
+
+Almost all United States sugarbeets are grown under irrigation in the western 
+half of the country and in the more humid areas of the north-central States. 
+Sugarbeets require plentiful, well-distributed moisture and moderately cool 
+temperatures during the growing season. Most beets are planted from March to 
+May and harvested from September to December, with peak harvest in October. 
+However, in California, some beets are over-wintered and harvested the 
+following spring.
+
+In 2009, growers harvested 1.15 million acres of sugarbeets, down from recent 
+years and a level comparable to what was last seen during the 1980s. During 
+the past few growing seasons, average yields have been exceptional. In fact, 
+growers produced a record high 26.8 tons per acre in 2008. Minnesota 
+continues to be the largest sugarbeet-producing State, harvesting 36 percent 
+of the total United States production in 2009. Minnesota, along with Idaho 
+and North Dakota, the second and third ranking States, accounted for 
+71 percent of the 2009 sugarbeet production.
+
+Sugarbeet Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+California .....:    25.3    Aug 15 Sep 15 - Oct 15 Oct 30  Apr 1  Apr 15 - Aug 1  Aug 15 
+Colorado .......:    35.0    Mar 30 Apr 7 - Apr 30  May 10  Sep 30 Oct 10 - Nov 4  Nov 12 
+Idaho ..........:   163.0    Mar 24 Apr 3 - Apr 21  May 5   Sep 15 Oct 8 - Oct 30  Nov 10 
+Michigan .......:   136.0    Apr 7  Apr 10 - May 11 May 16  Sep 26 Oct 13 - Nov 3  Nov 11 
+Minnesota ......:   449.0    Apr 18 Apr 24 - May 18 May 26  Sep 16 Sep 30 - Oct 19 Oct 27 
+Montana ........:    33.6    Apr 14 Apr 20 - May 12 May 18  Sep 28 Oct 9 - Oct 27  Nov 4  
+Nebraska .......:    52.6    Apr 1  Apr 10 - Apr 30 May 5   Oct 5  Oct 10 - Oct 30 Nov 5  
+North Dakota ...:   218.0    Apr 19 Apr 24 - May 18 May 26  Sep 17 Sep 30 - Oct 17 Oct 25 
+Oregon .........:    10.5    Apr 1  Apr 10 - Apr 20 Apr 25  Oct 1  Oct 10 - Oct 20 Oct 30 
+Wyoming ........:    25.6    Apr 5  Apr 13 - May 2  May 14  Sep 26 Oct 10 - Oct 27 Nov 10 
+------------------------------------------------------------------------------------------
+
+All Sunflowers
+
+Sunflowers are primarily used by crushers, exporters, and confectioners. 
+Crushers process sunflower seed into sunflower oil and meal. The meal is 
+primarily used for feed, while the oil has many uses including cooking oil, 
+salad oil, shorterning, margarine, and confectionary coatings. Sunflowers are 
+primarily grown in the Great Plains States, California, and Minnesota.  
+Estimates of sunflowers began in 1975 and the largest area planted on record 
+occurred in 1979 at over 5.5 million acres. Acreage levels have declined 
+since that time, and planted area in 2009 only encompassed 2.1 million acres. 
+The top two producing States in 2009 - North Dakota and South Dakota - 
+accounted for 76 percent of the total United States production. Of the total 
+production in 2009, oil type varieties of sunflower accounted for 2.6 billion 
+pounds and non-oil varieties accounted for 452 million pounds. The average 
+yield in the United States for all sunflowers harvested during 2009 was a 
+record high 1,554 pounds per acre, 15 pounds per acre better than the 
+previous record high set in 2005.
+
+All Sunflower Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+California .....:    41.5    Mar 21 Apr 1 - May 31  Aug 1   Jun 1  Jul 1 - Aug 31  Oct 1  
+Colorado .......:    87.0    May 19 May 25 - Jun 23 Jul 1   Sep 27 Oct 6 - Nov 15  Nov 26 
+Kansas .........:   155.0    May 15 May 25 - Jun 30 Jul 10  Sep 15 Oct 1 - Nov 15  Nov 30 
+Minnesota ......:    64.0    May 7  May 16 - Jun 7  Jun 15  Sep 26 Oct 4 - Nov 8   Nov 25 
+Nebraska .......:    47.0    Jun 1  Jun 5 - Jun 30  Jul 5   Oct 1  Oct 5 - Oct 25  Nov 5  
+North Dakota ...:   868.0    May 14 May 19 - Jun 8  Jun 15  Oct 1  Oct 9 - Nov 10  Nov 23 
+Oklahoma .......:    15.0    May 1  May 15 - Jul 15 Jul 30  Aug 1  Aug 30 - Oct 30 Dec 10 
+South Dakota ...:   558.0    May 16 May 24 - Jun 21 Jun 29  Sep 25 Oct 3 - Nov 10  Nov 21 
+Texas ..........:   118.0    Apr 5  May 1 - Jul 4   Jul 15  Aug 20 Sep 1 - Nov 21  Dec 3  
+------------------------------------------------------------------------------------------
+
+Tobacco
+
+United States tobacco production is generally confined to areas east of the 
+Mississippi River, with the principal exception being the western area of 
+Missouri. Six major classes are grown: Flue-cured, fire-cured, air-cured 
+(light and dark), cigar filler, cigar binder, and cigar wrapper. Although 
+grown at various latitudes, the crop has little tolerance to frost and 
+freezing temperatures. Tobacco seeds are usually sown during the late winter 
+and early spring in protected beds from which seedlings are pulled and 
+transplanted in the spring. Harvest dates are governed largely by latitude, 
+elevation, seasonal conditions, and the nature of the particular tobacco 
+type. The flue-cured and cigar wrapper types are harvested by priming 
+(picking the leaves as they ripen) while other types are usually stalk cut.
+
+In 2009, North Carolina and Kentucky accounted for 77 percent of the total 
+United States production. Harvested area increased from 1866, when records 
+were first kept, until 1930 when the peak level of over 2 million acres was 
+harvested. Acreage leveled off until the 1950s, but has decreased steadily 
+from that period, reaching a record low acreage of 297,080 in 2005. Tobacco 
+growers harvested 823 million pounds of tobacco from 354,240 acres in 2009, 
+reaching the second highest yield on record, at 2,322 pounds per acre.
+
+Tobacco Usual Planting and Harvesting Dates by Class - States
+--------------------------------------------------------------------------------------------------------------
+                                  :    2009     :     Usual planting dates     :    Usual harvesting dates    
+               State              :  Harvested  :-------------------------------------------------------------
+                                  :    acres    : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------------------
+                                  : 1,000 acres                                                               
+                                  :                                                                           
+Class 1, Flue-cured (11-14)       :                                                                           
+Georgia ..........................:     14.0     Mar 30 Apr 4 - Apr 25  May 1   Jun 29 Jul 12 - Aug 30 Sep 11 
+North Carolina ...................:    174.0     Apr 15 Apr 20 - May 25 Jun 5   Jul 1  Jul 20 - Sep 15 Oct 10 
+South Carolina ...................:     18.5     Apr 2  Apr 9 - Apr 30  May 10  Jun 30 Jul 18 - Aug 26 Sep 20 
+Virginia .........................:     17.5     Apr 29 May 3 - May 20  May 26  Jul 26 Aug 4 - Sep 29  Oct 8  
+                                  :                                                                           
+Class 2, Fire-cured (21-23)       :                                                                           
+Kentucky .........................:      9.1     May 11 May 17 - Jun 15 Jun 28  Aug 11 Aug 17 - Sep 25 Oct 5  
+Tennessee ........................:      6.4     May 5  May 15 - Jun 15 Jun 25  Aug 5  Aug 15 - Sep 25 Oct 5  
+Virginia .........................:      0.7     May 7  May 11 - May 29 Jun 4   Aug 7  Aug 12 - Sep 10 Sep 20 
+                                  :                                                                           
+Class 3A, Light air-cured (31-32) :                                                                           
+Kentucky .........................:     75.0     May 9  May 17 - Jun 17 Jun 28  Aug 10 Aug 16 - Sep 26 Oct 4  
+North Carolina ...................:      3.4     May 15 May 20 - Jun 10 Jun 30  Aug 20 Sep 1 - Sep 20  Oct 15 
+Ohio .............................:      3.4     May 25 Jun 1 - Jun 15  Jun 25  Aug 20 Sep 5 - Sep 15  Sep 30 
+Pennsylvania .....................:      6.2     May 25 May 30 - Jun 15 Jun 25  Aug 10 Aug 20 - Sep 10 Sep 25 
+Tennessee ........................:     14.0     May 5  May 15 - Jun 15 Jun 25  Aug 5  Aug 15 - Sep 25 Oct 5  
+Virginia .........................:      2.0     May 12 May 16 - Jun 9  Jun 16  Aug 17 Aug 27 - Sep 24 Sep 30 
+                                  :                                                                           
+Class 3B, Dark air-cured (35-37)  :                                                                           
+Kentucky .........................:      4.6     May 11 May 17 - Jun 15 Jun 28  Aug 11 Aug 17 - Sep 25 Oct 5  
+Tennessee ........................:      1.2     May 5  May 15 - Jun 15 Jun 25  Aug 5  Aug 15 - Sep 20 Sep 30 
+                                  :                                                                           
+Class 4, Cigar filler (41)        :                                                                           
+Pennsylvania .....................:      2.0     May 25 May 30 - Jun 15 Jun 25  Aug 10 Aug 20 - Sep 10 Sep 25 
+                                  :                                                                           
+Class 5, Cigar binder (51)        :                                                                           
+New England 1/ ...................:      1.4     May 22 May 29 - Jun 23 Jul 1   Jul 28 Aug 3 - Aug 31  Sep 10 
+                                  :                                                                           
+Class 6, Cigar wrapper (61)       :                                                                           
+New England 1/ ...................:      0.9     May 15 May 18 - Jun 3  Jun 9   Jul 16 Jul 24 - Aug 28 Sep 6  
+--------------------------------------------------------------------------------------------------------------
+1/  New England includes Connecticut and Massachusetts only.                                                  
+
+Durum Wheat
+
+The 2009 Durum wheat harvest accounted for 5 percent of all wheat produced in 
+the United States. Durum wheat is predominately grown in the northern Great 
+Plains, Arizona, and California. Durum wheat in the northern Great Plains is 
+planted in the late spring and harvested late in the summer. Durum wheat 
+grown in Arizona and California, commonly called "Desert Durum," is planted 
+from December through February and harvested during the early summer. 
+Nationwide, 109 million bushels of Durum wheat were grown in 2009, with 
+production in North Dakota accounting for 56 percent, or over 61 million 
+bushels of the total.
+
+Spring Wheat
+
+The 2009 other spring wheat harvest accounted for 26 percent of all wheat 
+produced in the United States. Spring wheat is planted in the late spring and 
+harvested late in the summer. Annual rainfall in the northern Great Plains 
+and northwestern States is relatively limited but well distributed during the 
+summer, thus favoring spring wheat production. Nationwide, 584 million 
+bushels of other spring wheat were grown in 2009. North Dakota growers 
+produced nearly 290 million bushels of other spring wheat in 2009, making it 
+the top producing State for all classes of wheat. North Dakota alone 
+accounted for nearly 50 percent of other spring wheat production.
+
+Winter Wheat
+
+Winter wheat, widely grown throughout the United States, is heavily 
+concentrated in the central and southern Great Plains and the Pacific 
+Northwest. Winter wheat is planted in the fall, goes into dormancy during the 
+winter, and is harvested for grain the following spring. When weather 
+conditions are favorable for early fall growth, much of the winter wheat in 
+the southern Great Plains is grazed in the fall prior to going into dormancy 
+and again in the late winter and early spring when new growth starts.
+
+Over 43 million acres of winter wheat were planted in 2009. With the 
+exception of peak acreages during World War II and the early 1980s, planted 
+area has generally ranged between 40 and 50 million acres. Over 1.5 billion 
+bushels of winter wheat were produced in 2009, comprising 69 percent of all 
+wheat produced. Kansas, Colorado, and Washington were the three top producing 
+winter wheat States and accounted for 37 percent of the total winter wheat 
+production. Kansas ranked second, behind only North Dakota, in all wheat 
+production.
+
+Durum Wheat Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Arizona ........:     124    Nov 10 Dec 1 - Dec 30  Feb 1   May 15 May 30 - Jun 15 Jul 1  
+California .....:     170    Sep 25 Oct 20 - Jan 1  Feb 1   May 20 Jun 10 - Jul 15 Aug 1  
+Idaho ..........:      20    Apr 1  Apr 10 - May 14 May 30  Aug 8  Aug 13 - Sep 10 Sep 29 
+Montana ........:     535    Apr 25 May 1 - Jun 1   Jun 15  Aug 11 Aug 19 - Sep 22 Oct 4  
+North Dakota ...:   1,570    Apr 23 May 2 - May 31  Jun 8   Aug 7  Aug 15 - Sep 23 Oct 5  
+South Dakota ...:       9    Mar 31 Apr 8 - May 12  May 21  Jul 20 Jul 27 - Aug 20 Aug 29 
+------------------------------------------------------------------------------------------
+
+Spring Wheat Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Colorado .......:      29    Mar 28 Apr 9 - May 16  May 23  Jul 23 Aug 3 - Sep 17  Sep 29 
+Idaho ..........:     530    Mar 21 Apr 7 - May 3   May 26  Aug 4  Aug 13 - Sep 8  Sep 29 
+Minnesota ......:   1,550    Apr 14 Apr 23 - May 23 Jun 1   Jul 30 Aug 5 - Sep 9   Sep 22 
+Montana ........:   2,350    Apr 6  Apr 14 - May 12 May 18  Jul 30 Aug 7 - Sep 6   Sep 13 
+Nevada .........:       2    Apr 5  Apr 15 - May 15 May 20  Jul 20 Aug 1 - Aug 25  Sep 5  
+North Dakota ...:   6,300    Apr 16 Apr 24 - May 25 Jun 3   Aug 1  Aug 8 - Sep 13  Sep 25 
+Oregon .........:     127    Mar 1  Mar 25 - Apr 15 May 6   Jul 20 Jul 25 - Sep 1  Sep 3  
+South Dakota ...:   1,470    Mar 31 Apr 8 - May 12  May 21  Jul 20 Jul 27 - Aug 20 Aug 29 
+Utah ...........:      12    Mar 20 Apr 1 - Apr 20  May 1   Jul 15 Aug 5 - Aug 25  Sep 5  
+Washington .....:     585    Mar 15 Mar 25 - Apr 30 May 10  Jul 25 Aug 1 - Aug 30  Sep 5  
+------------------------------------------------------------------------------------------
+
+Winter Wheat Usual Planting and Harvesting Dates - States
+------------------------------------------------------------------------------------------
+                :   2009    :     Usual planting dates     :    Usual harvesting dates    
+      State     : Harvested :-------------------------------------------------------------
+                :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+------------------------------------------------------------------------------------------
+                :1,000 acres                                                              
+                :                                                                         
+Alabama ........:     180    Oct 2  Oct 21 - Nov 21 Dec 12  May 1  May 25 - Jun 25 Jul 1  
+Arizona ........:       5    Nov 10 Dec 1 - Dec 30  Feb 1   May 15 May 30 - Jun 15 Jul 1  
+Arkansas .......:     390    Oct 3  Oct 13 - Nov 20 Dec 1   Jun 1  Jun 6 - Jun 25  Jul 2  
+California .....:     315    Sep 25 Oct 20 - Jan 1  Feb 1   May 20 Jun 1 - Jul 5   Jul 15 
+Colorado .......:   2,450    Sep 1  Sep 11 - Oct 2  Oct 11  Jun 27 Jul 2 - Jul 21  Jul 29 
+Delaware .......:      67    Oct 8  Oct 19 - Nov 8  Nov 21  Jun 22 Jun 26 - Jul 8  Jul 17 
+Florida ........:      14    Oct 15 Nov 15 - Dec 15 Dec 30  May 1  May 15 - May 31 Jun 15 
+Georgia ........:     250    Oct 12 Nov 3 - Dec 15  Dec 22  May 24 May 30 - Jun 18 Jun 27 
+Idaho ..........:     700    Sep 8  Sep 22 - Oct 13 Nov 3   Jul 23 Aug 4 - Aug 25  Sep 14 
+Illinois .......:     820    Sep 28 Oct 5 - Oct 29  Nov 9   Jun 15 Jun 19 - Jul 11 Jul 19 
+                :                                                                         
+Indiana ........:     450    Sep 25 Oct 1 - Nov 1   Nov 5   Jun 15 Jun 25 - Jul 15 Jul 25 
+Iowa ...........:      22    Sep 6  Sep 26 - Oct 15 Oct 30  Jun 24 Jul 6 - Jul 22  Aug 7  
+Kansas .........:   8,800    Sep 10 Sep 15 - Oct 20 Nov 1   Jun 15 Jun 20 - Jul 5  Jul 15 
+Kentucky .......:     390    Sep 27 Oct 6 - Nov 12  Nov 21  Jun 10 Jun 15 - Jul 4  Jul 10 
+Louisiana ......:     175    Oct 16 Oct 27 - Dec 1  Dec 7   May 14 May 21 - Jun 7  Jun 14 
+Maryland .......:     195    Oct 5  Oct 17 - Nov 6  Nov 19  Jun 22 Jun 28 - Jul 12 Jul 20 
+Michigan .......:     560    Sep 13 Sep 22 - Oct 22 Nov 1   Jul 6  Jul 11 - Jul 29 Aug 5  
+Minnesota ......:      45    Aug 25 Sep 1 - Sep 20  Sep 25  Jul 20 Aug 1 - Aug 25  Sep 10 
+Mississippi ....:     165    Sep 26 Oct 10 - Nov 18 Nov 30  May 28 Jun 2 - Jun 21  Jul 1  
+Missouri .......:     730    Sep 24 Oct 4 - Nov 10  Nov 27  Jun 11 Jun 16 - Jul 10 Jul 18 
+                :                                                                         
+Montana ........:   2,420    Sep 6  Sep 12 - Oct 7  Oct 16  Jul 22 Jul 26 - Aug 12 Aug 17 
+Nebraska .......:   1,600    Sep 3  Sep 9 - Oct 2   Oct 12  Jun 28 Jul 3 - Jul 21  Jul 27 
+Nevada .........:      11    Sep 5  Sep 15 - Oct 10 Oct 20  Jul 15 Jul 20 - Aug 20 Aug 25 
+New Jersey .....:      29    Sep 30 Oct 5 - Oct 20  Nov 1   Jun 25 Jul 1 - Jul 10  Jul 15 
+New Mexico .....:     140    Aug 25 Sep 10 - Sep 24 Oct 15  Jun 15 Jun 20 - Jul 10 Jul 15 
+New York .......:     105    Sep 10 Sep 15 - Oct 5  Nov 1   Jul 10 Jul 17 - Aug 7  Aug 14 
+North Carolina .:     600    Sep 20 Oct 15 - Nov 20 Dec 20  May 30 Jun 10 - Jun 30 Jul 25 
+North Dakota ...:     545    Sep 6  Sep 10 - Sep 25 Oct 2   Jul 15 Jul 20 - Jul 29 Aug 10 
+Ohio ...........:     980    Sep 26 Oct 2 - Oct 25  Nov 6   Jun 28 Jul 2 - Jul 17  Jul 20 
+Oklahoma .......:   3,500    Sep 3  Sep 15 - Oct 22 Nov 6   Jun 1  Jun 6 - Jun 27  Jul 3  
+                :                                                                         
+Oregon .........:     750    Sep 15 Oct 10 - Nov 10 Dec 1   Jul 10 Jul 17 - Aug 15 Aug 23 
+Pennsylvania ...:     175    Aug 30 Sep 15 - Oct 15 Oct 30  Jul 5  Jul 10 - Jul 30 Aug 10 
+South Carolina .:     150    Sep 25 Nov 11 - Dec 15 Dec 31  May 26 Jun 6 - Jun 25  Jul 1  
+South Dakota ...:   1,530    Sep 1  Sep 9 - Oct 5   Oct 16  Jul 8  Jul 14 - Aug 5  Aug 13 
+Tennessee ......:     340    Sep 25 Oct 10 - Nov 20 Nov 30  Jun 5  Jun 10 - Jun 30 Jul 5  
+Texas ..........:   2,450    Sep 4  Sep 12 - Nov 3  Nov 23  May 25 Jun 1 - Jul 2   Jul 12 
+Utah ...........:     135    Aug 20 Aug 25 - Oct 5  Nov 10  Jul 10 Jul 25 - Aug 10 Aug 25 
+Virginia .......:     210    Sep 25 Oct 10 - Nov 21 Dec 1   Jun 9  Jun 16 - Jul 5  Jul 12 
+Washington .....:   1,640    Aug 30 Sep 1 - Oct 10  Oct 20  Jul 15 Jul 25 - Aug 20 Aug 30 
+West Virginia ..:       5    Sep 5  Sep 15 - Nov 5  Nov 10  Jun 10 Jun 25 - Jul 25 Aug 5  
+Wisconsin ......:     315    Sep 30 Oct 5 - Oct 10  Oct 15  Jul 17 Jul 21 - Aug 11 Aug 19 
+Wyoming ........:     132    Aug 25 Sep 4 - Sep 20  Sep 28  Jul 13 Jul 22 - Aug 15 Aug 22 
+------------------------------------------------------------------------------------------
+
+Usual Planting and Harvesting Dates by Crop - Alabama
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:   250      Mar 15 Mar 25 - Apr 25 May 18  Aug 2  Aug 11 - Sep 20 Oct 15 
+Cotton, all ............:   248.0    Apr 5  Apr 24 - May 24 Jun 6   Sep 5  Sep 20 - Oct 20 Dec 1  
+Hay, other .............:   800      (NA)   (NA)            (NA)    May 10 Jun 20 - Sep 1  Oct 15 
+Oats, fall .............:    11      Sep 1  Sep 15 - Oct 15 Dec 1   May 1  May 25 - Jun 25 Jul 1  
+Peanuts ................:   152      Apr 16 Apr 25 - May 25 Jun 15  Sep 15 Sep 22 - Oct 22 Nov 20 
+Soybeans ...............:   430      Apr 15 May 25 - Jun 25 Jul 3   Sep 3  Oct 28 - Nov 28 Dec 15 
+Wheat, winter ..........:   180      Oct 2  Oct 21 - Nov 21 Dec 12  May 1  May 25 - Jun 25 Jul 1  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Alaska
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:    4.4     May 5  May 10 - May 30 Jun 5   Aug 15 Aug 25 - Sep 25 Oct 1  
+Hay, other .............:   20.0     (NA)   (NA)            (NA)    Jun 20 Jul 1 - Sep 15  Oct 10 
+Oats, spring ...........:    0.9     May 5  May 15 - May 30 Jun 5   Sep 1  Sep 5 - Sep 30  Oct 10 
+Potatoes, all ..........:    0.7     May 10 May 20 - Jun 5  Jun 10  Aug 30 Sep 5 - Sep 30  Oct 5  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Arizona
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:    45      Nov 10  Dec 1 - Dec 30 Feb 10  May 10 May 30 - Jun 20 Jul 10 
+Corn for grain .........:    20      Mar 10  Apr 1 - May 15 Jun 1   Sep 1  Oct 1 - Nov 1   Dec 1  
+Corn for silage ........:    30      Mar 15  Apr 1 - May 15 Jun 1   Sep 1  Oct 1 - Nov 1   Dec 1  
+Cotton, all ............:   145.6    Mar 15  Apr 1 - Apr 30 May 15  Sep 15 Oct 10 - Nov 10 Dec 25 
+Hay, alfalfa ...........:   280      (NA)    (NA)           (NA)    Feb 15 (NA)            Dec 1  
+Hay, other .............:    30      (NA)    (NA)           (NA)    Feb 15 (NA)            Dec 1  
+Sorghum for grain ......:     8      Mar 10  Apr 1 - May 15 Jun 1   Sep 1  Oct 1 - Nov 1   Dec 1  
+Sorghum for silage .....:    27      Apr 1   May 1 - May 30 Jul 1   Sep 1  Oct 1 - Oct 30  Dec 15 
+Wheat, Durum ...........:   124      Nov 10  Dec 1 - Dec 30 Feb 1   May 15 May 30 - Jun 15 Jul 1  
+Wheat, winter ..........:     5      Nov 10  Dec 1 - Dec 30 Feb 1   May 15 May 30 - Jun 15 Jul 1  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Arkansas
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:    410     Mar 26 Apr 1 - Apr 26  May 9   Aug 16 Aug 23 - Sep 23 Oct 6  
+Cotton, all ............:    500.0   Apr 23 Apr 30 - May 23 May 31  Sep 20 Sep 29 - Nov 6  Nov 20 
+Hay, alfalfa ...........:     15     (NA)   (NA)            (NA)    May 1  May 15 - Sep 1  Sep 15 
+Hay, other .............:  1,400     (NA)   (NA)            (NA)    May 1  May 15 - Sep 1  Sep 15 
+Oats, fall .............:      8     Sep 15 Oct 1 - Nov 15  Dec 1   May 15 May 25 - Jun 15 Jul 1  
+Rice, all ..............:  1,470     Apr 6  Apr 14 - May 19 Jun 2   Aug 29 Sep 9 - Oct 10  Oct 24 
+Sorghum for grain ......:     37     Apr 5  Apr 13 - May 23 Jun 5   Aug 22 Aug 27 - Oct 3  Oct 16 
+Soybeans ...............:  3,270     Apr 19 May 5 - Jun 22  Jul 5   Sep 10 Sep 29 - Nov 13 Nov 26 
+Wheat, winter ..........:    390     Oct 3  Oct 13 - Nov 20 Dec 1   Jun 1  Jun 6 - Jun 25  Jul 2  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - California
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:    55      Sep 15 Oct 1 - Apr 15  Apr 30  May 15 Jun 1 - Jul 15  Aug 15 
+Barley, spring .........:      1/    Feb 20 Mar 1 - May 1   May 15  Aug 15 Sep 1 - Sep 20  Oct 1  
+Corn for grain .........:   160      Mar 15 Apr 1 - Jul 1   Jul 15  Sep 1  Oct 1 - Nov 1   Nov 15 
+Corn for silage ........:   385      Apr 1  Apr 15 - Aug 1  Aug 15  Aug 1  Aug 15 - Nov 1  Dec 1  
+Cotton, all ............:   186.0    Apr 1  Apr 10 - May 5  May 15  Oct 5  Oct 10 - Nov 1  Nov 20 
+Hay, alfalfa ...........:   980      (NA)   (NA)            (NA)    Feb 15 (NA)            Nov 20 
+Hay, other .............:   540      (NA)   (NA)            (NA)    May 1  (NA)            Oct 1  
+Oats, fall .............:    30      Sep 15 Oct 1 - Mar 1   Mar 15  Jun 15 Jul 15 - Sep 1  Sep 15 
+Oats, spring ...........:      1/    Feb 20 Mar 1 - May 15  May 30  Aug 15 Sep 1 - Sep 20  Oct 1  
+Rice, all ..............:   556      Apr 20 May 1 - May 25  Jun 10  Sep 5  Sep 15 - Nov 1  Nov 10 
+                        :                                                                         
+Sunflower, all .........:    41.5    Mar 21 Apr 1 - May 31  Aug 1   Jun 1  Jul 1 - Aug 31  Oct 1  
+Sugarbeets .............:    25.3    Aug 15 Sep 15 - Oct 15 Oct 30  Apr 1  Apr 15 - Aug 1  Aug 15 
+Wheat, Durum ...........:   170      Sep 25 Oct 20 - Jan 1  Feb 1   May 20 Jun 10 - Jul 15 Aug 1  
+Wheat, winter ..........:   315      Sep 25 Oct 20 - Jan 1  Feb 1   May 20 Jun 1 - Jul 5   Jul 15 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    An "All" harvested acreage estimate is published under the "Fall" category.                 
+
+Usual Planting and Harvesting Dates by Crop - Colorado
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:     77     Mar 14 Mar 26 - May 5  May 16  Jul 20 Jul 29 - Sep 6  Sep 14 
+Beans, dry edible ......:     53.0   May 20 May 28 - Jun 18 Jun 25  Sep 4  Sep 9 - Oct 13  Oct 20 
+Corn for grain .........:    990     Apr 19 Apr 28 - May 20 May 29  Sep 28 Oct 8 - Nov 13  Nov 22 
+Corn for silage ........:     85     Apr 19 Apr 28 - May 20 May 29  Aug 28 Sep 5 - Sep 30  Oct 7  
+Hay, alfalfa ...........:    850     (NA)   (NA)            (NA)    May 23 May 30 - Oct 6  Nov 9  
+Hay, other .............:    750     (NA)   (NA)            (NA)    Jun 20 Jul 5 - Aug 10  Sep 15 
+Oats, spring ...........:      9     Mar 17 Mar 28 - May 14 May 23  Jul 13 Jul 19 - Sep 13 Sep 25 
+Potatoes, fall .........:     55.2   May 2  May 6 - May 25  May 31  Sep 6  Sep 15 - Oct 11 Oct 17 
+Potatoes, summer .......:      3.9   Apr 8  Apr 14 - May 18 May 27  Aug 6  Aug 17 - Sep 25 Oct 4  
+Sorghum for grain ......:    150     May 9  May 19 - Jun 23 Jul 1   Sep 29 Oct 11 - Nov 18 Nov 29 
+Sorghum for silage .....:      7     May 9  May 19 - Jun 23 Jul 1   Sep 1  Sep 5 - Sep 20  Sep 30 
+                        :                                                                         
+Sugarbeets .............:     35.0   Mar 30 Apr 7 - Apr 30  May 10  Sep 30 Oct 10 - Nov 4  Nov 12 
+Sunflower, all .........:     87.0   May 19 May 25 - Jun 23 Jul 1   Sep 27 Oct 6 - Nov 15  Nov 26 
+Wheat, spring ..........:     29     Mar 28 Apr 9 - May 16  May 23  Jul 23 Aug 3 - Sep 17  Sep 29 
+Wheat, winter ..........:  2,450     Sep 1  Sep 11 - Oct 2  Oct 11  Jun 27 Jul 2 - Jul 21  Jul 29 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Delaware
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:    26      Sep 27 Oct 9 - Oct 27  Nov 10  Jun 5  Jun 12 - Jun 28 Jul 3  
+Corn for grain .........:   163      Apr 12 Apr 30 - May 16 May 28  Sep 10 Sep 20 - Oct 15 Nov 5  
+Corn for silage ........:     5      Apr 12 Apr 30 - May 16 May 28  Aug 11 Aug 25 - Sep 18 Sep 30 
+Hay, alfalfa ...........:     5      (NA)   (NA)            (NA)    May 13 (NA)            Nov 19 
+Hay, other .............:    12      (NA)   (NA)            (NA)    May 10 (NA)            Nov 8  
+Potatoes, summer .......:     1.6    Apr 5  Apr 14 - Apr 28 May 5   Jul 4  Jul 23 - Aug 23 Sep 15 
+Soybeans ...............:   183      May 11 May 30 - Jun 28 Jul 11  Oct 5  Oct 22 - Nov 14 Nov 25 
+Wheat, winter ..........:    67      Oct 8  Oct 19 - Nov 8  Nov 21  Jun 22 Jun 26 - Jul 8  Jul 17 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Florida
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:    37      Mar 1  Mar 15 - Apr 25 May 5   Jul 15 Aug 1 - Sept 10 Oct 1  
+Corn for silage ........:    30      Mar 1  Mar 15 - Apr 15 Apr 30  Jun 1  Jun 10 - Jul 20 Aug 10 
+Cotton, all ............:    78.0    Apr 15 Apr 25 - May 25 Jun 15  Sep 20 Oct 1 - Nov 20  Dec 15 
+Hay, other .............:   300      (NA)   (NA)            (NA)    May 10 Jun 1 - Sep 15  Nov 20 
+Peanuts ................:   105      Apr 10 Apr 25 - May 30 Jun 15  Aug 15 Sep 10 - Nov 30 Dec 15 
+Potatoes, spring .......:    28.9    Sep 10 Sep 15 - Mar 1  Mar 15  Jan 15 Feb 1 - Jun 15  Jul 1  
+Soybeans ...............:    34      Apr 20 May 1 - Jun 15  Jul 1   Oct 1  Oct 15 - Nov 25 Dec 1  
+Sugarcane ..............:   387.0    Aug 21 Sep 15 - Dec 31 Jan 31  Oct 7  Oct 30 - Mar 21 Apr 15 
+Wheat, winter ..........:    14      Oct 15 Nov 15 - Dec 15 Dec 30  May 1  May 15 - May 31 Jun 15 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Georgia
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:   370      Mar 14 Mar 22 - Apr 21 May 4   Aug 6  Aug 16 - Sep 22 Oct 7  
+Cotton, all ............:   990.0    Apr 23 May 2 - May 31  Jun 11  Sep 23 Oct 10 - Dec 2  Dec 18 
+Hay, other .............:   700      (NA)   (NA)            (NA)    May 15 (NA)            Nov 1  
+Oats, fall .............:    20      Sep 27 Oct 10 - Dec 5  Dec 13  May 25 Jun 1 - Jun 22  Jul 3  
+Peanuts ................:   505      Apr 27 May 6 - May 31  Jun 7   Sep 15 Sep 25 - Oct 31 Nov 11 
+Rye ....................:    25      Sep 23 Oct 4 - Nov 25  Dec 9   May 15 May 25 - Jun 20 Jun 25 
+Sorghum for grain ......:    40      Apr 17 Apr 30 - Jun 26 Jul 12  Aug 21 Sep 4 - Nov 19  Dec 9  
+Soybeans ...............:   440      May 5  May 17 - Jun 26 Jul 5   Oct 11 Oct 25 - Dec 8  Dec 17 
+Tobacco, Class 1 1/ ....:    14.0    Mar 30 Apr 4 - Apr 25  May 1   Jun 29 Jul 12 - Aug 30 Sep 11 
+Wheat, winter ..........:   250      Oct 12 Nov 3 - Dec 15  Dec 22  May 24 May 30 - Jun 18 Jun 27 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes flue-cured types 11-14.                                                            
+
+Usual Planting and Harvesting Dates by Crop - Idaho
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:    510     Mar 24 Apr 7 - May 5   May 26  Jul 28 Aug 11 - Sep 8  Sep 29 
+Beans, dry edible ......:     99.0   May 12 May 26 - Jun 9  Jun 23  Aug 18 Sep 8 - Oct 6   Oct 20 
+Corn for grain .........:     80     Apr 21 May 5 - May 26  Jun 9   Sep 29 Oct 20 - Nov 10 Nov 24 
+Corn for silage ........:    215     Apr 21 May 5 - May 26  Jun 9   Sep 1  Sep 15 - Oct 6  Oct 27 
+Hay, alfalfa ...........:  1,140     (NA)   (NA)            (NA)    May 22 (NA)            Oct 20 
+Hay, other .............:    370     (NA)   (NA)            (NA)    Jun 1  (NA)            Sep 10 
+Oats, spring ...........:     25     Mar 31 Apr 14 - May 19 Jun 2   Jul 21 Aug 11 - Sep 8  Sep 29 
+Potatoes, fall .........:    319.0   Apr 6  Apr 28 - May 19 Jun 9   Aug 15 Sep 22 - Oct 13 Oct 27 
+Sugarbeets .............:    163.0   Mar 24 Apr 3 - Apr 21  May 5   Sep 15 Oct 8 - Oct 30  Nov 10 
+Wheat, Durum ...........:     20     Apr 1  Apr 10 - May 14 May 30  Aug 8  Aug 13 - Sep 10 Sep 29 
+Wheat, spring ..........:    530     Mar 21 Apr 7 - May 3   May 26  Aug 4  Aug 13 - Sep 8  Sep 29 
+Wheat, winter ..........:    700     Sep 8  Sep 22 - Oct 13 Nov 3   Jul 23 Aug 4 - Aug 25  Sep 14 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Illinois
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:  11,800    Apr 14 Apr 21 - May 23 Jun 5   Sep 14 Sep 23 - Nov 5  Nov 20 
+Hay, alfalfa ...........:     340    (NA)   (NA)            (NA)    May 9  May 19 - Sep 8  Sep 21 
+Hay, other .............:     270    (NA)   (NA)            (NA)    May 11 May 20 - Jun 28 Jul 17 
+Oats, spring ...........:      25    Mar 20 Mar 29 - Apr 30 May 12  Jul 4  Jul 14 - Aug 7  Aug 13 
+Sorghum for grain ......:      36    May 4  May 17 - Jun 26 Jul 6   Sep 18 Sep 30 - Nov 8  Nov 20 
+Soybeans ...............:   9,350    May 2  May 8 - Jun 12  Jun 24  Sep 19 Sep 26 - Oct 26 Nov 7  
+Wheat, winter ..........:     820    Sep 28 Oct 5 - Oct 29  Nov 9   Jun 15 Jun 19 - Jul 11 Jul 19 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Indiana
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:   5,460    Apr 20  May 1 - Jun 1  Jun 10  Sep 15 Oct 1 - Nov 10  Nov 25 
+Corn for silage ........:     110    Apr 20  May 1 - Jun 1  Jun 10  Aug 15 Aug 25 - Sep 5  Sep 20 
+Hay, alfalfa ...........:     300    (NA)    (NA)           (NA)    May 15 (NA)            Sep 20 
+Hay, other .............:     320    (NA)    (NA)           (NA)    May 15 (NA)            Sep 20 
+Oats, spring ...........:       7    Apr 1   Apr 5 - Apr 25 May 10  Jul 10 Jul 15 - Aug 5  Aug 10 
+Soybeans ...............:   5,440    May 1   May 5 - Jun 10 Jun 25  Sep 20 Oct 1 - Nov 1   Nov 10 
+Winter, wheat ..........:     450    Sep 25  Oct 1 - Nov 1  Nov 5   Jun 15 Jun 25 - Jul 15 Jul 25 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Iowa
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:  13,400    Apr 19 Apr 25 - May 18 May 26  Sep 21 Oct 5 - Nov 9   Nov 21 
+Corn for silage ........:     220    Apr 19 Apr 25 - May 18 Jun 23  Aug 15 Aug 25 - Sep 20 Sep 25 
+Hay, alfalfa ...........:     920    (NA)   (NA)            (NA)    May 24 May 30 - Sep 15 Sep 29 
+Hay, other .............:     300    (NA)   (NA)            (NA)    Jun 5  Jun 14 - Aug 17 Sep 3  
+Oats, spring ...........:      95    Mar 25 Apr 2 - May 2   May 13  Jul 9  Jul 17 - Aug 5  Aug 11 
+Soybeans ...............:   9,530    May 2  May 8 - Jun 2   Jun 16  Sep 21 Sep 28 - Oct 20 Oct 31 
+Wheat, winter ..........:      22    Sep 6  Sep 26 - Oct 15 Oct 30  Jun 24 Jul 6 - Jul 22  Aug 7  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Kansas
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:      9     Sep 15 Oct 1 - Oct 15  Nov 1   Jun 20 Jun 15 - Jul 1  Jul 5  
+Barley, spring .........:       1/   Mar 1  Mar 5 - Apr 1   May 1   Jun 20 Jun 25 - Jul 1  Jul 10 
+Cotton, all ............:     34.0   May 10 May 20 - Jun 15 Jun 25  Oct 15 Oct 25 - Dec 15 Dec 30 
+Corn for grain .........:  3,860     Apr 5  Apr 15 - May 15 May 25  Sep 1  Sep 10 - Oct 25 Nov 10 
+Hay, alfalfa ...........:    850     (NA)   (NA)            (NA)    May 10 May 20 - Oct 15 Nov 1  
+Hay, other .............:  1,700     (NA)   (NA)            (NA)    May 25 Jun 1 - Sep 1   Sep 15 
+Oats, spring ...........:     35     Feb 20 Mar 5 - Apr 1   May 1   Jul 10 Jul 15 - Aug 1  Aug 10 
+Sorghum for grain ......:  2,550     May 5  May 15 - Jun 20 Jul 15  Sep 10 Sep 25 - Nov 10 Nov 25 
+Soybeans ...............:  3,650     May 5  May 15 - Jun 20 Jul 1   Sep 20 Oct 1 - Nov 1   Nov 15 
+Sunflower, all .........:    155.0   May 15 May 25 - Jun 30 Jul 10  Sep 15 Oct 1 - Nov 15  Nov 30 
+Wheat, winter ..........:  8,800     Sep 10 Sep 15 - Oct 20 Nov 1   Jun 15 Jun 20 - Jul 5  Jul 15 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    An "All" harvested acreage estimate is published under the "Fall" category.                 
+
+Usual Planting and Harvesting Dates by Crop - Kentucky
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:  1,150     Apr 6  Apr 14 - May 24 Jun 8   Sep 1  Sep 9 - Oct 24  Nov 10 
+Corn for silage ........:     60     Apr 20 May 1 - Jun 10  Jun 25  Aug 20 Aug 25 - Sep 30 Oct 10 
+Hay, alfalfa ...........:    220     (NA)   (NA)            (NA)    May 5  May 15 - Sep 1  Sep 15 
+Hay, other .............:  2,300     (NA)   (NA)            (NA)    May 15 Jun 1 - Sep 1   Oct 10 
+Soybeans ...............:  1,420     May 4  May 16 - Jun 27 Jul 7   Sep 25 Oct 10 - Nov 14 Nov 25 
+Tobacco, Class 2 1/ ....:      9.1   May 11 May 17 - Jun 15 Jun 28  Aug 11 Aug 17 - Sep 25 Oct 5  
+Tobacco, Class 3A 2/ ...:     75.0   May 9  May 17 - Jun 17 Jun 28  Aug 10 Aug 16 - Sep 26 Oct 4  
+Tobacco, Class 3B 3/ ...:      4.6   May 11 May 17 - Jun 15 Jun 28  Aug 11 Aug 17 - Sep 25 Oct 5  
+Wheat, winter ..........:    390     Sep 27 Oct 6 - Nov 12  Nov 21  Jun 10 Jun 15 - Jul 4  Jul 10 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes fire-cured types 21-23.                                                            
+2/    Includes light air-cured types 31-32.                                                       
+3/    Includes dark air-cured types 35-37.                                                        
+
+Usual Planting and Harvesting Dates by Crop - Louisiana
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:   610      Mar 13 Mar 19 - Apr 8  Apr 16  Jul 31 Aug 9 - Sep 5   Sep 12 
+Cotton, all ............:   225.0    Apr 17 Apr 24 - May 17 May 26  Sep 14 Sep 23 - Oct 23 Nov 6  
+Hay, other .............:   380      (NA)   (NA)            (NA)    Apr 17 (NA)            Sep 14 
+Rice, all ..............:   464      Mar 20 Mar 28 - May 1  May 15  Jul 27 Aug 4 - Sep 15  Sep 28 
+Sorghum for grain ......:    65      Apr 6  Apr 11 - May 15 May 29  Aug 7  Aug 16 - Sep 10 Sep 24 
+Soybeans ...............:   940      Apr 18 Apr 23 - Jun 4  Jun 16  Aug 28 Sep 3 - Oct 25  Oct 31 
+Sugarcane ..............:   425.0    Aug 11 Aug 18 - Sep 21 Oct 1   Oct 5  Oct 18 - Dec 17 Dec 23 
+Sweet potatoes .........:    12.0    May 13 May 24 - Jun 25 Jul 6   Aug 24 Sep 10 - Nov 10 Nov 20 
+Wheat, winter ..........:   175      Oct 16 Oct 27 - Dec 1  Dec 7   May 14 May 21 - Jun 7  Jun 14 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Maryland
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:    48      Sep 17 Oct 1 - Oct 21  Nov 7   Jun 12 Jun 16 - Jun 28 Jul 8  
+Corn for grain .........:   425      Apr 20 Apr 30 - May 20 Jun 7   Sep 9  Sep 22 - Oct 22 Nov 17 
+Corn for silage ........:    40      Apr 20 Apr 30 - May 20 Jun 7   Aug 24 Sep 9 - Oct 1   Oct 14 
+Hay, alfalfa ...........:    40      (NA)   (NA)            (NA)    May 12 (NA)            Nov 30 
+Hay, other .............:   170      (NA)   (NA)            (NA)    May 10 (NA)            Nov 19 
+Potatoes, summer .......:     2.3    Apr 7  Apr 12 - Apr 28 May 10  Jul 1  Jul 20 - Aug 11 Aug 28 
+Soybeans ...............:   475      May 11 May 28 - Jun 26 Jul 16  Oct 5  Oct 18 - Nov 15 Dec 1  
+Wheat, winter ..........:   195      Oct 5  Oct 17 - Nov 6  Nov 19  Jun 22 Jun 28 - Jul 12 Jul 20 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Michigan
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:     11     Apr 10 Apr 13 - May 20 May 27  Jul 26 Aug 3 - Aug 19  Aug 31 
+Beans, dry edible ......:    195.0   May 29 Jun 3 - Jun 17  Jun 28  Sep 3  Sep 12 - Oct 12 Oct 24 
+Corn for grain .........:  2,090     Apr 21 May 1 - May 27  Jun 6   Sep 5  Oct 10 - Nov 25 Dec 10 
+Corn for silage ........:    220     Apr 21 May 1 - May 27  Jun 6   Aug 26 Sep 7 - Oct 10  Oct 20 
+Hay, alfalfa ...........:    700     (NA)   (NA)            (NA)    May 31 Jun 15 - Sep 11 Oct 14 
+Hay, other .............:    290     (NA)   (NA)            (NA)    May 31 Jul 28 - Sep 11 Oct 14 
+Oats, spring ...........:     55     Apr 10 Apr 13 - May 14 May 22  Jul 19 Jul 28 - Aug 24 Sep 2  
+Potatoes, fall .........:     43.5   Apr 16 Apr 24 - May 31 Jun 8   Jul 24 Aug 8 - Oct 19  Oct 28 
+Soybeans ...............:  1,990     May 2  May 11 - Jun 9  Jun 18  Sep 25 Oct 3 - Nov 3   Nov 13 
+Sugarbeets .............:    136.0   Apr 7  Apr 10 - May 11 May 16  Sep 26 Oct 13 - Nov 3  Nov 11 
+Wheat, winter ..........:    560     Sep 13 Sep 22 - Oct 22 Nov 1   Jul 6  Jul 11 - Jul 29 Aug 5  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Minnesota
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:     80     Apr 15 Apr 23 - May 25 Jun 3   Jul 26 Aug 1 - Sep 3   Sep 18 
+Beans, dry edible ......:    140.0   May 7  May 14 - Jun 7  Jun 18  Aug 29 Sep 5 - Oct 9   Oct 17 
+Corn for grain .........:  7,150     Apr 22 Apr 26 - May 19 May 29  Sep 27 Oct 8 - Nov 8   Nov 23 
+Corn for silage ........:    380     Apr 22 Apr 26 - May 19 May 29  Aug 27 Sep 4 - Oct 5   Oct 14 
+Hay, alfalfa ...........:  1,300     (NA)   (NA)            (NA)    May 25 (NA)            Sep 24 
+Hay, other .............:    750     (NA)   (NA)            (NA)    Jun 5  (NA)            Aug 30 
+Oats, spring ...........:    170     Apr 11 Apr 19 - May 15 May 26  Jul 21 Jul 26 - Aug 24 Sep 4  
+Potatoes, fall .........:     45.0   Apr 20 Apr 25 - May 30 Jun 10  Aug 15 Aug 29 - Oct 12 Oct 20 
+Soybeans ...............:  7,120     May 2  May 8 - Jun 2   Jun 13  Sep 20 Sep 27 - Oct 20 Oct 31 
+Sugarbeets .............:    449.0   Apr 18 Apr 24 - May 18 May 26  Sep 16 Sep 30 - Oct 19 Oct 27 
+                        :                                                                         
+Sunflower, all .........:     64.0   May 7  May 16 - Jun 7  Jun 15  Sep 26 Oct 4 - Nov 8   Nov 25 
+Wheat, spring ..........:  1,550     Apr 14 Apr 23 - May 23 Jun 1   Jul 30 Aug 5 - Sep 9   Sep 22 
+Wheat, winter ..........:     45     Aug 25 Sep 1 - Sep 20  Sep 25  Jul 20 Aug 1 - Aug 25  Sep 10 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Mississippi
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:    695     Mar 17 Mar 24 - Apr 27 May 4   Aug 11 Aug 23 - Sep 23 Oct 7  
+Corn for silage ........:     10     Mar 17 Mar 24 - Apr 27 May 4   Jul 13 Jul 19 - Aug 29 Sep 12 
+Cotton, all ............:    290.0   Apr 20 Apr 27 - May 19 May 29  Sep 15 Sep 27 - Oct 29 Nov 12 
+Hay, other .............:    700     (NA)   (NA)            (NA)    Apr 10 (NA)            Sep 26 
+Peanuts ................:     18     Apr 25 May 6 - May 31  Jun 15  Sep 20 Sep 29 - Oct 31 Nov 10 
+Rice, all ..............:    243     Apr 6  Apr 18 - May 16 May 24  Aug 29 Sep 5 - Oct 6   Oct 20 
+Sorghum for grain ......:     11     Apr 8  Apr 14 - May 21 Jun 3   Aug 19 Aug 29 - Sep 27 Oct 8  
+Sorhgum for silage .....:      1     Apr 8  Apr 14 - May 21 Jun 3   Aug 4  Aug 12 - Sep 16 Oct 2  
+Soybeans ...............:  2,030     Apr 19 Apr 26 - May 31 Jun 17  Sep 10 Sep 13 - Oct 31 Nov 9  
+Sweet potatoes .........:     11.0   May 4  Jun 7 - Jun 23  Jul 7   Aug 20 Sep 2 - Oct 28  Nov 7  
+Wheat, winter ..........:    165     Sep 26 Oct 10 - Nov 18 Nov 30  May 28 Jun 2 - Jun 21  Jul 1  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Missouri
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:  2,920     Apr 3  Apr 11 - May 27 Jun 12  Aug 29 Sep 8 - Nov 3   Dec 22 
+Cotton, all ............:    260.0   Apr 22 Apr 29 - May 23 May 29  Sep 17 Sep 27 - Nov 9  Nov 24 
+Hay, alfalfa ...........:    280     (NA)   (NA)            (NA)    May 16 Jun 28 - Aug 14 Sep 1  
+Hay, other .............:  3,600     (NA)   (NA)            (NA)    May 17 Jun 24 - Jul 14 Aug 5  
+Oats, spring ...........:      9     Mar 1  Mar 15 - Apr 20 Apr 30  Jun 20 Jul 1 - Jul 25  Aug 1  
+Rice, all ..............:    200     Apr 10 Apr 20 - May 19 May 26  Sep 6  Sep 14 - Oct 18 Oct 30 
+Sorghum for grain ......:     43     Apr 23 May 6 - Jun 18  Jun 28  Sep 6  Sep 16 - Nov 7  Nov 22 
+Soybeans ...............:  5,300     May 2  May 13 - Jun 24 Jul 4   Sep 25 Oct 3 - Nov 8   Nov 23 
+Wheat, winter ..........:    730     Sep 24 Oct 4 - Nov 10  Nov 27  Jun 11 Jun 16 - Jul 10 Jul 18 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Montana
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:    720     Apr 3  Apr 13 - May 11 May 20  Jul 27 Aug 3 - Sep 2   Sep 10 
+Beans, dry edible ......:     11.5   May 5  May 10 - Jun 3  Jun 9   Aug 27 Sep 3 - Oct 2   Oct 11 
+Corn for grain .........:     26     Apr 26 May 4 - May 28  Jun 4   Oct 4  Oct 25 - Dec 3  Dec 8  
+Corn for silage ........:     45     Apr 26 May 4 - May 28  Jun 4   Aug 26 Sep 6 - Oct 1   Oct 10 
+Hay, alfalfa ...........:  1,700     (NA)   (NA)            (NA)    Jun 18 (NA)            Sep 23 
+Hay, other .............:    800     (NA)   (NA)            (NA)    Jun 20 (NA)            Oct 7  
+Oats, spring ...........:     32     Apr 18 Apr 26 - May 28 Jun 5   Aug 8  Aug 15 - Sep 9  Sep 22 
+Potatoes, fall .........:      9.7   May 7  May 17 - Jun 7  Jun 13  Sep 19 Sep 22 - Oct 23 Oct 31 
+Sugarbeets .............:     33.6   Apr 14 Apr 20 - May 12 May 18  Sep 28 Oct 9 - Oct 27  Nov 4  
+Wheat, Durum ...........:    535     Apr 25 May 1 - Jun 1   Jun 15  Aug 11 Aug 19 - Sep 22 Oct 4  
+Wheat, spring ..........:  2,350     Apr 6  Apr 14 - May 12 May 18  Jul 30 Aug 7 - Sep 6   Sep 13 
+Wheat, winter ..........:  2,420     Sep 6  Sep 12 - Oct 7  Oct 16  Jul 22 Jul 26 - Aug 12 Aug 17 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Nebraska
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Beans, dry edible ......:    115.0   May 21 May 27 - Jun 16 Jun 21  Sep 3  Sep 13 - Oct 9  Oct 19 
+Corn for grain .........:  8,850     Apr 19 Apr 27 - May 15 May 21  Sep 18 Oct 4 - Nov 10  Nov 20 
+Hay, alfalfa ...........:    950     (NA)   (NA)            (NA)    May 19 (NA)            Oct 15 
+Hay, other .............:  1,750     (NA)   (NA)            (NA)    Jun 5  (NA)            Sep 20 
+Oats, spring ...........:     30     Mar 26 Apr 1 - Apr 24  May 3   Jul 4  Jul 10 - Jul 30 Aug 7  
+Sorghum for grain ......:    140     May 9  May 16 - Jun 9  Jun 16  Sep 26 Oct 8 - Nov 8   Nov 17 
+Soybeans ...............:  4,760     May 5  May 11 - May 31 Jun 8   Sep 23 Sep 29 - Oct 24 Nov 2  
+Sugarbeets .............:     52.6   Apr 1  Apr 10 - Apr 30 May 5   Oct 5  Oct 10 - Oct 30 Nov 5  
+Sunflower, all .........:     47.0   Jun 1  Jun 5 - Jun 30  Jul 5   Oct 1  Oct 5 - Oct 25  Nov 5  
+Wheat, winter ..........:  1,600     Sep 3  Sep 9 - Oct 2   Oct 12  Jun 28 Jul 3 - Jul 21  Jul 27 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Nevada
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Alfalfa seed ...........:      5      (NA)  (NA)            (NA)    Aug 20 Aug 25 - Sep 15 Sep 20 
+Hay, alfalfa ...........:    280      (NA)  (NA)            (NA)    May 20 (NA)            Oct 15 
+Hay, other .............:    210      (NA)  (NA)            (NA)    Jun 15 (NA)            Sep 15 
+Wheat, spring ..........:      2      Apr 5 Apr 15 - May 15 May 20  Jul 20 Aug 1 - Aug 25  Sep 5  
+Wheat, winter ..........:     11      Sep 5 Sep 15 - Oct 10 Oct 20  Jul 15 Jul 20 - Aug 20 Aug 25 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - New England
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring 1/ ......:    15      May 4  May 9 - May 30  Jun 6   Aug 9  Aug 18 - Sep 18 Sep 30 
+Corn for silage ........:   161      May 5  May 12 - Jun 9  Jun 22  Sep 5  Sep 14 - Oct 16 Oct 26 
+Hay, alfalfa ...........:    65      (NA)   (NA)            (NA)    May 25 (NA)            Oct 31 
+Hay, other .............:   481      (NA)   (NA)            (NA)    May 25 (NA)            Oct 31 
+Oats, spring 1/ ........:    31      May 5  May 10 - May 31 Jun 7   Aug 11 Aug 21 - Sep 22 Oct 4  
+Potatoes, fall          :                                                                         
+  Maine ................:    55.5    May 9  May 14 - Jun 3  Jun 9   Sep 6  Sep 20 - Oct 10 Oct 17 
+  Massachusetts ........:     3.4    Apr 25 Apr 27 - May 23 May 30  Aug 1  Aug 15 - Oct 10 Oct 22 
+  Rhode Island .........:     0.4    Apr 27 Apr 30 - May 23 Jun 9   Aug 3  Aug 16 - Oct 1  Oct 16 
+Tobacco, Class 5 2/ 3/ .:     1.4    May 22 May 29 - Jun 23 Jul 1   Jul 28 Aug 3 - Aug 31  Sep 10 
+Tobacco, Class 6 2/ 4/ .:     0.9    May 15 May 18 - Jun 3  Jun 9   Jul 16 Jul 24 - Aug 28 Sep 6  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Maine only.                                                                                 
+2/    Connecticut and Massachusetts only.                                                         
+3/    Includes cigar binder type 51.                                                              
+4/    Includes cigar wrapper type 61.                                                             
+
+Usual Planting and Harvesting Dates by Crop - New Jersey
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:   70       Apr 15 May 1 - May 20  Jun 15  Sep 25 Oct 10 - Nov 1  Nov 15 
+Corn for silage ........:    9       Apr 15 May 1 - May 20  Jul 1   Aug 30 Sep 10 - Sep 30 Nov 20 
+Hay, alfalfa ...........:   25       (NA)   (NA)            (NA)    May 15 (NA)            Nov 1  
+Hay, other .............:   85       (NA)   (NA)            (NA)    May 10 (NA)            Oct 15 
+Potatoes, summer .......:    2.1     Apr 20 May 1 - May 20  Jun 1   Jul 10 Jul 20 - Sep 30 Oct 15 
+Soybeans ...............:   87       May 10 May 20 - Jul 1  Jul 10  Oct 1  Oct 20 - Nov 10 Nov 15 
+Sweet potatoes .........:    1.2     May 10 May 20 - Jun 20 Jul 10  Sep 10 Sep 20 - Nov 10 Nov 20 
+Wheat, winter ..........:   29       Sep 30 Oct 5 - Oct 20  Nov 1   Jun 25 Jul 1 - Jul 10  Jul 15 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - New Mexico
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Beans, dry edible ......:    12.4    May 15 May 20 - Jun 1  Jun 15  Aug 15 Sep 1 - Sep 30  Oct 15 
+Corn for grain .........:    50      Apr 15 Apr 20 - May 10 May 20  Sep 25 Oct 1 - Oct 30  Nov 20 
+Corn for silage ........:    78      Apr 15 Apr 20 - May 10 May 20  Sep 1  Sep 10 - Oct 1  Nov 1  
+Cotton, all ............:    32.3    Apr 10 Apr 20 - May 10 May 20  Oct 10 Oct 25 - Nov 30 Dec 20 
+Hay, alfalfa ...........:   240      (NA)   (NA)            (NA)    May 1  (NA)            Oct 20 
+Hay, other .............:    80      (NA)   (NA)            (NA)    May 1  (NA)            Oct 20 
+Peanuts ................:     7      May 10 May 15 - May 25 Jun 1   Oct 1  Oct 10 - Oct 30 Nov 10 
+Potatoes, fall .........:     6.4    Apr 20 Apr 25 - May 5  May 10  Sep 1  Sep 25 - Oct 10 Oct 20 
+Sorghum for grain ......:    50      May 15 May 20 - Jun 15 Jul 10  Oct 15 Oct 20 - Nov 15 Dec 15 
+Sorghum for silage .....:    18      May 10 May 20 - Jun 10 Jun 20  Sep 5  Sep 15 - Oct 10 Nov 1  
+Wheat, winter ..........:   140      Aug 25 Sep 10 - Sep 24 Oct 15  Jun 15 Jun 20 - Jul 10 Jul 15 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - New York
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:     10     Apr 1  Apr 7 - Apr 29  May 29  Aug 1  Aug 7 - Aug 27  Sep 12 
+Beans, dry edible ......:     15.6   Jun 1  Jun 15 - Jun 30 Jul 13  Sep 1  Sep 15 - Sep 30 Oct 15 
+Corn for grain .........:    595     Apr 20 May 4 - Jun 13  Jun 20  Oct 7  Oct 14 - Nov 14 Nov 25 
+Corn for silage ........:    470     Apr 20 May 4 - Jun 13  Jun 20  Sep 5  Sep 10 - Oct 1  Oct 15 
+Hay, alfalfa ...........:    350     (NA)   (NA)            (NA)    May 25 (NA)            Oct 10 
+Hay, other .............:  1,010     (NA)   (NA)            (NA)    May 25 (NA)            Oct 15 
+Oats, spring ...........:     60     Mar 25 Apr 1 - Apr 22  May 29  Jul 30 Aug 4 - Aug 24  Sep 9  
+Potatoes, fall .........:     16.5   Mar 25 May 15 - May 25 Jun 15  Jul 27 Aug 1 - Oct 7   Oct 22 
+Soybeans ...............:    254     May 12 May 19 - Jun 22 Jun 29  Sep 27 Oct 7 - Nov 14  Nov 20 
+Wheat, winter ..........:    105     Sep 10 Sep 15 - Oct 5  Nov 1   Jul 10 Jul 17 - Aug 7  Aug 14 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - North Carolina
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:     19     Sep 25 Oct 15 - Nov 10 Dec 1   May 25 Jun 10 - Jun 30 Jul 25 
+Corn for grain .........:    800     Apr 1  Apr 10 - Apr 25 May 15  Aug 25 Sep 10 - Oct 10 Nov 1  
+Corn for silage ........:     55     Apr 1  Apr 10 - Apr 25 May 20  Aug 1  Aug 20 - Sep 20 Oct 20 
+Cotton, all ............:    370.0   Apr 20 May 1 - May 20  Jun 1   Sep 30 Oct 10 - Nov 15 Dec 15 
+Hay, alfalfa ...........:      7     (NA)   (NA)            (NA)    Apr 30 (NA)            Nov 15 
+Hay, other .............:    840     (NA)   (NA)            (NA)    Apr 30 (NA)            Nov 15 
+Oats, fall .............:     15     Sep 25 Oct 15 - Nov 25 Dec 10  May 30 Jun 10 - Jun 30 Jul 25 
+Peanuts ................:     66     Apr 30 May 10 - May 30 Jun 1   Sep 25 Oct 10 - Oct 30 Nov 15 
+Potatoes, spring .......:     15.0   Mar 5  Mar 10 - Apr 10 Apr 30  Jun 10 Jun 25 - Jul 15 Aug 10 
+Soybeans ...............:  1,750     May 1  May 20 - Jun 30 Jul 20  Oct 10 Nov 10 - Dec 5  Dec 20 
+                        :                                                                         
+Sweet potatoes .........:     46.0   May 5  May 20 - Jun 15 Jul 15  Sep 1  Sep 25 - Nov 5  Nov 20 
+Tobacco, Class 1 1/ ....:    174.0   Apr 15 Apr 20 - May 25 Jun 5   Jul 1  Jul 20 - Sep 15 Oct 10 
+Tobacco, Class 3A 2/ ...:      3.4   May 15 May 20 - Jun 10 Jun 30  Aug 20 Sep 1 - Sep 20  Oct 15 
+Wheat, winter ..........:    600     Sep 20 Oct 15 - Nov 20 Dec 20  May 30 Jun 10 - Jun 30 Jul 25 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes flue-cured types 11-14.                                                            
+2/    Includes light air-cured types 31-32.                                                       
+
+Usual Planting and Harvesting Dates by Crop - North Dakota
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:  1,130     Apr 19 Apr 26 - May 25 Jun 3   Jul 28 Aug 4 - Sep 3   Sep 16 
+Beans, dry edible ......:    580.0   May 14 May 19 - Jun 6  Jun 13  Aug 30 Sep 7 - Oct 11  Oct 26 
+Corn for grain .........:  1,740     Apr 26 May 2 - May 28  Jun 4   Sep 28 Oct 8 - Nov 19  Dec 6  
+Corn for silage ........:    170     Apr 26 May 2 - May 28  Jun 4   Aug 27 Sep 6 - Oct 5   Oct 14 
+Flaxseed ...............:    293     Apr 30 May 7 - Jun 3   Jun 12  Aug 17 Aug 26 - Oct 3  Oct 15 
+Hay, alfalfa ...........:  1,780     (NA)   (NA)            (NA)    Jun 10 (NA)            Sep 6  
+Hay, other .............:  1,180     (NA)   (NA)            (NA)    Jun 19 (NA)            Sep 2  
+Oats, spring ...........:    165     Apr 19 Apr 26 - May 25 Jun 3   Jul 28 Aug 5 - Sep 5   Sep 18 
+Potatoes, fall .........:     75.0   Apr 28 May 5 - May 30  Jun 6   Sep 2  Sep 10 - Oct 7  Oct 16 
+Soybeans ...............:  3,870     May 7  May 14 - Jun 3  Jun 11  Sep 17 Sep 24 - Oct 21 Nov 5  
+                        :                                                                         
+Sugarbeets .............:    218.0   Apr 19 Apr 24 - May 18 May 26  Sep 17 Sep 30 - Oct 17 Oct 25 
+Sunflower, all .........:    868.0   May 14 May 19 - Jun 8  Jun 15  Oct 1  Oct 9 - Nov 10  Nov 23 
+Wheat, Durum ...........:  1,570     Apr 23 May 2 - May 31  Jun 8   Aug 7  Aug 15 - Sep 23 Oct 5  
+Wheat, spring ..........:  6,300     Apr 16 Apr 24 - May 25 Jun 3   Aug 1  Aug 8 - Sep 13  Sep 25 
+Wheat, winter ..........:    545     Sep 6  Sep 10 - Sep 25 Oct 2   Jul 15 Jul 20 - Jul 29 Aug 10 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Ohio
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:  3,140     Apr 18 Apr 24 - May 24 May 30  Sep 27 Oct 11 - Nov 20 Dec 1  
+Corn for silage ........:    170     Apr 18 Apr 24 - May 24 May 30  Aug 22 Sep 2 - Oct 4   Oct 14 
+Hay, alfalfa ...........:    380     (NA)   (NA)            (NA)    May 17 May 25 - Sep 11 Sep 24 
+Hay, other .............:    660     (NA)   (NA)            (NA)    May 20 May 27 - Oct 2  Oct 13 
+Oats, spring ...........:     45     Apr 4  Apr 9 - May 5   May 13  Jul 13 Jul 20 - Aug 7  Aug 11 
+Potatoes, fall .........:      2.1   Apr 10 Apr 20 - May 28 Jun 8   Jul 30 Aug 8 - Oct 6   Oct 17 
+Soybeans ...............:  4,530     Apr 26 May 3 - May 30  Jun 10  Sep 23 Sep 30 - Oct 31 Nov 12 
+Tobacco, Class 3A 1/ ...:      3.4   May 25 Jun 1 - Jun 15  Jun 25  Aug 20 Sep 5 - Sep 15  Sep 30 
+Wheat, winter ..........:    980     Sep 26 Oct 2 - Oct 25  Nov 6   Jun 28 Jul 2 - Jul 17  Jul 20 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes light air-cured types 31-32.                                                       
+
+Usual Planting and Harvesting Dates by Crop - Oklahoma
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Canola .................:     37.0   Sep 10 Sep 15 - Sep 30 Oct 10  May 20 Jun 1 - Jun 10  Jun 20 
+Corn for grain .........:    320     Mar 21 Apr 2 - May 8   May 17  Aug 20 Aug 29 - Oct 9  Oct 20 
+Cotton, all ............:    195.0   May 2  May 11 - Jun 10 Jun 18  Oct 4  Oct 15 - Dec 9  Dec 24 
+Hay, alfalfa ...........:    320     (NA)   (NA)            (NA)    Apr 20 (NA)            Oct 13 
+Hay, other .............:  2,900     (NA)   (NA)            (NA)    Apr 20 (NA)            Oct 20 
+Oats, spring ...........:     15     Feb 15 Feb 22 - Mar 17 Mar 26  Jun 4  Jun 10 - Jul 4  Jul 13 
+Peanuts ................:     13     Apr 28 May 7 - Jun 6   Jun 11  Oct 2  Oct 9 - Nov 16  Nov 26 
+Rye ....................:     40     Sep 3  Sep 10 - Oct 15 Oct 28  Jun 3  Jun 10 - Jul 2  Jul 11 
+Sorghum for grain ......:    220     Apr 24 May 12 - Jun 25 Jul 6   Sep 9  Sep 26 - Nov 21 Dec 2  
+Soybeans ...............:    390     Apr 15 Apr 27 - Jun 27 Jul 9   Sep 9  Sep 22 - Nov 20 Dec 1  
+Sunflower, all .........:     15.0   May 1  May 15 - Jul 15 Jul 30  Aug 1  Aug 30 - Oct 30 Dec 10 
+Wheat, winter ..........:  3,500     Sep 3  Sep 15 - Oct 22 Nov 6   Jun 1  Jun 6 - Jun 27  Jul 3  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Oregon
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:    32      Mar 1  Mar 30 - May 15 May 25  Jul 10 Jul 21 - Sep 1  Sep 8  
+Corn for grain .........:    32      Mar 25 Apr 25 - Jun 5  Jun 15  Oct 10 Oct 20 - Nov 20 Dec 5  
+Corn for silage ........:    28      May 5  May 25 - Jun 10 Jun 25  Sep 1  Sep 10 - Sep 20 Sep 30 
+Hay, alfalfa ...........:   400      (NA)   (NA)            (NA)    May 5  (NA)            Sep 20 
+Hay, other .............:   630      (NA)   (NA)            (NA)    May 20 (NA)            Oct 15 
+Oats, fall .............:    22      Sep 15 Oct 15 - Nov 15 Dec 10  Jul 10 Aug 10 - Aug 20 Sep 1  
+Potatoes, fall .........:    37.0    Mar 15 Apr 15 - May 14 May 25  Jul 15 Oct 10 - Oct 20 Nov 15 
+Sugarbeets .............:    10.5    Apr 1  Apr 10 - Apr 20 Apr 25  Oct 1  Oct 10 - Oct 20 Oct 30 
+Wheat, spring ..........:   127      Mar 1  Mar 25 - Apr 15 May 6   Jul 20 Jul 25 - Sep 1  Sep 3  
+Wheat, winter ..........:   750      Sep 15 Oct 10 - Nov 10 Dec 1   Jul 10 Jul 17 - Aug 15 Aug 23 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Pennsylvania
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:     45     Aug 25 Sep 15 - Oct 15 Oct 25  Jun 20 Jun 25 - Jul 20 Aug 10 
+Corn for grain .........:    920     Apr 30 May 10 - May 25 Jun 15  Sep 25 Oct 15 - Nov 20 Dec 10 
+Corn for silage ........:    420     Apr 30 May 10- May 25  Jun 30  Aug 30 Sep 10 - Oct 10 Nov 5  
+Hay, alfalfa ...........:    500     (NA)   (NA)            (NA)    May 15 (NA)            Nov 15 
+Hay, other .............:  1,050     (NA)   (NA)            (NA)    May 30 (NA)            Sep 25 
+Oats, spring ...........:     80     Apr 15 Apr 15 - May 10 May 25  Jul 20 Jul 25 - Aug 20 Aug 30 
+Potatoes, fall .........:      9.5   Apr 10 Apr 30 - May 25 Jun 10  Aug 10 Aug 25 - Oct 10 Oct 30 
+Soybeans ...............:    445     May 10 May 20 - Jun 10 Jul 5   Oct 5  Oct 20 - Nov 10 Nov 30 
+Tobacco, Class 3A 1/ ...:      6.2   May 25 May 30 - Jun 15 Jun 25  Aug 10 Aug 20 - Sep 10 Sep 25 
+Tobacco, Class 4 2/ ....:      2.0   May 25 May 30 - Jun 15 Jun 25  Aug 10 Aug 20 - Sep 10 Sep 25 
+Wheat, winter ..........:    175     Aug 30 Sep 15 - Oct 15 Oct 30  Jul 5  Jul 10 - Jul 30 Aug 10 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes light air-cured types 31-32.                                                       
+2/    Includes cigar filler type 41.                                                              
+
+Usual Planting and Harvesting Dates by Crop - South Carolina
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:   320      Mar 10 Mar 20 - Apr 20 May 15  Jul 25 Aug 20 - Sep 25 Oct 10 
+Cotton, all ............:   114.0    Apr 24 May 1 - May 20  Jun 1   Sep 23 Oct 15 - Nov 13 Dec 5  
+Hay, other .............:   350      (NA)   (NA)            (NA)    May 15 (NA)            Nov 13 
+Oats, fall .............:    15      Sep 23 Oct 15 - Nov 20 Dec 15  May 25 Jun 3 - Jun 20  Jul 3  
+Peanuts ................:    48      Apr 20 Apr 25 - May 15 Jun 5   Sep 8  Oct 2 - Nov 1   Nov 10 
+Soybeans ...............:   565      May 10 May 27 - Jun 27 Jul 11  Oct 20 Nov 10 - Dec 10 Dec 30 
+Tobacco, Class 1 1/ ....:    18.5    Apr 2  Apr 9 - Apr 30  May 10  Jun 30 Jul 18 - Aug 26 Sep 20 
+Wheat, winter ..........:   150      Sep 25 Nov 11 - Dec 15 Dec 31  May 26 Jun 6 - Jun 25  Jul 1  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes flue-cured types 11-14.                                                            
+
+Usual Planting and Harvesting Dates by Crop - South Dakota
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:      22    Apr 6  Apr 14 - May 17 May 24  Jul 20 Jul 27 - Aug 19 Aug 27 
+Corn for grain .........:   4,680    Apr 26 May 2 - May 27  Jun 10  Sep 24 Oct 6 - Nov 16  Dec 3  
+Corn for silage ........:     250    Apr 26 May 2 - May 27  Jun 10  Aug 24 Sep 3 - Oct 5   Oct 14 
+Hay, alfalfa ...........:   2,500    (NA)   (NA)            (NA)    May 29 Jun 5 - Sep 12  Sep 20 
+Hay, other .............:   1,300    (NA)   (NA)            (NA)    Jun 11 Jun 20 - Aug 14 Aug 24 
+Oats, spring ...........:      90    Apr 3  Apr 10 - May 15 May 23  Jul 14 Jul 21 - Aug 15 Aug 23 
+Sorghum for grain ......:     120    May 11 May 20 - Jun 20 Jun 30  Sep 21 Oct 1 - Nov 6   Nov 17 
+Sorghum for silage .....:      15    May 11 May 20 - Jun 20 Jun 30  Aug 20 Sep 2 - Oct 11  Oct 21 
+Soybeans ...............:   4,190    May 8  May 15 - Jun 11 Jun 21  Sep 22 Sep 28 - Oct 24 Nov 3  
+Sunflower, all .........:     558    May 16 May 24 - Jun 21 Jun 29  Sep 25 Oct 3 - Nov 10  Nov 21 
+                        :                                                                         
+Wheat, Durum ...........:       9    Mar 31 Apr 8 - May 12  May 21  Jul 20 Jul 27 - Aug 20 Aug 29 
+Wheat, spring ..........:   1,470    Mar 31 Apr 8 - May 12  May 21  Jul 20 Jul 27 - Aug 20 Aug 29 
+Wheat, winter ..........:   1,530    Sep 1  Sep 9 - Oct 5   Oct 16  Jul 8  Jul 14 - Aug 5  Aug 13 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Tennessee
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:    590     Apr 1  Apr 5 - May 10  May 25  Aug 25 Sep 1 - Oct 10  Oct 30 
+Corn for silage ........:     50     Apr 10 Apr 15 - May 15 May 30  Aug 1  Aug 10 - Sep 20 Oct 1  
+Cotton, all ............:    280.0   Apr 25 May 1 - May 25  Jun 5   Sep 20 Sep 30 - Nov 10 Nov 25 
+Hay, alfalfa ...........:     15     (NA)   (NA)            (NA)    May 1  (NA)            Oct 1  
+Hay, other .............:  1,900     (NA)   (NA)            (NA)    May 1  (NA)            Oct 1  
+Soybeans ...............:  1,530     May 5  May 15 - Jun 25 Jul 5   Sep 25 Oct 5 - Nov 20  Nov 30 
+Tobacco, Class 2 1/ ....:      6.4   May 5  May 15 - Jun 15 Jun 25  Aug 5  Aug 15 - Sep 25 Oct 5  
+Tobacco, Class 3A 2/ ...:     14.0   May 5  May 15 - Jun 15 Jun 25  Aug 5  Aug 15 - Sep 25 Oct 5  
+Tobacco, Class 3B 3/ ...:      1.2   May 5  May 15 - Jun 15 Jun 25  Aug 5  Aug 15 - Sep 20 Sep 30 
+Wheat, winter ..........:    340     Sep 25 Oct 10 - Nov 20 Nov 30  Jun 5  Jun 10 - Jun 30 Jul 5  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes fire-cured types 21-23.                                                            
+2/    Includes light air-cured types 31-32.                                                       
+3/    Includes dark air-cured types 35-37.                                                        
+
+Usual Planting and Harvesting Dates by Crop - Texas
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:  1,960     Mar 1  Mar 8 - May 7   May 17  Jul 18 Aug 1 - Oct 11  Nov 8  
+Corn for silage ........:    140     Feb 28 Mar 20 - Apr 29 May 15  Jul 5  Jul 20 - Sep 5  Oct 1  
+Cotton, all ............:  3,517.8   Mar 22 Apr 8 - Jun 7   Jun 20  Aug 10 Sep 13 - Dec 21 Jan 11 
+Hay, alfalfa ...........:    120     (NA)   (NA)            (NA)    Apr 15 (NA)            Sep 20 
+Hay, other .............:  4,500     (NA)   (NA)            (NA)    May 1  (NA)            Sep 30 
+Oats, fall .............:     60     Sep 7  Sep 20 - Nov 5  Nov 25  May 13 May 23 - Jun 22 Jul 4  
+Peanuts ................:    155     May 1  May 6 - Jun 5   Jun 15  Sep 25 Oct 7 - Nov 16  Nov 30 
+Rice, all ..............:    170     Mar 17 Mar 23 - Apr 26 May 10  Jul 29 Aug 7 - Sep 4   Sep 20 
+Sorghum for grain ......:  2,050     Mar 1  Mar 11 - Jun 15 Jul 5   Jun 25 Jul 8 - Nov 16  Dec 6  
+Sorghum for silage .....:    100     Mar 3  Mar 22 - May 23 Jun 28  Jul 1  Jul 15 - Oct 1  Nov 1  
+                        :                                                                         
+Soybeans ...............:    190     Mar 24 Mar 30 - May 30 Jun 12  Aug 18 Aug 22 - Oct 17 Nov 7  
+Sugarcane ..............:     39.7   (NA)   (NA)            (NA)    Oct 10 Nov 1 - Mar 1   Apr 15 
+Sunflower, all .........:    118.0   Apr 5  May 1 - Jul 4   Jul 15  Aug 20 Sep 1 - Nov 21  Dec 3  
+Wheat, winter ..........:  2,450     Sep 4  Sep 12 - Nov 3  Nov 23  May 25 Jun 1 - Jul 2   Jul 12 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Utah
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:     30     Mar 20 Apr 1 - Apr 20  May 10  Jul 15 Jul 25 - Aug 15 Sep 1  
+Corn for grain .........:     17     Apr 15 Apr 30 - May 20 Jun 5   Sep 25 Oct 10 - Oct 30 Dec 10 
+Corn for silage ........:     47     May 1  May 5 - May 25  Jun 5   Sep 5  Sep 20 - Oct 5  Oct 20 
+Hay, alfalfa ...........:    530     (NA)   (NA)            (NA)    Jun 1  (NA)            Oct 25 
+Hay, other .............:    160     (NA)   (NA)            (NA)    Jul 10 (NA)            Aug 25 
+Oats, spring ...........:      5     Mar 20 Apr 10 - May 5  Jun 1   Jul 25 Aug 15 - Sep 10 Sep 30 
+Wheat, spring ..........:     12     Mar 20 Apr 1 - Apr 20  May 1   Jul 15 Aug 5 - Aug 25  Sep 5  
+Wheat, winter ..........:    135     Aug 20 Aug 25 - Oct 5  Nov 10  Jul 10 Jul 25 - Aug 10 Aug 25 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Virginia
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, fall ...........:     43     Sep 18 Sep 26 - Oct 29 Nov 8   May 28 Jun 6 - Jun 25  Jul 1  
+Corn for grain .........:    330     Apr 5  Apr 11 - May 20 May 29  Aug 31 Sep 6 - Oct 28  Nov 9  
+Corn for silage ........:    135     Apr 5  Apr 11 - May 20 May 29  Aug 12 Aug 20 - Sep 27 Oct 5  
+Cotton, all ............:     63.0   Apr 23 Apr 25 - May 11 May 16  Sep 30 Oct 8 - Nov 20  Nov 27 
+Hay, alfalfa ...........:     90     (NA)   (NA)            (NA)    May 1  (NA)            Oct 20 
+Hay, other .............:  1,090     (NA)   (NA)            (NA)    May 25 (NA)            Oct 1  
+Oats, fall .............:      4     Sep 15 Sep 27 - Oct 29 Nov 9   May 28 Jun 9 - Jul 3   Jul 20 
+Peanuts ................:     12     Apr 25 Apr 30 - May 18 May 25  Sep 18 Sep 25 - Oct 17 Oct 24 
+Soybeans ...............:    570     May 5  May 15 - Jul 3  Jul 9   Oct 4  Oct 16 - Nov 28 Dec 4  
+                        :                                                                         
+Tobacco, Class 1 1/ ....:     17.5   Apr 29 May 3 - May 20  May 26  Jul 26 Aug 4 - Sep 29  Oct 8  
+Tobacco, Class 2 2/ ....:      0.7   May 7  May 11 - May 29 Jun 4   Aug 7  Aug 12 - Sep 10 Sep 20 
+Tobacco, Class 3A 3/ ...:      2.0   May 12 May 16 - Jun 9  Jun 16  Aug 17 Aug 27 - Sep 24 Sep 30 
+Wheat, winter ..........:    210     Sep 25 Oct 10 - Nov 21 Dec 1   Jun 9  Jun 16 - Jul 5  Jul 12 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+1/    Includes flue-cured types 11-14.                                                            
+2/    Includes fire-cured types 21-23.                                                            
+3/    Includes light air-cured types 31-32.                                                       
+
+Usual Planting and Harvesting Dates by Crop - Washington
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:     97     Mar 20 Mar 30 - May 5  May 10  Jul 25 Aug 1 - Aug 30  Sep 5  
+Beans, dry edible ......:     60.0   Apr 10 Apr 20 - May 25 Jun 5   Aug 10 Aug 20 - Oct 1  Oct 10 
+Corn for grain .........:    105     Apr 10 Apr 20 - May 20 Jun 1   Sep 25 Oct 5 - Nov 15  Nov 25 
+Corn for silage ........:     65     Apr 10 Apr 20 - May 20 Jun 1   Aug 15 Aug 30 - Oct 15 Oct 25 
+Hay, alfalfa ...........:    490     (NA)   (NA)            (NA)    May 15 Jun 1 - Sep 5   Oct 1  
+Hay, other .............:    320     (NA)   (NA)            (NA)    May 15 Jun 1 - Aug 20  Sep 15 
+Oats, spring ...........:      6     Mar 5  Mar 10 - Apr 10 Apr 20  Jul 15 Aug 1 - Aug 30  Sep 10 
+Peas, dry edible .......:     85.0   Mar 10 Apr 10 - May 15 May 20  Jul 10 Jul 20 - Aug 20 Aug 30 
+Potatoes, fall .........:    145.0   Mar 30 Apr 5 - May 10  May 15  Jul 10 Jul 25 - Oct 15 Oct 30 
+Wheat, spring ..........:    585     Mar 15 Mar 25 - Apr 30 May 10  Jul 25 Aug 1 - Aug 30  Sep 5  
+Wheat, winter ..........:  1,640     Aug 30 Sep 1 - Oct 10  Oct 20  Jul 15 Jul 25 - Aug 20 Aug 30 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - West Virginia
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Corn for grain .........:     30     Apr 20 May 1 - Jun 5   Jun 20  Sep 15 Sep 30 - Nov 20 Dec 1  
+Corn for silage ........:     16     Apr 20 May 1 - Jun 5   Jun 20  Aug 25 Sep 1 - Sep 20  Sep 30 
+Hay, alfalfa ...........:     25     (NA)   (NA)            (NA)    May 20 (NA)            Oct 1  
+Hay, other .............:    600     (NA)   (NA)            (NA)    May 20 (NA)            Nov 10 
+Soybeans ...............:     19     May 5  May 10 - Jun 30 Jul 5   Sep 25 Oct 5 - Nov 30  Dec 1  
+Wheat, winter ..........:      5     Sep 5  Sep 15 - Nov 5  Nov 10  Jun 10 Jun 25 - Jul 25 Aug 5  
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Wisconsin
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:      25    Apr 5  Apr 10 - Apr 20 Apr 30  Aug 1  Aug 5 - Aug 15  Aug 20 
+Corn for grain .........:   2,930    Apr 26 May 2 - May 27  Jun 4   Oct 2  Oct 14 - Nov 17 Nov 28 
+Corn for silage ........:     850    Apr 26 May 2 - May 27  Jun 4   Sep 8  Sep 13 - Oct 13 Oct 19 
+Hay, alfalfa ...........:   1,550    (NA)   (NA)            (NA)    May 20 (NA)            Oct 10 
+Hay, other .............:     370    (NA)   (NA)            (NA)    May 27 (NA)            Sep 15 
+Oats, spring ...........:     195    Apr 11 Apr 20 - May 11 May 18  Jul 22 Jul 28 - Aug 24 Aug 30 
+Soybeans ...............:   1,620    May 7  May 12 - Jun 5  Jun 14  Sep 29 Oct 4 - Oct 29  Nov 8  
+Wheat, winter ..........:     315    Sep 30 Oct 5 - Oct 10  Oct 15  Jul 17 Jul 21 - Aug 11 Aug 19 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Usual Planting and Harvesting Dates by Crop - Wyoming
+--------------------------------------------------------------------------------------------------
+                        :   2009    :     Usual planting dates     :    Usual harvesting dates    
+          State         : Harvested :-------------------------------------------------------------
+                        :   acres   : Begin : Most active  :  End  : Begin : Most active  :  End  
+--------------------------------------------------------------------------------------------------
+                        :1,000 acres                                                              
+                        :                                                                         
+Barley, spring .........:    64      Mar 18 Mar 26 - May 2  Jun 2   Jul 24 Aug 5 - Aug 26  Sep 17 
+Beans, dry edible ......:    34.0    May 15 May 27 - Jun 11 Jun 19  Sep 5  Sep 12 - Oct 15 Oct 25 
+Corn for grain .........:    45      Apr 24 May 3 - May 21  Jun 6   Oct 5  Oct 18 - Nov 24 Dec 10 
+Corn for silage ........:    32      Apr 24 May 3 - May 21  Jun 6   Sep 4  Sep 12 - Sep 29 Oct 11 
+Hay, alfalfa ...........:   690      (NA)   (NA)            (NA)    Jun 6  (NA)            Oct 5  
+Hay, other .............:   580      (NA)   (NA)            (NA)    Jun 19 (NA)            Sep 9  
+Oats, spring ...........:    10      Apr 3  Apr 14 - May 18 Jun 9   Jul 18 Jul 23 - Sep 1  Sep 15 
+Sugarbeets .............:    25.6    Apr 5  Apr 13 - May 2  May 14  Sep 26 Oct 10 - Oct 27 Nov 10 
+Wheat, winter ..........:   132      Aug 25 Sep 4 - Sep 20  Sep 28  Jul 13 Jul 22 - Aug 15 Aug 22 
+--------------------------------------------------------------------------------------------------
+(NA)  Not available.                                                                              
+
+Information Contacts
+
+Listed below are the commodity statisticians in the Crops Branch of the National 
+Agricultural Statistics Service to contact for additional information. E-mail inquiries may 
+be sent to nass@nass.usda.gov
+
+Lance Honig, Chief, Crops Branch............................................. (202) 720-2127
+
+Jacqueline Moore, Head, Field Crops Section.................................. (202) 720-2127
+     Suzanne Avilla - Peanuts, Rice.......................................... (202) 720-7688
+     Bryan Durham - Hay, Oats................................................ (202) 690-3234
+     Steve Maliszewski - Cotton, Cotton Ginnings, Sorghum.................... (202) 720-5944
+     Anthony Prillaman - Corn, Proso Millet, Flaxseed........................ (202) 720-9526
+     Nick Schauer - Wheat, Rye............................................... (202) 720-8068
+     Julie Schmidt - Crop Weather, Barley, Sugar Crops....................... (202) 720-7621
+     Travis Thorson - Soybeans, Sunflower, Other Oilseeds.................... (202) 720-7369
+
+Jorge Garcia-Pratts, Head, Fruits, Vegetables and Special Crops Section...... (202) 720-2127
+     Debbie Flippin - Fresh and Processing Vegetables, Onions, Strawberries.. (202) 720-2157
+     Fred Granja - Apples, Apricots, Cherries, Plums, Prunes, Tobacco ....... (202) 720-4288
+     Dawn Keen - Floriculture, Maple Syrup, Nursery, Tree Nuts .............. (202) 720-4215
+     Steve Maliszewski - Citrus, Coffee, Grapes, Tropical Fruits............. (202) 720-5412
+     Tierra Mobley - Berries, Cranberries, Potatoes, Sweet Potatoes ......... (202) 720-4285
+     Dan Norris - Austrian Winter Peas, Dry Edible Peas, Lentils, Mints,
+          Mushrooms, Peaches, Pears, Wrinkled Seed Peas, Dry Beans .......... (202) 720-3250
+     Kim Ritchie - Hops...................................................... (360) 709-2400
+
+Access to NASS Reports
+
+For your convenience, you may access NASS reports and products the following 
+ways:
+
+ 	All reports are available electronically, at no cost, on the NASS web 
+site: http://www.nass.usda.gov
+
+ 	Both national and state specific reports are available via a free e-
+mail subscription. To set-up this free subscription, visit 
+http://www.nass.usda.gov and in the "Receive NASS Updates" box under 
+"Receive reports by Email," click on "National" or "State" to select 
+the reports you would like to receive. 
+
+ 	Printed reports may be purchased from the National Technical 
+Information Service (NTIS) by calling toll-free (800) 999-6779, or 
+(703) 605-6220 if calling from outside the United States or Canada. 
+Accepted methods of payment are Visa, MasterCard, check, or money 
+order.  
+
+For more information on NASS surveys and reports, call the NASS Agricultural 
+Statistics Hotline at (800) 727-9540, 7:30 a.m. to 4:00 p.m. ET, or e-mail: 
+nass@nass.usda.gov. 
+                                                                                
+The United States Department of Agriculture (USDA) prohibits discrimination 
+in all its programs and activities on the basis of race, color, national 
+origin, age, disability, and where applicable, sex, marital status, familial 
+status, parental status, religion, sexual orientation, political beliefs, 
+genetic information, reprisal, or because all or a part of an individual's 
+income is derived from any public assistance program. (Not all prohibited 
+bases apply to all programs.) Persons with disabilities who require 
+alternative means for communication of program information (Braille, large 
+print, audiotape, etc.) should contact USDA's TARGET Center at (202) 720-2600 
+(voice and TDD).
+
+To file a complaint of discrimination, write to USDA, Assistant Secretary for 
+Civil Rights, Office of the Assistant Secretary for Civil Rights, 1400 
+Independence Avenue, S.W., Stop 9410, Washington, DC 20250-9410, or call 
+toll-free at (866) 632-9992 (English) or (800) 877-8339 (TDD) or (866) 377-
+8642 (English Federal-relay) or (800) 845-6136 (Spanish Federal-relay). USDA 
+is an equal opportunity provider and employer.
+

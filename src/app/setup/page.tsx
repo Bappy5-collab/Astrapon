@@ -49,7 +49,7 @@ export default async function SetupPage() {
         k === "aiExplanations"
           ? "Not built (Phase 6)."
           : k === "nasaEarthdata" || k === "openTopography"
-            ? "Researched; adapter in Phase 3 (see /sources)."
+            ? "Researched; not used by the app yet (see /sources)."
             : "Used only by local database scripts (reference-data import, verification, tests). Never sent to the browser or used by app pages.",
     })),
   ];

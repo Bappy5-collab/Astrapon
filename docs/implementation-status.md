@@ -1,6 +1,6 @@
 # Implementation status
 
-Last updated: 2026-10-31, end of Phase 4 (prompt 4: evidence pipeline and resolution-aware overlays).
+Last updated: 2026-11-01, end of Phase 5 (prompt 5: transparent simulation and rotation engine).
 
 ## Summary
 
@@ -24,9 +24,49 @@ Last updated: 2026-10-31, end of Phase 4 (prompt 4: evidence pipeline and resolu
 | Geometry rules | **Done** | Local ECEF→ENU frame; holes inside shells; no overlapping parts; ±85° latitude; ≤ 30 km extent; antimeridian-crossing fields rejected with an explanation (adjacent fields work). Zones stay inside the field, checked at commit even when the boundary changes in the same save. |
 | 3D field workspace | **Done** | `/fields/[id]`: real field and zones in local metres, flat illustrative terrain, original instanced crop forms per recorded crop, illustrative growth stages, orbit/pan/zoom, compass with reset, camera buttons, click/tap or list selection with a lime outline, tint and edge ribbon, quality presets, WebGL fallback, context-loss restart. |
 | Crops, history, save | **Done** | Assign a crop per zone or whole field, year and season; year × zone timeline table; Inspect drawer with history, soil and evidence coverage. All edits saved atomically by `save_field_workspace` after a summary dialog. The full record forms moved to `/fields/[id]/records`. |
-| Saved runs, methodology, settings | **Done** | `/runs` (scenarios + snapshots; honest "no runs: engine not built"), `/methodology`, `/settings` (language, 3D quality, motion). |
+| Saved runs, methodology, settings | **Done** | `/runs` (runs with status and links to results, plus scenarios and snapshots), `/runs/[id]` (full result), `/methodology` (simulation section), `/settings`. |
 | Bangla interface | Partial | Navigation, workspace controls, location search, settings and landing hero. Record forms, evidence text and methodology are English (stated in Settings). |
-| Simulation engine | **Pending (next)** | Snapshots record engine `0.0.0-pre-engine`; no results exist and none are shown. |
+| **Simulation and rotation engine** | **Done (Phase 5)** | Engine `1.0.0`, pure TypeScript in `src/domain/simulation`; method in `docs/scientific-methodology.md` (written first). FAO-56 Hargreaves ET0 (Eq. 52), single-coefficient Kc curve, daily Ch. 8 root-zone water balance with a conservation check; hard constraints before ranking; baseline from dated history; up to three crop-set-distinct alternatives; priority-weighted relative scores; contributions, priority ablation, sensitivity cases with a stable/fragile label; data-completeness counts; gaps, assumptions, review questions, references. Historical replay and the transformed scenario (rainfall %, temperature °C) are reported separately. |
+| Sourced parameters | **Done** | `crop-parameters` v1 (28 crops: FAO-56 Tables 11/12/22 checked against the FAO HTML; families from the USDA PLANTS API) and `usda-nass-usual-dates-2010` v1 (271 state × crop windows parsed from the committed NASS text), published as reference datasets and pinned by snapshots. No calendar outside the US except the farmer's own dates. |
+| Runs and reproducibility | **Done** | `request_simulation` freezes inputs (reusing an unchanged snapshot) and queues one run. The worker builds the engine input only from pinned immutable rows, verifies their hashes, and stores the result in `simulation_results` with the input digest and compute time. "Re-run and compare" checks the result hash. Scenario settings v2 (calendar region, planting windows, turnaround, transformations); v1 rows upgrade in memory. |
+
+## Verified in Phase 5
+
+- Deterministic (no network): `pnpm test` passes 174 tests in 11 files. The 36 engine tests cover:
+  - FAO-56 Example 8 (Ra 32.2 MJ m⁻² d⁻¹) and Eq. 52; polar night; calendar arithmetic and cross-year spans;
+  - the Kc curve and root growth;
+  - water conservation and storage bounds with no rain, saturating rain and full irrigation; potential-only and missing-day cases;
+  - transformation double-application and range guards; missing days kept missing;
+  - catalogue schema and alias uniqueness; Bangla and Banglish names; NASS parsing (Iowa corn, Kansas fall barley); stage scaling;
+  - cross-year scheduling, window shifts, turnaround, cyclic overlap, bare days and gaps;
+  - full engine runs: baseline vs distinct alternatives, byte-identical reproducibility, exclusions and market access, no-window rejection, ranking changes with priorities, insufficient evidence without weather or soil, unknown baseline, replay vs scenario, multi-crop years from farmer windows, canola return interval, water allocation, fallow years, stability, wrong engine version, no location;
+  - benchmarks: a 3-year rotation with 6 crops in 36–41 ms; a bounded 4-year search with 8 crops in about 0.9 s.
+- Live database:
+  - `pnpm db:rehearse` then `pnpm db:migrate` applied `20261101100000_simulation_engine.sql`. `pnpm db:import-reference` published crop-parameters v1, usda-nass-usual-dates-2010 v1 and agronomic-references v2.
+  - `pnpm db:verify`: 14/14 (8 migrations; 24 tables; 64 owner policies).
+  - `pnpm test:db`: 16/16, including request_simulation (pre-engine version refused, dedup, snapshot reuse, other user refused) and daily series (worker-only insert, owner-only read, immutable).
+- Live trace `pnpm simulation:trace` 13/13 → `data/verification/simulation-trace.json`:
+  - real POWER and SSURGO through the worker; the raw POWER values for 2015-07-15 equal the stored daily series;
+  - a run of about 5–16 s wall time (mostly loading over the network): Maize → Soybean compared with three feasible alternatives; SSURGO AWC 176 mm/m; baseline relative water supply 0.89, falling to 0.81 under −20% rainfall;
+  - crop-parameters and NASS datasets pinned; ranking contributions, ablation and sensitivity present;
+  - a re-run of the same snapshot gave the identical result hash and input digest;
+  - "dragon fruit" rejected as an unknown crop and lentil as having no window.
+- UI end-to-end on the production build: 22/22.
+  - Create a scenario; row-level planting-window error; calendar region list; save v2 settings.
+  - The run is queued at once; the worker computes it; the page updates by polling. The result page shows the ranking, explanation, indicators, sensitivity, rejections, inputs, gaps, assumptions and provenance, and says scores are "not probabilities".
+  - Re-run shows "identical result"; saved runs list; workspace chip; no overflow at 1024 and 390 px; no console errors.
+- Regressions: Phase 3 workspace flow 30/30 and states 16/16; Phase 4 evidence UI 19/19 (now expecting processing version 1.1.0).
+- Screenshots inspected at 1440, 1024 and 390 px. Throwaway users deleted (no test addresses remain).
+
+## Defects found and fixed in Phase 5
+
+- The beam search kept partial sequences that already overlapped, so long rotations found no feasible option. It now drops them during the search.
+- Continuous single-crop sequences and whole fallow years were offered as alternatives. A multi-year alternative now needs two crops, and a fallow year needs "fallow" as a candidate (hard constraint `fallow_year`).
+- Frost days during winter-wheat dormancy counted against it. Frost and hot days are now reported but not scored (no sourced crop thresholds).
+- The database driver turned NULL elements of float arrays into NaN and returned `numeric` values as strings. The runner now reads arrays as JSON and casts numerics.
+- `/runs` imported a constant from a client module, which is undefined on the server. It now lives in a shared module.
+- A shell edit stripped backslashes from the planting-window error regex, so row errors were not highlighted. Fixed and covered by the UI test.
+- Stored results lose JSON key order, so indicator rows appeared shuffled. The table now uses a fixed order. Cycle labels now start with a planted year.
 
 ## Verified in Phase 4
 
@@ -121,6 +161,15 @@ Last updated: 2026-10-31, end of Phase 4 (prompt 4: evidence pipeline and resolu
 - A caption string was corrupted by a shell edit and has been rewritten.
 
 ## Known limitations
+
+- Simulation (see `docs/scientific-methodology.md` §12):
+  - Hargreaves ET0 is uncalibrated, and Kc has no climate adjustment.
+  - There is no runoff and no soil-water carry-over between plantings.
+  - Paddy rice water use is potential only. The analysis covers the whole field only.
+  - Calendars exist only for US states (NASS 2010); elsewhere they come only from the farmer's own dates.
+  - Crops without FAO-56 stage lengths (rapeseed, chickpea) or without FAO-56 rows (mustard, jute, rye, cover crops) get partial indicators.
+- Evidence fetched before processing version 1.1.0 has no daily series; refresh it before running.
+- The 3D scene is not yet driven by run results.
 
 - The first MODIS retrieval for a new location takes about 18 minutes (124 sequential ORNL requests at ≈ 9 s); repeats are cached. The worker must be running (`pnpm evidence:worker`); the UI warns when queued jobs are not picked up.
 - SSURGO's service has a nightly maintenance window (seen as a non-JSON page); jobs report it as unavailable and retry.

@@ -37,7 +37,7 @@ const WORKFLOW = [
   { n: "02", title: "Draw the boundary", body: "Click the corners on a street map or NASA HLS imagery; area is computed on the ellipsoid and checked before saving.", status: "Working", href: "/fields/new" },
   { n: "03", title: "Zones and crops", body: "Mark parts you know differ, and record what grew in each, season by season. Saved together after you confirm.", status: "Working", href: "/sample" },
   { n: "04", title: "Inspect in 3D", body: "Orbit the field, select zones by tap or from the list, and step through recorded seasons.", status: "Working", href: "/sample" },
-  { n: "05", title: "Compare rotations", body: "Replay past seasons with evidence and your limits, then compare options. Needs the simulation engine.", status: "Not built yet", href: "/methodology" },
+  { n: "05", title: "Compare rotations", body: "Replay past seasons with evidence, your water limits and your priorities, then compare your rotation with feasible alternatives and see why they rank as they do.", status: "Working", href: "/methodology" },
 ];
 
 export default async function HomePage() {

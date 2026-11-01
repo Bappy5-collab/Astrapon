@@ -80,7 +80,11 @@ Adjusted by Phase 1 findings:
 - Ingestion jobs in Node/TypeScript scripts. Store snapshots so runs are reproducible.
 - Acceptance: for real test locations on several continents, show which sources returned data, with resolution and coverage. Unavailable regions are reported honestly.
 
-## Phase 4: Simulation engine (pure TypeScript)
+## Phase 5 (prompt 5): Transparent simulation and rotation engine (DONE 2026-11-01)
+
+- Delivered as specified below and in `docs/scientific-methodology.md`; results, explanations and saved runs from the old Phase 6 are included. See `docs/implementation-status.md`.
+
+## Earlier plan for the engine (superseded by Phase 5 above)
 
 - `src/domain/simulation`: deterministic, versioned engine.
   - Inputs: field, zones, history, evidence snapshot, hypothetical overrides, and priorities.

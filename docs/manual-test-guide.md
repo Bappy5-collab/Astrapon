@@ -1,12 +1,11 @@
 # Astrapon manual test guide
 
-Covers everything built through **Phase 4** (2026-10-31): accounts, farms and records, location search, boundary and zone drawing, the 3D field workspace, the public sample, scenarios with input snapshots, and the environmental evidence pipeline.
+Covers everything built through **Phase 5** (2026-11-01): accounts, farms and records, location search, boundary and zone drawing, the 3D field workspace, the public sample, the environmental evidence pipeline, and the simulation and rotation comparison.
 
 **Not built yet; do not report as bugs:**
 
-- The simulation engine, so there are no rotation results.
-- The "Compare rotations" step, which shows "Not built yet".
-- Saved runs that contain results.
+- Yield, profit or forecast numbers: the engine never produces them, by design.
+- 3D scenes driven by run results, and zone-level rotations.
 
 ---
 
@@ -113,7 +112,7 @@ Run these on each page you visit, at all three widths.
 | G-02 | Console | No red errors. No React hydration warnings. |
 | G-03 | Keyboard only | Tab reaches every button, link and field in a sensible order. Focus is clearly visible. Enter or Space activates. Escape closes dialogs and drawers. |
 | G-04 | Header navigation | Links lead to Farms, Workspace, Saved runs, Sources, Methodology, Settings, Sign in or Account. At 390 px the navigation is reachable (menu). |
-| G-05 | Footer | Shows the disclaimer (not a forecast, not affiliated with NASA), the map credits, "Development build · Phase 4", and links to Methodology, Data sources and Setup. On the full-screen workspace pages the footer is hidden on desktop. |
+| G-05 | Footer | Shows the disclaimer (not a forecast, not affiliated with NASA), the map credits, "Development build · Phase 5", and links to Methodology, Data sources and Setup. On the full-screen workspace pages the footer is hidden on desktop. |
 | G-06 | No secrets | Page text, page source (Ctrl+U) and `/api/health` never show keys, tokens or database URLs. They show only states such as "Configured". |
 | G-07 | Honesty | Nothing shows invented numbers as real. Sample data is always labelled "Sample" or "invented". Missing data shows as "not available" or a dash, never as 0. |
 | G-08 | Page title | The browser tab title matches the page. |
@@ -133,7 +132,7 @@ Run these on each page you visit, at all three widths.
 | L-06 | Enter coordinates `95, 10` (invalid latitude). | A clear validation message. No navigation. |
 | L-07 | Press "Use my location" and **deny** the browser prompt. | "Location permission was denied. You can search for a place or type coordinates instead." |
 | L-08 | Press "Use my location" and **allow** it. | Opens the new-field flow near you. The URL must **not** contain your latitude or longitude. |
-| L-09 | Scroll down. | Problem cards, a 5-step workflow (steps 1–4 "Working", step 5 "Not built yet"), and a table of data sources by cell size. No invented statistics. |
+| L-09 | Scroll down. | Problem cards, a 5-step workflow (all five steps "Working"), and a table of data sources by cell size. No invented statistics. |
 | L-10 | Set the OS to "reduce motion" and reload. | The hero field does not turn. |
 | L-11 | Search 5 times quickly. | Still works. You may see a short "busy" message (shared 1 request per second limit), but never a crash. |
 
@@ -249,7 +248,7 @@ Use the US field from NF-21.
 
 | ID | Steps | Expected |
 |---|---|---|
-| WS-01 | Open the field. | The 3D field with its real outline. The label "Illustrative 3D · flat terrain · not satellite imagery". The Simulation chip says "Engine not built yet". |
+| WS-01 | Open the field. | The 3D field with its real outline. The label "Illustrative 3D · flat terrain · not satellite imagery". The Simulation chip says "run it from a scenario". |
 | WS-02 | Drag to orbit, right-drag or two-finger drag to pan, scroll or pinch to zoom. | Smooth. You cannot flip under the ground. |
 | WS-03 | Camera buttons: Rotate left/right, Zoom in/out, Reset view. Click the compass. | Each works. The compass points north; clicking it resets the view. |
 | WS-04 | Quality select: Low, Balanced, High. | The look changes; no crash. |
@@ -319,7 +318,7 @@ Use a field **without** a drawn boundary for BR-01 to BR-04 (create it with "Add
 |---|---|---|
 | SC-01 | Open a scenario. | Scenario settings form and the "Input snapshots" section. The text explains that a snapshot freezes all inputs. |
 | SC-02 | Edit settings, then Save scenario. Reload. | Values persist. |
-| SC-03 | "Freeze inputs into a snapshot". | A snapshot is listed with the time and a hash, engine "0.0.0-pre-engine", and no results. The green note "The newest snapshot matches the current inputs." |
+| SC-03 | Press "Run simulation" (section 14). | A snapshot is listed with the time, a hash and engine "1.0.0". The green note "The newest snapshot matches the current inputs." appears. |
 | SC-04 | Change anything on the field (add a crop history row), then come back. | The blue note "Inputs have changed since the newest snapshot…". The old snapshot is unchanged. |
 | SC-05 | Freeze a second snapshot. | Two snapshots; the newest matches again. |
 | SC-06 | **Evidence pinning.** After evidence exists for the field (section 13), freeze a snapshot. Then on the Evidence page press Refresh all and wait for it to finish. Come back. | The earlier snapshot still shows the same contents and hash; a refresh never changes a saved snapshot. |
@@ -368,10 +367,31 @@ Repeat fetches for the same place are much faster, because results are cached.
 
 | ID | Steps | Expected |
 |---|---|---|
-| RU-01 | No scenarios. | The info box: no runs exist because the engine is not built. "No scenarios yet…" and a "Go to your farms" button. |
-| RU-02 | With scenarios. | Cards show the scenario name, the field link, the updated date, the snapshot count, and "Results: none (engine not built)". |
+| RU-01 | No runs. | "No runs yet. Open a scenario and choose “Run simulation”." The scenarios list below still shows your scenarios. |
+| RU-02 | With runs. | Each run shows its status, scenario, field, time and engine, with "Open result" for finished runs. |
 
 ---
+
+## 14b. Rotation comparison `/scenarios/[id]` and `/runs/[id]`
+
+Needs `pnpm evidence:worker` running, a US field with evidence (section 13) and whole-field crop history **with planting and harvest dates** for the last 2 years.
+
+| ID | Steps | Expected |
+|---|---|---|
+| SI-01 | Scenario settings: candidate crops `maize, soybean, oats, winter wheat`, rotation 2, calendar "USDA NASS 2010: Iowa", turnaround 7, then Save. | "Scenario saved". The calendar list contains the US states. |
+| SI-02 | Planting window row 1: `lentil`, `13-40`, `11-20`, `110`, then Save. | That row's "Plant from" turns red with "Use MM-DD". Nothing is saved. |
+| SI-03 | Rotation length `5`. | Rejected: "At most 4 years". |
+| SI-04 | Press "Run simulation". | "Queued" at once, then "Finished" without a reload. With the worker stopped, a warning appears after about a minute. |
+| SI-05 | Open the result. | Historical replay: existing practice plus alternatives with relative scores; "Why this order" table and priority lines; Indicators table with units ("—" = insufficient evidence); Sensitivity cases; Ranking stable or fragile; rejections; inputs (SSURGO soil, POWER years); gaps; review questions; assumptions; sources; technical provenance. No yield, profit or forecast. |
+| SI-06 | Every alternative. | Contains at least two different crops, differs from the existing practice in its crops, and has no constraint conflict. |
+| SI-07 | "Re-run and compare". | After it finishes: "Re-run gave an identical result". |
+| SI-08 | Rainfall change `-20`, run again. | A second section "Scenario: rainfall -20%". The historical replay section is unchanged. |
+| SI-09 | Add `dragon fruit` and `lentil` (no window) to the candidates, run. | Under "What was considered and rejected": dragon fruit "Not in the crop catalogue", lentil "No local planting window" with a question asking for its dates. |
+| SI-10 | Exclude `oats` in Your priorities (records page), run. | Oats is rejected as "You excluded it" and never appears in an alternative. |
+| SI-11 | Delete the crop history, run. | "Existing practice is unknown…" asks for history; no existing practice is invented. |
+| SI-12 | Bangladesh field: no calendar region; windows for jute (03-20 to 04-10, 110), lentil (11-01 to 11-20, 110); history with dated Boro rice. | Multi-crop years are possible. Rice water use is shown as potential only. The SSURGO gap is listed. |
+| SI-13 | Account B opens Account A's `/runs/<id>`. | Not found. |
+| SI-14 | 390 px. | Result tables scroll inside their box; the page never scrolls sideways. |
 
 ## 15. Information pages
 
@@ -418,8 +438,8 @@ Do **not** commit files changed under `data/verification/` unless the owner asks
 
 ## 18. Known limitations (not bugs)
 
-- No simulation results anywhere: the engine is the next phase.
-- The Scenario page text "No simulation engine exists yet (Phase 4)" will be corrected to the next phase; ignore the phase number.
+- Simulation results are comparisons on past weather; no yield, profit or soil outcome is shown, by design.
+- Outside the USA, crops without your own planting dates are rejected with "No local planting window".
 - The first MODIS fetch for a new place takes about 15–20 min.
 - SSURGO soil data covers the USA only; elsewhere it shows "Not available here". SoilGrids (global soil) is currently down at the provider.
 - Within-field greenness needs at least 2 MODIS pixels (250 m) mostly inside the field. Small fields show one shared value.

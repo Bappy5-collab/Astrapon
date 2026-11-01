@@ -12,6 +12,7 @@ Astrapon: crop-rotation decision support with an interactive 3D farm simulator.
 - `docs/architecture.md`: module layout and enforced boundaries.
 - `docs/design-system.md`: tokens, contrast table, layout, 3D scene rules, map/search terms.
 - `docs/evidence-methods.md`: evidence pipeline rules (sources, completeness, harmonisation, provenance, jobs).
+- `docs/scientific-methodology.md`: the simulation and rotation engine contract (equations, parameter sources, constraints, ranking, limits). Change it only together with a new engine version.
 - `docs/research/challenge-source.md`: verified official challenge page (Resources tab publishes 13 Nov 2026; re-check).
 - `docs/research/data-sources.md` + `src/domain/sources/`: source registry, decisions, statuses, live evidence.
 
@@ -28,8 +29,9 @@ pnpm check        # lint + typecheck + test
 pnpm verify:sources [power|modis|sda|soilgrids|cmr] [--write-fixtures]   # live provider checks → data/verification/
 pnpm db:status | db:rehearse | db:migrate | db:import-reference | db:types | db:verify   # see supabase/README.md
 pnpm test:db      # live two-user isolation tests (dev project; creates and deletes throwaway users)
-pnpm evidence:worker [--once]   # background evidence worker (needs SUPABASE_DB_URL); keep it running beside pnpm dev
+pnpm evidence:worker [--once]   # background worker for evidence jobs AND simulation runs (needs SUPABASE_DB_URL); keep it running beside pnpm dev
 pnpm evidence:trace             # LIVE end-to-end trace → data/verification/evidence-trace.json
+pnpm simulation:trace           # LIVE simulation trace → data/verification/simulation-trace.json
 ```
 
 ## Rules that bite
@@ -53,10 +55,15 @@ pnpm evidence:trace             # LIVE end-to-end trace → data/verification/ev
 - Evidence pipeline (`src/server/pipeline`, credential-free, usable by scripts):
   - Every provider request goes through `fetchText` (host allowlist, per-host concurrency, timeouts, bounded retries). Add a host to `ALLOWED_HOSTS` only with a reason.
   - Downloads run only in `scripts/evidence-worker.mts`, never in a web request. The app only enqueues (`request_evidence`) and cancels.
-  - Raw responses go to the disk cache (`.cache/evidence`), never to PostgreSQL. Cache keys include product, location key, period and request parameters. Retrievals carry `PROCESSING_VERSION`: bump it when any rule in `docs/evidence-methods.md` changes.
+  - Raw responses go to the disk cache (`.cache/evidence`), never to PostgreSQL. Only the normalised POWER daily series the engine needs are stored (`evidence_daily_series`, immutable, processing version ≥ 1.1.0). Cache keys include product, location key, period and request parameters. Retrievals carry `PROCESSING_VERSION`: bump it when any rule in `docs/evidence-methods.md` changes.
   - Missing = null, never zero, never interpolated. Respect the completeness thresholds in `src/domain/evidence`. Never combine incompatible quantities (moisture depths, temperature definitions, two precipitation products).
   - Snapshots (input schema v2) pin evidence retrievals by id + hash; pinned retrievals cannot be deleted. Never update a retrieval or aggregate; refresh creates a new retrieval.
   - Evidence UI: every metric opens `EvidenceInspector`. Label evidence classes with `EvidenceClassChip`. Show within-field variation only when the source resolves it.
+- Simulation engine (`src/domain/simulation`, pure):
+  - No clock, randomness or I/O. Same input and `ENGINE_VERSION` give a byte-identical result (tested). Bump `ENGINE_VERSION` for any change to `docs/scientific-methodology.md`.
+  - Every crop number lives in `catalog.ts`, checked against FAO-56 Tables 11/12/22 and USDA PLANTS, and is published as the `crop-parameters` reference dataset. Calendars come only from farmer records, farmer windows or the selected NASS 2010 state. Never add an unsourced parameter, and never impose one region's seasons on another.
+  - Hard constraints run before ranking. Scores are relative among the options shown, never probabilities. Unsupported calculations return null (insufficient evidence), and that indicator is dropped for every compared option.
+  - Runs are queued with `request_simulation` and computed by the worker (`scripts/simulation-runner.mts`) from immutable pinned rows only; results go to `simulation_results`. Never compute a run in a web request.
 - `SUPABASE_DB_URL` is also used by the evidence worker (a script); never by the web app.
 - Provider clients (`src/server/providers`) validate content, not just HTTP 200: location, period, units, fill→null (never 0), plausibility, QA. A source is `live_verified` only with a passing committed artifact (enforced by `registry.test.ts`).
 - Fixtures live in `__fixtures__/*.fixture.json` with a `TEST FIXTURE ONLY` label; ESLint bans importing them outside tests. Never use them as fallbacks.
@@ -91,7 +98,17 @@ Phases 0–3 are complete. Phase 3 (prompt 3) delivered:
 - crop assignment;
 - the transactional workspace save.
 
-Phase 4 (prompt 4) delivered the evidence pipeline: POWER full record, MODIS NDVI grid, SSURGO; a persisted job queue with a separate worker; indicators; an evidence inspector; footprints; and snapshot pinning. Next is the simulation engine unless the owner's next prompt says otherwise. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
+Phase 4 (prompt 4) delivered the evidence pipeline: POWER full record, MODIS NDVI grid, SSURGO; a persisted job queue with a separate worker; indicators; an evidence inspector; footprints; and snapshot pinning.
+
+Phase 5 (prompt 5) delivered the transparent simulation and rotation engine (`docs/scientific-methodology.md`, engine 1.0.0):
+
+- sourced crop parameters and the NASS calendar as reference datasets;
+- the POWER daily series (processing version 1.1.0);
+- `request_simulation` and worker-run simulations;
+- the scenario settings v2 form, the run panel and the `/runs/[id]` result page;
+- live and UI traces.
+
+The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 
 ## End-of-phase duties
 

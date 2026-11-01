@@ -332,5 +332,41 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
     expect((await A.db.from("simulation_input_snapshots").delete().eq("id", snap2.data!)).error).toBeNull();
     expect((await A.db.from("evidence_retrievals").delete().eq("id", r3)).error).toBeNull();
   });
+  it("request_simulation freezes inputs and queues one run; daily series are worker-written, owner-only and immutable", async () => {
+    expect((await A.db.rpc("request_simulation", { p_scenario_id: a.scenario, p_engine_version: "0.0.0-pre-engine" })).error).not.toBeNull();
+    const r1 = await A.db.rpc("request_simulation", { p_scenario_id: a.scenario, p_engine_version: "1.0.0" });
+    expect(r1.error).toBeNull();
+    const again = await A.db.rpc("request_simulation", { p_scenario_id: a.scenario, p_engine_version: "1.0.0" });
+    expect(again.data).toBe(r1.data);
+    const run1 = await A.db.from("simulation_runs").select("snapshot_id, status").eq("id", r1.data!).single();
+    expect(run1.data?.status).toBe("queued");
+    // A second active run on the same snapshot is refused; after cancelling, a new run reuses the unchanged snapshot.
+    expect((await A.db.from("simulation_runs").insert({ snapshot_id: run1.data!.snapshot_id, engine_version: "1.0.0" })).error).not.toBeNull();
+    expect((await A.db.from("simulation_runs").update({ status: "cancelled" }).eq("id", r1.data!)).error).toBeNull();
+    const r3 = await A.db.rpc("request_simulation", { p_scenario_id: a.scenario, p_engine_version: "1.0.0" });
+    expect(r3.data).not.toBe(r1.data);
+    expect((await A.db.from("simulation_runs").select("snapshot_id").eq("id", r3.data!).single()).data?.snapshot_id).toBe(run1.data!.snapshot_id);
+    // Another user cannot request, read or cancel it.
+    expect((await B.db.rpc("request_simulation", { p_scenario_id: a.scenario, p_engine_version: "1.0.0" })).error).not.toBeNull();
+    expect((await B.db.from("simulation_runs").select("id").eq("id", r3.data!)).data).toEqual([]);
+    expect((await B.db.from("simulation_runs").update({ status: "cancelled" }).eq("id", r3.data!).select("id")).data).toEqual([]);
+    expect((await A.db.from("simulation_runs").update({ status: "cancelled" }).eq("id", r3.data!)).error).toBeNull();
+
+    const ret = await admin.from("evidence_retrievals").insert({
+      owner_id: A.id, field_id: a.field, source_id: "nasa-power-daily", product_id: "POWER/daily/point/AG", product_version: "test", evidence_class: "assimilated_model_product",
+      spatial_support: "test cell", request: { test: true }, retrieved_at: "2026-11-01T00:00:00Z", response_sha256: "ab".repeat(32), response_bytes: 1,
+      outcome: "valid", checks: [], provenance: { test: true }, processing_version: "evidence-1.1.0", observation_start: "2024-01-01", observation_end: "2024-01-03",
+    }).select("id").single();
+    expect(ret.error).toBeNull();
+    const row = { retrieval_id: ret.data!.id, owner_id: A.id, variable: "PRECTOTCORR", unit: "mm/day", start_date: "2024-01-01", values: [0, 1.25, null] as unknown as number[] }; // generated types omit NULL array elements
+    expect((await A.db.from("evidence_daily_series").insert(row)).error).not.toBeNull();
+    expect((await admin.from("evidence_daily_series").insert(row)).error).toBeNull();
+    const own = await A.db.from("evidence_daily_series").select("values, values_sha256").eq("retrieval_id", ret.data!.id).single();
+    expect(own.data?.values).toEqual([0, 1.25, null]);
+    expect(own.data?.values_sha256).toMatch(/^[0-9a-f]{64}$/);
+    expect((await B.db.from("evidence_daily_series").select("variable").eq("retrieval_id", ret.data!.id)).data).toEqual([]);
+    expect((await admin.from("evidence_daily_series").update({ values: [9] }).eq("retrieval_id", ret.data!.id)).error).not.toBeNull();
+    expect((await A.db.from("evidence_retrievals").delete().eq("id", ret.data!.id)).error).toBeNull();
+  });
 });
 

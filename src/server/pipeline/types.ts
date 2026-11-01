@@ -37,7 +37,10 @@ export type RetrievalRecord = {
   observationEnd: string | null;
 };
 
-export type PipelineOutput = { retrieval: RetrievalRecord; aggregates: AggregateRow[] };
+/** Normalised daily values for public.evidence_daily_series (engine inputs; not raw responses). */
+export type DailySeriesRow = { variable: "T2M_MAX" | "T2M_MIN" | "PRECTOTCORR"; unit: "°C" | "mm/day"; startDate: string; values: (number | null)[] };
+
+export type PipelineOutput = { retrieval: RetrievalRecord; aggregates: AggregateRow[]; daily?: DailySeriesRow[] };
 
 export type Progress = (p: { step: string; done: number; total: number }) => Promise<void> | void;
 

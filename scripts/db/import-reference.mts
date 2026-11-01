@@ -7,6 +7,7 @@
  * snapshots that pinned it keep resolving). Published versions are never edited.
  */
 import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 
 import { canonicalJson } from "../../src/domain/reference/canonical.ts";
 import { buildReferenceDatasets, type CitationRecord } from "../../src/domain/reference/datasets.ts";
@@ -17,7 +18,8 @@ const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 const citationHash = (c: CitationRecord) => sha(canonicalJson(c));
 
 runMain(async () => {
-  const { citations, datasets } = buildReferenceDatasets();
+  const nassText = readFileSync(new URL("../../data/reference/usda-nass-usual-dates-2010.txt", import.meta.url), "utf8");
+  const { citations, datasets } = buildReferenceDatasets({ nassText });
   const citationHashByKey = new Map(citations.map((c) => [c.citationKey, citationHash(c)]));
 
   const plans = datasets.map((d) => {

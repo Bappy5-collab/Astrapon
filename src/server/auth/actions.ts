@@ -16,7 +16,10 @@ const email = z.email({ error: "Enter a valid email address" }).max(254);
 // Matches Supabase's default minimum; the project setting may require more and will say so.
 const password = z.string().min(8, "Use at least 8 characters").max(72, "At most 72 characters");
 
+/** Base URL for email links. NEXT_PUBLIC_SITE_URL (e.g. https://astrapon.vercel.app) wins; otherwise the request's own origin. */
 async function origin(): Promise<string> {
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && /^https?:\/\/[^/]+/.test(site)) return site.replace(/\/+$/, "");
   const h = await headers();
   const o = h.get("origin");
   if (o) return o;

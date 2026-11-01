@@ -21,7 +21,7 @@ export const USER_TABLES = [
   "profiles", "farms", "fields", "field_scene_settings", "planting_zones", "crop_history", "soil_observations",
   "field_constraints", "farmer_priorities", "market_preferences", "evidence_retrievals", "evidence_aggregates",
   "scenarios", "simulation_input_snapshots", "snapshot_reference_datasets", "simulation_runs", "simulation_results",
-  "evidence_jobs", "snapshot_evidence_retrievals",
+  "evidence_jobs", "snapshot_evidence_retrievals", "evidence_daily_series",
 ];
 export const REFERENCE_TABLES = ["reference_citations", "reference_datasets", "reference_items", "reference_item_citations"];
 
@@ -67,8 +67,8 @@ runMain(async () => {
     check("reference tables are read-only for clients", clientWritesOnReference.length === 0,
       clientWritesOnReference.map((p) => `${p.role} ${p.priv} ${p.table}`).join(", ") || "SELECT only");
     const userWritesOnServerOnly = [...privs, ...colPrivs].filter((p) =>
-      ["simulation_results", "evidence_aggregates"].includes(p.table) && p.role === "authenticated" && p.priv !== "SELECT");
-    check("results and evidence aggregates are server-written only", userWritesOnServerOnly.length === 0,
+      ["simulation_results", "evidence_aggregates", "evidence_daily_series"].includes(p.table) && p.role === "authenticated" && p.priv !== "SELECT");
+    check("results, evidence aggregates and daily series are server-written only", userWritesOnServerOnly.length === 0,
       userWritesOnServerOnly.map((p) => `${p.priv} ${p.table}`).join(", ") || "SELECT only for users");
     const derivedWritable = colPrivs.filter((p) => p.role === "authenticated" && p.priv !== "SELECT" &&
       ((p.table === "fields" && ["area_ha", "centroid"].includes(p.column)) || (p.table === "planting_zones" && p.column === "area_ha")));

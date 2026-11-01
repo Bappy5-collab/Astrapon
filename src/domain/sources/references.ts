@@ -2,8 +2,8 @@ import type { ReferenceSource } from "./types";
 
 /**
  * Agronomic reference sources (static tables and literature). None of these is
- * a measurement of a user's field. Values are only transcribed into the engine
- * in Phase 4 after the specific table entry is checked against the source.
+ * a measurement of a user's field. Values used by the engine were transcribed into
+ * src/domain/simulation/catalog.ts after each table entry was checked against the source (2026-11-01).
  */
 export const REFERENCE_SOURCES: ReferenceSource[] = [
   {
@@ -15,7 +15,27 @@ export const REFERENCE_SOURCES: ReferenceSource[] = [
       "Reference ET (Penman-Monteith), crop coefficients (Table 12), stage lengths (Table 11, regional examples only), rooting depth and depletion fraction p (Table 22), soil water balance method.",
     licence: "FAO publication; reuse per FAO copyright terms (tables cited, not redistributed in bulk).",
     caveats: "Kc values assume sub-humid climate (RHmin ≈45%, u2 ≈2 m/s) and need climate adjustment (Eq. 62/65). Stage lengths are regional examples, not universal.",
-    unconfirmed: ["Most Kc ini values (extraction illegible; re-read Table 12 before use)"],
+    unconfirmed: [],
+  },
+  {
+    id: "usda-plants",
+    title: "USDA NRCS PLANTS Database",
+    citation: "USDA, NRCS. The PLANTS Database (PlantProfile API), accessed 2026-11-01. National Plant Data Team, Greensboro, NC, USA.",
+    url: "https://plants.usda.gov",
+    usedFor: "Botanical family of each catalogued crop (crop-family repetition, legume and diversity indicators).",
+    licence: "US Government work (public domain).",
+    caveats: "PLANTS uses its own family circumscription (for example jute in Tiliaceae, which APG IV places in Malvaceae).",
+    unconfirmed: [],
+  },
+  {
+    id: "usda-nass-2010",
+    title: "Usual Planting and Harvesting Dates for U.S. Field Crops",
+    citation: "USDA National Agricultural Statistics Service (October 2010). Usual Planting and Harvesting Dates for U.S. Field Crops.",
+    url: "https://esmis.nal.usda.gov/concern/publications/vm40xr56k",
+    usedFor: "State-level planting and harvesting windows when a US state is selected as the scenario calendar region.",
+    licence: "US Government work (public domain).",
+    caveats: "Circa-2009 practice; does not account for exceptionally early or late plantings or abnormal seasons; US states only.",
+    unconfirmed: [],
   },
   {
     id: "saxton-rawls-2006",

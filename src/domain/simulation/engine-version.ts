@@ -1,5 +1,7 @@
 /**
- * Version recorded on every input snapshot and run. There is no simulation engine yet (Phase 4);
- * snapshots taken now record this placeholder so a later engine can never be credited with them.
+ * Version recorded on every input snapshot and run. Snapshots taken before the engine existed
+ * recorded PRE_ENGINE_VERSION; they cannot be run (a run's engine must match its snapshot), so a
+ * new snapshot is taken. Bump ENGINE_VERSION whenever docs/scientific-methodology.md changes.
  */
-export const ENGINE_VERSION = "0.0.0-pre-engine";
+export const ENGINE_VERSION = "1.0.0";
+export const PRE_ENGINE_VERSION = "0.0.0-pre-engine";

@@ -1,4 +1,3 @@
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
@@ -9,9 +8,10 @@ import type { Metadata } from "next";
 import { Empty, PageHeader, Section } from "@/components/farm/ui";
 import { ButtonLink, TextLink } from "@/components/links";
 import { SetupRequired } from "@/components/SetupRequired";
-import { ENGINE_VERSION } from "@/domain/simulation/engine-version";
+import { RUN_STATUS } from "@/components/simulation/status";
 import { requireUser } from "@/server/auth/session";
 import { listScenarios, SchemaMissingError } from "@/server/farm/queries";
+import { listAllRuns } from "@/server/simulation/queries";
 import { color, numeric, radius } from "@/theme/tokens";
 
 export const metadata: Metadata = { title: "Saved runs" };
@@ -20,8 +20,10 @@ export default async function RunsPage() {
   const user = await requireUser("/runs");
   if (user.state !== "signed_in") return <SetupRequired feature="Saved runs" reason={user.state} />;
   let scenarios: Awaited<ReturnType<typeof listScenarios>>;
+  let runs: Awaited<ReturnType<typeof listAllRuns>> = [];
   try {
     scenarios = await listScenarios(user.supabase);
+    runs = await listAllRuns(user.supabase);
   } catch (e) {
     if (e instanceof SchemaMissingError) return <SetupRequired feature="Saved runs" reason="unconfigured" />;
     throw e;
@@ -30,13 +32,36 @@ export default async function RunsPage() {
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
       <PageHeader crumbs={[]} title="Saved runs">
         <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
-          A run will pin a scenario&apos;s frozen inputs, the evidence snapshot and the engine version, so reopening it reproduces the same result.
+          A run pins a scenario&apos;s frozen inputs, the evidence it used and the engine version, so reopening it shows exactly the stored result, and a re-run reproduces it.
         </Typography>
       </PageHeader>
-      <Alert severity="info" sx={{ mb: 3 }}>
-        No runs exist yet because the simulation engine is not built (current engine marker <code>{ENGINE_VERSION}</code>). Scenarios and their frozen input snapshots below are
-        already saved and will be runnable once it is.
-      </Alert>
+      <Section title="Runs" intro="Newest first. Results are relative comparisons on past weather, not forecasts.">
+        {runs.length === 0 ? (
+          <Empty>No runs yet. Open a scenario and choose “Run simulation”.</Empty>
+        ) : (
+          <Box component="ul" aria-label="Runs" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>
+            {runs.map((r) => {
+              const st = RUN_STATUS[r.status];
+              return (
+                <Box component="li" key={r.id} sx={{ p: 1.5, borderRadius: `${radius.md}px`, border: `1px solid ${color.line}`, bgcolor: color.surface }}>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ alignItems: { sm: "center" }, justifyContent: "space-between" }}>
+                    <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}>
+                      <Chip size="small" label={st.label} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
+                      <Typography variant="body2" sx={numeric}>
+                        {r.scenarioName || "Scenario"} · {r.fieldName} · {r.queuedAt.slice(0, 16).replace("T", " ")} UTC · engine {r.engineVersion}
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                      {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>Open result</TextLink>}
+                      {r.scenarioId && <TextLink href={`/scenarios/${r.scenarioId}`}>Scenario</TextLink>}
+                    </Stack>
+                  </Stack>
+                </Box>
+              );
+            })}
+          </Box>
+        )}
+      </Section>
       <Section title="Scenarios and input snapshots" intro="Each scenario belongs to a field. Snapshots are immutable copies of the inputs at the moment you froze them.">
         {scenarios.length === 0 ? (
           <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
@@ -60,9 +85,7 @@ export default async function RunsPage() {
                   </Box>
                   <Chip size="small" label={`${s.snapshots} snapshot${s.snapshots === 1 ? "" : "s"}`} sx={numeric} />
                 </Stack>
-                <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
-                  Results: none (engine not built)
-                </Typography>
+
               </Box>
             ))}
           </Box>

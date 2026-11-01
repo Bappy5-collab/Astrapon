@@ -1,7 +1,12 @@
-# Simulation engine (Phase 4)
+# Simulation and rotation engine
 
-This folder is intentionally empty. It will hold a pure, deterministic, versioned TypeScript engine.
+Pure, deterministic, versioned TypeScript (`ENGINE_VERSION` in `engine-version.ts`). The contract is `docs/scientific-methodology.md`.
 
-- Inputs: field, zones, history, pinned evidence snapshot, hypothetical overrides, and priorities.
-- Outputs: per-season indicators, each carrying `Provenance` from `../provenance/evidence.ts`.
-- Constraint: no I/O, framework, or randomness without an explicit seed. ESLint enforces the import restrictions.
+- `engine.ts`: `runEngine(input)`. Baseline, candidate generation, hard constraints, indicators, ranking, sensitivity.
+- `waterbalance.ts`: FAO-56 Kc curve and the Chapter 8 root-zone balance, with a conservation check.
+- `climate.ts`: Hargreaves ET0 (Eq. 52), extraterrestrial radiation (Eq. 21–25), weather transformations.
+- `schedule.ts`: planting slots, cyclic scheduling, bare days.
+- `catalog.ts`: sourced crop parameters (FAO-56, USDA PLANTS). `nass.ts`: USDA NASS 2010 calendar parser.
+- `inputs.ts`: the engine input schema, built by `scripts/simulation-runner.mts` from pinned immutable rows.
+
+Constraint: no I/O, framework, clock or randomness. ESLint enforces the import restrictions.
