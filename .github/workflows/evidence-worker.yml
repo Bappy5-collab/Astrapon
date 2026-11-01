@@ -17,7 +17,7 @@ permissions:
 jobs:
   drain-queue:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 180
     env:
       SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
       # Public project URL (also shipped in the browser bundle); used only to verify the project ref.
@@ -56,6 +56,8 @@ jobs:
       - name: Drain queue
         if: steps.secret.outputs.ok == 'true'
         run: pnpm evidence:worker --once
+        # Stop the worker before the job limit so the cache-save step still runs.
+        timeout-minutes: 170
       - name: Save download cache
         if: always() && steps.secret.outputs.ok == 'true'
         uses: actions/cache/save@v4
