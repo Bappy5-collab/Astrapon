@@ -1,8 +1,11 @@
 /**
  * Interface strings in English and Bangla. Bangla covers navigation, the field workspace,
- * location search, settings and the landing hero. Record forms, evidence and methodology text
- * remain English for now (stated in Settings). Crop names are shown exactly as the farmer typed.
+ * location search, settings, the landing hero and the run journey (sim-messages.ts: replay,
+ * comparison, explanations, plans, export). Record forms, evidence and methodology text remain
+ * English for now (stated in Settings). Crop names are shown exactly as the farmer typed.
  */
+import { simBn, simEn } from "./sim-messages";
+
 
 const en = {
   "nav.farms": "Farms",
@@ -116,6 +119,7 @@ const en = {
   "set.motion": "Motion",
   "set.motionSystem": "Follow my device setting",
   "set.motionReduce": "Always reduce motion",
+  ...simEn,
 } as const;
 
 export type MessageKey = keyof typeof en;
@@ -232,6 +236,7 @@ const bn: Record<MessageKey, string> = {
   "set.motion": "অ্যানিমেশন",
   "set.motionSystem": "ডিভাইসের সেটিং অনুযায়ী",
   "set.motionReduce": "সবসময় কম অ্যানিমেশন",
+  ...simBn,
 };
 
 export const MESSAGES = { en, bn } as const;

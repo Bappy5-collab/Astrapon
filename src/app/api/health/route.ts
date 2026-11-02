@@ -9,7 +9,7 @@ export async function GET() {
   const server = getServerEnvReport();
   return Response.json({
     app: "astrapon",
-    phase: 5,
+    phase: 6,
     status: "ok",
     services: {
       supabasePublic: getSupabasePublicEnv().status.state,

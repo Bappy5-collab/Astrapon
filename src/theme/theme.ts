@@ -68,6 +68,8 @@ export const theme = createTheme({
         "@media (prefers-reduced-motion: reduce)": {
           "*, *::before, *::after": { animationDuration: "0.01ms !important", animationIterationCount: "1 !important", transitionDuration: "0.01ms !important", scrollBehavior: "auto !important" },
         },
+        // Printing a run prints its stored details; site chrome and controls are left out.
+        "@media print": { "header, footer, nav, .no-print": { display: "none !important" }, body: { background: "#fff" } },
       },
     },
   },

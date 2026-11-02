@@ -7,7 +7,7 @@ import { ENGINE_VERSION } from "./engine-version";
 import { type EngineInput, engineInputSchema } from "./inputs";
 import type { CalendarEntry } from "./nass";
 import { abs, cycleKey, longestGap, occupiedDays, type Planting, schedule, type ScheduledPlanting, type Slot, slotFromWindow, yearPatterns } from "./schedule";
-import { type KcSet, runPeriod, type Stages } from "./waterbalance";
+import { emptyTrace, type KcSet, type PeriodInput, runPeriod, type Stages } from "./waterbalance";
 
 /**
  * Rotation and simulation engine (docs/scientific-methodology.md). Pure and deterministic: no
@@ -48,9 +48,44 @@ export type Comparison = {
   ablation: { priority: PriorityKey; ranking: string[]; topChanged: boolean }[];
   tradeoffs: Record<string, string[]>;
 };
+/** How an indicator is scored. Shipped with every run so rankings can be explained and re-weighted with scoreOptions(). */
+export type IndicatorDefinition = { key: string; group: PriorityKey; better: "high" | "low"; unit: string; label: string; scored: boolean };
+/** Indicator values per option id, rounded exactly as displayed (roundIndicator). */
+export type IndicatorTable = Record<string, Record<string, number | null>>;
+
+/** One planting placed on real dates of the timeline window. Day numbers are relative to the window start. */
+export type TimelinePlanting = { crop: string; cropId: string | null; start: number; end: number; source: string; potentialOnly: boolean; stages: Stages | null };
+/** Daily state of one option; null on bare days or where it cannot be computed. */
+export type TimelineStrategy = {
+  id: string;
+  plantings: TimelinePlanting[];
+  kc: (number | null)[];
+  etc: (number | null)[];
+  rootM: (number | null)[];
+  depletion: (number | null)[];
+  ks: (number | null)[];
+  eta: (number | null)[];
+  irrigation: (number | null)[];
+  drainage: (number | null)[];
+};
+export type TimelineView = {
+  kind: "historical_replay" | "scenario";
+  startDate: string;
+  days: number;
+  years: number[];
+  irrigationMode: "rainfed" | "full";
+  soilKnown: boolean;
+  weather: { precip: (number | null)[]; tmax: (number | null)[]; tmin: (number | null)[]; et0: (number | null)[] };
+  strategies: TimelineStrategy[];
+};
+
 export type RunView = {
   kind: "historical_replay" | "scenario";
   transformations: Transformation[];
+  indicatorDefinitions: IndicatorDefinition[];
+  /** Day-by-day replay of the compared options over the most recent complete rotation-length window. */
+  timeline: TimelineView | null;
+  timelineNote: string | null;
   baseline: StrategyView | null;
   alternatives: StrategyView[];
   comparison: Comparison | null;
@@ -108,6 +143,9 @@ export const REFERENCES = [
 // ----------------------------------------------------------------- helpers ---
 const r1 = (v: number) => Math.round(v * 10) / 10;
 const r3 = (v: number) => Math.round(v * 1000) / 1000;
+const r2 = (v: number) => Math.round(v * 100) / 100;
+/** Rounding applied to every indicator before it is shown or scored. */
+export const roundIndicator = (unit: string, v: number) => (unit === "ratio" || unit === "share" ? r3(v) : r1(v));
 const median = (xs: number[]) => {
   if (!xs.length) return null;
   const s = [...xs].sort((a, b) => a - b);
@@ -158,14 +196,32 @@ type Ctx = {
   annualPrecip: Map<number, number>;
 };
 
+/** FAO-56 inputs of one planting starting at weather index i0; null when the crop lacks parameters or ET0 is unknown. */
+function periodFor(ctx: Ctx, slot: Slot, i0: number, caseId: CaseId): PeriodInput | null {
+  const w = ctx.weather;
+  const f = slot.crop?.fao56 ?? null;
+  const stages = slot.crop ? stagesFor(slot.crop, slot.length) : null;
+  if (!w || !f || !stages || !ctx.et0) return null;
+  const L = slot.length;
+  const tmin = w.tmin.slice(i0, i0 + L);
+  const which = caseId === "kc_low" ? "low" : caseId === "kc_high" ? "high" : f.rainfedUsesLowKcMid && ctx.irrigation === "rainfed" ? "low" : "mid";
+  let kcIni: number;
+  if (typeof f.kcIni === "number") kcIni = f.kcIni;
+  else {
+    const iniTmin = tmin.slice(0, Math.max(1, stages.ini)).filter((v): v is number => v != null);
+    const mt = iniTmin.length ? iniTmin.reduce((a, b) => a + b, 0) / iniTmin.length : 1;
+    kcIni = mt <= 0 ? f.kcIni.frozen : f.kcIni.nonFrozen;
+  }
+  const kc: KcSet = { ini: kcIni, mid: kcPick(f.kcMid, which), end: kcPick(f.kcEnd, which) };
+  const soil = f.waterBalance === "full" && ctx.awcMmPerM != null ? { awcMmPerM: ctx.awcMmPerM, rootMaxM: f.rootDepthM[1], p: f.p } : null;
+  return { et0: ctx.et0.slice(i0, i0 + L), precip: w.precip.slice(i0, i0 + L), stages, kc, soil, initial: caseId === "dry_start" ? "readily_available_depleted" : "field_capacity", irrigation: ctx.irrigation };
+}
+
 function slotYears(ctx: Ctx, slot: Slot, startOffset: number, caseId: CaseId): YearMetric[] {
   const key = `${slot.key}|${startOffset}|${slot.length}|${caseId === "dry_start" || caseId === "kc_low" || caseId === "kc_high" ? caseId : "base"}`;
   const hit = ctx.cache.get(key);
   if (hit) return hit;
   const out: YearMetric[] = [];
-  const crop = slot.crop;
-  const f = crop?.fao56 ?? null;
-  const stages = crop ? stagesFor(crop, slot.length) : null;
   for (const y of ctx.years) {
     const m: YearMetric = { temps: false, water: false, precip: 0, etc: null, eta: null, irr: null, frost: 0, hot: 0 };
     const w = ctx.weather;
@@ -183,18 +239,9 @@ function slotYears(ctx: Ctx, slot: Slot, startOffset: number, caseId: CaseId): Y
           m.hot = tmax.filter((v) => v! >= HOT_C).length;
         }
         if (precip.every((v) => v != null)) m.precip = precip.reduce<number>((a, b) => a + b!, 0);
-        if (f && stages && ctx.et0) {
-          const which = caseId === "kc_low" ? "low" : caseId === "kc_high" ? "high" : f.rainfedUsesLowKcMid && ctx.irrigation === "rainfed" ? "low" : "mid";
-          let kcIni: number;
-          if (typeof f.kcIni === "number") kcIni = f.kcIni;
-          else {
-            const iniTmin = tmin.slice(0, Math.max(1, stages.ini)).filter((v): v is number => v != null);
-            const mt = iniTmin.length ? iniTmin.reduce((a, b) => a + b, 0) / iniTmin.length : 1;
-            kcIni = mt <= 0 ? f.kcIni.frozen : f.kcIni.nonFrozen;
-          }
-          const kc: KcSet = { ini: kcIni, mid: kcPick(f.kcMid, which), end: kcPick(f.kcEnd, which) };
-          const soil = f.waterBalance === "full" && ctx.awcMmPerM != null ? { awcMmPerM: ctx.awcMmPerM, rootMaxM: f.rootDepthM[1], p: f.p } : null;
-          const res = runPeriod({ et0: ctx.et0.slice(i0, i0 + L), precip, stages, kc, soil, initial: caseId === "dry_start" ? "readily_available_depleted" : "field_capacity", irrigation: ctx.irrigation });
+        const pin = periodFor(ctx, slot, i0, caseId);
+        if (pin) {
+          const res = runPeriod(pin);
           if (res.complete) {
             m.water = true;
             m.etc = res.etcMm;
@@ -433,13 +480,28 @@ function indicatorSet(ctx: Ctx): Ind[] {
   ];
 }
 
+const definitions = (inds: Ind[]): IndicatorDefinition[] => inds.map((i) => ({ key: i.key, group: i.group, better: i.better, unit: i.unit, label: i.label, scored: i.scored !== false }));
+
+function tableOf(inds: Ind[], ids: string[], raws: Map<string, Raw>): IndicatorTable {
+  return Object.fromEntries(ids.map((id) => [id, Object.fromEntries(inds.map((i) => { const v = i.get(raws.get(id)!); return [i.key, v == null ? null : roundIndicator(i.unit, v)]; }))]));
+}
+
 function score(inds: Ind[], ids: string[], raws: Map<string, Raw>, weights: Record<PriorityKey, number>) {
-  const used: Ind[] = [];
+  return scoreOptions(definitions(inds), ids, tableOf(inds, ids, raws), weights);
+}
+
+/**
+ * Relative scores among the given options (docs/scientific-methodology.md §8): each scored indicator
+ * available for every option is min–max normalised among them, averaged within its priority group,
+ * and groups are weighted by the farmer's priorities. Pure; the UI uses it to preview other weights.
+ */
+export function scoreOptions(defs: IndicatorDefinition[], ids: string[], table: IndicatorTable, weights: Record<PriorityKey, number>) {
+  const used: IndicatorDefinition[] = [];
   const dropped: { key: string; reason: string }[] = [];
-  for (const ind of inds) {
-    if (ind.scored === false) continue;
-    const vs = ids.map((id) => ind.get(raws.get(id)!));
-    if (vs.some((v) => v == null)) dropped.push({ key: ind.key, reason: "Not available for every option compared" });
+  const val = (id: string, key: string) => table[id]?.[key] ?? null;
+  for (const ind of defs) {
+    if (!ind.scored) continue;
+    if (ids.some((id) => val(id, ind.key) == null)) dropped.push({ key: ind.key, reason: "Not available for every option compared" });
     else used.push(ind);
   }
   const group: Record<string, Partial<Record<PriorityKey, number>>> = Object.fromEntries(ids.map((id) => [id, {}]));
@@ -449,10 +511,10 @@ function score(inds: Ind[], ids: string[], raws: Map<string, Raw>, weights: Reco
     for (const id of ids) {
       let sum = 0;
       for (const ind of gi) {
-        const vs = ids.map((x) => ind.get(raws.get(x)!)!);
+        const vs = ids.map((x) => val(x, ind.key)!);
         const lo = Math.min(...vs);
         const hi = Math.max(...vs);
-        const v = ind.get(raws.get(id)!)!;
+        const v = val(id, ind.key)!;
         const s = hi === lo ? 0.5 : (v - lo) / (hi - lo);
         sum += ind.better === "high" ? s : 1 - s;
       }
@@ -480,6 +542,88 @@ function score(inds: Ind[], ids: string[], raws: Map<string, Raw>, weights: Reco
   }
   const ranking = [...ids].sort((a, b) => scores[b]! - scores[a]! || a.localeCompare(b));
   return { scores, ranking, contributions, groupsUsed, used, dropped };
+}
+
+// --------------------------------------------------------------- timeline ---
+/**
+ * Day-by-day replay of the compared options (docs/scientific-methodology.md §10). The window is the
+ * most recent run of rotation-length calendar years inside the replay period with complete daily
+ * weather. Each planting is placed on real dates (its cycle-year offset in those years, plus the
+ * previous and next repetition where they overlap the window) and run through the same FAO-56
+ * balance as the indicators, from field capacity. Display data only: it never feeds the ranking.
+ */
+function buildTimeline(ctx: Ctx, strategies: Strategy[], kind: RunView["kind"], cycleYears: number): { timeline: TimelineView | null; note: string | null } {
+  const w = ctx.weather;
+  if (!w || !ctx.et0) return { timeline: null, note: "No daily weather series is pinned, so there is no day-by-day replay." };
+  const complete = (a: number, b: number) => {
+    const i = a - w.startDay;
+    const j = b - w.startDay;
+    if (i < 0 || j > w.tmax.length) return false;
+    for (let k = i; k < j; k++) if (w.tmax[k] == null || w.tmin[k] == null || w.precip[k] == null) return false;
+    return true;
+  };
+  let first: number | null = null;
+  for (let y = ctx.years.at(-1)!; y - cycleYears + 1 >= ctx.years[0]!; y--) {
+    if (complete(dayIndex(`${y - cycleYears + 1}-01-01`), dayIndex(`${y + 1}-01-01`))) { first = y - cycleYears + 1; break; }
+  }
+  if (first == null) return { timeline: null, note: `No ${cycleYears} consecutive replay year(s) have complete daily weather, so there is no day-by-day replay.` };
+  const start = dayIndex(`${first}-01-01`);
+  const end = dayIndex(`${first + cycleYears}-01-01`);
+  const days = end - start;
+  const i0 = start - w.startDay;
+  const round = (xs: (number | null)[]) => xs.map((v) => (v == null ? null : r1(v)));
+  const out: TimelineStrategy[] = [];
+  for (const st of strategies) {
+    const series = { kc: [], etc: [], rootM: [], depletion: [], ks: [], eta: [], irrigation: [], drainage: [] } as Record<keyof ReturnType<typeof emptyTrace>, (number | null)[]>;
+    for (const k of Object.keys(series) as (keyof typeof series)[]) series[k] = new Array<number | null>(days).fill(null);
+    const plantings: TimelinePlanting[] = [];
+    const placed = [...st.plantings].sort((a, b) => a.start - b.start);
+    for (const p of placed) {
+      const k = Math.floor(p.start / 365);
+      const off = p.start - k * 365;
+      const kk = ((k % cycleYears) + cycleYears) % cycleYears;
+      for (const rep of [-1, 0, 1]) {
+        const a = monthDayIn(first + kk + rep * cycleYears, offsetMd(off));
+        const b = a + p.slot.length;
+        if (b <= start || a >= end) continue;
+        const crop = p.slot.crop;
+        const stages = crop ? stagesFor(crop, p.slot.length) : null;
+        const potentialOnly = !crop?.fao56 || crop.fao56.waterBalance !== "full" || ctx.awcMmPerM == null;
+        plantings.push({ crop: p.slot.cropName, cropId: crop?.id ?? null, start: a - start, end: b - start, source: p.slot.source, potentialOnly, stages });
+        const wi = a - w.startDay;
+        if (wi < 0 || wi + p.slot.length > w.tmax.length) continue;
+        const pin = periodFor(ctx, p.slot, wi, "base");
+        if (!pin || pin.et0.some((v) => v == null) || pin.precip.some((v) => v == null)) continue;
+        const trace = emptyTrace();
+        runPeriod({ ...pin, trace });
+        for (let d = 0; d < p.slot.length; d++) {
+          const t = a - start + d;
+          if (t < 0 || t >= days) continue;
+          series.kc[t] = r2(trace.kc[d]!);
+          series.etc[t] = r1(trace.etc[d]!);
+          if (trace.depletion.length) {
+            series.rootM[t] = r2(trace.rootM[d]!);
+            series.depletion[t] = r3(trace.depletion[d]!);
+            series.ks[t] = r2(trace.ks[d]!);
+            series.eta[t] = r1(trace.eta[d]!);
+            series.irrigation[t] = r1(trace.irrigation[d]!);
+            series.drainage[t] = r1(trace.drainage[d]!);
+          }
+        }
+      }
+    }
+    plantings.sort((a, b) => a.start - b.start || a.crop.localeCompare(b.crop));
+    out.push({ id: st.id, plantings, ...series });
+  }
+  const sl = <T,>(xs: T[]) => xs.slice(i0, i0 + days);
+  return {
+    timeline: {
+      kind, startDate: isoDate(start), days, years: Array.from({ length: cycleYears }, (_, i) => first + i), irrigationMode: ctx.irrigation, soilKnown: ctx.awcMmPerM != null,
+      weather: { precip: round(sl(w.precip)), tmax: round(sl(w.tmax)), tmin: round(sl(w.tmin)), et0: round(sl(ctx.et0)) },
+      strategies: out,
+    },
+    note: null,
+  };
 }
 
 // ----------------------------------------------------------------- engine ---
@@ -793,7 +937,7 @@ export function runEngine(rawInput: unknown): EngineResult {
       const indicators: Record<string, IndicatorValue> = {};
       for (const ind of inds) {
         const v = ind.get(caseRaw);
-        indicators[ind.key] = { value: v == null ? null : ind.unit === "ratio" || ind.unit === "share" ? r3(v) : r1(v), unit: ind.unit, detail: ind.label };
+        indicators[ind.key] = { value: v == null ? null : roundIndicator(ind.unit, v), unit: ind.unit, detail: ind.label };
       }
       indicators.longest_bare_window = { value: caseRaw.gapDays, unit: "days", detail: `Longest scheduled bare window, starting ${isoMonth(monthDayIn(2001, offsetMd(caseRaw.gapStart % 365)))}` };
       return {
@@ -829,13 +973,12 @@ export function runEngine(rawInput: unknown): EngineResult {
       });
       const tradeoffs: Record<string, string[]> = {};
       if (baseline) {
-        const b = raws.get("baseline")!;
+        const table = tableOf(inds, ids, raws);
         for (const s of chosen) {
-          const a = raws.get(s.id)!;
           const lines: string[] = [];
           for (const ind of baseScore.used) {
-            const vb = ind.get(b);
-            const va = ind.get(a);
+            const vb = table.baseline![ind.key] ?? null;
+            const va = table[s.id]![ind.key] ?? null;
             if (vb == null || va == null || Math.abs(va - vb) < 1e-9) continue;
             const better = ind.better === "high" ? va > vb : va < vb;
             const fmt = (v: number) => (ind.unit === "ratio" || ind.unit === "share" ? v.toFixed(3) : r1(v).toString());
@@ -851,8 +994,9 @@ export function runEngine(rawInput: unknown): EngineResult {
         stability: compared.length < 2 ? "single_option" : changedBy.length ? "fragile" : "stable", changedBy, ablation, tradeoffs,
       };
     }
+    const tl = buildTimeline(ctx, compared, kind, rotationYears);
     return {
-      kind, transformations: ts,
+      kind, transformations: ts, indicatorDefinitions: definitions(inds), timeline: tl.timeline, timelineNote: tl.note,
       baseline: baseline ? view(baseline, raws.get("baseline")!) : null,
       alternatives: chosen.map((s) => view(s, raws.get(s.id)!)),
       comparison, messages: runMsgs,

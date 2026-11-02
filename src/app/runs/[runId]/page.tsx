@@ -6,12 +6,20 @@ import Typography from "@mui/material/Typography";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { RunExplorer } from "@/components/compare/RunExplorer";
+import type { Weights } from "@/components/compare/ComparePanel";
 import { EvidenceChip, PageHeader } from "@/components/farm/ui";
 import { SetupRequired } from "@/components/SetupRequired";
-import { RUN_STATUS } from "@/components/simulation/status";
 import { RunResult } from "@/components/simulation/RunResult";
+import { RUN_STATUS } from "@/components/simulation/status";
+import type { RunView } from "@/domain/simulation/engine";
+import { getT } from "@/lib/i18n/server";
+import { draftExplanation } from "@/server/ai/actions";
+import { aiConfigured } from "@/server/ai/explain";
 import { requireUser } from "@/server/auth/session";
-import { getRun } from "@/server/simulation/queries";
+import { requestSimulation } from "@/server/simulation/actions";
+import { deletePlan, deleteRun, savePlan, savePrioritiesAndRun, updatePlan } from "@/server/simulation/plans";
+import { getRunPage } from "@/server/simulation/queries";
 import { numeric } from "@/theme/tokens";
 
 export const metadata: Metadata = { title: "Run result" };
@@ -21,28 +29,56 @@ export default async function RunPage({ params }: PageProps<"/runs/[runId]">) {
   const user = await requireUser(`/runs/${runId}`);
   if (user.state !== "signed_in") return <SetupRequired feature="Saved runs" reason={user.state} />;
   if (!/^[0-9a-f-]{36}$/i.test(runId)) notFound();
-  const data = await getRun(user.supabase, runId);
+  const data = await getRunPage(user.supabase, runId);
   if (!data) notFound();
+  const t = await getT();
   const { run, result, scenario } = data;
   const st = RUN_STATUS[run.status];
-  const crumbs = [{ href: "/runs", label: "Saved runs" }, ...(scenario ? [{ href: `/fields/${scenario.fieldId}`, label: scenario.fieldName }, { href: `/scenarios/${scenario.id}`, label: scenario.name }] : [])];
+  const crumbs = [{ href: "/runs", label: t("nav.runs") }, ...(scenario ? [{ href: `/fields/${scenario.fieldId}`, label: scenario.fieldName }, { href: `/scenarios/${scenario.id}`, label: scenario.name }] : [])];
+  const scenarioId = scenario?.id ?? null;
+
+  const rerun = async () => {
+    "use server";
+    return requestSimulation(scenarioId!);
+  };
+  const savePriorities = async (w: Weights) => {
+    "use server";
+    return savePrioritiesAndRun(scenarioId!, w);
+  };
+  const draft = async (input: { runId: string; runKind: RunView["kind"]; focus: string; locale: "en" | "bn" }) => {
+    "use server";
+    return draftExplanation(input);
+  };
 
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
-      <PageHeader crumbs={crumbs} title={scenario ? `Run: ${scenario.name}` : "Run"}>
+      <PageHeader crumbs={crumbs} title={scenario ? `${t("sim.title")}: ${scenario.name}` : t("sim.title")}>
         <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 1 }}>
-          <Chip size="small" label={st.label} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
+          <Chip size="small" label={t(`sim.status.${run.status}`)} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
           <EvidenceChip evidenceClass="simulation_output" />
           <Typography variant="body2" color="text.secondary" sx={numeric}>
             {run.queuedAt.slice(0, 16).replace("T", " ")} UTC · engine {run.engineVersion}
-            {run.computeMs != null ? ` · computed in ${run.computeMs} ms` : ""}
+            {run.computeMs != null ? ` · ${run.computeMs} ms` : ""}
           </Typography>
         </Stack>
       </PageHeader>
       {run.status === "failed" && <Alert severity="error">{run.errorMessage ?? "The run failed."}</Alert>}
-      {(run.status === "queued" || run.status === "running") && <Alert severity="info">This run is {run.status}. Open the scenario to follow it.</Alert>}
-      {run.status === "cancelled" && <Alert severity="info">This run was cancelled.</Alert>}
-      {result && <RunResult result={result} resultSha256={run.resultSha256} inputDigest={run.inputDigest} />}
+      {(run.status === "queued" || run.status === "running") && <Alert severity="info">{t("sim.waiting")}</Alert>}
+      {run.status === "cancelled" && <Alert severity="info">{t("sim.status.cancelled")}</Alert>}
+      {result && (
+        <RunExplorer
+          runId={run.id}
+          result={result}
+          plans={data.plans}
+          geometry={data.geometry?.boundary ? { boundary: data.geometry.boundary, zones: data.geometry.zones } : null}
+          outdated={data.outdated}
+          snapshotDate={data.snapshotCreatedAt}
+          scenarioId={scenarioId}
+          aiAvailable={aiConfigured()}
+          details={<RunResult result={result} resultSha256={run.resultSha256} inputDigest={run.inputDigest} />}
+          actions={{ save: savePlan, update: updatePlan, remove: deletePlan, deleteRun, rerun: scenarioId ? rerun : null, savePriorities: scenarioId ? savePriorities : null, draft }}
+        />
+      )}
     </Container>
   );
 }

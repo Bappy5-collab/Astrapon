@@ -6,11 +6,12 @@ import { describe, expect, it } from "vitest";
 import { CROP_CATALOG, cropParamsSchema, resolveCrop } from "./catalog";
 import { applyTransformation, applyTransformations, et0Series, extraterrestrialRadiation, hargreavesEt0, weatherFromSeries } from "./climate";
 import { dayIndex, isoDate, mdOffset, monthDayIn, monthSpan, offsetMd } from "./dates";
-import { runEngine, stagesFor } from "./engine";
+import { roundIndicator, runEngine, scoreOptions, stagesFor } from "./engine";
 import { ENGINE_VERSION } from "./engine-version";
 import type { EngineInput } from "./inputs";
 import { parseNassUsualDates } from "./nass";
 import { longestGap, occupiedDays, schedule, type Slot, slotFromWindow, yearPatterns } from "./schedule";
+import { dateOf, dayValues, differences, indicatorTable, markers, monthlySummary, plantingOn, reasons, sceneStage } from "./view";
 import { kcOnDay, rootDepthOnDay, runPeriod } from "./waterbalance";
 
 const NASS = parseNassUsualDates(readFileSync(path.join(process.cwd(), "data/reference/usda-nass-usual-dates-2010.txt"), "utf8"));
@@ -372,9 +373,108 @@ describe("rotation engine", () => {
     const t0 = performance.now();
     const r = runEngine(baseInput({ settings: { rotationYears: 4, calendarRegion: "Kansas", candidateCrops: ["maize", "soybean", "oats", "winter wheat", "sorghum", "barley", "sunflower", "cotton"], replayFromYear: 1999, replayToYear: 2020 }, history: [] }));
     const ms = performance.now() - t0;
-    console.log(`benchmark: 4-year rotation, bounded=${r.search.bounded}, ${r.search.sequencesExamined} sequences examined, ${r.search.feasible} feasible, ${Math.round(ms)} ms`);
+    console.log(`benchmark: 4-year rotation, bounded=${r.search.bounded}, ${r.search.sequencesExamined} sequences examined, ${r.search.feasible} feasible, ${Math.round(ms)} ms, result ${Math.round(JSON.stringify(r).length / 1024)} KB`);
     expect(r.status).toBe("ok");
     expect(r.search.feasible).toBeGreaterThan(0);
     expect(ms).toBeLessThan(60_000);
   }, 120_000);
+});
+
+describe("timeline (engine 1.1.0)", () => {
+  it("replays the compared options day by day over the latest complete window", () => {
+    const r = runEngine(baseInput());
+    const run = r.runs[0]!;
+    const tl = run.timeline!;
+    expect(tl).not.toBeNull();
+    expect(tl.years).toEqual([2018, 2019]);
+    expect(tl.startDate).toBe("2018-01-01");
+    expect(tl.days).toBe(730);
+    expect(tl.weather.precip).toHaveLength(730);
+    expect(tl.strategies.map((s) => s.id)).toEqual([run.baseline!.id, ...run.alternatives.map((a) => a.id)]);
+    for (const s of tl.strategies) {
+      expect(s.kc).toHaveLength(730);
+      expect(s.plantings.length).toBeGreaterThan(0);
+      // Bare days carry no crop state; planted days within the window do.
+      const planted = new Set<number>();
+      for (const p of s.plantings) for (let d = Math.max(0, p.start); d < Math.min(730, p.end); d++) planted.add(d);
+      for (let d = 0; d < 730; d++) if (!planted.has(d)) expect(s.kc[d]).toBeNull();
+      for (const d of planted) expect(s.kc[d]).not.toBeNull();
+      for (const v of s.depletion) if (v != null) expect(v >= 0 && v <= 1).toBe(true);
+    }
+    const maize = tl.strategies[0]!.plantings.find((p) => p.cropId === "maize")!;
+    expect(maize.start).toBe(dayIndex("2018-05-01") - dayIndex("2018-01-01"));
+  });
+
+  it("matches the period balance it is drawn from (same FAO-56 code path)", () => {
+    const stages = { ini: 20, dev: 30, mid: 40, late: 30 };
+    const trace = { kc: [], etc: [], rootM: [], depletion: [], ks: [], eta: [], irrigation: [], drainage: [] } as Record<string, number[]>;
+    const r = runPeriod({ et0: Array(120).fill(5), precip: Array.from({ length: 120 }, (_, i) => (i % 9 === 0 ? 20 : 0)), stages, kc: { ini: 0.3, mid: 1.2, end: 0.35 }, soil: { awcMmPerM: 150, rootMaxM: 1.7, p: 0.55 }, initial: "field_capacity", irrigation: "rainfed", trace: trace as never });
+    const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
+    expect(trace.eta).toHaveLength(120);
+    expect(sum(trace.eta!)).toBeCloseTo(r.etaMm!, 9);
+    expect(sum(trace.etc!)).toBeCloseTo(r.etcMm!, 9);
+    expect(sum(trace.drainage!)).toBeCloseTo(r.drainageMm!, 9);
+  });
+
+  it("states why there is no timeline instead of drawing one", () => {
+    const r = runEngine(baseInput({ weather: null }));
+    expect(r.runs[0]!.timeline).toBeNull();
+    expect(r.runs[0]!.timelineNote).toMatch(/No daily weather/);
+  });
+});
+
+describe("scoreOptions (shared by the engine and the priority preview)", () => {
+  it("reproduces the engine ranking from the published indicator table", () => {
+    const run = runEngine(baseInput()).runs[0]!;
+    const opts = [run.baseline!, ...run.alternatives];
+    const table = Object.fromEntries(opts.map((o) => [o.id, Object.fromEntries(Object.entries(o.indicators).map(([k, v]) => [k, v.value]))]));
+    const again = scoreOptions(run.indicatorDefinitions, opts.map((o) => o.id), table, runEngine(baseInput()).priorities);
+    expect(again.ranking).toEqual(run.comparison!.ranking);
+    expect(again.scores).toEqual(run.comparison!.scores);
+    const other = scoreOptions(run.indicatorDefinitions, opts.map((o) => o.id), table, { water_use: 0, soil_health: 0, diversification: 0, weather_risk: 0, workload: 5, income_stability: 0 });
+    expect(Object.keys(other.scores).sort()).toEqual(opts.map((o) => o.id).sort());
+    expect(roundIndicator("ratio", 0.12345)).toBe(0.123);
+    expect(roundIndicator("mm/year", 12.345)).toBe(12.3);
+  });
+});
+
+describe("result views (replay tables, explanations)", () => {
+  const run = runEngine(baseInput()).runs[0]!;
+  const tl = run.timeline!;
+  const base = tl.strategies[0]!;
+
+  it("looks up the FAO-56 stage and stored values for a day without recomputing", () => {
+    const maize = base.plantings.find((p) => p.cropId === "maize" && p.start >= 0)!;
+    const first = plantingOn(base, maize.start)!;
+    expect(first.stage).toBe("initial");
+    expect(sceneStage(first)).toBe("emerging");
+    const mid = plantingOn(base, maize.start + maize.stages!.ini + maize.stages!.dev + 1)!;
+    expect(mid.stage).toBe("mid_season");
+    expect(mid.growth).toBe(1);
+    expect(plantingOn(base, maize.start - 1)?.planting.cropId ?? null).not.toBe("maize");
+    const v = dayValues(tl, base, maize.start + 10);
+    expect(v.kc).toBe(base.kc[maize.start + 10]);
+    expect(v.date).toBe(dateOf(tl, maize.start + 10));
+  });
+
+  it("lists planting and harvest markers inside the window and sums months from stored days", () => {
+    const m = markers(tl, [base.id]);
+    expect(m.some((x) => x.kind === "plant")).toBe(true);
+    expect(m.every((x) => x.day >= 0 && x.day < tl.days)).toBe(true);
+    const months = monthlySummary(tl, base);
+    expect(months).toHaveLength(24);
+    expect(months.reduce((a, r) => a + r.days, 0)).toBe(tl.days);
+    const rain = months.reduce((a, r) => a + (r.rainMm ?? 0), 0);
+    expect(rain).toBeCloseTo(tl.weather.precip.reduce<number>((a, v) => a + (v ?? 0), 0), 0);
+  });
+
+  it("derives differences and reasons from the stored tables", () => {
+    const table = indicatorTable(run);
+    const alt = run.alternatives[0]!;
+    const d = differences(run.indicatorDefinitions, table, "baseline", alt.id);
+    for (const x of d) expect(x.from).not.toBe(x.to);
+    const r = reasons(run.comparison!, alt.id);
+    const total = r.reduce((a, x) => a + x.contribution, 0);
+    expect(total).toBeCloseTo(run.comparison!.scores[alt.id]!, 2);
+  });
 });

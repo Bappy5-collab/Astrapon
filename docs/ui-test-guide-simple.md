@@ -233,6 +233,37 @@ Use your US field. It should have evidence from Test 9, and at least two years o
 
 ---
 
+## Test 10b – Replay, compare, explain and save (Phase 6)
+
+Open a finished run from Test 10 (**Open result**).
+
+1. **Replay** tab.
+   - **You should see:** a 3D view with the existing practice and two alternatives side by side, the label **"Illustrative 3D…"**, a date, and ▲ planting / ▼ harvest marks under the slider.
+   - Press **Play**: the date moves and plants grow. Press **Pause**.
+   - Click the slider and press the right arrow key: the date moves one day. The **Selected date** table changes with it.
+   - On a day with no crop, the table says **"Bare field: no crop on this day"**.
+   - Press **One at a time**, then pick another option in **Option shown**.
+   - Open **Monthly summary of the replay (table)**.
+2. **Compare** tab.
+   - **You should see:** every option with the same weather years and soil value, units for every number, and the text that scores are **not probabilities**.
+   - Move the **Workload** slider in **Your priorities**. The list on the right may re-order and says **Preview**. Press **Undo**.
+   - Press **Save these priorities and run again**.
+   - **You should see:** "Priorities saved and a new run queued", and a yellow note that your inputs changed after this run.
+3. **Why this option?** tab.
+   - **You should see:** why it ranks there, better/worse than the existing practice, planting dates with their source, evidence used, what was ruled out, data gaps, questions for a local expert, and **Words used here** (ET, NDVI, soil moisture anomaly, water balance).
+4. **Plain-language explanation** tab.
+   - **You should see:** a summary marked **"Generated from the stored result (no AI)"**.
+   - If the server has no AI key, it says AI drafting is **not configured**. That is correct.
+5. **Save and export** tab.
+   - Type a **Plan name** and press **Save plan**. **You should see:** "Plan saved" and the plan in the list.
+   - Press **Download run file (JSON)**: a file downloads.
+   - Open **Saved runs**: the plan is listed under **Saved plans**.
+6. Change the language to **বাংলা** in Settings and open the run again.
+   - **You should see:** the tabs, buttons and dates in Bangla (some technical notes stay English, and say so).
+7. On a phone width (390 px): one option at a time, and no page scrolling sideways.
+
+---
+
 ## Test 11 – Privacy (2 accounts)
 
 1. As **Account A**, copy the web address of your farm, your field and your scenario.
@@ -278,6 +309,9 @@ Do these on a **phone** (or in Chrome: press F12, then the phone icon, then choo
 ## Not bugs (expected for now)
 
 - Rotation results compare options on past weather only. They show no yield, profit or forecast; that is by design.
+- The 3D plants and soil colour in the replay are drawings of the stored daily numbers, not satellite pictures.
+- The AI explanation button is missing when the server has no AI key; the page says so.
+- The new run after "Save these priorities and run again" needs the background worker, like any run.
 - Outside the USA, crops without your own dates are rejected with "No local planting window". Add your planting dates in the scenario.
 - A run stays "Queued" when the background worker is not running.
 - The first satellite (MODIS) data fetch is slow, about 15–20 minutes.

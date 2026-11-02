@@ -3,12 +3,14 @@ import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import type { EngineResult } from "@/domain/simulation/engine";
-import type { RunSummary } from "@/domain/simulation/runs";
+import { canonicalJson } from "@/domain/reference/canonical";
+import type { RunSummary, SavedPlan } from "@/domain/simulation/runs";
+import type { FieldGeometry } from "@/server/farm/queries";
 import type { Database } from "@/server/database/database.types";
 
 type Db = SupabaseClient<Database>;
 
-export type { RunSummary };
+export type { RunSummary, SavedPlan };
 
 const COLS = "id, snapshot_id, status, engine_version, queued_at, finished_at, error_message, compute_ms, input_digest, simulation_results(result_sha256)";
 
@@ -55,4 +57,47 @@ export async function listAllRuns(db: Db): Promise<(RunSummary & { scenarioId: s
     scenarioName: r.simulation_input_snapshots?.scenarios?.name ?? "",
     fieldName: r.simulation_input_snapshots?.scenarios?.fields?.name ?? "",
   }));
+}
+
+
+const planOf = (p: { id: string; run_id: string; run_kind: string; strategy_id: string; name: string; note: string; result_sha256: string; created_at: string; updated_at: string }): SavedPlan => ({
+  id: p.id, runId: p.run_id, runKind: p.run_kind as SavedPlan["runKind"], strategyId: p.strategy_id, name: p.name, note: p.note, resultSha256: p.result_sha256, createdAt: p.created_at, updatedAt: p.updated_at,
+});
+
+/**
+ * Everything the run page needs, under RLS: the stored result, the scenario, whether the scenario's
+ * current inputs still equal the run's frozen snapshot, the field outline for the illustrative
+ * scene, and plans saved from this run.
+ */
+export async function getRunPage(db: Db, runId: string) {
+  const base = await getRun(db, runId);
+  if (!base) return null;
+  const { data: snap } = await db.from("simulation_input_snapshots").select("created_at, inputs").eq("id", base.run.snapshotId).maybeSingle();
+  let outdated: boolean | null = null;
+  let geometry: FieldGeometry | null = null;
+  if (base.scenario) {
+    const [current, geo] = await Promise.all([
+      db.rpc("assemble_scenario_inputs", { p_scenario_id: base.scenario.id }),
+      db.rpc("field_geometry", { p_field_id: base.scenario.fieldId }),
+    ]);
+    if (!current.error && snap) outdated = canonicalJson(current.data) !== canonicalJson(snap.inputs);
+    if (!geo.error) geometry = (geo.data as unknown as FieldGeometry | null) ?? null;
+  }
+  const { data: plans, error } = await db.from("saved_plans").select("*").eq("run_id", runId).order("created_at", { ascending: false });
+  if (error) throw new Error(`Could not load plans (${error.code})`);
+  return { ...base, snapshotCreatedAt: snap?.created_at ?? null, outdated, geometry, plans: plans.map(planOf) };
+}
+
+/** All saved plans with their run's scenario and field names (Saved runs page). */
+export async function listPlans(db: Db): Promise<(SavedPlan & { scenarioName: string; fieldName: string })[]> {
+  const { data, error } = await db
+    .from("saved_plans")
+    .select("*, simulation_runs(simulation_input_snapshots(scenarios(name, fields(name))))")
+    .order("updated_at", { ascending: false })
+    .limit(100);
+  if (error) throw new Error(`Could not load plans (${error.code})`);
+  return data.map((p) => {
+    const sc = (p.simulation_runs as unknown as { simulation_input_snapshots: { scenarios: { name: string; fields: { name: string } | null } | null } | null } | null)?.simulation_input_snapshots?.scenarios;
+    return { ...planOf(p), scenarioName: sc?.name ?? "", fieldName: sc?.fields?.name ?? "" };
+  });
 }

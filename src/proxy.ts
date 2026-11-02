@@ -40,7 +40,9 @@ export async function proxy(request: NextRequest) {
   // Unreachable is not the same as signed out: let the page render its own "unreachable" state.
   if (error && (error.status === 0 || error.name === "AuthRetryableFetchError")) return response;
 
-  if (!data?.claims?.sub && isProtected(request.nextUrl.pathname)) {
+  // Server actions re-check auth and answer "sign in again" in place (keeping unsaved input), so only
+  // page navigations are redirected.
+  if (!data?.claims?.sub && isProtected(request.nextUrl.pathname) && !request.headers.has("next-action")) {
     const url = request.nextUrl.clone();
     url.pathname = "/sign-in";
     url.search = `?next=${encodeURIComponent(request.nextUrl.pathname + request.nextUrl.search)}`;

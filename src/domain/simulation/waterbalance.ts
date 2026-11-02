@@ -37,7 +37,14 @@ export type PeriodInput = {
   soil: null | { awcMmPerM: number; rootMaxM: number; p: number };
   initial: "field_capacity" | "readily_available_depleted";
   irrigation: "rainfed" | "full";
+  /** When given, filled with one entry per day (the same quantities the balance sums). */
+  trace?: DayTrace;
 };
+
+/** Daily state of one period. Water-limited series stay empty when soil is unknown or potential-only. */
+export type DayTrace = { kc: number[]; etc: number[]; rootM: number[]; depletion: number[]; ks: number[]; eta: number[]; irrigation: number[]; drainage: number[] };
+
+export const emptyTrace = (): DayTrace => ({ kc: [], etc: [], rootM: [], depletion: [], ks: [], eta: [], irrigation: [], drainage: [] });
 
 export type PeriodResult = {
   complete: boolean;
@@ -67,8 +74,11 @@ export function runPeriod(input: PeriodInput): PeriodResult {
   let ETc = 0;
   const etcDaily: number[] = [];
   for (let d = 0; d < L; d++) {
-    const etc = kcOnDay(d, input.stages, input.kc) * input.et0[d]!;
+    const kc = kcOnDay(d, input.stages, input.kc);
+    const etc = kc * input.et0[d]!;
     etcDaily.push(etc);
+    input.trace?.kc.push(kc);
+    input.trace?.etc.push(etc);
     ETc += etc;
     P += input.precip[d]!;
   }
@@ -114,6 +124,14 @@ export function runPeriod(input: PeriodInput): PeriodResult {
     }
     if (drEnd > taw) drEnd = taw;
     dr = drEnd;
+    if (input.trace) {
+      input.trace.rootM.push(rootDepthOnDay(d, input.stages, rootMaxM));
+      input.trace.depletion.push(taw > 0 ? dr / taw : 0);
+      input.trace.ks.push(ks);
+      input.trace.eta.push(eta);
+      input.trace.irrigation.push(irr);
+      input.trace.drainage.push(dp);
+    }
     I += irr;
     ETa += eta;
     DP += dp;

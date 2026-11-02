@@ -64,6 +64,13 @@ pnpm simulation:trace           # LIVE simulation trace → data/verification/si
   - Every crop number lives in `catalog.ts`, checked against FAO-56 Tables 11/12/22 and USDA PLANTS, and is published as the `crop-parameters` reference dataset. Calendars come only from farmer records, farmer windows or the selected NASS 2010 state. Never add an unsourced parameter, and never impose one region's seasons on another.
   - Hard constraints run before ranking. Scores are relative among the options shown, never probabilities. Unsupported calculations return null (insufficient evidence), and that indicator is dropped for every compared option.
   - Runs are queued with `request_simulation` and computed by the worker (`scripts/simulation-runner.mts`) from immutable pinned rows only; results go to `simulation_results`. Never compute a run in a web request.
+- Run journey (`/runs/[id]`, `src/components/compare`, `src/components/replay`):
+  - The replay only indexes stored timeline arrays; never recompute model values in the UI. Every scene fact needs a table equivalent.
+  - Priority previews use `scoreOptions()` on the stored indicator table and are labelled unsaved; saving priorities and re-running is a separate explicit action (`savePrioritiesAndRun`).
+  - User-visible dates and numbers use `formatterFor`/`useFmt` (written-out formatting). Do not use `Intl`/`toLocale*` in server-rendered text: ICU differs between Node and browsers and breaks hydration (seen in Bangla).
+  - Saved plans are pinned to the stored result hash (trigger); exports read stored rows only (`/runs/[id]/export`).
+  - Server actions return `auth: true` when the session ended; the proxy does not redirect requests with a `Next-Action` header.
+- AI explanations (`src/server/ai`, `src/domain/explain`): optional, server-side `ANTHROPIC_API_KEY` only. Send only `buildExplainContext()` data (no names, notes, coordinates, account data); keep `checkDraft()` grounding (closed source ids, numbers must exist in the result, validated actions). The page must stay complete without a key.
 - `SUPABASE_DB_URL` is also used by the evidence worker (a script); never by the web app.
 - Provider clients (`src/server/providers`) validate content, not just HTTP 200: location, period, units, fill→null (never 0), plausibility, QA. A source is `live_verified` only with a passing committed artifact (enforced by `registry.test.ts`).
 - Fixtures live in `__fixtures__/*.fixture.json` with a `TEST FIXTURE ONLY` label; ESLint bans importing them outside tests. Never use them as fallbacks.
@@ -107,6 +114,14 @@ Phase 5 (prompt 5) delivered the transparent simulation and rotation engine (`do
 - `request_simulation` and worker-run simulations;
 - the scenario settings v2 form, the run panel and the `/runs/[id]` result page;
 - live and UI traces.
+
+Phase 6 (prompt 6) delivered the interactive simulation and explanations (engine 1.1.0):
+
+- a stored day-by-day timeline and the 3D replay with timeline controls, side-by-side comparison and table equivalents;
+- the comparison with an unsaved priority preview and "save and run again", out-of-date marking;
+- "Why this option?", a glossary, a deterministic explanation and an optional grounded AI draft;
+- saved plans (`saved_plans`), run deletion, JSON export and print;
+- Bangla for the run journey; worker dispatch from the deployed site.
 
 The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 

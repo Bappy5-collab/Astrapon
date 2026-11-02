@@ -23,7 +23,7 @@ export async function claimRun(sql: postgres.Sql): Promise<RunRow | null> {
              where status = 'running' and started_at < now() - ${STALE_RUNNING}::interval`;
   const rows = await sql<RunRow[]>`
     update public.simulation_runs r set status = 'running', started_at = now()
-     where r.id = (select q.id from public.simulation_runs q where q.status = 'queued' order by q.queued_at for update skip locked limit 1)
+     where r.id = (select q.id from public.simulation_runs q where q.status = 'queued' and q.engine_version = ${ENGINE_VERSION} order by q.queued_at for update skip locked limit 1)
     returning r.id, r.owner_id, r.snapshot_id, r.engine_version`;
   return rows[0] ?? null;
 }

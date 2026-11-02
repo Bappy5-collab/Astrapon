@@ -9,15 +9,17 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 
+import { ActionMessage, toUiMessage, type UiMessage } from "@/components/compare/ActionMessage";
 import { TextLink } from "@/components/links";
+import { useT } from "@/lib/i18n/I18nProvider";
 import type { RunSummary } from "@/domain/simulation/runs";
 import { color, numeric, radius } from "@/theme/tokens";
 
 import { RUN_STATUS } from "./status";
 
-type Result = { ok: boolean; message: string; runId?: string };
+type Result = { ok: boolean; message: string; runId?: string; auth?: boolean };
 type Actions = { request: () => Promise<Result>; reproduce: (runId: string) => Promise<Result>; cancel: (runId: string) => Promise<Result> };
 
 const stamp = (iso: string) => `${iso.slice(0, 16).replace("T", " ")} UTC`;
@@ -27,9 +29,11 @@ const stamp = (iso: string) => `${iso.slice(0, 16).replace("T", " ")} UTC`;
  * Reproducibility: runs of the same snapshot are compared by their stored result hash.
  */
 export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: { runs: RunSummary[]; actions: Actions; renderedAt: number; canRun: boolean; blockedReason?: string }) {
+  const t = useT();
   const router = useRouter();
   const [pending, start] = useTransition();
-  const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const [message, setMessage] = useState<UiMessage | null>(null);
+  const seq = useRef(0);
   const active = runs.some((r) => r.status === "queued" || r.status === "running");
 
   useEffect(() => {
@@ -38,10 +42,18 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
     return () => clearInterval(t);
   }, [active, router]);
 
+  // A slow answer to an earlier click never overwrites the message of a later one.
   const act = (fn: () => Promise<Result>) =>
     start(async () => {
-      const r = await fn();
-      setMessage({ ok: r.ok, text: r.message });
+      const mine = ++seq.current;
+      let r: Result | null = null;
+      try {
+        r = await fn();
+      } catch {
+        r = null;
+      }
+      if (mine !== seq.current) return;
+      setMessage(toUiMessage(r, t("sim.err.network")));
       router.refresh();
     });
 
@@ -54,7 +66,7 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
     <Stack spacing={2}>
       <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ alignItems: { sm: "center" } }}>
         <Button variant="contained" startIcon={<PlayArrowRoundedIcon />} disabled={pending || active || !canRun} onClick={() => act(actions.request)}>
-          Run simulation
+          {t("sim.runSim")}
         </Button>
         <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 640 }}>
           Freezes the current inputs into a snapshot (reused when nothing changed) and queues the run. The background worker computes it; this page updates by itself.
@@ -64,10 +76,10 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
       {active && <LinearProgress aria-label="Run in progress" />}
       {waiting && (
         <Alert severity="warning">
-          This run is waiting for the background worker. It usually starts within a few minutes, and otherwise checks the queue about every 10 minutes. In local development, start it with <code>pnpm evidence:worker</code>.
+          {t("sim.waiting")}
         </Alert>
       )}
-      {message && <Alert severity={message.ok ? "success" : "error"}>{message.text}</Alert>}
+      <ActionMessage message={message} />
       {runs.length > 0 && (
         <Box component="ul" aria-label="Runs" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>
           {runs.slice(0, 8).map((r) => {
@@ -78,25 +90,25 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
               <Box component="li" key={r.id} sx={{ p: 1.5, border: `1px solid ${color.line}`, borderRadius: `${radius.md}px`, bgcolor: color.surfaceRaised }}>
                 <Stack direction={{ xs: "column", md: "row" }} spacing={1} sx={{ alignItems: { md: "center" }, justifyContent: "space-between" }}>
                   <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}>
-                    <Chip size="small" label={st.label} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
+                    <Chip size="small" label={t(`sim.status.${r.status}`)} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
                     <Typography variant="body2" sx={numeric}>
                       {stamp(r.queuedAt)} · engine {r.engineVersion}
                       {r.computeMs != null ? ` · ${r.computeMs} ms` : ""}
                       {r.resultSha256 ? ` · result ${r.resultSha256.slice(0, 10)}…` : ""}
                     </Typography>
-                    {reproduced === "identical" && <Chip size="small" variant="outlined" label="Re-run gave an identical result" />}
-                    {reproduced === "different" && <Chip size="small" color="error" label="Re-runs differ" />}
+                    {reproduced === "identical" && <Chip size="small" variant="outlined" label={t("sim.identical")} />}
+                    {reproduced === "different" && <Chip size="small" color="error" label={t("sim.differ")} />}
                   </Stack>
                   <Stack direction="row" spacing={1}>
-                    {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>Open result</TextLink>}
+                    {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>{t("sim.open")}</TextLink>}
                     {r.status === "succeeded" && (
                       <Button size="small" disabled={pending || active} onClick={() => act(() => actions.reproduce(r.id))}>
-                        Re-run and compare
+                        {t("sim.reproduce")}
                       </Button>
                     )}
                     {(r.status === "queued" || r.status === "running") && (
                       <Button size="small" disabled={pending} onClick={() => act(() => actions.cancel(r.id))}>
-                        Cancel
+                        {t("sim.cancel")}
                       </Button>
                     )}
                   </Stack>

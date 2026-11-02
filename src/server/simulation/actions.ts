@@ -9,11 +9,11 @@ import { getAuth } from "@/server/auth/session";
 import { describeDbError } from "@/server/database/errors";
 import { dispatchWorker } from "@/server/worker/dispatch";
 
-export type SimulationActionResult = { ok: boolean; message: string; runId?: string };
+export type SimulationActionResult = { ok: boolean; message: string; runId?: string; auth?: boolean };
 
 async function signedIn() {
   const auth = await getAuth();
-  if (auth.state !== "signed_in") return { error: { ok: false, message: auth.state === "unreachable" ? "The account service did not respond. Try again." : "Sign in again." } as SimulationActionResult };
+  if (auth.state !== "signed_in") return { error: (auth.state === "unreachable" ? { ok: false, message: "The account service did not respond. Try again." } : { ok: false, message: "Your session has ended. Sign in again.", auth: true }) as SimulationActionResult };
   return { auth };
 }
 

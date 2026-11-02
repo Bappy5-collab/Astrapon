@@ -132,10 +132,23 @@ export default function MethodologyPage() {
         </P>
       </Section>
 
+      <Section id="replay" title="Replay and explanations">
+        <P>
+          Each run stores a day-by-day replay of the options it compares over the most recent complete years of the replay window. The 3D view only steps through these stored
+          values: plant height follows the FAO-56 growth stage, the soil shade follows how much root-zone water is used up, and falling drops mark days with recorded rain. The
+          drawing is illustrative; the selected-date and monthly tables show the numbers. Changing the playback speed or the date never changes a result.
+        </P>
+        <P>
+          “Why this option?” and the plain-language summary are generated from the stored result. An optional AI draft, when the server has a key, receives only that result
+          (no names, notes, coordinates or account details), must cite the result&apos;s own sources, and any statement with a number that is not in the result is removed. It
+          cannot change a ranking. Saving a plan keeps it tied to the exact stored result, and the export contains the stored records, not a recalculation.
+        </P>
+      </Section>
+
       <Section id="not-yet" title="Not built yet">
         <P>
-          Zone-level rotations (runs evaluate the whole field), soil-water carry-over between crops, runoff, calendars outside the US other than your own dates, and 3D scenes
-          driven by run results are not built. Plain-language AI explanations are not built.
+          Zone-level rotations (runs evaluate the whole field), soil-water carry-over between crops, runoff, and calendars outside the US other than your own dates are not
+          built.
         </P>
       </Section>
     </Container>

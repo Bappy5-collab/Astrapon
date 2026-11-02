@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-01T07:33:12.288Z",
-  "engineVersion": "1.0.0",
+  "generatedAt": "2026-11-02T06:58:19.975Z",
+  "engineVersion": "1.1.0",
   "note": "LIVE trace on the development project; throwaway user deleted afterwards. Ids refer to rows that no longer exist.",
   "results": [
     {
       "step": "worker fetched POWER and SSURGO",
       "ok": true,
-      "detail": "[[\"usda-ssurgo-sda\",\"complete\",null],[\"nasa-power-daily\",\"complete\",null]] in 30 s"
+      "detail": "[[\"nasa-power-daily\",\"complete\",null],[\"usda-ssurgo-sda\",\"complete\",null]] in 14 s"
     },
     {
       "step": "daily series stored with the retrieval",
@@ -21,12 +21,12 @@
     {
       "step": "run queued through request_simulation",
       "ok": true,
-      "detail": "df367612"
+      "detail": "afb4a479"
     },
     {
       "step": "run succeeded and stored an immutable result",
       "ok": true,
-      "detail": "succeeded in 8558 ms "
+      "detail": "succeeded in 5063 ms "
     },
     {
       "step": "existing practice compared with ≥ 2 distinct feasible alternatives",
@@ -56,7 +56,7 @@
     {
       "step": "re-running the same snapshot reproduces the identical result",
       "ok": true,
-      "detail": "result cda13703826e2142 vs cda13703826e2142"
+      "detail": "result 9f0a2a07c5060a00 vs 9f0a2a07c5060a00"
     },
     {
       "step": "unknown and window-less crops are rejected transparently",
@@ -71,8 +71,8 @@
   ],
   "trace": {
     "weather": {
-      "retrievalId": "ad0d9d52-3232-4629-9074-e26073de7b4a",
-      "responseSha256": "36278ba6e02398f89b082254fa3fa53c0a465cfd36842e4d9481da87b75150fb",
+      "retrievalId": "e0508264-d5a8-48e0-9224-eb771018328d",
+      "responseSha256": "3f26cd1a30bda83b7da726052119628d5344f0918ba4bba4494ebfb77451f0f6",
       "chunkSha256": "7e944b14b331ea741d71996c80c7ac560ef992855ec3128648a71c36432af2ba",
       "day": "2015-07-15",
       "compare": [
@@ -94,10 +94,10 @@
       ]
     },
     "run": {
-      "id": "df367612-c40d-47da-a94e-f79b4dc8b3a0",
-      "computeMs": 8558,
-      "inputDigest": "ae7c4234d86b781fdc3a46cfbafbc446412297be011a39fea5c210e255098e81",
-      "resultSha256": "cda13703826e214270b6a684db74227b42057d205ba51866c0b135c2d8b5f1dd",
+      "id": "afb4a479-1dbc-4b97-8d2a-6a470a31eaf8",
+      "computeMs": 5063,
+      "inputDigest": "796cce7ecd8d908934ec296c98ef0e7f89cb542e484ee7b99953e1b281528639",
+      "resultSha256": "9f0a2a07c5060a005507063354b7b039238d06d57b89dc314973cafe8455a99f",
       "search": {
         "slots": [
           {
@@ -726,7 +726,7 @@
           "scores": {
             "baseline": 0.328,
             "alternative-1": 0.642,
-            "alternative-2": 0.517,
+            "alternative-2": 0.519,
             "alternative-3": 0.496
           },
           "ranking": [
@@ -838,7 +838,7 @@
             },
             "alternative-2": {
               "workload": 0.063,
-              "water_use": 0.043,
+              "water_use": 0.045,
               "soil_health": 0.177,
               "weather_risk": 0.094,
               "diversification": 0.141
@@ -882,10 +882,10 @@
       ]
     },
     "reproduction": {
-      "runId": "d75d4c4a-5632-4ecd-bbd0-1b97aaf84c33",
-      "resultSha256": "cda13703826e214270b6a684db74227b42057d205ba51866c0b135c2d8b5f1dd",
-      "inputDigest": "ae7c4234d86b781fdc3a46cfbafbc446412297be011a39fea5c210e255098e81",
-      "computeMs": 38013
+      "runId": "2108bc21-668b-4cc5-bad5-c837a3c2aa66",
+      "resultSha256": "9f0a2a07c5060a005507063354b7b039238d06d57b89dc314973cafe8455a99f",
+      "inputDigest": "796cce7ecd8d908934ec296c98ef0e7f89cb542e484ee7b99953e1b281528639",
+      "computeMs": 4963
     },
     "rejections": [
       {

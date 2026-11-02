@@ -103,6 +103,9 @@ Adjusted by Phase 1 findings:
 
 ## Phase 6: Rotation comparison, priorities, explanations, saved runs
 
+- Delivered by prompt 6 (2026-11-02): engine 1.1.0 timeline and 3D replay, comparison with priority preview, "Why this option?", deterministic and optional grounded AI explanations, saved plans, export, Bangla for the run journey. See `docs/implementation-status.md`.
+
+
 - Compare the existing rotation against feasible alternatives (target: two) on common inputs. Show:
   - reasons, evidence, benefits, tradeoffs, and gaps,
   - local-review risks,

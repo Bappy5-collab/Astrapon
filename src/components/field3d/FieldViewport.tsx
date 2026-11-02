@@ -53,7 +53,26 @@ export function resolveQuality(pref: QualityPreference, cap: GraphicsCapability 
   return cap?.softwareRenderer ? "low" : "balanced";
 }
 
+/** What every 3D scene receives from the shell: quality, visibility, camera commands and context-loss reporting. */
+export type SceneCommon = { quality: QualityPreset; active: boolean; command: CameraCommand | null; onAzimuth: (radians: number) => void; onContextLost: () => void };
+
 export function FieldViewport({ data, crops, stage, selectedKey, onSelect, badge, selectedLabel }: FieldViewportProps) {
+  const t = useT();
+  return (
+    <SceneShell
+      label={t("ws.illustrative")}
+      badge={badge}
+      selectedLabel={selectedLabel}
+      renderScene={(c) => <FieldScene data={data} crops={crops} stage={stage} selectedKey={selectedKey} onSelect={onSelect} {...c} />}
+    />
+  );
+}
+
+/**
+ * The 3D frame shared by the workspace and the replay: WebGL capability check and fallback,
+ * context-loss restart, an error boundary, offscreen pausing, quality presets and camera controls.
+ */
+export function SceneShell({ label, badge, selectedLabel, renderScene }: { label: string; badge?: ReactNode; selectedLabel?: string | null; renderScene: (c: SceneCommon) => ReactNode }) {
   const t = useT();
   const capability = useSyncExternalStore<GraphicsCapability | null>(noop, getCapability, () => null);
   const [pref, setPref] = useQualityPreference();
@@ -115,18 +134,7 @@ export function FieldViewport({ data, crops, stage, selectedKey, onSelect, badge
         key={generation}
         fallback={() => <SceneMessage title="The 3D view could not start" body="An error occurred while creating the 3D scene. The map view, zone list and records still work. Try a lower quality setting or reload." />}
       >
-        <FieldScene
-          data={data}
-          crops={crops}
-          stage={stage}
-          selectedKey={selectedKey}
-          onSelect={onSelect}
-          quality={quality}
-          active={onScreen && visible}
-          command={command}
-          onAzimuth={setAzimuth}
-          onContextLost={onLost}
-        />
+        {renderScene({ quality, active: onScreen && visible, command, onAzimuth: setAzimuth, onContextLost: onLost })}
       </SceneErrorBoundary>
     );
   const ready = support !== "checking" && support !== "unavailable" && !lost;
@@ -140,7 +148,7 @@ export function FieldViewport({ data, crops, stage, selectedKey, onSelect, badge
           variant="caption"
           sx={{ px: 1.25, py: 0.5, borderRadius: 1, bgcolor: "rgba(10, 29, 22, 0.84)", color: tokens.neutral[50], fontWeight: 600, maxWidth: "100%" }}
         >
-          {t("ws.illustrative")}
+          {label}
         </Typography>
         {badge}
         {selectedLabel && (

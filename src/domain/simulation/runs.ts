@@ -11,3 +11,6 @@ export type RunSummary = {
   inputDigest: string | null;
   resultSha256: string | null;
 };
+
+/** A farmer-chosen option of one finished run, pinned to the stored result hash (saved_plans). */
+export type SavedPlan = { id: string; runId: string; runKind: "historical_replay" | "scenario"; strategyId: string; name: string; note: string; resultSha256: string; createdAt: string; updatedAt: string };

@@ -1,6 +1,6 @@
 # Implementation status
 
-Last updated: 2026-11-01, end of Phase 5 (prompt 5: transparent simulation and rotation engine).
+Last updated: 2026-11-02, end of Phase 6 (prompt 6: complete interactive simulation and explanations).
 
 ## Summary
 
@@ -24,11 +24,42 @@ Last updated: 2026-11-01, end of Phase 5 (prompt 5: transparent simulation and r
 | Geometry rules | **Done** | Local ECEF→ENU frame; holes inside shells; no overlapping parts; ±85° latitude; ≤ 30 km extent; antimeridian-crossing fields rejected with an explanation (adjacent fields work). Zones stay inside the field, checked at commit even when the boundary changes in the same save. |
 | 3D field workspace | **Done** | `/fields/[id]`: real field and zones in local metres, flat illustrative terrain, original instanced crop forms per recorded crop, illustrative growth stages, orbit/pan/zoom, compass with reset, camera buttons, click/tap or list selection with a lime outline, tint and edge ribbon, quality presets, WebGL fallback, context-loss restart. |
 | Crops, history, save | **Done** | Assign a crop per zone or whole field, year and season; year × zone timeline table; Inspect drawer with history, soil and evidence coverage. All edits saved atomically by `save_field_workspace` after a summary dialog. The full record forms moved to `/fields/[id]/records`. |
-| Saved runs, methodology, settings | **Done** | `/runs` (runs with status and links to results, plus scenarios and snapshots), `/runs/[id]` (full result), `/methodology` (simulation section), `/settings`. |
-| Bangla interface | Partial | Navigation, workspace controls, location search, settings and landing hero. Record forms, evidence text and methodology are English (stated in Settings). |
-| **Simulation and rotation engine** | **Done (Phase 5)** | Engine `1.0.0`, pure TypeScript in `src/domain/simulation`; method in `docs/scientific-methodology.md` (written first). FAO-56 Hargreaves ET0 (Eq. 52), single-coefficient Kc curve, daily Ch. 8 root-zone water balance with a conservation check; hard constraints before ranking; baseline from dated history; up to three crop-set-distinct alternatives; priority-weighted relative scores; contributions, priority ablation, sensitivity cases with a stable/fragile label; data-completeness counts; gaps, assumptions, review questions, references. Historical replay and the transformed scenario (rainfall %, temperature °C) are reported separately. |
+| Saved runs, methodology, settings | **Done** | `/runs` (saved plans, runs with status, scenarios and snapshots), `/runs/[id]` (the run journey below), `/methodology` (simulation section), `/settings`. |
+| Bangla interface | Partial | Navigation, workspace controls, location search, settings, landing hero and **the whole run journey** (replay, compare, why, explanations, plans, export, run panel, saved runs). Dates use month names and Bangla digits. Engine notes (gaps, assumptions, rejection details) stay English and are labelled. Record forms, evidence text and methodology are English (stated in Settings). |
+| **Simulation and rotation engine** | **Done (Phase 5; 1.1.0 in Phase 6)** | Engine `1.1.0` (1.0.0 in Phase 5), pure TypeScript in `src/domain/simulation`; method in `docs/scientific-methodology.md` (written first). FAO-56 Hargreaves ET0 (Eq. 52), single-coefficient Kc curve, daily Ch. 8 root-zone water balance with a conservation check; hard constraints before ranking; baseline from dated history; up to three crop-set-distinct alternatives; priority-weighted relative scores; contributions, priority ablation, sensitivity cases with a stable/fragile label; data-completeness counts; gaps, assumptions, review questions, references. Historical replay and the transformed scenario (rainfall %, temperature °C) are reported separately. |
 | Sourced parameters | **Done** | `crop-parameters` v1 (28 crops: FAO-56 Tables 11/12/22 checked against the FAO HTML; families from the USDA PLANTS API) and `usda-nass-usual-dates-2010` v1 (271 state × crop windows parsed from the committed NASS text), published as reference datasets and pinned by snapshots. No calendar outside the US except the farmer's own dates. |
+| **Interactive replay** | **Done (Phase 6)** | Engine 1.1.0 stores a day-by-day timeline per compared option (latest complete rotation-length window; same FAO-56 code path; display only). `/runs/[id]` → Replay: play/pause/reset, previous/next day, previous/next planting or harvest, speed (7–60 days/s), a scrubber with planting ▲ / harvest ▼ markers, and selected-date inspection. One canvas shows the existing practice and the two best alternatives side by side with a shared camera (one at a time on small screens, with a switcher; camera direction kept when the layout changes). Plant stage and height follow FAO-56 stage progress; soil shade follows root-zone depletion (legend); a dashed blue ring marks irrigation; falling drops mark recorded rain (illustrative, off with reduced motion). Playback moves an index into stored arrays, so speed, scrubbing and frame rate cannot change a number. Zones are selectable; the panel says the engine is whole-field. Text equivalents: the selected-date table (all options) and a monthly table. |
+| **Comparison and priorities** | **Done (Phase 6)** | Compare: options in rank order on common inputs (same years, soil value and indicator definitions), every indicator with unit and direction, scored / not scored / dropped, relative scores with "not probabilities", stability. Priority preview re-ranks the shown options with the engine's own `scoreOptions()` on the stored table (unsaved, with undo and "back to saved"); "Save these priorities and run again" is a separate explicit action. Results whose snapshot no longer equals the scenario's current inputs are marked out of date with "Run again with current inputs". |
+| **Explanations** | **Done (Phase 6)** | "Why this option?": rank and per-priority contributions, better/worse against the existing practice with units, planting dates with their source, evidence used (POWER years, soil value and source, crop-parameter dataset), what was ruled out, data gaps, questions for a local expert, and a glossary (ET, NDVI, soil moisture anomaly, water balance, Ks). A deterministic plain-language summary is always shown. Optional AI draft (Claude, server-side key, `claude-opus-5-5`, server-side refusal fallback on): the model receives only the run's structured result (no names, notes, coordinates or account data), must cite ids from a closed source list, and every statement is checked: unknown or missing sources and numbers not present in the result are removed; suggested actions are validated and only run on a click. Bounded: one request, 60 s timeout, one retry, 6 drafts per user per 10 min, cache by result hash. |
+| **Saved plans and export** | **Done (Phase 6)** | `saved_plans` (migration `20261102100000`): a chosen option of a finished run, pinned to the stored result hash by a trigger; only name and note can change; owner-only RLS. Plans are listed on `/runs` and the run page, editable and deletable; runs can be deleted (result and plans cascade). `/runs/[id]/export` downloads the stored snapshot, pinned datasets and evidence retrievals, the stored result with its hash, and plans, exactly as saved (no recalculation); "Print or save as PDF" prints the full details. |
+| Worker on the deployed site | **Done** | `.github/workflows/evidence-worker.yml` drains the queue every 10 minutes and on dispatch; with `GITHUB_DISPATCH_TOKEN` set, queueing evidence or a run dispatches it at once (`src/server/worker/dispatch.ts`). The download cache is kept between runs. The worker only claims runs of its own engine version. |
 | Runs and reproducibility | **Done** | `request_simulation` freezes inputs (reusing an unchanged snapshot) and queues one run. The worker builds the engine input only from pinned immutable rows, verifies their hashes, and stores the result in `simulation_results` with the input digest and compute time. "Re-run and compare" checks the result hash. Scenario settings v2 (calendar region, planting windows, turnaround, transformations); v1 rows upgrade in memory. |
+
+## Verified in Phase 6
+
+- Deterministic: `pnpm check` passes (lint, typecheck, 187 tests in 13 files). New tests: the timeline (window, placement, bare days carry no crop state, depletion bounds, missing-weather note), the trace equals the period balance it is drawn from, `scoreOptions()` reproduces the stored ranking and scores from the published table, result views (stage lookup, markers, monthly sums, differences, reasons), AI grounding (minimal context, closed sources, number check including Bangla digits, action validation) and deterministic formatting. Engine benchmark: 3-year rotation ≈ 130 ms; bounded 4-year, 8 crops ≈ 0.9 s, result ≈ 182 KB with the timeline.
+- Live database: `db:rehearse` and `db:migrate` applied `20261102100000_saved_plans.sql`; `pnpm db:verify` passes (25 tables, RLS everywhere, owner-scoped policies, generated types current); `pnpm test:db` 17/17, including saved plans (no plan before a result, hash and option must match the stored result, other user cannot read, attach, rename or delete, only name and note change, run deletion cascades).
+- Live trace `pnpm simulation:trace` 13/13 with engine 1.1.0 (identical re-run hash; −20 % rainfall 0.89 → 0.813).
+- Acceptance on the production build (`e2e6`, 58/58), with a **new user and a field drawn in the UI**:
+  - located by coordinates, drew and confirmed the boundary, recorded two dated seasons and priorities in the forms, fetched real POWER and SSURGO from the Evidence page through the worker;
+  - created and saved the scenario (Iowa calendar, turnaround, −20 % rainfall), ran it, replayed it (canvas, side by side, keyboard scrubbing, marker navigation, play, layout switch, monthly table), compared, previewed priorities with undo, saved priorities and re-ran (result then marked out of date), read "Why", the deterministic explanation, saved a plan and exported the run;
+  - expired session: the action answered "Your session has ended" with a sign-in link back to the run;
+  - **new session**: the plan is listed and the export carries the identical result hash; the page reopens;
+  - Bangla run page and Why view; 390 px: one option at a time, no horizontal overflow on Replay, Compare, Why and Save, Enter on Play starts playback;
+  - AI unavailable (server without a key: honest state, page complete) and AI provider failure (real call with an invalid key: "credentials were rejected"), deterministic text kept in both;
+  - incomplete data (field without evidence): Replay says why there is no timeline; gaps list missing weather and soil;
+  - second user: empty runs and plans, A's run is not found, A's export returns 404; no console errors.
+- No real AI draft was produced: `ANTHROPIC_API_KEY` is empty in `.env.local`, so the success path is verified only up to the request (grounding is unit-tested).
+- Screenshots inspected at 1440 and 390 px in English and Bangla. Throwaway users deleted.
+
+## Defects found and fixed in Phase 6
+
+- Bangla pages hydrated with an error: Node and Chrome format Bangla dates and numbers differently through Intl. Formatting is now written out (month names, Bangla digits) and identical on server and browser.
+- The replay layout read the screen width during server rendering (`noSsr`), a second hydration mismatch.
+- A server action from an expired session was redirected to the sign-in page by the proxy and failed; actions now answer "sign in again" in place with a return link.
+- Bare days showed "—" (insufficient evidence) in every column; they now say "Bare field: no crop on this day".
+- `<p>` contained a `<div>` chip in the workspace Inspect panel (hydration warning).
+- The mobile "inputs changed" alert squeezed its button into a narrow column; the button now sits under the text.
 
 ## Verified in Phase 5
 
@@ -169,7 +200,14 @@ Last updated: 2026-11-01, end of Phase 5 (prompt 5: transparent simulation and r
   - Calendars exist only for US states (NASS 2010); elsewhere they come only from the farmer's own dates.
   - Crops without FAO-56 stage lengths (rapeseed, chickpea) or without FAO-56 rows (mustard, jute, rye, cover crops) get partial indicators.
 - Evidence fetched before processing version 1.1.0 has no daily series; refresh it before running.
-- The 3D scene is not yet driven by run results.
+- Replay and comparison (Phase 6):
+  - The timeline shows the most recent complete rotation-length window only (not every replay year); the indicators still use all years.
+  - Plant heights and the soil shade are illustrative renderings of stored values, not observations; zones share the whole-field values.
+  - The priority preview re-orders only the options shown; new alternatives and sensitivity cases need "Save these priorities and run again".
+  - Runs from engine 1.0.0 have no timeline or indicator definitions; their pages say so and can be re-run.
+  - AI drafts need `ANTHROPIC_API_KEY` on the server; none is configured in this environment. The rate limit and cache are per server instance.
+  - Engine notes (gaps, assumptions, rejection details, review questions) are English in the Bangla interface.
+  - No seeded example access was added (optional in the brief).
 
 - The first MODIS retrieval for a new location takes about 18 minutes (124 sequential ORNL requests at ≈ 9 s); repeats are cached. The worker must be running (`pnpm evidence:worker`); the UI warns when queued jobs are not picked up.
 - SSURGO's service has a nightly maintenance window (seen as a non-JSON page); jobs report it as unavailable and retry.

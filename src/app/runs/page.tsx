@@ -9,9 +9,10 @@ import { Empty, PageHeader, Section } from "@/components/farm/ui";
 import { ButtonLink, TextLink } from "@/components/links";
 import { SetupRequired } from "@/components/SetupRequired";
 import { RUN_STATUS } from "@/components/simulation/status";
+import { getT } from "@/lib/i18n/server";
 import { requireUser } from "@/server/auth/session";
 import { listScenarios, SchemaMissingError } from "@/server/farm/queries";
-import { listAllRuns } from "@/server/simulation/queries";
+import { listAllRuns, listPlans } from "@/server/simulation/queries";
 import { color, numeric, radius } from "@/theme/tokens";
 
 export const metadata: Metadata = { title: "Saved runs" };
@@ -21,20 +22,47 @@ export default async function RunsPage() {
   if (user.state !== "signed_in") return <SetupRequired feature="Saved runs" reason={user.state} />;
   let scenarios: Awaited<ReturnType<typeof listScenarios>>;
   let runs: Awaited<ReturnType<typeof listAllRuns>> = [];
+  let plans: Awaited<ReturnType<typeof listPlans>> = [];
   try {
     scenarios = await listScenarios(user.supabase);
     runs = await listAllRuns(user.supabase);
+    plans = await listPlans(user.supabase);
   } catch (e) {
     if (e instanceof SchemaMissingError) return <SetupRequired feature="Saved runs" reason="unconfigured" />;
     throw e;
   }
+  const t = await getT();
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
-      <PageHeader crumbs={[]} title="Saved runs">
+      <PageHeader crumbs={[]} title={t("nav.runs")}>
         <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
           A run pins a scenario&apos;s frozen inputs, the evidence it used and the engine version, so reopening it shows exactly the stored result, and a re-run reproduces it.
         </Typography>
       </PageHeader>
+      <Section title={t("sim.plan.all")} intro={t("sim.plan.allIntro")}>
+        {plans.length === 0 ? (
+          <Empty>{t("sim.plan.noneAll")}</Empty>
+        ) : (
+          <Box component="ul" aria-label="Plans" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>
+            {plans.map((p) => (
+              <Box component="li" key={p.id} sx={{ p: 1.5, borderRadius: `${radius.md}px`, border: `1px solid ${color.line}`, bgcolor: color.surface }}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ alignItems: { sm: "center" }, justifyContent: "space-between" }}>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography sx={{ fontWeight: 700, overflowWrap: "anywhere" }}>{p.name}</Typography>
+                    <Typography variant="body2" color="text.secondary" sx={numeric}>
+                      {p.scenarioName} · {p.fieldName} · {t(`sim.run.${p.runKind}`)} · {p.createdAt.slice(0, 10)}
+                    </Typography>
+                  </Box>
+                  <Stack direction="row" spacing={2}>
+                    <TextLink href={`/runs/${p.runId}`}>{t("sim.open")}</TextLink>
+                    <TextLink href={`/runs/${p.runId}/export`}>JSON</TextLink>
+                  </Stack>
+                </Stack>
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Section>
       <Section title="Runs" intro="Newest first. Results are relative comparisons on past weather, not forecasts.">
         {runs.length === 0 ? (
           <Empty>No runs yet. Open a scenario and choose “Run simulation”.</Empty>
@@ -46,13 +74,13 @@ export default async function RunsPage() {
                 <Box component="li" key={r.id} sx={{ p: 1.5, borderRadius: `${radius.md}px`, border: `1px solid ${color.line}`, bgcolor: color.surface }}>
                   <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ alignItems: { sm: "center" }, justifyContent: "space-between" }}>
                     <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}>
-                      <Chip size="small" label={st.label} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
+                      <Chip size="small" label={t(`sim.status.${r.status}`)} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
                       <Typography variant="body2" sx={numeric}>
                         {r.scenarioName || "Scenario"} · {r.fieldName} · {r.queuedAt.slice(0, 16).replace("T", " ")} UTC · engine {r.engineVersion}
                       </Typography>
                     </Stack>
                     <Stack direction="row" spacing={2}>
-                      {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>Open result</TextLink>}
+                      {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>{t("sim.open")}</TextLink>}
                       {r.scenarioId && <TextLink href={`/scenarios/${r.scenarioId}`}>Scenario</TextLink>}
                     </Stack>
                   </Stack>

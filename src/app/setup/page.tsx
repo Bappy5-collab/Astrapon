@@ -48,7 +48,7 @@ export default async function SetupPage() {
       enables: ENABLES[k],
       implemented:
         k === "aiExplanations"
-          ? "Not built (Phase 6)."
+          ? "Phase 6: optional AI draft of a run explanation (claude-opus-5-5). Receives only the stored result; output is checked against its sources and numbers. Server-only key."
           : k === "workerDispatch"
             ? "Server-only token (GitHub fine-grained, Actions read and write on this repository). Used after queueing; never sent to the browser."
           : k === "nasaEarthdata" || k === "openTopography"

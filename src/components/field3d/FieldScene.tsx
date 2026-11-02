@@ -34,8 +34,8 @@ export type FieldSceneProps = {
   cameraHome?: [number, number, number];
 };
 
-const BUDGET: Record<QualityPreset, number> = { low: 2500, balanced: 8000, high: 18000 };
-const SLAB = 0.5;
+export const BUDGET: Record<QualityPreset, number> = { low: 2500, balanced: 8000, high: 18000 };
+export const SLAB = 0.5;
 const CAMERA_HOME = new THREE.Vector3(62, 74, 96);
 
 function shapeFrom(p: LocalPolygon): THREE.Shape {
@@ -47,14 +47,14 @@ function shapeFrom(p: LocalPolygon): THREE.Shape {
 const ringPoints = (ring: [number, number][], y: number): [number, number, number][] => [...ring, ring[0]!].map(([x, n]) => [x, y, -n]);
 
 /** Disposes a geometry/texture created outside JSX when it is replaced or unmounted. */
-function useDisposable<T extends { dispose: () => void } | null>(value: T): T {
+export function useDisposable<T extends { dispose: () => void } | null>(value: T): T {
   useEffect(() => () => value?.dispose(), [value]);
   return value;
 }
 
 // ------------------------------------------------------------------ ground ---
 
-function Ground() {
+export function Ground() {
   return (
     <mesh rotation-x={-Math.PI / 2} position-y={-0.02} receiveShadow>
       <circleGeometry args={[SCENE_SIZE * 6, 64]} />
@@ -63,7 +63,8 @@ function Ground() {
   );
 }
 
-function FieldSlab({ polygons, bearing, rowPeriod }: { polygons: LocalPolygon[]; bearing: number; rowPeriod: number }) {
+/** `tint` multiplies the furrow texture (the replay shades soil by root-zone water). */
+export function FieldSlab({ polygons, bearing, rowPeriod, tint }: { polygons: LocalPolygon[]; bearing: number; rowPeriod: number; tint?: string }) {
   const geometry = useDisposable(useMemo(() => {
     const g = new THREE.ExtrudeGeometry(polygons.map(shapeFrom), { depth: SLAB, bevelEnabled: false, curveSegments: 1 });
     g.rotateX(-Math.PI / 2);
@@ -79,13 +80,13 @@ function FieldSlab({ polygons, bearing, rowPeriod }: { polygons: LocalPolygon[];
   }, [bearing, rowPeriod]));
   return (
     <mesh geometry={geometry} receiveShadow>
-      <meshStandardMaterial attach="material-0" map={texture ?? undefined} color={texture ? "#FFFFFF" : tokens.soil} roughness={0.95} />
+      <meshStandardMaterial attach="material-0" map={texture ?? undefined} color={tint ?? (texture ? "#FFFFFF" : tokens.soil)} roughness={0.95} />
       <meshStandardMaterial attach="material-1" color="#4E3A27" roughness={1} />
     </mesh>
   );
 }
 
-function Canopy({
+export function Canopy({
   polygons,
   crop,
   stage,
@@ -147,7 +148,7 @@ function Canopy({
   );
 }
 
-function Outline({ polygons, y, color, width, dashed = false }: { polygons: LocalPolygon[]; y: number; color: string; width: number; dashed?: boolean }) {
+export function Outline({ polygons, y, color, width, dashed = false }: { polygons: LocalPolygon[]; y: number; color: string; width: number; dashed?: boolean }) {
   return (
     <>
       {polygons.flatMap((p, i) =>
@@ -160,7 +161,7 @@ function Outline({ polygons, y, color, width, dashed = false }: { polygons: Loca
 }
 
 /** Translucent ribbon standing on the edges of the selected region, so selection reads from any angle. */
-function SelectionWall({ polygons, y }: { polygons: LocalPolygon[]; y: number }) {
+export function SelectionWall({ polygons, y }: { polygons: LocalPolygon[]; y: number }) {
   const geometry = useDisposable(
     useMemo(() => {
       const pos: number[] = [];
@@ -199,10 +200,10 @@ function SelectionWall({ polygons, y }: { polygons: LocalPolygon[]; y: number })
 
 // ------------------------------------------------------------------ plants ---
 
-function PlantInstances({ form, stage, placements, shadows }: { form: CropForm; stage: GrowthStage; placements: Placement[]; shadows: boolean }) {
+function PlantInstances({ form, stage, placements, shadows, height: heightOverride, offsetX = 0 }: { form: CropForm; stage: GrowthStage; placements: Placement[]; shadows: boolean; height?: number; offsetX?: number }) {
   const geometry = useDisposable(useMemo(() => buildPlantGeometry(form, stage), [form, stage]));
   const ref = useRef<THREE.InstancedMesh>(null);
-  const height = plantScale(form, stage);
+  const height = heightOverride ?? plantScale(form, stage);
 
   useLayoutEffect(() => {
     const mesh = ref.current;
@@ -216,13 +217,13 @@ function PlantInstances({ form, stage, placements, shadows }: { form: CropForm; 
     placements.forEach((pl, i) => {
       const h = height * pl.jitter;
       const w = Math.max(0.6, Math.min(1.4, h)) * (form === "tall_row" || form === "fibre" ? 0.9 : 1.15);
-      mesh.setMatrixAt(i, m.compose(p.set(pl.x, SLAB, pl.z), q.setFromEuler(e.set(0, pl.yaw, 0)), s.set(w, h, w)));
+      mesh.setMatrixAt(i, m.compose(p.set(pl.x + offsetX, SLAB, pl.z), q.setFromEuler(e.set(0, pl.yaw, 0)), s.set(w, h, w)));
       mesh.setColorAt(i, c.setScalar(0.88 + (pl.jitter - 0.85) * 0.6));
     });
     mesh.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     mesh.computeBoundingSphere();
-  }, [placements, height, form]);
+  }, [placements, height, form, offsetX]);
 
   if (!geometry || placements.length === 0 || height === 0) return null;
   return (
@@ -232,8 +233,9 @@ function PlantInstances({ form, stage, placements, shadows }: { form: CropForm; 
   );
 }
 
-function Plants({ data, crops, stage, quality }: { data: SceneData; crops: Record<string, RegionCrop>; stage: GrowthStage; quality: QualityPreset }) {
-  const placements = useMemo(() => plantPlacements(data, BUDGET[quality]), [data, quality]);
+/** `height` overrides the stage height (replay: FAO-56 stage progress); `offsetX` places a copy of the field (side-by-side comparison). */
+export function Plants({ data, crops, stage, quality, height, offsetX, budget }: { data: SceneData; crops: Record<string, RegionCrop>; stage: GrowthStage; quality: QualityPreset; height?: number; offsetX?: number; budget?: number }) {
+  const placements = useMemo(() => plantPlacements(data, budget ?? BUDGET[quality]), [data, quality, budget]);
   const byForm = useMemo(() => {
     const out = new Map<CropForm, Placement[]>();
     for (const [key, list] of placements) {
@@ -246,7 +248,7 @@ function Plants({ data, crops, stage, quality }: { data: SceneData; crops: Recor
   return (
     <>
       {[...byForm].map(([form, list]) => (
-        <PlantInstances key={`${form}-${stage}-${list.length}`} form={form} stage={stage} placements={list} shadows={quality === "high"} />
+        <PlantInstances key={`${form}-${stage}-${list.length}`} form={form} stage={stage} placements={list} shadows={quality === "high"} height={height} offsetX={offsetX} />
       ))}
     </>
   );
@@ -254,7 +256,7 @@ function Plants({ data, crops, stage, quality }: { data: SceneData; crops: Recor
 
 // ------------------------------------------------------------------ camera ---
 
-function CameraRig({ command, onAzimuth, autoRotate, interactive, home }: { command: CameraCommand | null; onAzimuth: (r: number) => void; autoRotate: boolean; interactive: boolean; home: THREE.Vector3 }) {
+export function CameraRig({ command, onAzimuth, autoRotate, interactive, home, maxDistance = 320 }: { command: CameraCommand | null; onAzimuth: (r: number) => void; autoRotate: boolean; interactive: boolean; home: THREE.Vector3; maxDistance?: number }) {
   const controls = useRef<ComponentRef<typeof OrbitControls>>(null);
   const { camera, invalidate } = useThree();
   const last = useRef(Number.NaN);
@@ -308,7 +310,7 @@ function CameraRig({ command, onAzimuth, autoRotate, interactive, home }: { comm
       enableDamping
       dampingFactor={0.1}
       minDistance={18}
-      maxDistance={320}
+      maxDistance={maxDistance}
       maxPolarAngle={Math.PI / 2.15}
       screenSpacePanning={false}
       target={[0, 0, 0]}

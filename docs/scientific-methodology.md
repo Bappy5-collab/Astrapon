@@ -1,6 +1,6 @@
 # Scientific methodology: simulation and rotation engine
 
-Engine version **1.0.0** (`src/domain/simulation/version.ts`). This document is the contract for the engine. Any change to a rule, equation or parameter here requires a new engine version. Saved runs keep the version they were computed with.
+Engine version **1.1.0** (`src/domain/simulation/engine-version.ts`). This document is the contract for the engine. Any change to a rule, equation or parameter here requires a new engine version. Saved runs keep the version they were computed with.
 
 ## 1. Purpose and scope
 
@@ -12,7 +12,7 @@ It compares the **existing practice** (from the farmer's dated crop history) wit
 
 **It does not predict** yield, profit, income, prices, soil carbon, nutrient balance, fertiliser savings, infiltration, erosion, pest or disease outcomes. Those quantities are never produced. Ranking scores are **relative scores among the options shown**. They are not probabilities, and they are not predictions of outcomes.
 
-**Spatial unit.** The whole field. Zone-specific history is listed as a gap; zone-level rotations are not computed in v1.0.0.
+**Spatial unit.** The whole field. Zone-specific history is listed as a gap; zone-level rotations are not computed in v1.1.0.
 
 **Time unit.** Daily steps, using calendar days. Results do not depend on the 3D frame rate: the engine has no rendering dependency.
 
@@ -270,6 +270,8 @@ The six farmer priorities (0–5) map to indicator groups:
 - Each indicator is min–max normalised to 0–1 across the strategies being compared, so that 1 is better. If all values are equal, it gets 0.5.
 - Group score = mean of its available indicators. Score = Σ w·group / Σ w over groups with data.
 - Indicators that are insufficient for any compared strategy are dropped for all, so that strategies are compared on common inputs. They are listed as gaps.
+- (1.1.0) Indicators are rounded before they are scored, exactly as they are displayed: ratios and shares to 0.001, everything else to 0.1. The score is therefore a function of the published indicator table, and `scoreOptions()` reproduces the stored ranking from it (tested). Each run publishes its indicator definitions (key, priority group, direction, unit, scored or not).
+- (1.1.0) The comparison page may *preview* other priority weights by calling the same `scoreOptions()` on the stored base-case table. A preview re-orders only the options already shown; it does not re-select alternatives or re-run the sensitivity cases, and it is labelled as unsaved. Saving the weights and running again is a separate, explicit action.
 
 **Explanation.** The result shows each group's contribution to each strategy's score, and the rank order with each priority set to 0 in turn (priority ablation). That identifies which priorities changed the ranking.
 
@@ -320,6 +322,17 @@ It is never converted to a percentage labelled confidence.
 - The worker builds a canonical engine input from these and records its SHA-256 in the result.
 - The engine is pure: no clock, no randomness, no I/O. The same input and engine version give byte-identical output. This is tested, and the "Re-run and compare" action checks it against the stored `result_sha256`.
 - Results are stored in `simulation_results`, which cannot be updated, together with the engine version, the snapshot id and the input digest.
+
+## 9a. Day-by-day timeline (added in 1.1.0)
+
+Each run also publishes a timeline for the strategies it compares. It is display data for the 3D replay and the selected-date tables; it never feeds the ranking.
+
+- **Window:** the most recent run of rotation-length calendar years inside the replay period in which every day has Tmax, Tmin and precipitation. If none exists, there is no timeline and the result says why.
+- **Placement:** each planting's cycle-year offset is placed in those real years. The previous and next repetition of the cycle are also placed where they overlap the window, so a crop that crosses the cycle boundary is shown on both ends.
+- **State:** each placed planting is run through the same FAO-56 code path as the indicators (§6.3–6.4; base case, starting at field capacity). The daily Kc, ETc, root depth, root-zone depletion (Dr/TAW), Ks, ETa, irrigation and drainage are stored. When soil water capacity is unknown, or the crop is potential-only, only Kc and ETc are stored.
+- **Weather:** the window's daily precipitation, Tmax, Tmin and ET0, after any scenario transformation, are stored with the timeline.
+- **Rounding:** Kc, root depth and Ks to 0.01; depletion to 0.001; water quantities to 0.1 mm.
+- The 3D growth stage is derived from the FAO-56 stage lengths (initial, development, mid-season, late season); plant height is illustrative.
 
 ## 10. Computation bounds
 

@@ -368,5 +368,36 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
     expect((await admin.from("evidence_daily_series").update({ values: [9] }).eq("retrieval_id", ret.data!.id)).error).not.toBeNull();
     expect((await A.db.from("evidence_retrievals").delete().eq("id", ret.data!.id)).error).toBeNull();
   });
+
+  it("saved plans are pinned to the stored result, owner-only, and keep their option", async () => {
+    const r = await A.db.rpc("request_simulation", { p_scenario_id: a.scenario, p_engine_version: "1.1.0" });
+    expect(r.error).toBeNull();
+    const runId = r.data!;
+    // Before a result exists, nothing can be saved.
+    expect((await A.db.from("saved_plans").insert({ run_id: runId, run_kind: "historical_replay", strategy_id: "baseline", name: "Too early", result_sha256: "0".repeat(64) })).error).not.toBeNull();
+    expect((await admin.from("simulation_runs").update({ status: "running", started_at: new Date().toISOString() }).eq("id", runId)).error).toBeNull();
+    expect((await admin.from("simulation_runs").update({ status: "succeeded", finished_at: new Date().toISOString() }).eq("id", runId)).error).toBeNull();
+    const result = { runs: [{ kind: "historical_replay", baseline: { id: "baseline" }, alternatives: [{ id: "alternative-1" }] }] };
+    expect((await admin.from("simulation_results").insert({ run_id: runId, owner_id: A.id, engine_version: "1.1.0", result })).error).toBeNull();
+    const hash = (await A.db.from("simulation_results").select("result_sha256").eq("run_id", runId).single()).data!.result_sha256;
+    const plan = { run_id: runId, run_kind: "historical_replay", strategy_id: "alternative-1", name: "My plan", result_sha256: hash };
+    expect((await A.db.from("saved_plans").insert({ ...plan, result_sha256: "f".repeat(64) })).error).not.toBeNull();
+    expect((await A.db.from("saved_plans").insert({ ...plan, strategy_id: "alternative-2" })).error).not.toBeNull();
+    expect((await A.db.from("saved_plans").insert({ ...plan, run_kind: "scenario" })).error).not.toBeNull();
+    const saved = await A.db.from("saved_plans").insert(plan).select("id").single();
+    expect(saved.error).toBeNull();
+    // The other user can neither see it nor attach a plan to this run.
+    expect((await B.db.from("saved_plans").select("id").eq("id", saved.data!.id)).data).toEqual([]);
+    expect((await B.db.from("saved_plans").insert({ ...plan, name: "Not mine" })).error).not.toBeNull();
+    expect((await B.db.from("saved_plans").update({ name: "x" }).eq("id", saved.data!.id).select("id")).data).toEqual([]);
+    // Only the name and note can change; the option stays the one saved.
+    expect((await A.db.from("saved_plans").update({ name: "Renamed", note: "ok" }).eq("id", saved.data!.id)).error).toBeNull();
+    expect((await A.db.from("saved_plans").update({ strategy_id: "baseline" } as never).eq("id", saved.data!.id)).error).not.toBeNull();
+    expect((await B.db.from("saved_plans").delete().eq("id", saved.data!.id).select("id")).data).toEqual([]);
+    expect((await A.db.from("saved_plans").delete().eq("id", saved.data!.id)).error).toBeNull();
+    // Deleting the run removes its stored result with it.
+    expect((await A.db.from("simulation_runs").delete().eq("id", runId)).error).toBeNull();
+    expect((await admin.from("simulation_results").select("run_id").eq("run_id", runId)).data).toEqual([]);
+  });
 });
 
