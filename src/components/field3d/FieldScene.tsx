@@ -149,13 +149,14 @@ export function Canopy({
 }
 
 export function Outline({ polygons, y, color, width, dashed = false }: { polygons: LocalPolygon[]; y: number; color: string; width: number; dashed?: boolean }) {
+  // Stable point arrays: drei's Line rebuilds its geometry whenever `points` changes identity,
+  // which during the replay would happen on every day step.
+  const rings = useMemo(() => polygons.flatMap((p, i) => [p.outer, ...p.holes].map((ring, j) => ({ key: `${i}-${j}`, points: ringPoints(ring as [number, number][], y) }))), [polygons, y]);
   return (
     <>
-      {polygons.flatMap((p, i) =>
-        [p.outer, ...p.holes].map((ring, j) => (
-          <Line key={`${i}-${j}`} points={ringPoints(ring as [number, number][], y)} color={color} lineWidth={width} dashed={dashed} dashSize={1.2} gapSize={0.8} />
-        )),
-      )}
+      {rings.map((r) => (
+        <Line key={r.key} points={r.points} color={color} lineWidth={width} dashed={dashed} dashSize={1.2} gapSize={0.8} />
+      ))}
     </>
   );
 }
@@ -258,8 +259,22 @@ export function Plants({ data, crops, stage, quality, height, offsetX, budget }:
 
 export function CameraRig({ command, onAzimuth, autoRotate, interactive, home, maxDistance = 320 }: { command: CameraCommand | null; onAzimuth: (r: number) => void; autoRotate: boolean; interactive: boolean; home: THREE.Vector3; maxDistance?: number }) {
   const controls = useRef<ComponentRef<typeof OrbitControls>>(null);
-  const { camera, invalidate } = useThree();
+  const { camera, invalidate, size } = useThree();
   const last = useRef(Number.NaN);
+  // Portrait canvases see less width at the same distance; move back so the whole field fits.
+  const aspect = size.width / Math.max(1, size.height);
+  const fitted = useMemo(() => home.clone().multiplyScalar(Math.max(1, 1.9 / aspect)), [home, aspect]);
+
+  // Keep the viewing direction, refit the distance when the canvas shape or the home changes.
+  useEffect(() => {
+    const c = controls.current;
+    if (!c) return;
+    const dir = camera.position.clone().sub(c.target);
+    if (dir.lengthSq() === 0) dir.copy(fitted);
+    camera.position.copy(c.target).add(dir.setLength(fitted.length()));
+    c.update();
+    invalidate();
+  }, [fitted, camera, invalidate]);
 
   useEffect(() => {
     const c = controls.current;
@@ -268,7 +283,7 @@ export function CameraRig({ command, onAzimuth, autoRotate, interactive, home, m
     switch (command.kind) {
       case "reset":
         c.target.set(0, 0, 0);
-        camera.position.copy(home);
+        camera.position.copy(fitted);
         break;
       case "top":
         c.target.set(0, 0, 0);
@@ -288,7 +303,7 @@ export function CameraRig({ command, onAzimuth, autoRotate, interactive, home, m
     }
     c.update();
     invalidate();
-  }, [command, camera, invalidate, home]);
+  }, [command, camera, invalidate, fitted]);
 
   useFrame(() => {
     const c = controls.current;

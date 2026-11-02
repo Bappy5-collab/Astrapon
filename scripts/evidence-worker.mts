@@ -22,7 +22,7 @@ import type postgres from "postgres";
 
 import type { PipelineSource } from "../src/domain/evidence/catalog";
 import { RUNNERS } from "../src/server/pipeline/run";
-import { PipelineError, pipelineErrorKind, type PipelineOutput } from "../src/server/pipeline/types";
+import { PipelineError, pipelineErrorKind, type PipelineOutput, userSafeMessage } from "../src/server/pipeline/types";
 import { connect, runMain } from "./db/connect.mts";
 import { claimRun, processRun } from "./simulation-runner.mts";
 
@@ -113,7 +113,7 @@ async function store(sql: postgres.Sql, job: Job, out: PipelineOutput): Promise<
 
 async function fail(sql: postgres.Sql, job: Job, e: unknown) {
   const kind = pipelineErrorKind(e);
-  const message = (e instanceof Error ? e.message : String(e)).slice(0, 1000);
+  const message = userSafeMessage(e instanceof Error ? e.message : String(e));
   const retry = (kind === "unavailable" || kind === "internal") && job.attempts < job.max_attempts;
   if (retry) {
     await sql`update public.evidence_jobs set status = 'queued', lease_until = null, error_kind = ${kind}, error_message = ${message},

@@ -68,3 +68,10 @@ export function pipelineErrorKind(e: unknown): "unavailable" | "invalid" | "not_
   const k = (e as { name?: string; kind?: string } | null)?.kind;
   return (e as { name?: string } | null)?.name === "PipelineError" && (k === "unavailable" || k === "invalid" || k === "not_applicable") ? k : "internal";
 }
+
+/** Job messages are shown to the farmer: no markup from provider error pages, bounded length. */
+export function userSafeMessage(message: string): string {
+  const cut = message.search(/<[!?a-zA-Z]/);
+  const text = (cut >= 0 ? `${message.slice(0, cut).trimEnd()} (provider error page omitted)` : message).replace(/\s+/g, " ").trim();
+  return text.length > 400 ? `${text.slice(0, 399)}…` : text;
+}

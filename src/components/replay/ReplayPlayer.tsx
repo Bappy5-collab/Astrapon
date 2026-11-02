@@ -26,7 +26,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 
 import { SceneShell } from "@/components/field3d/FieldViewport";
 import { buildSceneData, FIELD_KEY } from "@/components/field3d/model";
@@ -84,10 +84,13 @@ export function ReplayPlayer({
   // Default (SSR-safe) mode: the first client render matches the server, then the real width applies.
   const wide = useMediaQuery("(min-width: 900px)");
   const days = timeline.days;
+  // Open on a day when the first option shown (usually the existing practice) has a crop in the
+  // ground, a few weeks after its first planting in the window, so the scene is not empty.
   const [day, setDay] = useState(() => {
-    const first = timeline.strategies
-      .flatMap((s) => s.plantings.map((p) => p.start))
-      .filter((d) => d >= 0 && d < days);
+    const lead = timeline.strategies.find((x) => x.id === options[0]?.id) ?? timeline.strategies[0];
+    const p = lead?.plantings.find((x) => x.start >= 0 && x.start < days);
+    if (p) return Math.min(days - 1, p.start + Math.min(60, Math.floor((p.end - p.start) / 2)));
+    const first = timeline.strategies.flatMap((x) => x.plantings.map((q) => q.start)).filter((d) => d >= 0 && d < days);
     return first.length ? Math.min(...first) : 0;
   });
   const [playing, setPlaying] = useState(false);
@@ -184,7 +187,11 @@ export function ReplayPlayer({
       irrigated: (s.irrigation[day] ?? 0) > 0,
     };
   });
+  // The scene follows `day` at once; the text tables may lag a frame behind on slow devices.
+  const tableDay = useDeferredValue(day);
   const date = dateOf(timeline, day);
+  const tableDate = dateOf(timeline, tableDay);
+  const onPick = useCallback((panelId: string, key: string) => setSelected({ panelId, key }), []);
   const rain = timeline.weather.precip[day] ?? null;
   const zoneName = (key: string) =>
     geometry?.zones.find((z) => z.id === key)?.name ?? key;
@@ -294,7 +301,7 @@ export function ReplayPlayer({
                 panels={panels}
                 rainMm={rain}
                 selected={selected}
-                onSelect={(panelId, key) => setSelected({ panelId, key })}
+                onSelect={onPick}
                 animateWeather={!reduced}
                 {...c}
               />
@@ -503,13 +510,13 @@ export function ReplayPlayer({
       {/* Selected-date inspection: the text equivalent of the scene. */}
       <Box component="section" aria-labelledby="day-h" sx={{ mt: 2.5 }}>
         <Typography id="day-h" variant="h6" component="h3" sx={{ mb: 1 }}>
-          {fmt(t("sim.day.title"), { date: f.date(date) })}
+          {fmt(t("sim.day.title"), { date: f.date(tableDate) })}
         </Typography>
         <Typography variant="body2" sx={{ mb: 1, ...numeric }}>
-          {t("sim.day.weather")}: {t("sim.col.rain")} {f.num(rain)} mm ·{" "}
-          {t("sim.col.tmax")} {f.num(timeline.weather.tmax[day])} °C ·{" "}
-          {t("sim.col.tmin")} {f.num(timeline.weather.tmin[day])} °C ·{" "}
-          {t("sim.col.et0")} {f.num(timeline.weather.et0[day])} mm
+          {t("sim.day.weather")}: {t("sim.col.rain")} {f.num(timeline.weather.precip[tableDay] ?? null)} mm ·{" "}
+          {t("sim.col.tmax")} {f.num(timeline.weather.tmax[tableDay])} °C ·{" "}
+          {t("sim.col.tmin")} {f.num(timeline.weather.tmin[tableDay])} °C ·{" "}
+          {t("sim.col.et0")} {f.num(timeline.weather.et0[tableDay])} mm
         </Typography>
         <Box
           sx={{
@@ -541,7 +548,7 @@ export function ReplayPlayer({
               {options.map((o) => {
                 const s = byId.get(o.id);
                 if (!s) return null;
-                const v = dayValues(timeline, s, day);
+                const v = dayValues(timeline, s, tableDay);
                 const on = panelIds.includes(o.id);
                 return (
                   <TableRow

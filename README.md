@@ -1,71 +1,96 @@
 # Astrapon
 
-Astrapon helps farmers and agronomists compare crop rotation options for a specific field. The comparison draws on environmental evidence, soil and crop history, water limits, and the farmer's priorities. It explains the tradeoffs to review locally. The main workspace is an interactive 3D farm simulator.
+Astrapon helps a farmer or agronomist answer one question for a specific field:
 
-> **Status: Phase 4 (evidence pipeline).** On top of the 3D field workspace, a saved field can fetch NASA POWER weather (1981 onwards), MODIS greenness and US soil survey data through a background worker, with indicators, an evidence inspector and data-footprint maps. Run `pnpm evidence:worker` beside `pnpm dev`.
->
-> **Phase 3 (3D field workspace).**
->
-> - Find a place by search, coordinates or device location.
-> - Draw the field boundary on a street map or NASA HLS imagery.
-> - Add planting zones and assign crops by season.
-> - Inspect the field in an illustrative 3D view.
->
-> Changes are saved together after a confirmation. A public sample works without an account. There is no rotation model yet, so no results are shown. See `docs/implementation-status.md` and `docs/design-system.md`.
+> Given my field, crop history, environmental evidence, water limits and priorities, which rotation options are plausible, and what tradeoffs should I review locally?
+
+You draw your own field, record what you grew, fetch NASA and soil evidence for it, and compare your existing rotation with feasible alternatives on replayed past weather. An interactive 3D view replays each option day by day; every number in it is also in a table. Results are relative comparisons on past weather — **not forecasts**, and no yield, profit or soil outcome is predicted.
+
+Built for the 2026 NASA Space Apps Challenge "Field Shift: Adapting Farms with NASA Data". Astrapon uses publicly available NASA data products; it is not affiliated with or endorsed by NASA.
+
+## What works
+
+- Accounts (email/password with confirmation and reset), farms, fields and private records (Supabase, row-level security).
+- Locate a field by place search, coordinates or device location; draw and edit the boundary on a street map or NASA HLS imagery; planting zones; crop history; soil observations; water and equipment; priorities.
+- Evidence per field through a background worker: NASA POWER daily weather (1981 onwards), MODIS MOD13Q1 greenness (2000 onwards), USDA SSURGO soil water capacity (US). Indicators with an inspector (source, version, period, resolution, completeness, limits).
+- A deterministic, versioned rotation engine (FAO-56 water balance, hard constraints, priority-weighted relative scores, sensitivity cases) — `docs/scientific-methodology.md`.
+- The run page: 3D replay with a timeline, side-by-side comparison, unsaved priority preview, "Why this option?", deterministic explanation, optional source-grounded AI draft, saved plans, JSON export and print.
+- English and Bangla for the interface and the run journey. A public sample field with invented data (`/sample`).
+
+What it does not do is listed honestly in `docs/implementation-status.md` (Known limitations) and on `/methodology`.
 
 ## Requirements
 
-- Node.js ≥ 22.12 (developed on 22.17.1)
-- pnpm 12 (`npm i -g pnpm@12`, or `corepack enable`)
+- Node.js ≥ 22.12 (developed on 22.17.1) and pnpm 12 (`corepack enable` or `npm i -g pnpm@12`).
+- A **new, dedicated** Supabase project for development (PostGIS is enabled by the migrations). Never reuse another app's project.
 
-## Run it
+## Set up
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:3000
+cp .env.example .env.local   # fill in values; every variable is optional and documented
 ```
 
-Production build:
+Database (development project; see `supabase/README.md`):
 
 ```bash
-pnpm build
-pnpm start
+pnpm db:status            # read-only: compare remote history with local migrations
+pnpm db:rehearse          # apply pending migrations in a transaction and roll back
+pnpm db:migrate           # apply them
+pnpm db:import-reference  # sourced reference datasets (crop parameters, NASS calendar, citations)
+pnpm db:verify            # schema, RLS, grants, generated types → data/verification/supabase-schema.json
 ```
 
-Checks:
+In Supabase → Authentication → URL Configuration set the Site URL (`http://localhost:3000` locally) and allow `http://localhost:3000/**` plus your deployed URL with `/**` as redirect URLs.
+
+## Run
 
 ```bash
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm check          # all three
-pnpm verify:sources # live provider checks; writes data/verification/*.json
-pnpm db:status      # database scripts: see supabase/README.md
-pnpm test:db        # live two-user isolation tests against the dev project
-pnpm evidence:worker # background worker that downloads and processes evidence (needs SUPABASE_DB_URL)
-pnpm evidence:trace  # live end-to-end evidence trace (creates and deletes a throwaway user)
-pnpm simulation:trace # live end-to-end simulation trace: real POWER + SSURGO → run → identical re-run
+pnpm dev               # http://localhost:3000
+pnpm evidence:worker   # second terminal: downloads evidence and computes runs
 ```
 
-## Configuration
+Open `/setup` to see which services are configured (values are never shown).
 
-The app runs with **no credentials**. To enable services:
+## Test
 
-1. Create a **new, dedicated** Supabase project for Astrapon development. Do not reuse another app's project.
-2. Run `cp .env.example .env.local` and fill in the values. See the comments in the file.
-3. Add `SUPABASE_DB_URL` (session pooler URI with your database password) for the database scripts, then run `pnpm db:migrate`, `pnpm db:import-reference` and `pnpm db:verify`.
-4. In Supabase → Authentication → URL Configuration, set the Site URL to your app URL (`http://localhost:3000` locally) and allow `http://localhost:3000/**` (and your deployed URL with `/**`) as redirect URLs. Set `NEXT_PUBLIC_SITE_URL` on the deployment so email links use it.
-5. Restart `pnpm dev` and open `/setup` to confirm each service shows **Configured**. The page never displays values.
+| Command | What it checks | Needs |
+|---|---|---|
+| `pnpm check` | lint (incl. module boundaries), typecheck, unit tests (engine, evidence, geometry, grounding, formatting) | nothing |
+| `pnpm build` | production build | nothing |
+| `pnpm test:db` | two-user isolation and immutability against the dev project | Supabase secret key |
+| `pnpm verify:sources` | live provider smoke tests → `data/verification/*.json` | network |
+| `pnpm evidence:trace` | raw provider response → stored evidence → snapshot pin | network, dev project |
+| `pnpm simulation:trace` | real POWER + SSURGO → run → identical re-run | network, dev project |
+| `pnpm global:cases` | three live cases (Iowa, Bangladesh, Australia) → `data/verification/global-cases.json` | network, dev project |
 
-`/api/health` returns the same configuration states as JSON.
+The browser end-to-end checks used for each release are described in `docs/release-readiness.md`.
 
-## Project docs
+## Deploy
 
-- `docs/astrapon-product-contract.md`: permanent product, scientific, and design contract
-- `docs/architecture.md`: module layout and enforced boundaries
-- `docs/implementation-plan.md`: phases 1–7
-- `docs/implementation-status.md`: what is done and verified
-- `docs/challenge-alignment.md`: requirement matrix C1–C8
-- `docs/research/`: challenge source and data-source research
+See `docs/operations.md`: Vercel for the web app, the GitHub Actions worker (or any Node host) for evidence and runs, environment variables, cache refresh, job recovery, monitoring, backup and rollback.
 
-Astrapon is being built to use publicly available NASA data products. It is not affiliated with or endorsed by NASA.
+## Documentation
+
+- `docs/astrapon-product-contract.md` — the permanent product, scientific and design contract
+- `docs/release-readiness.md` — release gate with pass/fail/blocked evidence and the owner checklist
+- `docs/scientific-methodology.md` — engine equations, parameter sources, constraints, ranking, limits
+- `docs/evidence-methods.md` — evidence pipeline rules
+- `docs/global-acceptance-cases.md` — three cases across climates and what they do and do not show
+- `docs/challenge-alignment.md` — requirement matrix C1–C8 with evidence
+- `docs/implementation-status.md` — what is done, verified, and limited
+- `docs/architecture.md`, `docs/design-system.md`, `docs/operations.md`
+- `docs/submission.md` — draft submission text and demo script
+- `docs/ui-test-guide-simple.md`, `docs/manual-test-guide.md` — test guides for people
+
+## Data, methods and attribution
+
+- NASA POWER (Prediction of Worldwide Energy Resources) Daily API, Agroclimatology community — weather.
+- MODIS MOD13Q1 v061 vegetation indices via the ORNL DAAC MODIS Web Service — greenness.
+- NASA GIBS (HLS imagery) — drawing aid only.
+- USDA NRCS Soil Data Access (SSURGO) — US soil water capacity. USDA NASS (2010) Usual Planting and Harvesting Dates — US calendars. USDA PLANTS — crop families.
+- FAO Irrigation and Drainage Paper 56 (Allen et al., 1998) — ET0, crop coefficients, stage lengths, root depth, water balance.
+- Map data © OpenStreetMap contributors; place search by Nominatim (submit-only, rate-limited).
+- 3D crop forms are original procedural geometry; no third-party 3D assets are used.
+
+Full citations are in the app (`/sources`, `/methodology`) and in `src/domain/sources/references.ts`.

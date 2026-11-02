@@ -1,6 +1,6 @@
 # Implementation status
 
-Last updated: 2026-11-02, end of Phase 6 (prompt 6: complete interactive simulation and explanations).
+Last updated: 2026-11-02, end of Phase 7 (prompt 7: final visual review, scientific verification and release). Release gate: `docs/release-readiness.md`.
 
 ## Summary
 
@@ -34,6 +34,23 @@ Last updated: 2026-11-02, end of Phase 6 (prompt 6: complete interactive simulat
 | **Saved plans and export** | **Done (Phase 6)** | `saved_plans` (migration `20261102100000`): a chosen option of a finished run, pinned to the stored result hash by a trigger; only name and note can change; owner-only RLS. Plans are listed on `/runs` and the run page, editable and deletable; runs can be deleted (result and plans cascade). `/runs/[id]/export` downloads the stored snapshot, pinned datasets and evidence retrievals, the stored result with its hash, and plans, exactly as saved (no recalculation); "Print or save as PDF" prints the full details. |
 | Worker on the deployed site | **Done** | `.github/workflows/evidence-worker.yml` drains the queue every 10 minutes and on dispatch; with `GITHUB_DISPATCH_TOKEN` set, queueing evidence or a run dispatches it at once (`src/server/worker/dispatch.ts`). The download cache is kept between runs. The worker only claims runs of its own engine version. |
 | Runs and reproducibility | **Done** | `request_simulation` freezes inputs (reusing an unchanged snapshot) and queues one run. The worker builds the engine input only from pinned immutable rows, verifies their hashes, and stores the result in `simulation_results` with the input digest and compute time. "Re-run and compare" checks the result hash. Scenario settings v2 (calendar region, planting windows, turnaround, transformations); v1 rows upgrade in memory. |
+
+## Verified in Phase 7
+
+- Regression on the production build: `e2e3` 30/30 (location denial, search, drawing, vertex drag, zones, crops, save/reload), `states` 16/16, `e2e4` 19/19 (evidence UI), `e2e5` 22/22 (scenario, run, result, re-run identical; now opens the Full details tab), `e2e6` 58/58 (own-field journey) — 145/145.
+- Visual sweep (Chrome, SwiftShader): public pages at 1440/820/390 px; signed-in pages at 1440/820/390 px in English and 1440/390 px in Bangla; run tabs; reduced motion (no rain animation); visible keyboard focus (3 px outline); camera rotate and reset; no horizontal overflow; no console errors.
+- Performance (Chrome, Intel UHD 630 via ANGLE D3D11; mobile emulation with 4× CPU throttling; SwiftShader): see `docs/release-readiness.md` — desktop 55–60 FPS, mobile emulation 30–60 FPS, software 10–52 FPS.
+- Science: new tests — conservation and bounds over 300 random periods, monotone sensitivity of relative water supply to rainfall, −20 % scenario below historical; `pnpm simulation:trace` 13/13; `pnpm global:cases` 24/24 in Iowa, Mymensingh (Bangladesh) and Wagga Wagga (Australia), each re-run identical (`docs/global-acceptance-cases.md`).
+- Providers: `pnpm verify:sources` — POWER, MODIS, SSURGO live_verified; SoilGrids unavailable; CMR data-access probes now answer HTTP 400 (collections not used by the app).
+- Security: secret-pattern scan of tracked files (none), env files ignored, fixtures only in tests, error redaction fixed, cache never served, `test:db` 17/17, `db:verify` pass.
+
+## Defects found and fixed in Phase 7
+
+- Provider error pages (HTML/XML from USDA SDA) were shown to farmers in evidence job messages. Messages are now cleaned (`userSafeMessage`, tested) and the SDA client no longer copies error pages.
+- Replay playback fell to ≈ 10 FPS under mobile CPU throttling and software scrubbing took 3.5 s: field outlines rebuilt their line geometry on every day step and crop data was recreated. Outlines are memoised, each field copy is a memoised component, and the tables follow a deferred day (30 FPS and 25 ms after the fix).
+- On portrait phones the 3D camera started too close (the field filled the frame, its shape invisible). The home distance now adapts to the canvas aspect, keeping the direction; reset uses the fitted distance.
+- The replay opened on a bare day for the existing practice; it now opens a few weeks after its first planting.
+- The Phase 5 E2E expected result sections on the first screen; it now opens the Full details tab (behaviour change from Phase 6, not a defect).
 
 ## Verified in Phase 6
 

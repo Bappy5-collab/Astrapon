@@ -26,7 +26,8 @@
     "db:rehearse": "tsx scripts/db/rehearse.mts",
     "evidence:worker": "tsx scripts/evidence-worker.mts",
     "evidence:trace": "tsx scripts/evidence-trace.mts",
-    "simulation:trace": "tsx scripts/simulation-trace.mts"
+    "simulation:trace": "tsx scripts/simulation-trace.mts",
+    "global:cases": "tsx scripts/global-cases.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

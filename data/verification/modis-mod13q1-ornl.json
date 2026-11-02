@@ -1,7 +1,7 @@
 {
   "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
   "sourceId": "modis-mod13q1-ornl",
-  "generatedAt": "2026-10-30T12:57:26.844Z",
+  "generatedAt": "2026-11-02T08:48:35.048Z",
   "site": {
     "name": "Near Ames, Iowa, USA (test point)",
     "latitude": 42.03,
@@ -69,7 +69,7 @@
       "start": "2024-01-01",
       "end": "2024-12-31"
     },
-    "retrievedAt": "2026-10-30T12:56:39.659Z"
+    "retrievedAt": "2026-11-02T08:47:45.995Z"
   },
   "samples": [
     {

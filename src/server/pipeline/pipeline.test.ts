@@ -162,3 +162,12 @@ describe("MODIS grid size", () => {
     expect(gridKm(30000)).toBe(4);
   });
 });
+
+describe("user-facing job messages", () => {
+  it("drops provider error pages and bounds the length", async () => {
+    const { userSafeMessage } = await import("./types");
+    expect(userSafeMessage("Soil Data Access did not answer: HTTP 400: <?xml version='1.0'?><html>secret</html>")).toBe("Soil Data Access did not answer: HTTP 400: (provider error page omitted)");
+    expect(userSafeMessage("x".repeat(900))).toHaveLength(400);
+    expect(userSafeMessage("NASA POWER did not answer\n  after 3 attempts")).toBe("NASA POWER did not answer after 3 attempts");
+  });
+});

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-02T06:58:19.975Z",
+  "generatedAt": "2026-11-02T09:20:38.509Z",
   "engineVersion": "1.1.0",
   "note": "LIVE trace on the development project; throwaway user deleted afterwards. Ids refer to rows that no longer exist.",
   "results": [
@@ -11,7 +11,7 @@
     {
       "step": "daily series stored with the retrieval",
       "ok": true,
-      "detail": "T2M_MAX 16740 days from 1981-01-01; T2M_MIN 16740 days from 1981-01-01; PRECTOTCORR 16740 days from 1981-01-01"
+      "detail": "PRECTOTCORR 16740 days from 1981-01-01; T2M_MAX 16740 days from 1981-01-01; T2M_MIN 16740 days from 1981-01-01"
     },
     {
       "step": "raw POWER 2015-07-15 values = stored daily series",
@@ -21,12 +21,12 @@
     {
       "step": "run queued through request_simulation",
       "ok": true,
-      "detail": "afb4a479"
+      "detail": "06b257b2"
     },
     {
       "step": "run succeeded and stored an immutable result",
       "ok": true,
-      "detail": "succeeded in 5063 ms "
+      "detail": "succeeded in 4985 ms "
     },
     {
       "step": "existing practice compared with ≥ 2 distinct feasible alternatives",
@@ -56,7 +56,7 @@
     {
       "step": "re-running the same snapshot reproduces the identical result",
       "ok": true,
-      "detail": "result 9f0a2a07c5060a00 vs 9f0a2a07c5060a00"
+      "detail": "result 3832b66f85eea2c5 vs 3832b66f85eea2c5"
     },
     {
       "step": "unknown and window-less crops are rejected transparently",
@@ -71,7 +71,7 @@
   ],
   "trace": {
     "weather": {
-      "retrievalId": "e0508264-d5a8-48e0-9224-eb771018328d",
+      "retrievalId": "0ca5c8c5-1ae7-4869-9df8-81f4452fa4b7",
       "responseSha256": "3f26cd1a30bda83b7da726052119628d5344f0918ba4bba4494ebfb77451f0f6",
       "chunkSha256": "7e944b14b331ea741d71996c80c7ac560ef992855ec3128648a71c36432af2ba",
       "day": "2015-07-15",
@@ -94,10 +94,10 @@
       ]
     },
     "run": {
-      "id": "afb4a479-1dbc-4b97-8d2a-6a470a31eaf8",
-      "computeMs": 5063,
-      "inputDigest": "796cce7ecd8d908934ec296c98ef0e7f89cb542e484ee7b99953e1b281528639",
-      "resultSha256": "9f0a2a07c5060a005507063354b7b039238d06d57b89dc314973cafe8455a99f",
+      "id": "06b257b2-09fe-4bae-b46e-172b5ef5c541",
+      "computeMs": 4985,
+      "inputDigest": "813510bf09d4b0f732ec1c54eb3cfcce6882e338023703975e9818f821893360",
+      "resultSha256": "3832b66f85eea2c56df49350db672f8d383c16d99ed2241b039cd059578d6cc4",
       "search": {
         "slots": [
           {
@@ -882,10 +882,10 @@
       ]
     },
     "reproduction": {
-      "runId": "2108bc21-668b-4cc5-bad5-c837a3c2aa66",
-      "resultSha256": "9f0a2a07c5060a005507063354b7b039238d06d57b89dc314973cafe8455a99f",
-      "inputDigest": "796cce7ecd8d908934ec296c98ef0e7f89cb542e484ee7b99953e1b281528639",
-      "computeMs": 4963
+      "runId": "29dcc042-2d3f-461a-8a27-70d4791b958d",
+      "resultSha256": "3832b66f85eea2c56df49350db672f8d383c16d99ed2241b039cd059578d6cc4",
+      "inputDigest": "813510bf09d4b0f732ec1c54eb3cfcce6882e338023703975e9818f821893360",
+      "computeMs": 5265
     },
     "rejections": [
       {

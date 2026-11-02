@@ -127,6 +127,8 @@ try {
   // --- reproducibility -----------------------------------------------------------------------
   const again = await db.from("simulation_runs").insert({ snapshot_id: runRow.data!.snapshot_id, engine_version: ENGINE_VERSION }).select("id").single();
   worker();
+  // A worker that could not reach the database exits without claiming; one more pass covers that.
+  if ((await db.from("simulation_runs").select("status").eq("id", again.data!.id).single()).data?.status === "queued") worker();
   const rerun = await db.from("simulation_runs").select("status, input_digest, compute_ms, simulation_results(result_sha256)").eq("id", again.data!.id).single();
   const rerunSha = one(rerun.data?.simulation_results as unknown as Res | Res[] | null)?.result_sha256;
   step("re-running the same snapshot reproduces the identical result", rerun.data?.status === "succeeded" && rerunSha === res!.result_sha256 && rerun.data?.input_digest === runRow.data!.input_digest, `result ${rerunSha?.slice(0, 16)} vs ${res!.result_sha256.slice(0, 16)}`);

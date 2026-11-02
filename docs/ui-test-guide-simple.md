@@ -310,6 +310,7 @@ Do these on a **phone** (or in Chrome: press F12, then the phone icon, then choo
 
 - Rotation results compare options on past weather only. They show no yield, profit or forecast; that is by design.
 - The 3D plants and soil colour in the replay are drawings of the stored daily numbers, not satellite pictures.
+- On computers without graphics acceleration (software rendering) the 3D view is slow (about 10–15 frames per second) and starts in Low quality. The tables and the Map view work normally.
 - The AI explanation button is missing when the server has no AI key; the page says so.
 - The new run after "Save these priorities and run again" needs the background worker, like any run.
 - Outside the USA, crops without your own dates are rejected with "No local planting window". Add your planting dates in the scenario.

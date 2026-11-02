@@ -1,0 +1,465 @@
+{
+  "generatedAt": "2026-11-02T08:52:44.228Z",
+  "engineVersion": "1.1.0",
+  "note": "LIVE run on the development project with real NASA POWER (and SSURGO in the US). Throwaway users deleted afterwards. Supplied test assumptions are labelled. Not agronomic validation.",
+  "passed": 24,
+  "total": 24,
+  "cases": [
+    {
+      "id": "us-iowa",
+      "place": "Central Iowa, USA (42.0° N, 93.8° W)",
+      "climate": "Humid continental; summer crops; one crop per year",
+      "hemisphere": "north",
+      "evidence": {
+        "power": {
+          "observation_start": "1981-01-01",
+          "observation_end": "2026-10-31",
+          "spatial_support": "NASA POWER grid cell, ½° lat × ⅝° lon (MERRA-2 native); value describes the whole cell",
+          "product_version": "v2.10.1"
+        },
+        "soil": {
+          "source": "USDA SSURGO survey, 0–100 cm",
+          "awcMmPerM": 191
+        },
+        "sources": [
+          "nasa-power-daily",
+          "usda-ssurgo-sda"
+        ]
+      },
+      "suppliedAssumptions": [
+        "Crop history (corn 2023, soybeans 2024, with dates) is a test record, not a real farm.",
+        "Planting windows come from the USDA NASS 2010 Iowa calendar (a published regional calendar)."
+      ],
+      "plantingWindowsSupplied": [],
+      "calendarRegion": "Iowa",
+      "engineVersion": "1.1.0",
+      "period": {
+        "toYear": 2025,
+        "fromYear": 2006,
+        "totalYears": 20,
+        "completeYears": 20
+      },
+      "resultSha256": "aaf6c976e17f5fcefd5eca57d8282988084a4ef52b323551b2c6d756f5d890cb",
+      "ranking": [
+        {
+          "id": "alternative-1",
+          "label": "Oats + Winter wheat → (no new planting)",
+          "relativeScore": 0.626,
+          "relativeWaterSupply": 0.996,
+          "climaticWaterBalance": null,
+          "bareDays": 174,
+          "frostDays": 72.3,
+          "hotDays": 1.7
+        },
+        {
+          "id": "alternative-2",
+          "label": "Soybean + Winter wheat → (no new planting)",
+          "relativeScore": 0.519,
+          "relativeWaterSupply": 0.953,
+          "climaticWaterBalance": null,
+          "bareDays": 152.5,
+          "frostDays": 71.1,
+          "hotDays": 3.2
+        },
+        {
+          "id": "alternative-3",
+          "label": "Maize (grain) + Winter wheat → (no new planting)",
+          "relativeScore": 0.502,
+          "relativeWaterSupply": 0.982,
+          "climaticWaterBalance": null,
+          "bareDays": 140.5,
+          "frostDays": 70.7,
+          "hotDays": 3.9
+        },
+        {
+          "id": "baseline",
+          "label": "Maize (grain) → Soybean",
+          "relativeScore": 0.35,
+          "relativeWaterSupply": 0.941,
+          "climaticWaterBalance": null,
+          "bareDays": 210,
+          "frostDays": 0.6,
+          "hotDays": 5.2
+        }
+      ],
+      "stability": "fragile",
+      "scenarioTopUnderMinus20": "alternative-1",
+      "cropRejections": [],
+      "gaps": [],
+      "reviewQuestions": [
+        "Do you have the equipment and labour to plant and harvest each crop shown?",
+        "Is there a market for each alternative crop near you?",
+        "Do these planting dates match what is practical on this field?"
+      ],
+      "label": "Exploratory comparison for software acceptance. Not validated agronomic advice for this location.",
+      "checks": [
+        {
+          "name": "field boundary saved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "evidence retrieved through the worker",
+          "ok": true,
+          "detail": "[[\"nasa-power-daily\",\"complete\"],[\"usda-ssurgo-sda\",\"complete\"]] in 15 s"
+        },
+        {
+          "name": "run succeeded and stored a result",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "existing practice built from dated history",
+          "ok": true,
+          "detail": "Maize (grain) → Soybean"
+        },
+        {
+          "name": "feasible alternatives found (target two; never invented)",
+          "ok": true,
+          "detail": "3: Oats + Winter wheat → (no new planting) | Soybean + Winter wheat → (no new planting) | Maize (grain) + Winter wheat → (no new planting)"
+        },
+        {
+          "name": "historical replay and −20 % rainfall scenario reported separately",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "day-by-day timeline stored",
+          "ok": true,
+          "detail": "2024-01-01, 731 days"
+        },
+        {
+          "name": "re-run of the same snapshot is identical",
+          "ok": true,
+          "detail": "aaf6c976e17f vs aaf6c976e17f"
+        }
+      ]
+    },
+    {
+      "id": "bd-mymensingh",
+      "place": "Mymensingh, Bangladesh (24.75° N, 90.40° E)",
+      "climate": "Tropical monsoon; several crops per year; paddy rice",
+      "hemisphere": "north",
+      "evidence": {
+        "power": {
+          "observation_start": "1981-01-01",
+          "observation_end": "2026-10-31",
+          "spatial_support": "NASA POWER grid cell, ½° lat × ⅝° lon (MERRA-2 native); value describes the whole cell",
+          "product_version": "v2.10.1"
+        },
+        "soil": {
+          "source": "unknown",
+          "awcMmPerM": null
+        },
+        "sources": [
+          "nasa-power-daily"
+        ]
+      },
+      "suppliedAssumptions": [
+        "No regional planting calendar is available for Bangladesh in Astrapon; every planting window here is a SUPPLIED TEST ASSUMPTION typed as a farmer would, not a sourced calendar.",
+        "Crop history (Boro and Aman rice in 2024, with dates) is a test record.",
+        "No soil water capacity (no SSURGO outside the US, no soil test): water results are potential demand only."
+      ],
+      "plantingWindowsSupplied": [
+        {
+          "crop": "jute",
+          "plantFrom": "03-20",
+          "plantTo": "04-10",
+          "lengthDays": 110
+        },
+        {
+          "crop": "lentil",
+          "plantFrom": "11-15",
+          "plantTo": "12-05",
+          "lengthDays": 105
+        },
+        {
+          "crop": "mustard",
+          "plantFrom": "11-01",
+          "plantTo": "11-20",
+          "lengthDays": 90
+        },
+        {
+          "crop": "wheat",
+          "plantFrom": "11-15",
+          "plantTo": "12-05",
+          "lengthDays": 115
+        },
+        {
+          "crop": "maize",
+          "plantFrom": "11-15",
+          "plantTo": "12-10",
+          "lengthDays": 145
+        }
+      ],
+      "calendarRegion": "none available",
+      "engineVersion": "1.1.0",
+      "period": {
+        "toYear": 2025,
+        "fromYear": 2006,
+        "totalYears": 20,
+        "completeYears": 20
+      },
+      "resultSha256": "ed824267a5fea55fbb1e757d9df935a88f6bf164f47da196f269b64137d51428",
+      "ranking": [
+        {
+          "id": "alternative-1",
+          "label": "Rice (paddy) + Lentil",
+          "relativeScore": 0.657,
+          "relativeWaterSupply": null,
+          "climaticWaterBalance": 539.6,
+          "bareDays": 142,
+          "frostDays": 0,
+          "hotDays": 0.7
+        },
+        {
+          "id": "alternative-2",
+          "label": "Jute + Lentil",
+          "relativeScore": 0.65,
+          "relativeWaterSupply": null,
+          "climaticWaterBalance": null,
+          "bareDays": 150,
+          "frostDays": 0,
+          "hotDays": 19.4
+        },
+        {
+          "id": "alternative-3",
+          "label": "Lentil",
+          "relativeScore": 0.556,
+          "relativeWaterSupply": null,
+          "climaticWaterBalance": -230.3,
+          "bareDays": 260,
+          "frostDays": 0,
+          "hotDays": 0.3
+        },
+        {
+          "id": "baseline",
+          "label": "Rice (paddy) + Rice (paddy)",
+          "relativeScore": 0.111,
+          "relativeWaterSupply": null,
+          "climaticWaterBalance": 593.6,
+          "bareDays": 131,
+          "frostDays": 0,
+          "hotDays": 24.6
+        }
+      ],
+      "stability": "stable",
+      "scenarioTopUnderMinus20": "alternative-1",
+      "cropRejections": [],
+      "gaps": [
+        "Soil water capacity is unknown (no soil test value and no SSURGO survey here): only potential water demand is shown, not water-limited uptake or irrigation need."
+      ],
+      "reviewQuestions": [
+        "Do you have the equipment and labour to plant and harvest each crop shown?",
+        "Is there a market for each alternative crop near you?",
+        "Do these planting dates match what is practical on this field?",
+        "Is your wheat a winter (vernalising) type? If so, record it as \"winter wheat\"."
+      ],
+      "label": "Exploratory comparison for software acceptance. Not validated agronomic advice for this location.",
+      "checks": [
+        {
+          "name": "field boundary saved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "evidence retrieved through the worker",
+          "ok": true,
+          "detail": "[[\"nasa-power-daily\",\"complete\"]] in 25 s"
+        },
+        {
+          "name": "run succeeded and stored a result",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "existing practice built from dated history",
+          "ok": true,
+          "detail": "Rice (paddy) + Rice (paddy)"
+        },
+        {
+          "name": "feasible alternatives found (target two; never invented)",
+          "ok": true,
+          "detail": "3: Rice (paddy) + Lentil | Jute + Lentil | Lentil"
+        },
+        {
+          "name": "historical replay and −20 % rainfall scenario reported separately",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "day-by-day timeline stored",
+          "ok": true,
+          "detail": "2025-01-01, 365 days"
+        },
+        {
+          "name": "re-run of the same snapshot is identical",
+          "ok": true,
+          "detail": "ed824267a5fe vs ed824267a5fe"
+        }
+      ]
+    },
+    {
+      "id": "au-wagga",
+      "place": "Wagga Wagga, New South Wales, Australia (35.1° S, 147.4° E)",
+      "climate": "Temperate semi-arid, Southern Hemisphere; winter cropping (autumn sowing)",
+      "hemisphere": "south",
+      "evidence": {
+        "power": {
+          "observation_start": "1981-01-01",
+          "observation_end": "2026-10-31",
+          "spatial_support": "NASA POWER grid cell, ½° lat × ⅝° lon (MERRA-2 native); value describes the whole cell",
+          "product_version": "v2.10.1"
+        },
+        "soil": {
+          "source": "Your soil test (2024-06-01, 1 depth, your assessment)",
+          "awcMmPerM": 140
+        },
+        "sources": [
+          "nasa-power-daily"
+        ]
+      },
+      "suppliedAssumptions": [
+        "No regional planting calendar is available for Australia in Astrapon; every planting window is a SUPPLIED TEST ASSUMPTION, not a sourced calendar.",
+        "Crop history (wheat 2023, canola 2024, with dates) is a test record.",
+        "Soil water capacity 0.14 cm/cm is a SUPPLIED TEST ASSUMPTION entered as a farmer report."
+      ],
+      "plantingWindowsSupplied": [
+        {
+          "crop": "wheat",
+          "plantFrom": "05-01",
+          "plantTo": "05-31",
+          "lengthDays": 195
+        },
+        {
+          "crop": "barley",
+          "plantFrom": "05-01",
+          "plantTo": "06-05",
+          "lengthDays": 185
+        },
+        {
+          "crop": "canola",
+          "plantFrom": "04-15",
+          "plantTo": "05-10",
+          "lengthDays": 205
+        },
+        {
+          "crop": "lentil",
+          "plantFrom": "05-10",
+          "plantTo": "06-10",
+          "lengthDays": 170
+        },
+        {
+          "crop": "field pea",
+          "plantFrom": "05-10",
+          "plantTo": "06-10",
+          "lengthDays": 165
+        }
+      ],
+      "calendarRegion": "none available",
+      "engineVersion": "1.1.0",
+      "period": {
+        "toYear": 2025,
+        "fromYear": 2006,
+        "totalYears": 20,
+        "completeYears": 20
+      },
+      "resultSha256": "dc586492d4545a39e7023daa709bd313273b386e73b41d9f49711c995398979b",
+      "ranking": [
+        {
+          "id": "baseline",
+          "label": "Wheat (spring type) → Rapeseed / canola",
+          "relativeScore": 0.542,
+          "relativeWaterSupply": null,
+          "climaticWaterBalance": null,
+          "bareDays": 158.5,
+          "frostDays": 6.3,
+          "hotDays": 1.4
+        },
+        {
+          "id": "alternative-1",
+          "label": "Lentil → Wheat (spring type)",
+          "relativeScore": 0.473,
+          "relativeWaterSupply": 0.747,
+          "climaticWaterBalance": null,
+          "bareDays": 182.5,
+          "frostDays": 6.3,
+          "hotDays": 1
+        },
+        {
+          "id": "alternative-2",
+          "label": "Pea (dry) → Wheat (spring type)",
+          "relativeScore": 0.466,
+          "relativeWaterSupply": 0.763,
+          "climaticWaterBalance": null,
+          "bareDays": 185,
+          "frostDays": 6.3,
+          "hotDays": 0.9
+        },
+        {
+          "id": "alternative-3",
+          "label": "Barley → Lentil",
+          "relativeScore": 0.458,
+          "relativeWaterSupply": 0.773,
+          "climaticWaterBalance": null,
+          "bareDays": 187.5,
+          "frostDays": 6.3,
+          "hotDays": 0.4
+        }
+      ],
+      "stability": "stable",
+      "scenarioTopUnderMinus20": "baseline",
+      "cropRejections": [],
+      "gaps": [],
+      "reviewQuestions": [
+        "Do you have the equipment and labour to plant and harvest each crop shown?",
+        "Is there a market for each alternative crop near you?",
+        "Do these planting dates match what is practical on this field?",
+        "Is your wheat a winter (vernalising) type? If so, record it as \"winter wheat\"."
+      ],
+      "label": "Exploratory comparison for software acceptance. Not validated agronomic advice for this location.",
+      "checks": [
+        {
+          "name": "field boundary saved",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "evidence retrieved through the worker",
+          "ok": true,
+          "detail": "[[\"nasa-power-daily\",\"complete\"]] in 25 s"
+        },
+        {
+          "name": "run succeeded and stored a result",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "existing practice built from dated history",
+          "ok": true,
+          "detail": "Wheat (spring type) → Rapeseed / canola"
+        },
+        {
+          "name": "feasible alternatives found (target two; never invented)",
+          "ok": true,
+          "detail": "3: Lentil → Wheat (spring type) | Pea (dry) → Wheat (spring type) | Barley → Lentil"
+        },
+        {
+          "name": "historical replay and −20 % rainfall scenario reported separately",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "name": "day-by-day timeline stored",
+          "ok": true,
+          "detail": "2024-01-01, 731 days"
+        },
+        {
+          "name": "re-run of the same snapshot is identical",
+          "ok": true,
+          "detail": "dc586492d454 vs dc586492d454"
+        }
+      ]
+    }
+  ]
+}

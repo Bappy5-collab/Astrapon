@@ -1,7 +1,7 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { memo, useMemo, useRef } from "react";
 import * as THREE from "three";
 
 import { cropForm } from "@/domain/farm/crops";
@@ -73,20 +73,42 @@ function Rain({ width, depth, count }: { width: number; depth: number; count: nu
   );
 }
 
-/** When the number of field copies changes, keep the viewing direction and refit the distance. */
-function KeepOrientation({ home }: { home: THREE.Vector3 }) {
-  const { camera, controls, invalidate } = useThree();
-  useEffect(() => {
-    const c = controls as unknown as { target: THREE.Vector3; update: () => void } | null;
-    if (!c) return;
-    const dir = camera.position.clone().sub(c.target).normalize();
-    c.target.set(0, 0, 0);
-    camera.position.copy(dir.multiplyScalar(home.length()));
-    c.update();
-    invalidate();
-  }, [home, camera, controls, invalidate]);
-  return null;
-}
+type PanelViewProps = {
+  panel: ReplayPanel;
+  offset: number;
+  data: SceneData;
+  rowPeriod: number;
+  quality: QualityPreset;
+  budget: number;
+  selectedKey: string | null;
+  onSelect: (panelId: string, key: string) => void;
+  raining: boolean;
+};
+
+const PanelView = memo(function PanelView({ panel: p, offset, data, rowPeriod, quality, budget, selectedKey, onSelect, raining }: PanelViewProps) {
+  const form = cropForm(p.crop);
+  const crops = useMemo(() => ({ [FIELD_KEY]: { form: p.crop ? form : ("fallow" as const), cropName: p.crop } }), [p.crop, form]);
+  const pick = (key: string) => onSelect(p.id, key);
+  const isSel = selectedKey != null;
+  const selected = isSel ? { panelId: p.id, key: selectedKey } : null;
+  return (
+    <group position-x={offset}>
+            <FieldSlab polygons={data.field} bearing={data.bearing} rowPeriod={rowPeriod} tint={soilTint(p.depletion)} />
+            <Canopy polygons={data.field} crop={crops[FIELD_KEY]} stage={p.stage} y={SLAB} selected={isSel && selected?.key === FIELD_KEY} pickKey={FIELD_KEY} onPick={pick} />
+            {data.zones.map((z) => (
+              <Canopy key={z.key} polygons={z.polygons} crop={crops[FIELD_KEY]} stage={p.stage} y={SLAB + 0.02} selected={isSel && selected?.key === z.key} pickKey={z.key} onPick={pick} />
+            ))}
+            <Plants data={data} crops={crops} stage={p.stage} quality={quality} budget={budget} height={p.stage === "bare" ? 0 : plantScale(form, "mature") * p.growth} />
+            <Outline polygons={data.field} y={SLAB + 0.08} color={isSel ? tokens.lime[400] : "#F5F6F0"} width={isSel ? 4 : 2} />
+            {p.irrigated && <Outline polygons={data.field} y={SLAB + 0.3} color="#3B7FC4" width={3} dashed />}
+            {isSel && <SelectionWall polygons={selected?.key && selected.key !== FIELD_KEY ? data.zones.find((z) => z.key === selected.key)?.polygons ?? data.field : data.field} y={SLAB} />}
+            {data.zones.map((z) => (
+              <Outline key={z.key} polygons={z.polygons} y={SLAB + 0.12} color={isSel && selected?.key === z.key ? tokens.lime[400] : "#E9ECE2"} width={isSel && selected?.key === z.key ? 4 : 1.5} dashed={!(isSel && selected?.key === z.key)} />
+            ))}
+            {raining && <Rain width={SCENE_SIZE} depth={SCENE_SIZE} count={quality === "low" ? 120 : 260} />}
+    </group>
+  );
+});
 
 export default function ReplayScene({ data, panels, rainMm, selected, onSelect, quality, active, animateWeather, command, onAzimuth, onContextLost }: ReplaySceneProps) {
   const n = panels.length;
@@ -119,30 +141,21 @@ export default function ReplayScene({ data, panels, rainMm, selected, onSelect, 
       <hemisphereLight args={["#F3F1E7", "#58673F", 1.0]} />
       <directionalLight position={[70, 110, 40]} intensity={2.0} color="#FFF2DA" castShadow={high} shadow-mapSize={[2048, 2048]} shadow-bias={-0.0005} />
       <Ground />
-      {panels.map((p, i) => {
-        const form = cropForm(p.crop);
-        const crops = { [FIELD_KEY]: { form: p.crop ? form : ("fallow" as const), cropName: p.crop } };
-        const pick = (key: string) => onSelect(p.id, key);
-        const isSel = selected?.panelId === p.id;
-        return (
-          <group key={p.id} position-x={offsets[i]}>
-            <FieldSlab polygons={data.field} bearing={data.bearing} rowPeriod={rowPeriod} tint={soilTint(p.depletion)} />
-            <Canopy polygons={data.field} crop={crops[FIELD_KEY]} stage={p.stage} y={SLAB} selected={isSel && selected?.key === FIELD_KEY} pickKey={FIELD_KEY} onPick={pick} />
-            {data.zones.map((z) => (
-              <Canopy key={z.key} polygons={z.polygons} crop={crops[FIELD_KEY]} stage={p.stage} y={SLAB + 0.02} selected={isSel && selected?.key === z.key} pickKey={z.key} onPick={pick} />
-            ))}
-            <Plants data={data} crops={crops} stage={p.stage} quality={quality} budget={budget} height={p.stage === "bare" ? 0 : plantScale(form, "mature") * p.growth} />
-            <Outline polygons={data.field} y={SLAB + 0.08} color={isSel ? tokens.lime[400] : "#F5F6F0"} width={isSel ? 4 : 2} />
-            {p.irrigated && <Outline polygons={data.field} y={SLAB + 0.3} color="#3B7FC4" width={3} dashed />}
-            {isSel && <SelectionWall polygons={selected?.key && selected.key !== FIELD_KEY ? data.zones.find((z) => z.key === selected.key)?.polygons ?? data.field : data.field} y={SLAB} />}
-            {data.zones.map((z) => (
-              <Outline key={z.key} polygons={z.polygons} y={SLAB + 0.12} color={isSel && selected?.key === z.key ? tokens.lime[400] : "#E9ECE2"} width={isSel && selected?.key === z.key ? 4 : 1.5} dashed={!(isSel && selected?.key === z.key)} />
-            ))}
-            {raining && <Rain width={SCENE_SIZE} depth={SCENE_SIZE} count={quality === "low" ? 120 : 260} />}
-          </group>
-        );
-      })}
-      <KeepOrientation home={home} />
+      {panels.map((p, i) => (
+        <PanelView
+          key={p.id}
+          panel={p}
+          offset={offsets[i]!}
+          data={data}
+          rowPeriod={rowPeriod}
+          quality={quality}
+          budget={budget}
+          selectedKey={selected?.panelId === p.id ? selected.key : null}
+          onSelect={onSelect}
+          raining={raining}
+        />
+      ))}
+
       <CameraRig command={command} onAzimuth={onAzimuth} autoRotate={false} interactive home={home} maxDistance={320 + 220 * (n - 1)} />
     </Canvas>
   );

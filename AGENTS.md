@@ -32,6 +32,7 @@ pnpm test:db      # live two-user isolation tests (dev project; creates and dele
 pnpm evidence:worker [--once]   # background worker for evidence jobs AND simulation runs (needs SUPABASE_DB_URL); keep it running beside pnpm dev. Deployed site: .github/workflows/evidence-worker.yml runs it with --once every 10 min (repo secret SUPABASE_DB_URL); with GITHUB_DISPATCH_TOKEN set on the server, queueing also dispatches it at once (src/server/worker/dispatch.ts)
 pnpm evidence:trace             # LIVE end-to-end trace → data/verification/evidence-trace.json
 pnpm simulation:trace           # LIVE simulation trace → data/verification/simulation-trace.json
+pnpm global:cases               # LIVE cases in Iowa, Bangladesh, Australia → data/verification/global-cases.json
 ```
 
 ## Rules that bite
@@ -64,6 +65,7 @@ pnpm simulation:trace           # LIVE simulation trace → data/verification/si
   - Every crop number lives in `catalog.ts`, checked against FAO-56 Tables 11/12/22 and USDA PLANTS, and is published as the `crop-parameters` reference dataset. Calendars come only from farmer records, farmer windows or the selected NASS 2010 state. Never add an unsourced parameter, and never impose one region's seasons on another.
   - Hard constraints run before ranking. Scores are relative among the options shown, never probabilities. Unsupported calculations return null (insufficient evidence), and that indicator is dropped for every compared option.
   - Runs are queued with `request_simulation` and computed by the worker (`scripts/simulation-runner.mts`) from immutable pinned rows only; results go to `simulation_results`. Never compute a run in a web request.
+- 3D performance: keep props that feed drei `Line` and instanced meshes referentially stable (memoise point arrays and crop maps); the replay changes state many times a second.
 - Run journey (`/runs/[id]`, `src/components/compare`, `src/components/replay`):
   - The replay only indexes stored timeline arrays; never recompute model values in the UI. Every scene fact needs a table equivalent.
   - Priority previews use `scoreOptions()` on the stored indicator table and are labelled unsaved; saving priorities and re-running is a separate explicit action (`savePrioritiesAndRun`).
@@ -122,6 +124,8 @@ Phase 6 (prompt 6) delivered the interactive simulation and explanations (engine
 - "Why this option?", a glossary, a deterministic explanation and an optional grounded AI draft;
 - saved plans (`saved_plans`), run deletion, JSON export and print;
 - Bangla for the run journey; worker dispatch from the deployed site.
+
+Phase 7 (prompt 7) was the final review and release candidate: visual sweep, performance measurement and fixes, accounting/sensitivity tests, three live global cases (`pnpm global:cases`), error redaction, README/operations/submission docs and the release gate (`docs/release-readiness.md`). Publishing (push/redeploy) and the AI key are owner actions.
 
 The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 

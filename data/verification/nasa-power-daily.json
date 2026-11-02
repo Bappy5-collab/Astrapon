@@ -1,7 +1,7 @@
 {
   "artifact": "LIVE VERIFICATION RECORD — produced by scripts/verify-sources.mts. Not a fixture and not an input to the product.",
   "sourceId": "nasa-power-daily",
-  "generatedAt": "2026-10-30T12:56:36.272Z",
+  "generatedAt": "2026-11-02T08:47:42.524Z",
   "site": {
     "name": "Near Ames, Iowa, USA (test point)",
     "latitude": 42.03,
@@ -30,11 +30,11 @@
   },
   "response": {
     "url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST",
-    "retrievedAt": "2026-10-30T12:56:33.275Z",
+    "retrievedAt": "2026-11-02T08:47:39.585Z",
     "status": 200,
-    "durationMs": 1998,
+    "durationMs": 2004,
     "contentType": "application/json",
-    "bodySha256": "7b12eee8cb0f1692a1f6739635fe334058e8584878d3d20a88bccbcf5f8bb66e",
+    "bodySha256": "817d231b6af39038461f928754d089c22034fef89117f496ec26b28107fe5b37",
     "bodyBytes": 49032,
     "header": {
       "title": "NASA/POWER Source Native Resolution Daily Data",
@@ -321,7 +321,7 @@
     "rawValue": 32.59,
     "evidenceClass": "assimilated_model_product",
     "spatialSupport": "meteorology grid cell, ½° lat × ⅝° lon native (POWER docs also cite 0.5° × 0.5°)",
-    "reproduce": "curl \"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST\"  # compare jsonPath; body sha256 7b12eee8cb0f1692a1f6739635fe334058e8584878d3d20a88bccbcf5f8bb66e (exact bytes may change if POWER reprocesses)"
+    "reproduce": "curl \"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN%2CRH2M%2CWS2M%2CGWETROOT&community=AG&longitude=-93.62&latitude=42.03&start=20240101&end=20241231&format=JSON&time-standard=LST\"  # compare jsonPath; body sha256 817d231b6af39038461f928754d089c22034fef89117f496ec26b28107fe5b37 (exact bytes may change if POWER reprocesses)"
   },
   "excerpt": {
     "T2M": {
@@ -383,20 +383,20 @@
   },
   "nearRealTimeLatency": {
     "checkedWindow": {
-      "start": "2026-10-10",
-      "end": "2026-10-30"
+      "start": "2026-10-13",
+      "end": "2026-11-02"
     },
     "T2M_MAX": {
-      "lastValidDate": "20261027",
+      "lastValidDate": "20261030",
       "trailingFillDays": 3
     },
     "PRECTOTCORR": {
-      "lastValidDate": "20261027",
+      "lastValidDate": "20261030",
       "trailingFillDays": 3
     },
     "ALLSKY_SFC_SW_DWN": {
-      "lastValidDate": "20261024",
-      "trailingFillDays": 6
+      "lastValidDate": "20261028",
+      "trailingFillDays": 5
     }
   }
 }

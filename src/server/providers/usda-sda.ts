@@ -112,7 +112,7 @@ export function sdaProvenance(survey: { areasymbol: string; saverest: string } |
 
 export async function postSdaQuery(query: string): Promise<{ ok: true; raw: unknown; retrieval: Retrieval } | { ok: false; error: string }> {
   const res = await fetchText(SDA_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query, format: "JSON+COLUMNNAME" }), timeoutMs: 90_000 });
-  if (!res.ok) return { ok: false, error: `${res.error}${res.bodySnippet ? `: ${res.bodySnippet.slice(0, 200)}` : ""}` };
-  if (!res.body.trim().startsWith("{")) return { ok: false, error: `non-JSON response: ${res.body.slice(0, 200)}` };
+  if (!res.ok) return { ok: false, error: `${res.error}${res.bodySnippet ? (res.bodySnippet.trimStart().startsWith("<") ? " (the service returned an error page)" : `: ${res.bodySnippet.slice(0, 200)}`) : ""}` };
+  if (!res.body.trim().startsWith("{")) return { ok: false, error: res.body.trimStart().startsWith("<") ? "non-JSON response (an HTML/XML page, often the nightly maintenance window)" : `non-JSON response: ${res.body.slice(0, 200)}` };
   return { ok: true, raw: JSON.parse(res.body), retrieval: { ...res.retrieval, url: `${SDA_URL} (POST)` } };
 }

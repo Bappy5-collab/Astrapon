@@ -478,3 +478,49 @@ describe("result views (replay tables, explanations)", () => {
     expect(total).toBeCloseTo(run.comparison!.scores[alt.id]!, 2);
   });
 });
+
+describe("accounting invariants and sensitivity (Phase 7)", () => {
+  // Deterministic pseudo-random generator so the property test is reproducible.
+  const rng = (seed: number) => () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+
+  it("conserves water and keeps storage within bounds for 300 random periods", () => {
+    const r = rng(42);
+    for (let i = 0; i < 300; i++) {
+      const L = 60 + Math.floor(r() * 200);
+      const ini = Math.max(1, Math.floor(L * (0.1 + r() * 0.15)));
+      const dev = Math.max(1, Math.floor(L * (0.2 + r() * 0.15)));
+      const mid = Math.max(1, Math.floor(L * (0.25 + r() * 0.15)));
+      const stages = { ini, dev, mid, late: L - ini - dev - mid };
+      if (stages.late < 0) continue;
+      const res = runPeriod({
+        et0: Array.from({ length: L }, () => r() * 9),
+        precip: Array.from({ length: L }, () => (r() < 0.25 ? r() * 60 : 0)),
+        stages,
+        kc: { ini: 0.2 + r() * 0.5, mid: 0.8 + r() * 0.5, end: 0.2 + r() * 0.8 },
+        soil: { awcMmPerM: 40 + r() * 260, rootMaxM: 0.5 + r() * 1.8, p: 0.3 + r() * 0.4 },
+        initial: r() < 0.5 ? "field_capacity" : "readily_available_depleted",
+        irrigation: r() < 0.5 ? "rainfed" : "full",
+      });
+      expect(Math.abs(res.conservationErrorMm!)).toBeLessThan(1e-6);
+      expect(res.etaMm!).toBeLessThanOrEqual(res.etcMm! + 1e-9);
+      expect(res.storageEndMm!).toBeGreaterThanOrEqual(-1e-9);
+      expect(res.drainageMm!).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  it("more rain never lowers relative water supply; less rain never raises it", () => {
+    const at = (scale: number) => runEngine(baseInput({ weather: syntheticWeather(1999, 2021, 42, scale) })).runs[0]!.baseline!.indicators.relative_water_supply!.value!;
+    const dry = at(0.5), base = at(1), wet = at(2);
+    expect(dry).toBeLessThanOrEqual(base);
+    expect(base).toBeLessThanOrEqual(wet);
+    expect(dry).toBeLessThan(wet);
+  });
+
+  it("a −20 % rainfall scenario lowers the existing practice's water supply and is kept separate", () => {
+    const r = runEngine(baseInput({ settings: { precipitationChangePct: -20 } }));
+    const hist = r.runs.find((x) => x.kind === "historical_replay")!.baseline!.indicators.relative_water_supply!.value!;
+    const scen = r.runs.find((x) => x.kind === "scenario")!.baseline!.indicators.relative_water_supply!.value!;
+    expect(scen).toBeLessThanOrEqual(hist);
+    expect(r.runs.find((x) => x.kind === "scenario")!.timeline!.weather.precip.some((v) => v != null)).toBe(true);
+  });
+});
