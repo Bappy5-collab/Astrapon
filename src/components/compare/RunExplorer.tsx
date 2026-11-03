@@ -92,6 +92,20 @@ export function RunExplorer({
   if (!run) return <Alert severity="warning">{result.messages[0] ?? t("sim.ex.noOptions")}</Alert>;
   const options = optionsOf(run);
   const focusId = options.some((o) => o.id === focus) ? focus : (options[0]?.id ?? "baseline");
+  // A run where every option was ruled out (e.g. no planting window) has nothing to replay or
+  // compare: show why, and the full details with the rejections, instead of the option tabs.
+  if (!options.length) {
+    const why = [...result.messages, ...run.messages];
+    return (
+      <Box>
+        <Alert severity="warning" sx={{ mb: 2 }}>
+          {t("sim.ex.noOptions")}
+          {why.length > 0 && ` ${why.join(" ")}`}
+        </Alert>
+        {details}
+      </Box>
+    );
+  }
 
   const changeWeights = (w: Weights) => {
     setHistory((h) => [...h.slice(-19), weights]);

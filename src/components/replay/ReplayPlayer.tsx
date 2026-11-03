@@ -175,7 +175,7 @@ export function ReplayPlayer({
     if (next) setDay(next.day);
   };
 
-  const panels: ReplayPanel[] = panelIds.map((id) => {
+  const panels: ReplayPanel[] = panelIds.filter((id) => byId.has(id)).map((id) => {
     const s = byId.get(id)!;
     const p = plantingOn(s, day);
     return {
