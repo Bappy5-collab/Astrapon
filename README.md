@@ -41,7 +41,7 @@ pnpm db:import-reference  # sourced reference datasets (crop parameters, NASS ca
 pnpm db:verify            # schema, RLS, grants, generated types → data/verification/supabase-schema.json
 ```
 
-In Supabase → Authentication → URL Configuration set the Site URL (`http://localhost:3000` locally) and allow `http://localhost:3000/**` plus your deployed URL with `/**` as redirect URLs.
+In Supabase → Authentication → URL Configuration set the Site URL to the deployed URL (`https://astrapon.vercel.app`; use `http://localhost:3000` only if there is no deployment) and allow `http://localhost:3000/**` plus the deployed URL with `/**` as redirect URLs. A localhost Site URL makes confirmation emails open localhost (see `supabase/README.md`).
 
 ## Run
 

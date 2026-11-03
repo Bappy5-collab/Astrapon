@@ -28,6 +28,7 @@ Astrapon is two processes that share one Supabase project:
 1. Import the GitHub repository. Framework preset Next.js; install `pnpm install`, build `pnpm build`. Node 22.
 2. Set the environment variables above for **Production** (not the scripts-only secrets: `SUPABASE_SECRET_KEY` and `SUPABASE_DB_URL` are not needed by the web app).
 3. In Supabase → Authentication → URL Configuration: Site URL `https://<your domain>`; redirect URLs `https://<your domain>/**` and `http://localhost:3000/**`.
+   Also set `NEXT_PUBLIC_SITE_URL=https://<your domain>` on Vercel (email links use it). If confirmation links open localhost, the Site URL is still `http://localhost:3000` or the deployed URL is missing from the redirect list.
 4. Deploy. Check `https://<your domain>/setup` and `/api/health`.
 
 Changing production is an owner action. Nothing in this repository deploys automatically except Vercel's own Git integration.
