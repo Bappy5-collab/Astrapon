@@ -6,7 +6,7 @@
  *  - redirect URLs: the site with /** and http://localhost:3000/** (existing entries are kept);
  *  - branded subjects and HTML for the "Confirm signup" and "Reset password" emails
  *    (supabase/templates/*.html, token-hash links to /auth/confirm);
- *  - sender name "Astrapon" (only used once custom SMTP is configured; the built-in sender ignores it).
+ *  - sender name "Astrapon", only when custom SMTP is configured (Supabase rejects it otherwise).
  *
  * Needs SUPABASE_ACCESS_TOKEN (a personal access token from supabase.com → Account → Access tokens)
  * in the environment or .env.local. The project ref comes from NEXT_PUBLIC_SUPABASE_URL.
@@ -57,15 +57,23 @@ const allow = new Set(
 allow.add(`${site}/**`);
 allow.add("http://localhost:3000/**");
 
+// Supabase accepts email templates and a sender name only with custom SMTP (or a paid plan); without
+// it the URLs are still applied, which is what stops confirmation links opening localhost.
+const smtp = Boolean(current.smtp_host);
 const next: Record<string, string> = {
   site_url: site,
   uri_allow_list: [...allow].join(","),
-  mailer_subjects_confirmation: "Confirm your Astrapon account",
-  mailer_templates_confirmation_content: template("confirm-signup.html"),
-  mailer_subjects_recovery: "Reset your Astrapon password",
-  mailer_templates_recovery_content: template("reset-password.html"),
-  smtp_sender_name: "Astrapon",
+  ...(smtp
+    ? {
+        mailer_subjects_confirmation: "Confirm your Astrapon account",
+        mailer_templates_confirmation_content: template("confirm-signup.html"),
+        mailer_subjects_recovery: "Reset your Astrapon password",
+        mailer_templates_recovery_content: template("reset-password.html"),
+        smtp_sender_name: "Astrapon",
+      }
+    : {}),
 };
+if (!smtp) console.log("No custom SMTP: applying the Site URL and redirect list only. Branded templates need custom SMTP (see supabase/README.md).");
 
 // Only send keys the API reports, so a renamed field fails loudly instead of being ignored.
 const unknown = Object.keys(next).filter((k) => !(k in current));
@@ -88,7 +96,7 @@ if (DRY) {
 
 const patch = await fetch(API, { method: "PATCH", headers: { ...auth, "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(changes)) });
 if (!patch.ok) {
-  console.error(`Update failed (HTTP ${patch.status}). Nothing else was changed.`);
+  console.error(`Update failed (HTTP ${patch.status}): ${(await patch.text()).slice(0, 300)}. Nothing was changed.`);
   process.exit(1);
 }
 console.log(`Updated ${changes.length} setting(s).`);
