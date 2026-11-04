@@ -2,6 +2,7 @@ import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+import type { FieldFacts } from "@/domain/farm/progress";
 import type { BoundaryGeometry } from "@/domain/geo/boundary";
 import type { Database } from "@/server/database/database.types";
 
@@ -88,4 +89,58 @@ export async function listScenarios(db: Db) {
     fieldName: (s.fields as unknown as { name: string } | null)?.name ?? "",
     snapshots: (s.simulation_input_snapshots as unknown as { count: number }[])[0]?.count ?? 0,
   }));
+}
+
+/**
+ * What is recorded for each field, for the step guide (domain/farm/progress). One batched read per
+ * table, so a list of fields costs the same number of queries as one field.
+ */
+export async function fieldFacts(db: Db, fieldIds: string[]): Promise<Map<string, FieldFacts>> {
+  const out = new Map<string, FieldFacts>();
+  if (!fieldIds.length) return out;
+  const [fields, history, soil, water, prio, retr, jobs, scen] = await Promise.all([
+    db.from("fields").select("id, area_ha").in("id", fieldIds),
+    db.from("crop_history").select("field_id, planted_on, harvested_on").in("field_id", fieldIds),
+    db.from("soil_observations").select("field_id").in("field_id", fieldIds),
+    db.from("field_constraints").select("field_id").in("field_id", fieldIds),
+    db.from("farmer_priorities").select("field_id").in("field_id", fieldIds),
+    db.from("evidence_retrievals").select("field_id, source_id").in("field_id", fieldIds).in("source_id", ["nasa-power-daily", "usda-ssurgo-sda"]),
+    db.from("evidence_jobs").select("field_id").in("field_id", fieldIds).eq("source_id", "nasa-power-daily").in("status", ["queued", "running"]),
+    db.from("scenarios").select("id, field_id").in("field_id", fieldIds),
+  ]);
+  for (const r of [fields, history, soil, water, prio, retr, jobs, scen]) if (r.error) throw new Error("Could not load field progress");
+  const scenarioField = new Map(scen.data!.map((s) => [s.id, s.field_id]));
+  const latestRun = new Map<string, { id: string; at: string }>();
+  if (scenarioField.size) {
+    const snaps = await db.from("simulation_input_snapshots").select("id, scenario_id").in("scenario_id", [...scenarioField.keys()]);
+    if (snaps.error) throw new Error("Could not load field progress");
+    const snapField = new Map(snaps.data.map((s) => [s.id, scenarioField.get(s.scenario_id)!]));
+    if (snapField.size) {
+      const runs = await db.from("simulation_runs").select("id, snapshot_id, queued_at").in("snapshot_id", [...snapField.keys()]).eq("status", "succeeded");
+      if (runs.error) throw new Error("Could not load field progress");
+      for (const r of runs.data) {
+        const f = snapField.get(r.snapshot_id)!;
+        const cur = latestRun.get(f);
+        if (!cur || r.queued_at > cur.at) latestRun.set(f, { id: r.id, at: r.queued_at });
+      }
+    }
+  }
+  const count = (rows: { field_id: string }[], id: string) => rows.filter((r) => r.field_id === id).length;
+  for (const f of fields.data!) {
+    const h = history.data!.filter((r) => r.field_id === f.id);
+    out.set(f.id, {
+      hasBoundary: f.area_ha !== null,
+      historyCount: h.length,
+      datedHistoryCount: h.filter((r) => r.planted_on && r.harvested_on).length,
+      soilCount: count(soil.data!, f.id),
+      hasSoilSurvey: retr.data!.some((r) => r.field_id === f.id && r.source_id === "usda-ssurgo-sda"),
+      waterSaved: count(water.data!, f.id) > 0,
+      prioritiesSaved: count(prio.data!, f.id) > 0,
+      hasWeather: retr.data!.some((r) => r.field_id === f.id && r.source_id === "nasa-power-daily"),
+      weatherPending: count(jobs.data!, f.id) > 0,
+      scenarioCount: scen.data!.filter((s) => s.field_id === f.id).length,
+      latestRunId: latestRun.get(f.id)?.id ?? null,
+    });
+  }
+  return out;
 }

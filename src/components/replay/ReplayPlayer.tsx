@@ -16,6 +16,8 @@ import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -78,6 +80,7 @@ export function ReplayPlayer({
   geometry: ReplayGeometry;
 }) {
   const t = useT();
+  const [tech, setTech] = useState(false);
   const f = useFmt();
   const optionName = useOptionName();
   const reduced = useReducedMotion();
@@ -509,9 +512,12 @@ export function ReplayPlayer({
 
       {/* Selected-date inspection: the text equivalent of the scene. */}
       <Box component="section" aria-labelledby="day-h" sx={{ mt: 2.5 }}>
-        <Typography id="day-h" variant="h6" component="h3" sx={{ mb: 1 }}>
-          {fmt(t("sim.day.title"), { date: f.date(tableDate) })}
-        </Typography>
+        <Stack direction="row" spacing={1} sx={{ alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", mb: 1 }}>
+          <Typography id="day-h" variant="h6" component="h3">
+            {fmt(t("sim.day.title"), { date: f.date(tableDate) })}
+          </Typography>
+          <FormControlLabel className="no-print" control={<Switch size="small" checked={tech} onChange={(e) => setTech(e.target.checked)} />} label={<Typography variant="body2">{t("sim.day.tech")}</Typography>} />
+        </Stack>
         <Typography variant="body2" sx={{ mb: 1, ...numeric }}>
           {t("sim.day.weather")}: {t("sim.col.rain")} {f.num(timeline.weather.precip[tableDay] ?? null)} mm ·{" "}
           {t("sim.col.tmax")} {f.num(timeline.weather.tmax[tableDay])} °C ·{" "}
@@ -531,17 +537,19 @@ export function ReplayPlayer({
                 <TableCell>{t("sim.col.option")}</TableCell>
                 <TableCell>{t("sim.col.crop")}</TableCell>
                 <TableCell>{t("sim.col.stage")}</TableCell>
-                <TableCell align="right">{t("sim.col.kc")}</TableCell>
+                {tech && <TableCell align="right">{t("sim.col.kc")}</TableCell>}
                 <TableCell align="right">{t("sim.col.etc")} (mm)</TableCell>
                 <TableCell align="right">{t("sim.col.eta")} (mm)</TableCell>
                 <TableCell align="right">{t("sim.col.depletion")}</TableCell>
-                <TableCell align="right">{t("sim.col.ks")}</TableCell>
+                {tech && <TableCell align="right">{t("sim.col.ks")}</TableCell>}
                 <TableCell align="right">
                   {t("sim.col.irrigation")} (mm)
                 </TableCell>
-                <TableCell align="right">
-                  {t("sim.col.drainage")} (mm)
-                </TableCell>
+                {tech && (
+                  <TableCell align="right">
+                    {t("sim.col.drainage")} (mm)
+                  </TableCell>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -563,7 +571,7 @@ export function ReplayPlayer({
                     >
                       {optionName(o)}
                     </TableCell>
-                    <TableCell colSpan={v.crop ? 1 : 9} sx={{ minWidth: 150 }}>
+                    <TableCell colSpan={v.crop ? 1 : tech ? 9 : 6} sx={{ minWidth: 150 }}>
                       {v.crop ?? t("sim.noCrop")}
                       {v.crop && v.dayInCrop != null && (
                         <Typography
@@ -583,9 +591,11 @@ export function ReplayPlayer({
                     {v.crop && (
                       <>
                         <TableCell>{label(v.stage)}</TableCell>
-                        <TableCell align="right" sx={numeric}>
-                          {f.num(v.kc, 2)}
-                        </TableCell>
+                        {tech && (
+                          <TableCell align="right" sx={numeric}>
+                            {f.num(v.kc, 2)}
+                          </TableCell>
+                        )}
                         <TableCell align="right" sx={numeric}>
                           {f.num(v.etc)}
                         </TableCell>
@@ -595,15 +605,19 @@ export function ReplayPlayer({
                         <TableCell align="right" sx={numeric}>
                           {f.pct(v.depletion)}
                         </TableCell>
-                        <TableCell align="right" sx={numeric}>
-                          {f.num(v.ks, 2)}
-                        </TableCell>
+                        {tech && (
+                          <TableCell align="right" sx={numeric}>
+                            {f.num(v.ks, 2)}
+                          </TableCell>
+                        )}
                         <TableCell align="right" sx={numeric}>
                           {f.num(v.irrigation)}
                         </TableCell>
-                        <TableCell align="right" sx={numeric}>
-                          {f.num(v.drainage)}
-                        </TableCell>
+                        {tech && (
+                          <TableCell align="right" sx={numeric}>
+                            {f.num(v.drainage)}
+                          </TableCell>
+                        )}
                       </>
                     )}
                   </TableRow>

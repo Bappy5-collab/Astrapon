@@ -1,5 +1,7 @@
 # Astrapon – Simple UI Test Guide
 
+> **Phase 8 label changes (2026-11-05).** This guide was written for Phase 7. New names: Workspace → **My fields**; Saved runs → **Results**; Methodology → **How it works**; "All records" → the field page (**Next steps** button in the 3D view); Crop history → **What you grew**; Soil observations → **Your soil**; Water and equipment → **Water and machines**; Your priorities → **What matters most to you**; Scenarios / Create scenario → **Compare crop options / Create comparison**; Save scenario → **Save settings**; Run simulation → **Run comparison**; Replay tab → **Watch the seasons**; Compare tab → **Compare and rank**; Plain-language explanation → **Explanation**; Full details → **Technical details**. Boundary GeoJSON and zones are in the collapsed **Field shape and parts of the field** card; delete buttons are in collapsed danger cards. For the current farmer path see `docs/farmer-goal-test-banglish.md`.
+
 **What to do:** follow each step, then check that you see what the guide says. If you see something different, write it down as a bug.
 
 **How to write a bug:**

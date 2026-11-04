@@ -15,12 +15,10 @@ import type { MessageKey } from "@/lib/i18n/messages";
 import { tokens } from "@/theme/tokens";
 
 const LINKS: { href: string; key: MessageKey; match?: string[]; wideOnly?: boolean }[] = [
-  { href: "/farms", key: "nav.farms", match: ["/farms"] },
-  { href: "/workspace", key: "nav.workspace", match: ["/workspace", "/fields"] },
+  { href: "/workspace", key: "nav.workspace", match: ["/workspace", "/fields", "/farms", "/scenarios"] },
+  { href: "/runs", key: "nav.runs", match: ["/runs"] },
   { href: "/sample", key: "nav.sample" },
-  { href: "/runs", key: "nav.runs", match: ["/runs", "/scenarios"] },
-  { href: "/methodology", key: "nav.method", wideOnly: true },
-  { href: "/sources", key: "nav.sources", wideOnly: true },
+  { href: "/methodology", key: "nav.method", match: ["/methodology", "/sources"], wideOnly: true },
   { href: "/settings", key: "nav.settings", wideOnly: true },
 ];
 
@@ -65,7 +63,7 @@ export function MainNav() {
         <MenuRoundedIcon />
       </IconButton>
       <Menu id="main-menu" anchorEl={anchor} open={Boolean(anchor)} onClose={() => setAnchor(null)} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} transformOrigin={{ vertical: "top", horizontal: "right" }}>
-        {[...LINKS, { href: "/setup", key: "nav.settings" as MessageKey, label: "Setup" }].map((l) => (
+        {[...LINKS, { href: "/sources", key: "nav.sources" as MessageKey, label: "Data sources" }].map((l) => (
           <MenuItem
             key={l.href}
             component={NextLink}

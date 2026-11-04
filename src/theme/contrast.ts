@@ -51,4 +51,18 @@ export const PAIRINGS: { use: string; fg: string; bg: string; min: 4.5 | 3 }[] =
   { use: "Chart marks: below-normal pole on raised panel (non-text)", fg: "#B0652A", bg: color.surfaceRaised, min: 3 },
   { use: "Chart marks: above-normal pole on raised panel (non-text)", fg: "#1F7FB0", bg: color.surfaceRaised, min: 3 },
   { use: "Chart marks: single series (leaf) on raised panel (non-text)", fg: "#3F6B4B", bg: color.surfaceRaised, min: 3 },
+  // Phase 8 farmer-friendly layout (step guide, section badges, result summary, status chips).
+  { use: "Step-guide body on forest", fg: tokens.neutral[300], bg: tokens.forest[900], min: 4.5 },
+  { use: "Progress label on forest", fg: tokens.neutral[200], bg: tokens.forest[900], min: 4.5 },
+  { use: "Light chip text on forest-700 (Ranked first)", fg: tokens.neutral[100], bg: tokens.forest[700], min: 4.5 },
+  { use: "Forest-800 badge icon/number on lime-200", fg: tokens.forest[800], bg: tokens.lime[200], min: 4.5 },
+  { use: "Forest text on lime-200 (next step, done chip)", fg: tokens.forest[900], bg: tokens.lime[200], min: 4.5 },
+  { use: "Muted text on neutral-200 (to-do chip)", fg: color.inkMuted, bg: tokens.neutral[200], min: 4.5 },
+  { use: "Forest-600 link text on raised panel (More details)", fg: tokens.forest[600], bg: color.surfaceRaised, min: 4.5 },
+  { use: "Eyebrow (leaf) on surface", fg: tokens.forest[500], bg: color.surface, min: 4.5 },
+  { use: "Danger title on raised panel", fg: tokens.clay, bg: color.surfaceRaised, min: 4.5 },
+  { use: "Danger badge on pale clay", fg: tokens.clay, bg: "#F6DED6", min: 4.5 },
+  { use: "Better-list heading on pale lime", fg: tokens.forest[800], bg: "#F4F9E6", min: 4.5 },
+  { use: "Worse-list heading on pale clay", fg: tokens.clay, bg: "#FBF1ED", min: 4.5 },
+  { use: "Step number (lime) on forest-900 tile", fg: tokens.lime[400], bg: tokens.forest[900], min: 4.5 },
 ];

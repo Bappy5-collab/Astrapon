@@ -8,11 +8,11 @@ import Chip from "@mui/material/Chip";
 import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
 
 import { ActionMessage, toUiMessage, type UiMessage } from "@/components/compare/ActionMessage";
-import { TextLink } from "@/components/links";
 import { useT } from "@/lib/i18n/I18nProvider";
 import type { RunSummary } from "@/domain/simulation/runs";
 import { color, numeric, radius } from "@/theme/tokens";
@@ -65,11 +65,11 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
   return (
     <Stack spacing={2}>
       <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ alignItems: { sm: "center" } }}>
-        <Button variant="contained" startIcon={<PlayArrowRoundedIcon />} disabled={pending || active || !canRun} onClick={() => act(actions.request)}>
+        <Button variant="contained" size="large" startIcon={<PlayArrowRoundedIcon />} disabled={pending || active || !canRun} onClick={() => act(actions.request)} sx={{ flexShrink: 0 }}>
           {t("sim.runSim")}
         </Button>
         <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 640 }}>
-          Freezes the current inputs into a snapshot (reused when nothing changed) and queues the run. The background worker computes it; this page updates by itself.
+          The comparison runs in the background. This page updates by itself when it is ready.
         </Typography>
       </Stack>
       {!canRun && blockedReason && <Alert severity="info">{blockedReason}</Alert>}
@@ -91,16 +91,18 @@ export function RunPanel({ runs, actions, renderedAt, canRun, blockedReason }: {
                 <Stack direction={{ xs: "column", md: "row" }} spacing={1} sx={{ alignItems: { md: "center" }, justifyContent: "space-between" }}>
                   <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}>
                     <Chip size="small" label={t(`sim.status.${r.status}`)} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
-                    <Typography variant="body2" sx={numeric}>
-                      {stamp(r.queuedAt)} · engine {r.engineVersion}
-                      {r.computeMs != null ? ` · ${r.computeMs} ms` : ""}
-                      {r.resultSha256 ? ` · result ${r.resultSha256.slice(0, 10)}…` : ""}
+                    <Typography variant="body2" sx={numeric} title={`engine ${r.engineVersion}${r.computeMs != null ? ` · ${r.computeMs} ms` : ""}${r.resultSha256 ? ` · result ${r.resultSha256}` : ""}`}>
+                      {stamp(r.queuedAt)}
                     </Typography>
                     {reproduced === "identical" && <Chip size="small" variant="outlined" label={t("sim.identical")} />}
                     {reproduced === "different" && <Chip size="small" color="error" label={t("sim.differ")} />}
                   </Stack>
                   <Stack direction="row" spacing={1}>
-                    {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>{t("sim.open")}</TextLink>}
+                    {r.status === "succeeded" && (
+                      <Button component={NextLink} href={`/runs/${r.id}`} size="small" variant={r === runs[0] ? "contained" : "outlined"}>
+                        {t("sim.open")}
+                      </Button>
+                    )}
                     {r.status === "succeeded" && (
                       <Button size="small" disabled={pending || active} onClick={() => act(() => actions.reproduce(r.id))}>
                         {t("sim.reproduce")}

@@ -81,10 +81,12 @@ Labels over the 3D scene sit on an opaque forest pill (`rgba(10,29,22,.84)`) or 
 
 ## Screen composition
 
-- **Landing:** split hero (claim + actions + working location search | live 3D sample), the farmer problem, the workflow with per-step build status, the evidence/source explanation (computed grid-vs-field table), and a final call to action. No traction statistics or testimonials.
+- **Landing:** split hero (claim + actions + working location search | live 3D sample), the farmer problem, a four-step "How it works", the evidence/source explanation (computed grid-vs-field table), and a final call to action. No traction statistics or testimonials.
 - **Workspace, desktop (≥900px):** compact top bar (field, farm, location, run state, Save with unsaved count) · 72px navigation rail (3D/Map, tools, links) · 316px collapsible crops/settings panel · central viewport · 340px Inspect/Evidence drawer (docked by default at ≥1536px, toggled below) · seasonal timeline under the viewport. At 1440px with the drawer closed the viewport takes about 75% of the width; about 50% with both side panels open.
 - **Workspace, mobile:** top bar with Save and Inspect, full-width scene, a tool row directly below (view switch, tools, "Crops and settings"), the readable timeline, and a bottom sheet for inputs and evidence. While drawing, the drawing controls sit below the map, never over it.
-- Authentication, saved runs, methodology and settings reuse the same surfaces, radii and type.
+- **Farmer path (Phase 8):** each field page opens with the step guide (forest header with the single next action and a progress bar, then six step tiles: done ✓, next on lime-200, optional, to do). Sections are cards with a 40px lime-200 badge (icon) and a status chip; optional inputs sit under a "More details" disclosure (native `<details>`, closed controls still submit); advanced and destructive cards are collapsed by default. Lists of fields are cards with progress and one primary action.
+- **Result page:** the summary card comes first (forest header: "Ranked first" option; then better/worse lists on pale lime / pale clay, three actions, and a "Check it locally" note), then the tabs.
+- Authentication, results, methodology and settings reuse the same surfaces, radii and type.
 
 ## 3D scene rules
 

@@ -34,7 +34,7 @@ export default async function RunPage({ params }: PageProps<"/runs/[runId]">) {
   const t = await getT();
   const { run, result, scenario } = data;
   const st = RUN_STATUS[run.status];
-  const crumbs = [{ href: "/runs", label: t("nav.runs") }, ...(scenario ? [{ href: `/fields/${scenario.fieldId}`, label: scenario.fieldName }, { href: `/scenarios/${scenario.id}`, label: scenario.name }] : [])];
+  const crumbs = [{ href: "/runs", label: t("nav.runs") }, ...(scenario ? [{ href: `/fields/${scenario.fieldId}/records`, label: scenario.fieldName }, { href: `/scenarios/${scenario.id}`, label: "Settings" }] : [])];
   const scenarioId = scenario?.id ?? null;
 
   const rerun = async () => {
@@ -52,13 +52,12 @@ export default async function RunPage({ params }: PageProps<"/runs/[runId]">) {
 
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
-      <PageHeader crumbs={crumbs} title={scenario ? `${t("sim.title")}: ${scenario.name}` : t("sim.title")}>
+      <PageHeader crumbs={crumbs} title={scenario ? scenario.name : t("sim.title")} eyebrow={scenario ? `${t("sim.title")} · ${scenario.fieldName}` : undefined}>
         <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 1 }}>
           <Chip size="small" label={t(`sim.status.${run.status}`)} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
           <EvidenceChip evidenceClass="simulation_output" />
-          <Typography variant="body2" color="text.secondary" sx={numeric}>
-            {run.queuedAt.slice(0, 16).replace("T", " ")} UTC · engine {run.engineVersion}
-            {run.computeMs != null ? ` · ${run.computeMs} ms` : ""}
+          <Typography variant="body2" color="text.secondary" sx={numeric} title={`engine ${run.engineVersion}${run.computeMs != null ? ` · ${run.computeMs} ms` : ""}`}>
+            {run.queuedAt.slice(0, 10)}
           </Typography>
         </Stack>
       </PageHeader>

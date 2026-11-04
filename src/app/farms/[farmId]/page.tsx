@@ -1,25 +1,30 @@
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import StorefrontRoundedIcon from "@mui/icons-material/StorefrontRounded";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { DeleteButton } from "@/components/farm/DeleteButton";
+import { FieldCard, FieldGrid } from "@/components/farm/FieldCard";
 import { Empty, PageHeader, RecordList, Section } from "@/components/farm/ui";
 import { ActionForm, FormCheckbox, FormField, FormSelect } from "@/components/forms/ActionForm";
-import { TextLink } from "@/components/links";
+import { ButtonLink } from "@/components/links";
 import { SetupRequired } from "@/components/SetupRequired";
+import { fieldSteps } from "@/domain/farm/progress";
 import { MARKET_PREFERENCES } from "@/domain/farm/records";
 import { requireUser } from "@/server/auth/session";
 import { addMarketPreference, createField, deleteOwnedRecord } from "@/server/farm/actions";
-import { getFarm } from "@/server/farm/queries";
+import { fieldFacts, getFarm } from "@/server/farm/queries";
 
 export const metadata: Metadata = { title: "Farm" };
 
 const PREF_LABEL: Record<(typeof MARKET_PREFERENCES)[number], string> = {
-  preferred: "Preferred",
-  acceptable: "Acceptable",
-  avoid: "Avoid",
-  no_market_access: "No market access",
+  preferred: "I prefer to sell it",
+  acceptable: "I can sell it",
+  avoid: "I'd rather not",
+  no_market_access: "No buyer near me",
 };
 
 export default async function FarmPage({ params }: PageProps<"/farms/[farmId]">) {
@@ -29,44 +34,55 @@ export default async function FarmPage({ params }: PageProps<"/farms/[farmId]">)
   if (!/^[0-9a-f-]{36}$/i.test(farmId)) notFound();
   const farm = await getFarm(user.supabase, farmId);
   if (!farm) notFound();
+  const facts = await fieldFacts(user.supabase, farm.fields.map((f) => f.id));
 
   return (
-    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
-      <PageHeader crumbs={[{ href: "/farms", label: "Farms" }]} title={farm.name}>
-        {(farm.country_code || farm.notes) && (
-          <Typography color="text.secondary">
-            {farm.country_code}
-            {farm.country_code && farm.notes ? " · " : ""}
-            {farm.notes}
-          </Typography>
-        )}
-      </PageHeader>
+    <Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
+      <PageHeader
+        crumbs={[{ href: "/farms", label: "Farms" }]}
+        title={farm.name}
+        eyebrow="Farm"
+        subtitle={[farm.country_code, farm.notes].filter(Boolean).join(" · ") || undefined}
+        actions={
+          <ButtonLink href="/fields/new" variant="contained" startIcon={<AddRoundedIcon />}>
+            Add a field on the map
+          </ButtonLink>
+        }
+      />
 
-      <Section title="Fields" intro="Each field holds its own boundary, zones, crop history, soil records, water limits, priorities and scenarios.">
-        {farm.fields.length === 0 ? (
-          <Empty>No fields yet.</Empty>
-        ) : (
-          <RecordList
-            label="Fields"
-            items={farm.fields.map((f) => ({
-              key: f.id,
-              primary: <TextLink href={`/fields/${f.id}`}>{f.name}</TextLink>,
-              secondary: f.area_ha !== null ? `${Number(f.area_ha).toFixed(2)} ha (from boundary)` : "No boundary yet",
-            }))}
-          />
-        )}
+      <Typography variant="h5" component="h2" sx={{ mb: 1.5 }}>
+        Fields
+      </Typography>
+      {farm.fields.length === 0 ? (
+        <Empty>No fields yet. Use “Add a field on the map” to draw your first one.</Empty>
+      ) : (
+        <FieldGrid label="Fields">
+          {farm.fields.map((f) => {
+            const fx = facts.get(f.id);
+            return fx ? <FieldCard key={f.id} id={f.id} name={f.name} areaHa={f.area_ha === null ? null : Number(f.area_ha)} steps={fieldSteps(f.id, fx)} /> : null;
+          })}
+        </FieldGrid>
+      )}
+
+      <Section collapsible title="Add a field by name only" intro="Creates an empty field you can draw later. Most people use “Add a field on the map” instead." icon={<AddRoundedIcon />}>
         <ActionForm action={createField.bind(null, farm.id)} submitLabel="Add field" direction="row">
           <FormField name="name" label="Field name" required sx={{ minWidth: 240 }} />
           <FormField name="notes" label="Notes" sx={{ minWidth: 280, flexGrow: 1 }} />
         </ActionForm>
       </Section>
 
-      <Section title="Market preferences" intro="Where you can sell. Farmer-reported; Astrapon does not estimate prices or profit.">
+      <Section
+        collapsible
+        defaultOpen={farm.markets.length > 0}
+        icon={<StorefrontRoundedIcon />}
+        title="Where you can sell"
+        intro="Optional. Crops you can or cannot sell nearby. Astrapon does not estimate prices or profit."
+      >
         {farm.markets.length === 0 ? (
-          <Empty>No market preferences recorded.</Empty>
+          <Empty>Nothing recorded.</Empty>
         ) : (
           <RecordList
-            label="Market preferences"
+            label="Where you can sell"
             items={farm.markets.map((m) => ({
               key: m.id,
               primary: m.crop_name,
@@ -75,15 +91,15 @@ export default async function FarmPage({ params }: PageProps<"/farms/[farmId]">)
             }))}
           />
         )}
-        <ActionForm action={addMarketPreference.bind(null, farm.id)} submitLabel="Add preference" direction="row">
+        <ActionForm action={addMarketPreference.bind(null, farm.id)} submitLabel="Add" direction="row">
           <FormField name="cropName" label="Crop" required />
-          <FormSelect name="preference" label="Preference" options={MARKET_PREFERENCES.map((v) => ({ value: v, label: PREF_LABEL[v] }))} defaultValue="acceptable" />
+          <FormSelect name="preference" label="Can you sell it?" options={MARKET_PREFERENCES.map((v) => ({ value: v, label: PREF_LABEL[v] }))} defaultValue="acceptable" />
           <FormCheckbox name="hasContract" label="Under contract" />
           <FormField name="notes" label="Notes" sx={{ minWidth: 240, flexGrow: 1 }} />
         </ActionForm>
       </Section>
 
-      <Section title="Delete farm" intro="Permanently deletes this farm and every field, zone, record and scenario under it.">
+      <Section collapsible tone="danger" icon={<DeleteOutlineRoundedIcon />} title="Delete this farm" intro="Removes the farm and every field, season, comparison and result in it. This cannot be undone.">
         <DeleteButton action={deleteOwnedRecord.bind(null, "farms", farm.id, farm.id)} label={`Delete farm ${farm.name}`} confirmLabel="Yes, delete this farm and everything in it" />
       </Section>
     </Container>

@@ -1,3 +1,6 @@
+import BookmarkRoundedIcon from "@mui/icons-material/BookmarkRounded";
+import CompareArrowsRoundedIcon from "@mui/icons-material/CompareArrowsRounded";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
@@ -15,7 +18,7 @@ import { listScenarios, SchemaMissingError } from "@/server/farm/queries";
 import { listAllRuns, listPlans } from "@/server/simulation/queries";
 import { color, numeric, radius } from "@/theme/tokens";
 
-export const metadata: Metadata = { title: "Saved runs" };
+export const metadata: Metadata = { title: "Results" };
 
 export default async function RunsPage() {
   const user = await requireUser("/runs");
@@ -34,12 +37,12 @@ export default async function RunsPage() {
   const t = await getT();
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
-      <PageHeader crumbs={[]} title={t("nav.runs")}>
-        <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
-          A run pins a scenario&apos;s frozen inputs, the evidence it used and the engine version, so reopening it shows exactly the stored result, and a re-run reproduces it.
-        </Typography>
-      </PageHeader>
-      <Section title={t("sim.plan.all")} intro={t("sim.plan.allIntro")}>
+      <PageHeader
+        crumbs={[]}
+        title={t("nav.runs")}
+        subtitle="Every comparison you have run, and the plans you saved. A saved result always reopens exactly as it was."
+      />
+      <Section icon={<BookmarkRoundedIcon />} title={t("sim.plan.all")} intro={t("sim.plan.allIntro")}>
         {plans.length === 0 ? (
           <Empty>{t("sim.plan.noneAll")}</Empty>
         ) : (
@@ -63,9 +66,14 @@ export default async function RunsPage() {
           </Box>
         )}
       </Section>
-      <Section title="Runs" intro="Newest first. Results are relative comparisons on past weather, not forecasts.">
+      <Section icon={<CompareArrowsRoundedIcon />} title="Comparisons you ran" intro="Newest first. Each one compares options on past weather; none is a forecast.">
         {runs.length === 0 ? (
-          <Empty>No runs yet. Open a scenario and choose “Run simulation”.</Empty>
+          <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
+            <Empty>No comparisons yet. Open one of your fields and follow the steps.</Empty>
+            <ButtonLink href="/workspace" variant="contained">
+              Go to my fields
+            </ButtonLink>
+          </Stack>
         ) : (
           <Box component="ul" aria-label="Runs" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1 }}>
             {runs.map((r) => {
@@ -76,12 +84,20 @@ export default async function RunsPage() {
                     <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}>
                       <Chip size="small" label={t(`sim.status.${r.status}`)} sx={{ bgcolor: st.bg, color: st.fg, fontWeight: 600 }} />
                       <Typography variant="body2" sx={numeric}>
-                        {r.scenarioName || "Scenario"} · {r.fieldName} · {r.queuedAt.slice(0, 16).replace("T", " ")} UTC · engine {r.engineVersion}
+                        <Box component="strong">{r.scenarioName || "Comparison"}</Box> · {r.fieldName} · {r.queuedAt.slice(0, 10)}
                       </Typography>
                     </Stack>
                     <Stack direction="row" spacing={2}>
-                      {r.status === "succeeded" && <TextLink href={`/runs/${r.id}`}>{t("sim.open")}</TextLink>}
-                      {r.scenarioId && <TextLink href={`/scenarios/${r.scenarioId}`}>Scenario</TextLink>}
+                      {r.status === "succeeded" && (
+                        <ButtonLink href={`/runs/${r.id}`} size="small" variant="contained">
+                          {t("sim.open")}
+                        </ButtonLink>
+                      )}
+                      {r.scenarioId && (
+                        <ButtonLink href={`/scenarios/${r.scenarioId}`} size="small" variant="text">
+                          Settings
+                        </ButtonLink>
+                      )}
                     </Stack>
                   </Stack>
                 </Box>
@@ -90,13 +106,10 @@ export default async function RunsPage() {
           </Box>
         )}
       </Section>
-      <Section title="Scenarios and input snapshots" intro="Each scenario belongs to a field. Snapshots are immutable copies of the inputs at the moment you froze them.">
+      <Section collapsible icon={<Inventory2OutlinedIcon />} title="All comparison settings" intro="Each comparison belongs to a field. Snapshots are frozen copies of the inputs used by each run.">
         {scenarios.length === 0 ? (
           <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
-            <Empty>No scenarios yet. Create one from a field&apos;s records page.</Empty>
-            <ButtonLink href="/farms" variant="outlined">
-              Go to your farms
-            </ButtonLink>
+            <Empty>No comparisons yet. Start one from a field&apos;s steps.</Empty>
           </Stack>
         ) : (
           <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" } }}>
@@ -108,7 +121,7 @@ export default async function RunsPage() {
                       {s.name}
                     </TextLink>
                     <Typography variant="body2" color="text.secondary" sx={numeric}>
-                      Field <TextLink href={`/fields/${s.fieldId}`}>{s.fieldName}</TextLink> · updated {s.updatedAt.slice(0, 10)}
+                      Field <TextLink href={`/fields/${s.fieldId}/records`}>{s.fieldName}</TextLink> · updated {s.updatedAt.slice(0, 10)}
                     </Typography>
                   </Box>
                   <Chip size="small" label={`${s.snapshots} snapshot${s.snapshots === 1 ? "" : "s"}`} sx={numeric} />

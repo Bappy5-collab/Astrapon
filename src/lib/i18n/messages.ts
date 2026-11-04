@@ -9,14 +9,14 @@ import { simBn, simEn } from "./sim-messages";
 
 const en = {
   "nav.farms": "Farms",
-  "nav.workspace": "Workspace",
-  "nav.runs": "Saved runs",
+  "nav.workspace": "My fields",
+  "nav.runs": "Results",
   "nav.sources": "Sources",
-  "nav.method": "Methodology",
+  "nav.method": "How it works",
   "nav.settings": "Settings",
   "nav.signIn": "Sign in",
   "nav.account": "Account",
-  "nav.sample": "Sample",
+  "nav.sample": "Try a sample",
   "nav.main": "Main",
 
   "hero.kicker": "Crop rotation decision support",
@@ -84,6 +84,7 @@ const en = {
   "ws.sampleSaveNote": "Sample changes are kept only in this browser. Sign in to save a real field.",
   "ws.resetSample": "Reset sample",
   "ws.records": "All records",
+  "ws.steps": "Next steps",
   "ws.illustrative": "Illustrative 3D · flat terrain · not satellite imagery",
   "ws.selectZone": "Select a zone",
   "ws.selected": "Selected",
@@ -126,10 +127,10 @@ export type MessageKey = keyof typeof en;
 
 const bn: Record<MessageKey, string> = {
   "nav.farms": "খামার",
-  "nav.workspace": "ওয়ার্কস্পেস",
-  "nav.runs": "সংরক্ষিত রান",
+  "nav.workspace": "আমার জমি",
+  "nav.runs": "ফলাফল",
   "nav.sources": "উৎস",
-  "nav.method": "পদ্ধতি",
+  "nav.method": "কীভাবে কাজ করে",
   "nav.settings": "সেটিংস",
   "nav.signIn": "সাইন ইন",
   "nav.account": "অ্যাকাউন্ট",
@@ -201,6 +202,7 @@ const bn: Record<MessageKey, string> = {
   "ws.sampleSaveNote": "নমুনার পরিবর্তন শুধু এই ব্রাউজারে থাকে। আসল জমি সংরক্ষণ করতে সাইন ইন করুন।",
   "ws.resetSample": "নমুনা আগের মতো করুন",
   "ws.records": "সব রেকর্ড",
+  "ws.steps": "পরের ধাপ",
   "ws.illustrative": "উদাহরণমূলক ৩ডি · সমতল ভূমি · উপগ্রহ চিত্র নয়",
   "ws.selectZone": "একটি অঞ্চল বাছুন",
   "ws.selected": "নির্বাচিত",

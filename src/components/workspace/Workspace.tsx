@@ -6,6 +6,7 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import CropFreeRoundedIcon from "@mui/icons-material/CropFreeRounded";
 import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
 import HighlightAltRoundedIcon from "@mui/icons-material/HighlightAltRounded";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import NearMeOutlinedIcon from "@mui/icons-material/NearMeOutlined";
@@ -185,12 +186,18 @@ export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved,
           {field.placeLabel ?? (origin ? formatLatLon({ lat: origin[1], lon: origin[0] }, 4) : "Location not set")}
         </Typography>
       </Box>
-      <Chip
-        size="small"
-        variant="outlined"
-        label={`${t("ws.runState")}: ${t("ws.runUnavailable")}`}
-        sx={{ display: { xs: "none", md: "inline-flex" }, borderColor: color.lineStrong, color: color.inkMuted }}
-      />
+      {mode !== "sample" && field.id ? (
+        <Button component={NextLink} href={`/fields/${field.id}/records`} variant="outlined" size="small" endIcon={<ArrowForwardRoundedIcon />} sx={{ flexShrink: 0, display: { xs: "none", sm: "inline-flex" } }}>
+          {t("ws.steps")}
+        </Button>
+      ) : (
+        <Chip
+          size="small"
+          variant="outlined"
+          label={`${t("ws.runState")}: ${t("ws.runUnavailable")}`}
+          sx={{ display: { xs: "none", md: "inline-flex" }, borderColor: color.lineStrong, color: color.inkMuted }}
+        />
+      )}
       {extraActions}
       {!desktop && (
         <IconButton aria-label={t("ws.inspect")} onClick={() => setSheet("inspect")}>

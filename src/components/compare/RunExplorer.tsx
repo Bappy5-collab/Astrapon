@@ -25,6 +25,7 @@ import { ActionMessage, toUiMessage, type UiMessage } from "./ActionMessage";
 import { ComparePanel, type Weights } from "./ComparePanel";
 import { ExplainPanel } from "./ExplainPanel";
 import { PlanPanel, type PlanActions } from "./PlanPanel";
+import { RunSummary } from "./RunSummary";
 import { Glossary, WhyPanel } from "./WhyPanel";
 
 const TABS = ["simulate", "compare", "why", "explain", "details", "save"] as const;
@@ -186,7 +187,17 @@ export function RunExplorer({
         </Alert>
       )}
 
-      <Box sx={{ borderBottom: `1px solid ${color.line}`, mb: 2 }} className="no-print">
+      <RunSummary
+        result={result}
+        run={run}
+        onTab={(id, option) => {
+          if (option) setFocus(option);
+          setTab(id);
+          document.getElementById("run-tabs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }}
+      />
+
+      <Box id="run-tabs" sx={{ borderBottom: `1px solid ${color.line}`, mb: 2, scrollMarginTop: 80 }} className="no-print">
         <Tabs value={tab} onChange={(_, v) => setTab(v)} variant="scrollable" scrollButtons="auto" allowScrollButtonsMobile aria-label={t("sim.tabs")}>
           {TABS.map((id) => (
             <Tab key={id} value={id} label={t(`sim.tab.${id}`)} id={`tab-${id}`} aria-controls={`panel-${id}`} />

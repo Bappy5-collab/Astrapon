@@ -1,6 +1,5 @@
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -33,11 +32,10 @@ const PROBLEMS = [
 ];
 
 const WORKFLOW = [
-  { n: "01", title: "Locate", body: "Search a place, type coordinates, or use your device location only when you ask.", status: "Working", href: "/fields/new" },
-  { n: "02", title: "Draw the boundary", body: "Click the corners on a street map or NASA HLS imagery; area is computed on the ellipsoid and checked before saving.", status: "Working", href: "/fields/new" },
-  { n: "03", title: "Zones and crops", body: "Mark parts you know differ, and record what grew in each, season by season. Saved together after you confirm.", status: "Working", href: "/sample" },
-  { n: "04", title: "Inspect in 3D", body: "Orbit the field, select zones by tap or from the list, and step through recorded seasons.", status: "Working", href: "/sample" },
-  { n: "05", title: "Compare rotations", body: "Replay past seasons with evidence, your water limits and your priorities, then compare your rotation with feasible alternatives and see why they rank as they do.", status: "Working", href: "/methodology" },
+  { n: "1", title: "Find and draw your field", body: "Search your village or town, then click the corners of your field on the map. Astrapon works out its size.", href: "/fields/new", cta: "Add my field" },
+  { n: "2", title: "Tell us what you grew", body: "Add your past seasons with planting and harvest dates, and your soil test and water if you have them.", href: "/sample", cta: "See the sample" },
+  { n: "3", title: "Get your field's weather", body: "One click downloads 40+ years of NASA weather for your field's location. It runs in the background.", href: "/sources", cta: "About the data" },
+  { n: "4", title: "Compare crop options", body: "See your current rotation next to alternatives on the same past weather, ranked by what matters to you, with the reasons.", href: "/methodology", cta: "How it works" },
 ];
 
 export default async function HomePage() {
@@ -111,29 +109,26 @@ export default async function HomePage() {
       <Box component="section" aria-labelledby="workflow-title" sx={{ py: { xs: 7, md: 10 }, bgcolor: color.surface }}>
         <Container maxWidth="lg">
           <Typography variant="overline" sx={{ color: color.leaf }}>
-            The workflow, as built today
+            How it works
           </Typography>
           <Typography id="workflow-title" variant="h2" sx={{ mt: 1, maxWidth: 760, color: color.forest }}>
-            From a place name to a field you can inspect, in a few minutes.
+            Four steps from your field to a clear comparison.
           </Typography>
-          <Box component="ol" sx={{ listStyle: "none", p: 0, m: 0, mt: 4, display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(5, 1fr)" } }}>
+          <Box component="ol" sx={{ listStyle: "none", p: 0, m: 0, mt: 4, display: "grid", gap: 2, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", lg: "repeat(4, 1fr)" } }}>
             {WORKFLOW.map((s) => (
               <Box component="li" key={s.n} sx={{ p: 2.5, borderRadius: `${radius.lg}px`, bgcolor: color.surfaceRaised, border: `1px solid ${color.line}`, boxShadow: elevation.raised, display: "flex", flexDirection: "column", gap: 1.25 }}>
-                <Typography aria-hidden="true" sx={{ fontFamily: "var(--font-display)", fontSize: "1.9rem", lineHeight: 1, color: tokens.lime[700], ...numeric }}>
+                <Box aria-hidden="true" sx={{ width: 40, height: 40, borderRadius: "12px", display: "grid", placeItems: "center", bgcolor: tokens.forest[900], color: tokens.lime[400], fontWeight: 700, fontSize: "1.1rem", ...numeric }}>
                   {s.n}
-                </Typography>
+                </Box>
                 <Typography variant="h5" component="h3">
                   {s.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
                   {s.body}
                 </Typography>
-                <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between", gap: 1 }}>
-                  <Chip size="small" label={s.status} sx={s.status === "Working" ? { bgcolor: tokens.lime[400], color: tokens.forest[950] } : { bgcolor: tokens.neutral[200], color: color.ink }} />
-                  <TextLink href={s.href} sx={{ fontSize: "0.875rem", fontWeight: 600 }}>
-                    {s.status === "Working" ? "Try it" : "Why"}
-                  </TextLink>
-                </Stack>
+                <TextLink href={s.href} sx={{ fontSize: "0.9rem", fontWeight: 600 }}>
+                  {s.cta} →
+                </TextLink>
               </Box>
             ))}
           </Box>

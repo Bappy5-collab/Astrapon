@@ -25,8 +25,11 @@ export default async function FieldEvidencePage({ params }: PageProps<"/fields/[
   if (!field.geometry.boundary)
     return (
       <Container maxWidth="md" sx={{ py: 6 }}>
-        <PageHeader crumbs={[{ href: `/fields/${fieldId}`, label: field.name }]} title="Evidence" />
-        <Typography>Draw the field boundary first; evidence is fetched for the field&apos;s location.</Typography>
+        <PageHeader crumbs={[{ href: "/workspace", label: "My fields" }, { href: `/fields/${fieldId}/records`, label: field.name }]} title="Weather and soil" />
+        <Typography>Draw the field on the map first: weather and soil data are found from the field&apos;s location.</Typography>
+        <ButtonLink href={`/fields/${fieldId}`} variant="contained" sx={{ mt: 2 }}>
+          Draw the field
+        </ButtonLink>
       </Container>
     );
   const evidence = await getFieldEvidence(user.supabase, fieldId);
@@ -40,14 +43,17 @@ export default async function FieldEvidencePage({ params }: PageProps<"/fields/[
   };
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
-      <PageHeader crumbs={[{ href: "/farms", label: "Farms" }, { href: `/farms/${field.farm_id}`, label: field.farmName }, { href: `/fields/${fieldId}`, label: `${field.name} workspace` }]} title={`${field.name}: environmental evidence`}>
-        <Typography color="text.secondary" sx={{ maxWidth: 760 }}>
-          Public NASA and USDA data for this field&apos;s location, processed the same way every time and stored with where it came from. Downloads run in the background; you can leave this page.
-        </Typography>
-        <ButtonLink href={`/fields/${fieldId}`} variant="outlined" sx={{ mt: 2 }}>
-          Back to the workspace
-        </ButtonLink>
-      </PageHeader>
+      <PageHeader
+        crumbs={[{ href: "/workspace", label: "My fields" }, { href: `/fields/${fieldId}/records`, label: field.name }]}
+        title="Weather and soil"
+        eyebrow={field.name}
+        subtitle="Public NASA weather and (in the US) USDA soil survey data for this field's location. Press “Refresh all” once; the download runs in the background and you can leave this page."
+        actions={
+          <ButtonLink href={`/fields/${fieldId}/records`} variant="outlined">
+            Back to the field steps
+          </ButtonLink>
+        }
+      />
       <EvidenceDashboard
         evidence={evidence}
         actions={{ request, cancel }}
