@@ -68,7 +68,7 @@ Why:
   - `FieldScene.tsx` is the R3F scene.
   - `FieldViewport.tsx` wraps the scene with capability detection, quality presets, context-loss restart, a compass and camera controls.
   - `HeroField.tsx` reuses the scene on the landing page.
-- `src/components/map`: Leaflet (lazy, client-only) with OSM tiles and NASA GIBS HLS imagery. A custom vertex editor supports click to add, drag, midpoint insert, select + delete, and a keyboard "add point at centre".
+- `src/components/map`: MapLibre GL JS 6 (lazy, client-only; Leaflet until 2026-11-05) in globe projection. Bases: Esri World Imagery (default "Satellite"), OSM streets, and dated NASA GIBS HLS over the satellite base. A slowly turning Earth until the user interacts; searched places are reached with `flyTo` (a jump with reduced motion). A custom vertex editor (HTML markers) supports click to add, drag, midpoint insert, select + delete, and a keyboard "add point at centre"; corners can only be placed at zoom ≥ 13. The worker module is copied to `public/vendor/` by `scripts/copy-maplibre-worker.mjs` before `dev` and `build` (git-ignored).
 - `src/components/workspace`:
   - `useWorkspace` holds staged edits (boundary, zones, crop assignments) and produces the save payload.
   - After the farmer confirms a change summary, `saveWorkspace` → `save_field_workspace` commits the edits together in one transaction (SECURITY INVOKER).

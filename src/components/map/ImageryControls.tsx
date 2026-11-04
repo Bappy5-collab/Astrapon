@@ -14,7 +14,7 @@ import { useT } from "@/lib/i18n/I18nProvider";
 import { overlaySurface } from "@/theme/tokens";
 
 import { defaultImageryDate, findImageryDate } from "./basemaps";
-import type { Basemap } from "./FieldMapLeaflet";
+import type { Basemap } from "./FieldMapGL";
 
 /**
  * Base-map switch plus HLS imagery date. Choosing NASA imagery looks back from the chosen date for
@@ -68,6 +68,7 @@ export function ImageryControls({
           aria-label={t("ws.basemap")}
           sx={{ ...overlaySurface, borderRadius: 1.25, "& .MuiToggleButton-root": { minHeight: 40 } }}
         >
+          <ToggleButton value="satellite">{t("ws.satellite")}</ToggleButton>
           <ToggleButton value="streets">{t("ws.streets")}</ToggleButton>
           <ToggleButton value="imagery">{t("ws.imagery")}</ToggleButton>
         </ToggleButtonGroup>
@@ -95,12 +96,12 @@ export function ImageryControls({
       </Stack>
       {basemap === "imagery" && state === "none" && (
         <Alert severity="info" onClose={() => setState("idle")} sx={{ maxWidth: 360 }}>
-          No HLS imagery over the map centre in the 30 days up to {date}. Pick an earlier date; the street map shows through where imagery is missing.
+          No NASA HLS pass over the map centre in the 30 days up to {date}. Pick an earlier date; the satellite map shows wherever this date has no pass.
         </Alert>
       )}
       {basemap === "imagery" && state === "idle" && (
         <Typography variant="caption" sx={{ ...overlaySurface, px: 1, py: 0.25, borderRadius: 1 }}>
-          30 m NASA HLS · {date} · may include cloud
+          NASA HLS 30 m · {date} · may include cloud; gaps show the satellite map
         </Typography>
       )}
     </Stack>

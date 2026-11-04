@@ -22,7 +22,7 @@ export function SiteFooter() {
           <Typography variant="body2" sx={{ maxWidth: 680, color: tokens.neutral[300] }}>
             Astrapon supports farmer and agronomist judgment; it does not replace local agronomic advice. Historical replay is not a
             forecast. Astrapon is being built to use publicly available NASA data products and is not affiliated with or endorsed by
-            NASA. Maps © OpenStreetMap contributors; imagery NASA GIBS.
+            NASA. Maps © OpenStreetMap contributors; satellite imagery © Esri, Maxar, Earthstar Geographics; dated imagery NASA GIBS.
           </Typography>
           <Stack spacing={0.5} sx={{ flexShrink: 0 }}>
             <Typography variant="body2" sx={{ color: tokens.neutral[300] }}>

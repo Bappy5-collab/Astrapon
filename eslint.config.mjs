@@ -53,5 +53,5 @@ export default defineConfig([
       "no-restricted-imports": ["error", { patterns: [serverImports, fixtureImports] }],
     },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts", "public/vendor/**"]),
 ]);

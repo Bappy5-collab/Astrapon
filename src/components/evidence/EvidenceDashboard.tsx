@@ -128,7 +128,7 @@ export function EvidenceDashboard({ evidence, actions, boundary, zones, rendered
           What each source can see
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, maxWidth: 760 }}>
-          Blue dashed: the NASA POWER cell, one model value for the whole area. Thin dark squares: MODIS pixels (observed).{" "}
+          Light blue dashed: the NASA POWER cell, one model value for the whole area. Thin white dashed squares: MODIS pixels (observed).{" "}
           {modisProv?.withinField
             ? "Pixels mostly inside your field are shaded by their typical peak greenness, because this source resolves differences inside the field."
             : modisProv
@@ -137,7 +137,7 @@ export function EvidenceDashboard({ evidence, actions, boundary, zones, rendered
           White dashed outlines are your own zones: farmer-drawn, not observed.
         </Typography>
         <Box sx={{ height: { xs: 320, md: 420 }, borderRadius: `${radius.lg}px`, overflow: "hidden", border: `1px solid ${color.line}` }}>
-          <FieldMap label="Map of data footprints around the field" shapes={shapes} draw={null} focus={null} fitKey="evidence" basemap="streets" imageryDate="2026-01-01" overlays={overlays} />
+          <FieldMap label="Map of data footprints around the field" shapes={shapes} draw={null} focus={null} fitKey="evidence" basemap="satellite" imageryDate="2026-01-01" overlays={overlays} />
         </Box>
         {modisProv?.withinField && (
           <Stack direction="row" spacing={1} sx={{ mt: 1, alignItems: "center", flexWrap: "wrap" }} aria-label="Greenness legend">

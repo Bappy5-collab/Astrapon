@@ -36,3 +36,6 @@ Thumbs.db
 
 # evidence pipeline raw-response cache (never committed)
 /.cache/
+
+# Copied from node_modules by scripts/copy-maplibre-worker.mjs
+/public/vendor/

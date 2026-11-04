@@ -2,14 +2,20 @@
  * Base map sources, terms checked 2026-10-31 (see docs/design-system.md → Map terms):
  *  - OpenStreetMap standard tiles: tile usage policy (https://operations.osmfoundation.org/policies/tiles/):
  *    visible attribution, HTTPS only, browser Referer kept, no prefetch/offline/bulk use, best effort.
+ *  - Esri World Imagery: seamless satellite and aerial mosaic used as the default "Satellite" base
+ *    (chosen by the owner 2026-11-05). Attribution required; Esri's terms of use apply (production
+ *    use may need an ArcGIS account). Display only: never used as evidence.
  *  - NASA GIBS HLS (Harmonized Landsat Sentinel-2) 30 m reflectance, true colour: public WMTS,
  *    no key; acknowledgement requested. Tiles exist only where a satellite passed on that date;
- *    empty areas are transparent and the street map shows through.
+ *    empty areas are transparent, so the seamless satellite base shows through instead of a gap.
  * URLs are configuration, so a source can be switched off or replaced without code changes.
  */
 
 export const OSM_TILES = process.env.NEXT_PUBLIC_OSM_TILE_URL || "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 export const OSM_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors';
+
+export const SATELLITE_TILES = process.env.NEXT_PUBLIC_SATELLITE_TILE_URL || "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+export const SATELLITE_ATTRIBUTION = 'Imagery &copy; <a href="https://www.esri.com/" target="_blank" rel="noreferrer">Esri</a>, Maxar, Earthstar Geographics, and the GIS User Community';
 
 const GIBS = "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best";
 export const HLS_LAYERS = ["HLS_L30_Nadir_BRDF_Adjusted_Reflectance", "HLS_S30_Nadir_BRDF_Adjusted_Reflectance"] as const;

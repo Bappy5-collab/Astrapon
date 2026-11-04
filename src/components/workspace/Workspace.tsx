@@ -103,7 +103,7 @@ export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved,
   const unsaved = ws.dirty && !justSaved;
   const [focus, setFocus] = useState<MapFocus | null>(null);
   const [located, setLocated] = useState<{ lat: number; lon: number; accuracyM: number } | null>(null);
-  const [basemap, setBasemap] = useState<Basemap>("streets");
+  const [basemap, setBasemap] = useState<Basemap>("satellite");
   const [showFootprints, setShowFootprints] = useState(false);
   const overlays = useMemo(() => (showFootprints && evidence ? footprintOverlays(evidence.data.sources, evidence.data.view.pixels) : []), [showFootprints, evidence]);
   const [imageryDate, setImageryDate] = useState(() => defaultImageryDate());

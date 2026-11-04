@@ -95,7 +95,10 @@ Labels over the 3D scene sit on an opaque forest pill (`rgba(10,29,22,.84)`) or 
 - Lighting: hemisphere + one warm directional light; soft shadows only at High quality; light fog for depth; no bloom or post-processing.
 - Selection: lime outline, lime canopy tint and a translucent lime ribbon on the selected region's edges, plus a "Selected: …" chip.
 
-## Map terms (checked 2026-10-31)
+## Map terms (checked 2026-10-31; Esri added 2026-11-05)
+
+- Esri World Imagery (default "Satellite" base, chosen by the owner 2026-11-05): attribution "Imagery © Esri, Maxar, Earthstar Geographics, and the GIS User Community" is shown; Esri's terms of use apply and production use may need an ArcGIS account or key (`NEXT_PUBLIC_SATELLITE_TILE_URL` overrides the URL). Display only, never evidence.
+- The map opens as a globe with a slowly turning Earth and flies to searched places; both stop with reduced motion (device or Settings).
 
 - OpenStreetMap tiles: attribution shown, HTTPS, browser Referer kept, no prefetch/offline/bulk use; best effort with no SLA. Production traffic needs a commercial or self-hosted tile source (`NEXT_PUBLIC_OSM_TILE_URL` overrides the URL).
 - NASA GIBS HLS (L30 + S30) 30 m true colour: public WMTS, no key, acknowledgement shown. Imagery is a drawing aid only, not evidence.

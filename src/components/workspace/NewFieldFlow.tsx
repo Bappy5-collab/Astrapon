@@ -70,7 +70,7 @@ export function NewFieldFlow({
   const [located, setLocated] = useState<{ lat: number; lon: number; accuracyM: number } | null>(null);
   const [draw, setDraw] = useState<D.DrawState>(D.emptyDraw());
   const [history, setHistory] = useState<D.DrawState[]>([]);
-  const [basemap, setBasemap] = useState<Basemap>("streets");
+  const [basemap, setBasemap] = useState<Basemap>("satellite");
   const [imageryDate, setImageryDate] = useState(() => defaultImageryDate());
   const centre = useRef<Position | null>(null);
   const [farmId, setFarmId] = useState(farms[0]?.id ?? "new");

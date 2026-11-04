@@ -66,7 +66,7 @@ export function SettingsForm() {
           <FormControlLabel value="reduce" control={<Radio />} label={t("set.motionReduce")} sx={{ minHeight: 44 }} />
         </RadioGroup>
         <Typography variant="caption" color="text.secondary">
-          Reduced motion stops the landing page&apos;s turning 3D sample. The workspace never moves the camera on its own.
+          Reduced motion stops the landing page&apos;s turning 3D sample. It also stops the map&apos;s turning globe and its flight to a searched place. The 3D workspace never moves the camera on its own.
         </Typography>
       </FormControl>
     </Stack>
