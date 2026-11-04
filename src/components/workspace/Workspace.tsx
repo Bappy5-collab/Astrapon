@@ -313,7 +313,7 @@ export function Workspace({ mode, field, coverage, currentYear, onSave, onSaved,
         )}
       </PanelSection>
       <PanelDivider />
-      <CropAssign ws={ws} key={`${ws.selectedKey}-${ws.year}`} />
+      <CropAssign ws={ws} key={`${ws.selectedKey}`} />
       {mode === "sample" && (
         <>
           <PanelDivider />

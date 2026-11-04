@@ -133,10 +133,18 @@ export function ZoneEditor({ ws }: { ws: WorkspaceState }) {
 export function CropAssign({ ws }: { ws: WorkspaceState }) {
   const t = useT();
   const key = ws.selectedKey && ws.selectedKey !== FIELD_KEY ? ws.selectedKey : null;
-  const current = ws.cropFor(key, ws.year);
   const [crop, setCrop] = useState("");
   const [season, setSeason] = useState<Season>("main");
   const [error, setError] = useState<string | null>(null);
+  // The form keeps its own year, so changing it never clears the crop and season already chosen.
+  // It follows the view's year when that changes elsewhere (timeline, chips).
+  const [formYear, setFormYear] = useState(ws.year);
+  const [seenYear, setSeenYear] = useState(ws.year);
+  if (ws.year !== seenYear) {
+    setSeenYear(ws.year);
+    setFormYear(ws.year);
+  }
+  const current = ws.cropFor(key, formYear);
   const regionName = key ? ws.zoneName(key) : t("ws.wholeField");
   const pendingHere = ws.crops.filter((c) => c.seasonYear === ws.year);
   const recorded = cropYears(ws.history, ws.crops, key);
@@ -150,12 +158,14 @@ export function CropAssign({ ws }: { ws: WorkspaceState }) {
         if (!name) return setError("Type or pick a crop");
         if (name.length > 80) return setError("At most 80 characters");
         setError(null);
-        ws.assignCrop({ zoneKey: key, seasonYear: ws.year, season, cropName: name });
+        ws.assignCrop({ zoneKey: key, seasonYear: formYear, season, cropName: name });
+        // Show the year just assigned, so the crop appears in 3D, the zone list and Inspect at once.
+        ws.setYear(formYear);
         setCrop("");
       }}
     >
       <Typography variant="subtitle2" component="h3" sx={{ mb: 0.5 }}>
-        {t("ws.assignCrop")}: {regionName}, {ws.year}
+        {t("ws.assignCrop")}: {regionName}, {formYear}
       </Typography>
       <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 1.5 }}>
         {current ? `Recorded: ${current.cropName} (${humanise(current.season)}${current.scope === "field" && key ? ", whole-field record" : ""})${current.pending ? " · not saved yet" : ""}` : "Nothing recorded for this year."} Saved as a farmer report.
@@ -181,14 +191,6 @@ export function CropAssign({ ws }: { ws: WorkspaceState }) {
         </Box>
       )}
       <Stack spacing={1.25}>
-        <TextField select size="small" label={t("ws.year")} value={ws.year} onChange={(e) => ws.setYear(Number(e.target.value))} helperText="Pick the year first: the field shows what was grown that year.">
-          {ws.years.map((y) => (
-            <MenuItem key={y} value={y}>
-              {y}
-              {recorded.find((r) => r.year === y) ? ` · ${recorded.find((r) => r.year === y)!.crop.cropName}` : ""}
-            </MenuItem>
-          ))}
-        </TextField>
         <Autocomplete
           freeSolo
           options={[...COMMON_CROPS]}
@@ -201,6 +203,13 @@ export function CropAssign({ ws }: { ws: WorkspaceState }) {
             {SEASONS.map((s) => (
               <MenuItem key={s} value={s}>
                 {humanise(s)}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField select size="small" label={t("ws.year")} value={formYear} onChange={(e) => setFormYear(Number(e.target.value))} sx={{ width: 120 }}>
+            {ws.years.map((y) => (
+              <MenuItem key={y} value={y}>
+                {y}
               </MenuItem>
             ))}
           </TextField>
