@@ -1,6 +1,6 @@
 # Implementation status
 
-Last updated: 2026-11-02, end of Phase 7 (prompt 7: final visual review, scientific verification and release). Release gate: `docs/release-readiness.md`.
+Last updated: 2026-11-04 (MODIS greenness made optional and faster), after Phase 7 (prompt 7: final visual review, scientific verification and release). Release gate: `docs/release-readiness.md`.
 
 ## Summary
 
@@ -226,7 +226,7 @@ Last updated: 2026-11-02, end of Phase 7 (prompt 7: final visual review, scienti
   - Engine notes (gaps, assumptions, rejection details, review questions) are English in the Bangla interface.
   - No seeded example access was added (optional in the brief).
 
-- The first MODIS retrieval for a new location takes about 18 minutes (124 sequential ORNL requests at ≈ 9 s); repeats are cached. The worker must be running (`pnpm evidence:worker`); the UI warns when queued jobs are not picked up.
+- MODIS greenness is optional (2026-11-04): not in "Refresh all", fetched with its own "Fetch greenness" button, claimed last by the worker, never used by the engine. It covers the last 10 years plus the current one, 4 ORNL requests in flight: a first retrieval took 150 s instead of ≈ 18 min; repeats are cached. In cloudy places (e.g. Bangladesh) few composites are "good", so annual peaks are often reported as insufficient. The worker must be running (`pnpm evidence:worker`); the UI warns when queued jobs are not picked up.
 - SSURGO's service has a nightly maintenance window (seen as a non-JSON page); jobs report it as unavailable and retry.
 - Per-pixel (within-field) greenness is stored only when at least 2 and at most 81 pixels lie ≥ 75% inside the field. The sample-sized field (≈ 20 ha) has one such pixel, so it shows a shared value.
 - Evidence is not shown for the public sample (no invented values).

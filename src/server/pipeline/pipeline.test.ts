@@ -18,7 +18,7 @@ process.env.ASTRAPON_CACHE_DIR = dir;
 process.env.ASTRAPON_RETRY_BASE_MS = "1";
 
 const { lastCompleteMonthEnd, powerChunks, runPower } = await import("./power");
-const { gridKm } = await import("./modis");
+const { gridKm, mapLimited, recentComposites } = await import("./modis");
 const { PipelineError } = await import("./types");
 
 afterAll(() => rmSync(dir, { recursive: true, force: true }));
@@ -151,6 +151,27 @@ describe("evidence view", () => {
     expect(s).toMatchObject({ status: "stale", stale: true });
     expect(s.retrieval).not.toBeNull();
     expect(sourceState("nasa-power-daily", null, failedJob, NOW).status).toBe("failed");
+  });
+});
+
+describe("MODIS record window and parallel download", () => {
+  it("keeps the last 10 complete years plus the current one, from the listing alone", () => {
+    const dates = ["2000-02-18", "2015-12-19", "2016-01-01", "2020-06-09", "2026-08-29"].map((calendar_date) => ({ calendar_date }));
+    expect(recentComposites(dates).map((d) => d.calendar_date)).toEqual(["2016-01-01", "2020-06-09", "2026-08-29"]);
+    expect(recentComposites([])).toEqual([]);
+  });
+
+  it("limits requests in flight and returns results in input order", async () => {
+    let inFlight = 0;
+    let peak = 0;
+    const out = await mapLimited([30, 5, 20, 1, 10, 2], 4, async (ms, i) => {
+      peak = Math.max(peak, ++inFlight);
+      await new Promise((r) => setTimeout(r, ms));
+      inFlight--;
+      return i;
+    });
+    expect(out).toEqual([0, 1, 2, 3, 4, 5]);
+    expect(peak).toBe(4);
   });
 });
 

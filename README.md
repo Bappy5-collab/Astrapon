@@ -12,7 +12,7 @@ Built for the 2026 NASA Space Apps Challenge "Field Shift: Adapting Farms with N
 
 - Accounts (email/password with confirmation and reset), farms, fields and private records (Supabase, row-level security).
 - Locate a field by place search, coordinates or device location; draw and edit the boundary on a street map or NASA HLS imagery; planting zones; crop history; soil observations; water and equipment; priorities.
-- Evidence per field through a background worker: NASA POWER daily weather (1981 onwards), MODIS MOD13Q1 greenness (2000 onwards), USDA SSURGO soil water capacity (US). Indicators with an inspector (source, version, period, resolution, completeness, limits).
+- Evidence per field through a background worker: NASA POWER daily weather (1981 onwards), MODIS MOD13Q1 greenness (optional, last 10 years), USDA SSURGO soil water capacity (US). Indicators with an inspector (source, version, period, resolution, completeness, limits).
 - A deterministic, versioned rotation engine (FAO-56 water balance, hard constraints, priority-weighted relative scores, sensitivity cases) — `docs/scientific-methodology.md`.
 - The run page: 3D replay with a timeline, side-by-side comparison, unsaved priority preview, "Why this option?", deterministic explanation, optional source-grounded AI draft, saved plans, JSON export and print.
 - English and Bangla for the interface and the run journey. A public sample field with invented data (`/sample`).

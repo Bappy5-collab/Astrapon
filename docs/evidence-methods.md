@@ -10,7 +10,7 @@ Processing version: **`evidence-1.1.0`** (`PROCESSING_VERSION` in `src/domain/ev
 | Source | Evidence class | Native support | Record used | Why |
 |---|---|---|---|---|
 | NASA POWER daily, AG community (`T2M`, `T2M_MAX`, `T2M_MIN`, `PRECTOTCORR`, `GWETROOT`) | Model-derived (MERRA-2 / GEOS-IT) | ½° lat × ⅝° lon cell | 1981-01-01 to the end of the last complete month | Global, long, daily. It is the one temperature and precipitation series. |
-| MODIS Terra MOD13Q1 v061 NDVI + pixel reliability, via ORNL TESViS | Satellite observation | ≈231.66 m sinusoidal pixels, 16-day composites | 2000-02-18 to the latest composite | The complementary NASA product chosen in Phase 1 research: observed vegetation seasonality and trend. |
+| MODIS Terra MOD13Q1 v061 NDVI + pixel reliability, via ORNL TESViS | Satellite observation | ≈231.66 m sinusoidal pixels, 16-day composites | 1 January ten years before the latest composite's year, to the latest composite (since 2026-11-04; the full record from 2000-02-18 before) | The complementary NASA product chosen in Phase 1 research: observed vegetation seasonality and trend. **Optional:** fetched only when the user asks, never part of "Refresh all", and never read by the simulation engine. |
 | USDA SSURGO via Soil Data Access | Ground / survey | Map-unit polygon | Current survey version | Credible soil water capacity where surveyed (United States only). |
 
 ### Not added, and why
@@ -105,7 +105,8 @@ None of these is crop damage, yield, disease, nutrient status or a forecast. NDV
   - Writes each retrieval with its aggregates in one transaction.
   - Reuses the latest retrieval when nothing changed (same cache key and response hash).
 - **Timings:**
-  - A first MODIS retrieval for a new location took about 18 minutes: 124 sequential ORNL requests at ≈9 s each.
+  - A first MODIS retrieval for a new location took about 18 minutes with the full record: 124 sequential ORNL requests at ≈9 s each. Since 2026-11-04 it fetches the last 10 years plus the current one (≈50 requests) with 4 in flight: a first retrieval near Jessore, Bangladesh took 150 s (2026-11-04); a cached repeat took 0.1 s.
+  - The worker claims optional (MODIS) jobs after every required job, so greenness never delays POWER, soil or simulation runs.
   - A first POWER retrieval took about 11 s (five 10-year chunks).
   - Cached repeats take seconds.
   - This is why downloads never run inside a web request. Astrapon does not promise unlimited free processing: the public services are rate-limited and best-effort.

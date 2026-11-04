@@ -44,7 +44,7 @@ Changing production is an owner action. Nothing in this repository deploys autom
 
 - Raw provider responses are cached on the worker's disk (`.cache/evidence`, or `ASTRAPON_CACHE_DIR`), keyed by product, location, period and request parameters, and verified by hash on read. In GitHub Actions the cache is restored and saved with `actions/cache` between runs. The cache is never served to users and never stored in PostgreSQL.
 - A refresh always creates a new retrieval; saved snapshots keep pointing at the old one, so saved runs never change. Old cache files can be deleted at any time (the next refresh downloads again).
-- The first MODIS retrieval for a new location takes 15–20 minutes (sequential ORNL requests); later refreshes reuse cached chunks.
+- MODIS greenness is optional and fetched only with its own button. A first retrieval for a new location takes about 2–3 minutes (last 10 years, 4 ORNL requests in flight); later refreshes reuse cached chunks.
 
 ## Job recovery
 

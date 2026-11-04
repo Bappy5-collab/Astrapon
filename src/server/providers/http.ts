@@ -34,8 +34,12 @@ export const ALLOWED_HOSTS = new Set([
   "cmr.earthdata.nasa.gov",
 ]);
 
-/** Polite per-host limits; ORNL's subset service returns 502s under parallel load. */
-const PER_HOST_CONCURRENCY: Record<string, number> = { "modis.ornl.gov": 1 };
+/**
+ * Polite per-host limits. ORNL's subset service returned 502s under heavier parallel load in
+ * Phase 4; on 2026-11-04 four and six parallel subset requests all answered 200 in ≈10–15 s, about
+ * the time of one. Four in flight, with retries on 5xx, keeps a first greenness fetch to minutes.
+ */
+const PER_HOST_CONCURRENCY: Record<string, number> = { "modis.ornl.gov": 4 };
 const DEFAULT_CONCURRENCY = 2;
 const limitFor = (host: string) => PER_HOST_CONCURRENCY[host] ?? DEFAULT_CONCURRENCY;
 const DEFAULT_ATTEMPTS = 3;

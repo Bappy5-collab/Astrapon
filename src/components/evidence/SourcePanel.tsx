@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 
-import { SOURCE_LABELS, type PipelineSource } from "@/domain/evidence/catalog";
+import { isOptionalSource, SOURCE_LABELS, type PipelineSource } from "@/domain/evidence/catalog";
 import type { SourceState } from "@/domain/evidence/view";
 import { color, numeric, radius, tokens } from "@/theme/tokens";
 
@@ -42,7 +42,11 @@ export function SourcePanel({ sources, actions, compact = false, renderedAt }: {
   const router = useRouter();
   const [pending, start] = useTransition();
   const [message, setMessage] = useState<{ ok: boolean; text: string } | null>(null);
-  const active = sources.some((s) => s.status === "queued" || s.status === "running");
+  const isActive = (s: SourceState) => s.status === "queued" || s.status === "running";
+  const active = sources.some(isActive);
+  // "Refresh all" covers the required sources only; an optional source (MODIS) never blocks it.
+  const required = sources.filter((s) => !isOptionalSource(s.source) && s.status !== "not_applicable");
+  const requiredActive = required.some(isActive);
 
   useEffect(() => {
     if (!active) return;
@@ -69,8 +73,8 @@ export function SourcePanel({ sources, actions, compact = false, renderedAt }: {
           size="small"
           variant="outlined"
           startIcon={<RefreshRoundedIcon />}
-          disabled={pending || active}
-          onClick={() => run(() => actions.request(sources.filter((s) => s.status !== "not_applicable").map((s) => s.source)))}
+          disabled={pending || requiredActive || required.length === 0}
+          onClick={() => run(() => actions.request(required.map((s) => s.source)))}
         >
           Refresh all
         </Button>
@@ -93,10 +97,16 @@ export function SourcePanel({ sources, actions, compact = false, renderedAt }: {
                 </Typography>
                 <EvidenceClassChip value={info.evidenceClass} />
                 <Chip size="small" label={st.label} sx={{ height: 22, bgcolor: st.bg, color: st.fg, fontWeight: 700 }} />
+                {isOptionalSource(s.source) && <Chip size="small" variant="outlined" label="Optional" sx={{ height: 22 }} />}
               </Stack>
               {!compact && (
                 <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 0.5 }}>
                   {info.plain}
+                </Typography>
+              )}
+              {isOptionalSource(s.source) && (
+                <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 0.5 }}>
+                  Background context only: the simulation does not use it, so you can run scenarios without it. Not included in “Refresh all”; a first fetch takes a few minutes.
                 </Typography>
               )}
               <Typography variant="caption" component="p" sx={{ mt: 0.5, ...numeric }}>
@@ -135,7 +145,7 @@ export function SourcePanel({ sources, actions, compact = false, renderedAt }: {
                   </Button>
                 ) : s.status !== "not_applicable" ? (
                   <Button size="small" disabled={pending} onClick={() => run(() => actions.request([s.source]))}>
-                    {s.status === "failed" ? "Retry" : s.retrieval ? "Refresh" : "Fetch"}
+                    {s.status === "failed" ? "Retry" : s.retrieval ? "Refresh" : isOptionalSource(s.source) ? "Fetch greenness" : "Fetch"}
                   </Button>
                 ) : null}
               </Stack>

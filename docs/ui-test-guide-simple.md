@@ -183,7 +183,7 @@ On the "All records" page:
    - **You should see:** every source shows **"Not fetched yet"**. No numbers yet.
 2. Press **"Refresh all"**.
    - **You should see:** the statuses change from **Queued** to **Running** to **Up to date**. The page updates by itself; you do not need to reload.
-   - The satellite source (MODIS) can take about **15–20 minutes** the first time.
+   - The satellite greenness source (MODIS) is marked **Optional** and is not included. Press **Fetch greenness** on its row if you want it (about 2–3 minutes the first time).
 3. When everything is done:
    - **You should see:** cards for frost days, hot days, dry spells, rain and temperature compared with normal, soil wetness, greenness (NDVI) and soil water.
    - Each card has a label: **Observed (satellite)**, **Model-derived** or **Survey / ground**.
@@ -315,7 +315,7 @@ Do these on a **phone** (or in Chrome: press F12, then the phone icon, then choo
 - The new run after "Save these priorities and run again" needs the background worker, like any run.
 - Outside the USA, crops without your own dates are rejected with "No local planting window". Add your planting dates in the scenario.
 - A run stays "Queued" when the background worker is not running.
-- The first satellite (MODIS) data fetch is slow, about 15–20 minutes.
+- Satellite greenness (MODIS) is optional; its first fetch takes about 2–3 minutes.
 - US soil data shows "Not available here" outside the USA.
 - NASA imagery can be blank or cloudy on some dates.
 - The 3D plants and ground are illustrative, not real photos.

@@ -10,7 +10,7 @@ Kono kichu guide er sathe na mille likhe rakhun: kon page, ki korechilen, ki dek
 
 ## 0. Shuru korar age
 
-**Lagbe:** duita email address (Account A ar Account B), ar mot 1.5 ghonta somoy. MODIS prothombar data ante 15–20 minute ney.
+**Lagbe:** duita email address (Account A ar Account B), ar mot 1.5 ghonta somoy.
 
 **Ei order e korun:** 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16.
 
@@ -144,7 +144,7 @@ Kono kichu guide er sathe na mille likhe rakhun: kon page, ki korechilen, ki dek
 1. US field er Evidence page khulun. **Dekhben:** shob source e "Not fetched yet", kono number nai.
 2. **Refresh all** chapun.
    - **Dekhben:** Queued → Running → Up to date, page nije nije update hoy.
-   - NASA POWER kichu minute e shesh hoy. MODIS prothombar 15–20 minute ney.
+   - NASA POWER kichu minute e shesh hoy. MODIS greenness **Refresh all e nai** (Optional lekha). Lagle tar row te **Fetch greenness** chapun, prothombar 2–3 minute.
 3. Shesh hole ei card gulo **dekhben**:
    - frost days, hot days, dry spells;
    - normal er tulonay brishti ar temperature;
@@ -268,7 +268,7 @@ US field ta use korun. Ete Test 11 er evidence ar Test 10 er crop history thakte
 - Graphics card chara computer e (software rendering) 3D dhir, mot 10–15 FPS, ar Low quality te shuru hoy. Table ar Map view thik kaj kore.
 - `ANTHROPIC_API_KEY` chara AI explanation "not configured".
 - Worker na chala porjonto job **Queued** thake. Live site e GitHub worker shuru hote kichu minute lagte pare.
-- MODIS prothombar 15–20 minute ney.
+- MODIS greenness optional, prothombar 2–3 minute ney. Simulation e lage na.
 - SSURGO soil shudhu US e ache. Onno desh e All records page e nijer soil test (Available water capacity) din. SoilGrids unavailable.
 - Canola (Australia) ar kichu crop (jute, mustard, chickpea er stage) er FAO-56 stage data nai. Tai oder water indicator bad jay.
 - Bangla mode e record form, evidence lekha, methodology ar engine note English e thake.

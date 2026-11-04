@@ -12,7 +12,8 @@ import { cacheKey, chunkMaxAge, combinedSha, readChunk, writeChunk } from "./cac
 import { PipelineError, type AggregateRow, type FieldContext, type PipelineOutput, type Progress } from "./types";
 
 /**
- * MOD13Q1 v061 NDVI + pixel reliability for the pixel grid around the field, full record.
+ * MOD13Q1 v061 NDVI + pixel reliability for the pixel grid around the field, last MODIS_RECORD_YEARS
+ * years plus the current one. Optional context: the simulation engine never reads it.
  * Only "good" (reliability 0) pixels are used; nothing is filled or interpolated.
  * Field value per composite = mean of good pixels lying ≥ 75% inside the field, required for at
  * least half of those pixels; when no pixel lies mostly inside, the pixel containing the field's
@@ -52,6 +53,37 @@ async function getJson(url: string, cacheParts: Record<string, string | number>,
   return { raw: JSON.parse(chunk.body) as unknown, retrieval: chunk.retrieval };
 }
 
+/**
+ * Years of record fetched before the latest composite's year. Ten complete years plus the current
+ * partial one: enough for the 10-year typical peak and the ≥ 8-year trend, at about a third of the
+ * requests of the full 2000-onwards record.
+ */
+export const MODIS_RECORD_YEARS = 10;
+/** Subset requests in flight at once (also capped per host in providers/http.ts). */
+export const MODIS_PARALLEL = 4;
+
+/** Composites from 1 January of (latest composite year − MODIS_RECORD_YEARS) onwards. Depends only on the listing, not the clock. */
+export function recentComposites<T extends { calendar_date: string }>(dates: T[]): T[] {
+  const last = dates.reduce((m, d) => (d.calendar_date > m ? d.calendar_date : m), "");
+  if (!last) return [];
+  const from = `${Number(last.slice(0, 4)) - MODIS_RECORD_YEARS}-01-01`;
+  return dates.filter((d) => d.calendar_date >= from);
+}
+
+/** Runs tasks with at most `limit` in flight; results keep the input order. */
+export async function mapLimited<T, R>(items: T[], limit: number, fn: (item: T, index: number) => Promise<R>): Promise<R[]> {
+  const out = new Array<R>(items.length);
+  let next = 0;
+  const lane = async () => {
+    while (next < items.length) {
+      const i = next++;
+      out[i] = await fn(items[i]!, i);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, lane));
+  return out;
+}
+
 /** Half-width of the requested grid in whole km (ORNL takes integers), enough to cover the field. */
 export function gridKm(extentM: number): number {
   return Math.min(4, Math.max(1, Math.ceil(extentM / 2000 + 0.25)));
@@ -69,7 +101,7 @@ export async function runModis(ctx: FieldContext, progress: Progress, now = new 
 
   await progress({ step: "Listing MODIS composites", done: 0, total: 1 });
   const dl = await getJson(`${ORNL_BASE}/${PRODUCT}/dates?latitude=${reqLat}&longitude=${reqLon}`, { product: PRODUCT, kind: "dates", location: locKey, day: now.toISOString().slice(0, 10) }, 86_400_000, now);
-  const dates = datesSchema.parse(dl.raw).dates;
+  const dates = recentComposites(datesSchema.parse(dl.raw).dates);
   if (!dates.length) throw new PipelineError("ORNL lists no MOD13Q1 composites for this location", "invalid");
   const chunks: { modis: string[]; calendar: string[] }[] = [];
   for (let i = 0; i < dates.length; i += MAX_DATES_PER_SUBSET) {
@@ -86,30 +118,33 @@ export async function runModis(ctx: FieldContext, progress: Progress, now = new 
   let scaleMismatch = 0;
   let gridMismatch = 0;
 
-  const total = chunks.length * 2;
+  const tasks = chunks.flatMap((c) => (["250m_16_days_NDVI", "250m_16_days_pixel_reliability"] as const).map((band) => ({ c, band })));
+  const total = tasks.length;
   let done = 0;
-  for (const c of chunks) {
-    const lastCal = c.calendar.at(-1)!;
-    for (const band of ["250m_16_days_NDVI", "250m_16_days_pixel_reliability"] as const) {
-      await progress({ step: `MODIS ${c.calendar[0]!.slice(0, 7)} ${band.endsWith("NDVI") ? "NDVI" : "quality"}`, done: done++, total });
-      const url = `${ORNL_BASE}/${PRODUCT}/subset?latitude=${reqLat}&longitude=${reqLon}&band=${band}&startDate=${c.modis[0]}&endDate=${c.modis.at(-1)}&kmAboveBelow=${km}&kmLeftRight=${km}`;
-      const r = await getJson(url, { product: `${PRODUCT}.${VERSION}`, band, location: locKey, start: c.modis[0]!, end: c.modis.at(-1)! }, chunkMaxAge(lastCal, now), now);
-      const g = gridSchema.safeParse(r.raw);
-      if (!g.success) throw new PipelineError(`ORNL subset response did not match the expected grid format (${g.error.issues[0]?.message})`, "invalid");
-      const gg = g.data;
-      const thisGrid = { xll: gg.xllcorner, yll: gg.yllcorner, cellsize: gg.cellsize, nrows: gg.nrows, ncols: gg.ncols };
-      grid ??= thisGrid;
-      if (Math.abs(thisGrid.xll - grid.xll) > 0.01 || Math.abs(thisGrid.yll - grid.yll) > 0.01 || thisGrid.nrows !== grid.nrows || thisGrid.ncols !== grid.ncols) gridMismatch++;
-      if (band.endsWith("NDVI") && Number(gg.scale) !== NDVI_SCALE) scaleMismatch++;
-      for (const s of gg.subset) {
-        if (s.data.length !== gg.nrows * gg.ncols) throw new PipelineError(`ORNL subset ${s.modis_date} has ${s.data.length} values for a ${gg.nrows}×${gg.ncols} grid`, "invalid");
-        if (band.endsWith("NDVI")) ndvi.set(s.modis_date, { calendar: s.calendar_date, data: s.data, tile: s.tile, proc: s.proc_date });
-        else rel.set(s.modis_date, s.data);
-      }
-      shas.push(r.retrieval.bodySha256);
-      fetched.push(r.retrieval.retrievedAt);
-      bytes += r.retrieval.bodyBytes;
+  // Download in parallel; results come back in task order, so processing and the combined hash are unchanged.
+  const responses = await mapLimited(tasks, MODIS_PARALLEL, async ({ c, band }) => {
+    const url = `${ORNL_BASE}/${PRODUCT}/subset?latitude=${reqLat}&longitude=${reqLon}&band=${band}&startDate=${c.modis[0]}&endDate=${c.modis.at(-1)}&kmAboveBelow=${km}&kmLeftRight=${km}`;
+    const r = await getJson(url, { product: `${PRODUCT}.${VERSION}`, band, location: locKey, start: c.modis[0]!, end: c.modis.at(-1)! }, chunkMaxAge(c.calendar.at(-1)!, now), now);
+    await progress({ step: `MODIS ${c.calendar[0]!.slice(0, 7)} ${band.endsWith("NDVI") ? "NDVI" : "quality"}`, done: ++done, total });
+    return r;
+  });
+  for (const [i, { band }] of tasks.entries()) {
+    const r = responses[i]!;
+    const g = gridSchema.safeParse(r.raw);
+    if (!g.success) throw new PipelineError(`ORNL subset response did not match the expected grid format (${g.error.issues[0]?.message})`, "invalid");
+    const gg = g.data;
+    const thisGrid = { xll: gg.xllcorner, yll: gg.yllcorner, cellsize: gg.cellsize, nrows: gg.nrows, ncols: gg.ncols };
+    grid ??= thisGrid;
+    if (Math.abs(thisGrid.xll - grid.xll) > 0.01 || Math.abs(thisGrid.yll - grid.yll) > 0.01 || thisGrid.nrows !== grid.nrows || thisGrid.ncols !== grid.ncols) gridMismatch++;
+    if (band.endsWith("NDVI") && Number(gg.scale) !== NDVI_SCALE) scaleMismatch++;
+    for (const s of gg.subset) {
+      if (s.data.length !== gg.nrows * gg.ncols) throw new PipelineError(`ORNL subset ${s.modis_date} has ${s.data.length} values for a ${gg.nrows}×${gg.ncols} grid`, "invalid");
+      if (band.endsWith("NDVI")) ndvi.set(s.modis_date, { calendar: s.calendar_date, data: s.data, tile: s.tile, proc: s.proc_date });
+      else rel.set(s.modis_date, s.data);
     }
+    shas.push(r.retrieval.bodySha256);
+    fetched.push(r.retrieval.retrievedAt);
+    bytes += r.retrieval.bodyBytes;
   }
   if (!grid) throw new PipelineError("No MODIS grid returned", "invalid");
   checks.push(check("grid-consistent", gridMismatch === 0, `${gridMismatch} chunks with a different grid`));
@@ -200,7 +235,7 @@ export async function runModis(ctx: FieldContext, progress: Progress, now = new 
         fetchedRange: [fetched.sort()[0], fetched.sort().at(-1)],
         rowOrder: "ORNL lists values row by row from the upper-left (north-west) pixel",
       },
-      cacheKey: cacheKey({ source: "modis-mod13q1-ornl", location: locKey, through: last ?? "none", processing: PROCESSING_VERSION }),
+      cacheKey: cacheKey({ source: "modis-mod13q1-ornl", location: locKey, from: first ?? "none", through: last ?? "none", processing: PROCESSING_VERSION }),
       processingVersion: PROCESSING_VERSION,
       observationStart: first,
       observationEnd: last ? new Date(Date.parse(`${last}T00:00:00Z`) + 15 * 86_400_000).toISOString().slice(0, 10) : null,

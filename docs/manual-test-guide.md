@@ -336,7 +336,7 @@ Expected time for a **new location**:
 |---|---|
 | NASA POWER | about 1–3 min |
 | SSURGO | seconds |
-| MODIS NDVI | about **15–20 min** (slow public service) |
+| MODIS NDVI (optional, own button) | about **2–3 min** first time |
 
 Repeat fetches for the same place are much faster, because results are cached.
 
@@ -440,7 +440,7 @@ Do **not** commit files changed under `data/verification/` unless the owner asks
 
 - Simulation results are comparisons on past weather; no yield, profit or soil outcome is shown, by design.
 - Outside the USA, crops without your own planting dates are rejected with "No local planting window".
-- The first MODIS fetch for a new place takes about 15–20 min.
+- MODIS greenness is optional (not in "Refresh all"); the first fetch for a new place takes about 2–3 min.
 - SSURGO soil data covers the USA only; elsewhere it shows "Not available here". SoilGrids (global soil) is currently down at the provider.
 - Within-field greenness needs at least 2 MODIS pixels (250 m) mostly inside the field. Small fields show one shared value.
 - Evidence is not shown for the public sample, by design.

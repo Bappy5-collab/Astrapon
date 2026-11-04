@@ -14,13 +14,15 @@
  *   field's latest retrieval (same cache key and response hash), the job completes by pointing at
  *   that retrieval instead of storing a duplicate.
  * - Writes POWER daily series (the simulation engine's weather input) with the retrieval.
+ * - Optional sources (MODIS greenness) are claimed after every required job, so a long greenness
+ *   download never delays the weather and soil data the simulation needs.
  * - Also processes public.simulation_runs (scripts/simulation-runner.mts): pure engine, fast, so
  *   runs are taken before evidence jobs.
  * - Never prints credentials.
  */
 import type postgres from "postgres";
 
-import type { PipelineSource } from "../src/domain/evidence/catalog";
+import { OPTIONAL_SOURCES, type PipelineSource } from "../src/domain/evidence/catalog";
 import { RUNNERS } from "../src/server/pipeline/run";
 import { PipelineError, pipelineErrorKind, type PipelineOutput, userSafeMessage } from "../src/server/pipeline/types";
 import { connect, runMain } from "./db/connect.mts";
@@ -45,7 +47,7 @@ async function claim(sql: postgres.Sql): Promise<Job | null> {
      where j.id = (select q.id from public.evidence_jobs q
                     where (q.status = 'queued' and q.next_attempt_at <= now())
                        or (q.status = 'running' and q.lease_until < now())
-                    order by q.next_attempt_at
+                    order by q.source_id = any(${OPTIONAL_SOURCES as string[]}::text[]), q.next_attempt_at
                     for update skip locked limit 1)
     returning j.id, j.owner_id, j.field_id, j.source_id, j.attempts, j.max_attempts`;
   return rows[0] ?? null;

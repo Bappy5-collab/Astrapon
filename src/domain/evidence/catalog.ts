@@ -9,6 +9,13 @@ export const PROCESSING_VERSION = "evidence-1.1.0";
 export const PIPELINE_SOURCES = ["nasa-power-daily", "modis-mod13q1-ornl", "usda-ssurgo-sda"] as const;
 export type PipelineSource = (typeof PIPELINE_SOURCES)[number];
 
+/**
+ * Sources fetched only when the user asks for them. They are never part of "Refresh all", never
+ * used by the simulation engine (which pins POWER and soil only), and the worker takes them last.
+ */
+export const OPTIONAL_SOURCES: readonly PipelineSource[] = ["modis-mod13q1-ornl"];
+export const isOptionalSource = (s: PipelineSource) => OPTIONAL_SOURCES.includes(s);
+
 export const SOURCE_LABELS: Record<PipelineSource, { name: string; short: string; evidenceClass: EvidenceClass; support: string; staleAfterDays: number; plain: string }> = {
   "nasa-power-daily": {
     name: "NASA POWER daily (Agroclimatology)",
@@ -24,7 +31,7 @@ export const SOURCE_LABELS: Record<PipelineSource, { name: string; short: string
     evidenceClass: "satellite_observation",
     support: "≈232 m sinusoidal pixels, 16-day composites",
     staleAfterDays: 32,
-    plain: "Satellite greenness (NDVI) every 16 days. Each pixel is about the size of 5 football pitches and may mix several fields.",
+    plain: "Satellite greenness (NDVI) every 16 days for the last 10 years. Each pixel is about the size of 5 football pitches and may mix several fields.",
   },
   "usda-ssurgo-sda": {
     name: "USDA NRCS SSURGO via Soil Data Access",

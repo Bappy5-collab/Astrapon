@@ -42,7 +42,8 @@ Shudhu main feature gulo thik kaj korche kina, sheta dekhar chhoto test. Prottek
 
 ## 5. NASA evidence
 1. Field er **Evidence** page e **Refresh all** chapun.
-   - ✔ status Queued → Running → Up to date. NASA POWER kichu minute e. MODIS prothombar 15–20 minute ney.
+   - ✔ status Queued → Running → Up to date. NASA POWER kichu minute e.
+   - ✔ MODIS greenness "Optional", Refresh all e nai. Lagle **Fetch greenness** chapun (prothombar 2–3 minute).
 2. Kaj shesh hole card gulo dekhun:
    - ✔ frost/heat days, brishti, soil wetness, NDVI, soil water capacity (SSURGO);
    - ✔ prottek card e source er class.
@@ -111,7 +112,7 @@ F12 chapun, tarpor phone icon e 390 px bachhun. Home, workspace ar run page khul
 ---
 
 **Egulo bug na:**
-- MODIS prothombar dhir.
+- MODIS greenness optional; simulation e lage na.
 - Live site e job shuru hote kichu minute lage.
 - AI key nai.
 - 3D gach illustrative, asol chobi na.

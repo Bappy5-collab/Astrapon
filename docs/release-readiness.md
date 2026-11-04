@@ -90,7 +90,7 @@ These are engineering measurements on one machine, not guarantees for other devi
 2. Create a new account (use a new email), confirm the email link opens the deployed site, sign in.
 3. **Create my field**: search a place, draw 4–5 corners, finish, drag a corner, save.
 4. **All records**: two seasons with planting and harvest dates; priorities; save.
-5. **Evidence → Refresh all**: NASA POWER "Up to date" within a few minutes (MODIS can take 15–20 min).
+5. **Evidence → Refresh all**: NASA POWER "Up to date" within a few minutes (MODIS greenness is optional: its own button, about 2–3 min).
 6. Create a scenario (US: choose a NASS state; elsewhere add planting windows), **Run simulation** → Finished → **Open result**.
 7. Replay: Play, scrub, Next planting/harvest; Compare: move a priority slider, Undo, Save these priorities and run again.
 8. Why this option?: check reasons, dates and their sources, gaps.

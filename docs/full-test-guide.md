@@ -10,16 +10,8 @@ If something differs, note: page, what you did, what you expected, what happened
 
 **Which version are you testing?**
 
-- The live site (`astrapon.vercel.app`) runs the code you last pushed. Commits `dfd99d1` (Phase 6) and `6547283` (Phase 7) are **not pushed yet**, so the live site does not have the replay/compare/save features or the Phase 7 fixes. Push first (`git push`), wait for Vercel to finish, then test.
-- Or test locally:
-  ```
-  pnpm build
-  pnpm start            # app on http://localhost:3000
-  pnpm evidence:worker  # second terminal: the background worker (needed for evidence and runs)
-  ```
-- On the live site the worker is the GitHub Actions workflow **Evidence worker**. It starts on a queue event (dispatch) or every 10 minutes. A queued job can wait a few minutes.
 
-**You need:** Google Chrome, two email addresses (Account A and Account B), about 1.5 hours (MODIS takes 15–20 minutes on its first fetch).
+**You need:**  two email addresses (Account A and Account B), about 1.5 hours.
 
 **Recommended order:** 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11 → 12 → 13 → 14 → 15 → 16.
 
@@ -118,7 +110,7 @@ If something differs, note: page, what you did, what you expected, what happened
 ## 11. Evidence `/fields/[id]/evidence` (P4, P7)
 
 1. US field → Evidence. **See:** every source "Not fetched yet", no numbers.
-2. **Refresh all**. **See:** Queued → Running → Up to date, updating by itself. NASA POWER within a few minutes; MODIS 15–20 minutes the first time.
+2. **Refresh all**. **See:** Queued → Running → Up to date, updating by itself. NASA POWER within a few minutes. MODIS greenness is **not** included (marked Optional); press **Fetch greenness** on its row to get it, about 2–3 minutes the first time.
 3. When done, **see** cards: frost days, hot days, dry spells, rain and temperature compared with normal, root-zone soil wetness, greenness (NDVI), and **soil water capacity from SSURGO** (USA only).
    - Each card has a class: **Observed (satellite)**, **Model-derived**, **Survey / ground**.
 4. **How is this measured?** on a card. **See:** source, unit, years, area, limits.
@@ -189,20 +181,8 @@ US field, with evidence from Test 11 and crop history from Test 10.
 - On computers without a graphics card (software rendering) the 3D is slow (about 10–15 FPS) and starts in Low quality; tables and Map view work normally.
 - AI explanation is "not configured" without `ANTHROPIC_API_KEY`.
 - A job stays **Queued** until the worker runs; on the live site the GitHub worker can take a few minutes to start.
-- First MODIS fetch: 15–20 minutes.
+- First MODIS (optional greenness) fetch: about 2–3 minutes.
 - SSURGO soil exists only in the USA; elsewhere enter your own soil test (Available water capacity) on All records. SoilGrids is unavailable.
 - Canola (Australia) and some crops (jute, mustard, chickpea stages) have no FAO-56 stage data, so their water indicator is dropped.
 - Record forms, evidence texts, methodology and engine notes stay English in Bangla mode.
 - The "1991–2020 avg" label can overlap tall bars in small evidence charts.
-
-## Command checks (owner, optional)
-
-```
-pnpm check            # lint + typecheck + 191 unit tests
-pnpm build
-pnpm db:verify        # 25 tables, RLS
-pnpm test:db          # 17 isolation tests
-pnpm verify:sources   # live NASA POWER, MODIS, SSURGO
-pnpm simulation:trace # 13 checks, live
-pnpm global:cases     # Iowa, Bangladesh, Australia, 24 checks, live
-```
