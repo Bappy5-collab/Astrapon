@@ -18,7 +18,7 @@ import { useState } from "react";
 
 import { COMMON_CROPS, CROP_FORM_COLORS, cropForm } from "@/domain/farm/crops";
 import { SEASONS, ZONE_BASES, ZONE_BASIS_LABELS } from "@/domain/farm/records";
-import type { Season } from "@/domain/workspace/workspace";
+import { cropYears, type Season } from "@/domain/workspace/workspace";
 import { FIELD_KEY } from "@/components/field3d/model";
 import { useT } from "@/lib/i18n/I18nProvider";
 import { color, numeric, radius, tokens } from "@/theme/tokens";
@@ -35,6 +35,7 @@ export function RegionList({ ws, areaHa }: { ws: WorkspaceState; areaHa: number 
     <Box role="radiogroup" aria-label={t("ws.selectZone")} sx={{ display: "grid", gap: 0.75 }}>
       {regions.map((r) => {
         const crop = ws.cropFor(r.key === FIELD_KEY ? null : r.key, ws.year);
+        const last = crop ? null : cropYears(ws.history, ws.crops, r.key === FIELD_KEY ? null : r.key)[0];
         const on = selected === r.key;
         const swatch = crop ? CROP_FORM_COLORS[cropForm(crop.cropName)].plant : tokens.neutral[300];
         return (
@@ -70,7 +71,7 @@ export function RegionList({ ws, areaHa }: { ws: WorkspaceState; areaHa: number 
                 {!r.saved && <Chip label={t("ws.pending")} size="small" sx={{ ml: 1, height: 20, fontSize: "0.7rem", bgcolor: tokens.lime[300], color: tokens.forest[950] }} />}
               </Typography>
               <Typography variant="caption" color="text.secondary" component="span" sx={{ display: "block" }} noWrap>
-                {crop ? `${ws.year}: ${crop.cropName}${crop.scope === "field" && r.key !== FIELD_KEY ? " (whole field)" : ""}` : `${ws.year}: ${t("ws.noCrop")}`}
+                {crop ? `${ws.year}: ${crop.cropName}${crop.scope === "field" && r.key !== FIELD_KEY ? " (whole field)" : ""}` : last ? `${ws.year}: nothing · ${last.year}: ${last.crop.cropName}` : `${ws.year}: ${t("ws.noCrop")}`}
               </Typography>
             </Box>
             <Typography variant="caption" sx={{ ...numeric, color: color.inkMuted }}>
@@ -138,6 +139,7 @@ export function CropAssign({ ws }: { ws: WorkspaceState }) {
   const [error, setError] = useState<string | null>(null);
   const regionName = key ? ws.zoneName(key) : t("ws.wholeField");
   const pendingHere = ws.crops.filter((c) => c.seasonYear === ws.year);
+  const recorded = cropYears(ws.history, ws.crops, key);
 
   return (
     <Box
@@ -158,7 +160,35 @@ export function CropAssign({ ws }: { ws: WorkspaceState }) {
       <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 1.5 }}>
         {current ? `Recorded: ${current.cropName} (${humanise(current.season)}${current.scope === "field" && key ? ", whole-field record" : ""})${current.pending ? " · not saved yet" : ""}` : "Nothing recorded for this year."} Saved as a farmer report.
       </Typography>
+      {recorded.length > 0 && (
+        <Box sx={{ mb: 1.5 }}>
+          <Typography variant="caption" color="text.secondary" component="p" sx={{ mb: 0.5 }}>
+            Recorded seasons (tap a year to see it):
+          </Typography>
+          <Stack direction="row" spacing={0.75} useFlexGap sx={{ flexWrap: "wrap" }}>
+            {recorded.map((r) => (
+              <Chip
+                key={r.year}
+                size="small"
+                clickable
+                onClick={() => ws.setYear(r.year)}
+                aria-pressed={r.year === ws.year}
+                label={`${r.year}: ${r.crop.cropName}${r.crop.pending ? " *" : ""}`}
+                sx={{ fontWeight: 600, bgcolor: r.year === ws.year ? tokens.forest[800] : tokens.neutral[150], color: r.year === ws.year ? tokens.neutral[0] : color.ink, "&:hover": { bgcolor: r.year === ws.year ? tokens.forest[700] : tokens.neutral[200] } }}
+              />
+            ))}
+          </Stack>
+        </Box>
+      )}
       <Stack spacing={1.25}>
+        <TextField select size="small" label={t("ws.year")} value={ws.year} onChange={(e) => ws.setYear(Number(e.target.value))} helperText="Pick the year first: the field shows what was grown that year.">
+          {ws.years.map((y) => (
+            <MenuItem key={y} value={y}>
+              {y}
+              {recorded.find((r) => r.year === y) ? ` · ${recorded.find((r) => r.year === y)!.crop.cropName}` : ""}
+            </MenuItem>
+          ))}
+        </TextField>
         <Autocomplete
           freeSolo
           options={[...COMMON_CROPS]}
@@ -171,13 +201,6 @@ export function CropAssign({ ws }: { ws: WorkspaceState }) {
             {SEASONS.map((s) => (
               <MenuItem key={s} value={s}>
                 {humanise(s)}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField select size="small" label={t("ws.year")} value={ws.year} onChange={(e) => ws.setYear(Number(e.target.value))} sx={{ width: 110 }}>
-            {ws.years.map((y) => (
-              <MenuItem key={y} value={y}>
-                {y}
               </MenuItem>
             ))}
           </TextField>

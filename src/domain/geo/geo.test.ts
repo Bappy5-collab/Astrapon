@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { cropForm } from "@/domain/farm/crops";
 import { SAMPLE_FIELD, SAMPLE_HISTORY } from "@/domain/sample/sample-field";
-import { resolveCrop, timelineYears, upsertAssignment, workspaceEditsInput } from "@/domain/workspace/workspace";
+import { cropYears, resolveCrop, timelineYears, upsertAssignment, workspaceEditsInput } from "@/domain/workspace/workspace";
 
 import { parseBoundary, ringAreaM2, type BoundaryGeometry } from "./boundary";
 import { formatLatLon, parseCoordinates } from "./coordinates";
@@ -185,5 +185,20 @@ describe("source coverage vs field size", async () => {
     const c = fieldCoverage(64, 450, "IS");
     expect(c.find((s) => s.id === "nasadem-opentopography")!.verdict).toBe("outside");
     expect(c.find((s) => s.id === "usda-ssurgo-sda")!.verdict).toBe("outside");
+  });
+});
+
+describe("crop years", () => {
+  const history = [
+    { id: "a", zone_id: null, season_year: 2022, season: "main", crop_name: "mustard" },
+    { id: "b", zone_id: null, season_year: 2024, season: "winter", crop_name: "rice" },
+    { id: "c", zone_id: "z1", season_year: 2023, season: "main", crop_name: "jute" },
+  ];
+  it("lists every year with a crop, newest first, including unsaved ones", () => {
+    const pending = [{ zoneKey: null, seasonYear: 2025, season: "winter" as const, cropName: "wheat" }];
+    expect(cropYears(history, pending, null).map((x) => `${x.year}:${x.crop.cropName}`)).toEqual(["2025:wheat", "2024:rice", "2022:mustard"]);
+  });
+  it("a zone sees its own records and the whole-field ones", () => {
+    expect(cropYears(history, [], "z1").map((x) => `${x.year}:${x.crop.cropName}:${x.crop.scope}`)).toEqual(["2024:rice:field", "2023:jute:zone", "2022:mustard:field"]);
   });
 });

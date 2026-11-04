@@ -99,6 +99,19 @@ export function resolveCrop(history: HistoryEntry[], pending: CropAssignment[], 
   return whole ? { cropName: whole.crop_name, season: whole.season, scope: "field", pending: false } : null;
 }
 
+/**
+ * Every year with a crop for this zone (its own, or a whole-field record or pending assignment), newest
+ * first, with the crop resolveCrop would show. Lets the panel show what was grown in other years
+ * instead of only "no crop" for the selected one.
+ */
+export function cropYears(history: HistoryEntry[], pending: CropAssignment[], zoneKey: string | null): { year: number; crop: NonNullable<ResolvedCrop> }[] {
+  const years = new Set<number>([...history.map((h) => h.season_year), ...pending.map((a) => a.seasonYear)]);
+  return [...years]
+    .sort((a, b) => b - a)
+    .map((year) => ({ year, crop: resolveCrop(history, pending, zoneKey, year) }))
+    .filter((x): x is { year: number; crop: NonNullable<ResolvedCrop> } => x.crop !== null);
+}
+
 /** Adds or replaces one pending assignment (same zone, year and season). */
 export function upsertAssignment(list: CropAssignment[], next: CropAssignment): CropAssignment[] {
   return [...list.filter((a) => !(a.zoneKey === next.zoneKey && a.seasonYear === next.seasonYear && a.season === next.season)), next];

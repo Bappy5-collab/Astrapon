@@ -200,7 +200,7 @@ export function useWorkspace(field: WorkspaceFieldData, currentYear: number) {
   );
 
   return {
-    boundary, zones, crops, years, year, setYear, stage, setStage, selectedKey, setSelectedKey, view, setView,
+    boundary, zones, crops, years, year, setYear, stage, setStage, selectedKey, setSelectedKey, view, setView, history: field.history,
     draw, startDraw, cancelDraw, updateDraw, undo, drawResult, zoneInsideMessage, applyBoundary, addZone, applyZoneShape,
     editZone, deleteZone, assignCrop, removeAssignment, sceneData, sceneCrops, cropFor, changes, dirty, edits, zoneName, zonesOutside,
     parseBoundary,
