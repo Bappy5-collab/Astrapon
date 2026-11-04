@@ -17,7 +17,7 @@ export default async function SignUpPage() {
   return (
     <AuthCard
       title="Create account"
-      intro="We will email you a link to confirm your address."
+      intro="Create a free account to save your fields privately."
       footer={
         <span>
           Already have an account? <TextLink href="/sign-in">Sign in</TextLink>

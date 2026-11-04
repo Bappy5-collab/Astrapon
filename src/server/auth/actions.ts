@@ -71,11 +71,12 @@ export async function signUp(_: FormState, fd: FormData): Promise<FormState> {
     const limited = error.code === "over_email_send_rate_limit";
     return {
       status: "error",
-      message: weak ? error.message : limited ? "Too many emails were sent recently. Try again later." : "Sign-up failed. Try again.",
+      message: weak ? error.message : limited ? "Our email service allows only a few emails an hour, and that limit was reached. Please try again in about an hour." : "Sign-up failed. Try again.",
       values: formValues(fd),
     };
   }
-  if (data.session) redirect("/farms");
+  // With email confirmation off (the current project setting) Supabase returns a session at once.
+  if (data.session) redirect("/workspace");
   // Same message whether or not the address already had an account (no account enumeration).
   return { status: "success", message: "Check your email for a confirmation link to finish creating your account." };
 }
@@ -95,7 +96,7 @@ export async function requestPasswordReset(_: FormState, fd: FormData): Promise<
     redirectTo: `${await origin()}/auth/confirm?next=/account/update-password`,
   });
   if (error && isAuthRetryableFetchError(error)) return UNREACHABLE;
-  if (error?.code === "over_email_send_rate_limit") return { status: "error", message: "Too many emails were sent recently. Try again later." };
+  if (error?.code === "over_email_send_rate_limit") return { status: "error", message: "Our email service allows only a few emails an hour, and that limit was reached. Please try again in about an hour." };
   return { status: "success", message: "If an account exists for that address, a reset link is on its way." };
 }
 

@@ -1,5 +1,9 @@
 /**
- * pnpm auth:config [--dry-run]
+ * pnpm auth:config [--dry-run] [--autoconfirm | --require-confirm]
+ *
+ * --autoconfirm: new accounts are active at once, with no confirmation email (owner's choice
+ *   2026-11-05, because the built-in sender allows only 2 emails an hour). --require-confirm turns
+ *   email confirmation back on. Without either flag the setting is left as it is.
  *
  * Applies Astrapon's auth settings to the Supabase project through the Management API:
  *  - Site URL (NEXT_PUBLIC_SITE_URL, default https://astrapon.vercel.app), so email links never open localhost;
@@ -19,6 +23,7 @@ import { abbreviateRef, loadEnv, ROOT } from "./db/connect.mts";
 
 loadEnv();
 const DRY = process.argv.includes("--dry-run");
+const AUTOCONFIRM = process.argv.includes("--autoconfirm") ? true : process.argv.includes("--require-confirm") ? false : null;
 const token = process.env.SUPABASE_ACCESS_TOKEN?.trim();
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const ref = /^https:\/\/([a-z0-9]{20})\.supabase\.co/.exec(url)?.[1];
@@ -60,7 +65,8 @@ allow.add("http://localhost:3000/**");
 // Supabase accepts email templates and a sender name only with custom SMTP (or a paid plan); without
 // it the URLs are still applied, which is what stops confirmation links opening localhost.
 const smtp = Boolean(current.smtp_host);
-const next: Record<string, string> = {
+const next: Record<string, string | boolean> = {
+  ...(AUTOCONFIRM === null ? {} : { mailer_autoconfirm: AUTOCONFIRM }),
   site_url: site,
   uri_allow_list: [...allow].join(","),
   ...(smtp
@@ -84,7 +90,7 @@ if (unknown.length) {
 
 const changes = Object.entries(next).filter(([k, v]) => current[k] !== v);
 console.log(`Project ${abbreviateRef(ref)} · Site URL → ${site}`);
-for (const [k, v] of changes) console.log(`  ${k}: ${k.endsWith("_content") ? `${v.length} characters of HTML` : v}`);
+for (const [k, v] of changes) console.log(`  ${k}: ${k.endsWith("_content") ? `${String(v).length} characters of HTML` : v}`);
 if (!changes.length) {
   console.log("Already up to date.");
   process.exit(0);
