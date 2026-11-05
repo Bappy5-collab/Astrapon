@@ -30,6 +30,7 @@ export const PAIRINGS: { use: string; fg: string; bg: string; min: 4.5 | 3 }[] =
   { use: "Accent text on forest", fg: color.accent, bg: color.forest, min: 4.5 },
   { use: "Accent text on deepest forest (footer)", fg: color.accent, bg: tokens.forest[950], min: 4.5 },
   { use: "Muted text on deepest forest (footer)", fg: color.onForestMuted, bg: tokens.forest[950], min: 4.5 },
+  { use: "Active menu hint (forest 800) on accent", fg: tokens.forest[800], bg: color.accent, min: 4.5 },
   { use: "Home hero title on deepest forest", fg: tokens.neutral[50], bg: tokens.forest[950], min: 4.5 },
   { use: "Surface text on deepest forest (hero chips, globe card)", fg: color.onForest, bg: tokens.forest[950], min: 4.5 },
   { use: "Accent text on hero glow (forest 700, worst case)", fg: color.accent, bg: tokens.forest[700], min: 4.5 },
