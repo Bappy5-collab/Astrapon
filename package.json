@@ -28,7 +28,8 @@
     "evidence:trace": "tsx scripts/evidence-trace.mts",
     "simulation:trace": "tsx scripts/simulation-trace.mts",
     "global:cases": "tsx scripts/global-cases.mts",
-    "auth:config": "tsx scripts/supabase-auth-config.mts"
+    "auth:config": "tsx scripts/supabase-auth-config.mts",
+    "water:trace": "tsx scripts/water-trace.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

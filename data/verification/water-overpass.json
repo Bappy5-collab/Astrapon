@@ -1,0 +1,85 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/water-trace.mts. Not a fixture and not an input to the product.",
+  "sourceId": "osm-overpass-water",
+  "generatedAt": "2026-11-05T08:03:34.864Z",
+  "outcome": "live_verified",
+  "checks": [
+    {
+      "id": "overpass:features",
+      "passed": true,
+      "detail": "550 mapped water feature(s) within 3 km; nearest lake_pond at 0 m"
+    },
+    {
+      "id": "overpass:geometry-kinds",
+      "passed": true,
+      "detail": "outline, centreline"
+    },
+    {
+      "id": "overpass:distances-bounded",
+      "passed": true,
+      "detail": "0 ≤ distance ≤ radius"
+    },
+    {
+      "id": "overpass:provenance",
+      "passed": true,
+      "detail": "OSM base 2026-11-05T08:01:56Z"
+    }
+  ],
+  "trace": [
+    {
+      "id": "osm:way/568614646",
+      "name": null,
+      "category": "lake_pond",
+      "role": "outline",
+      "distanceM": 0,
+      "intersects": true,
+      "lastEdited": "2018-03-11T05:54:12Z"
+    },
+    {
+      "id": "osm:way/645601274",
+      "name": null,
+      "category": "lake_pond",
+      "role": "outline",
+      "distanceM": 135.1,
+      "intersects": false,
+      "lastEdited": "2018-11-17T11:59:26Z"
+    },
+    {
+      "id": "osm:way/645601255",
+      "name": null,
+      "category": "lake_pond",
+      "role": "outline",
+      "distanceM": 166.5,
+      "intersects": false,
+      "lastEdited": "2018-11-17T11:59:25Z"
+    },
+    {
+      "id": "osm:way/571908249",
+      "name": null,
+      "category": "lake_pond",
+      "role": "outline",
+      "distanceM": 248.2,
+      "intersects": false,
+      "lastEdited": "2018-03-22T07:02:07Z"
+    },
+    {
+      "id": "osm:way/568614644",
+      "name": null,
+      "category": "lake_pond",
+      "role": "outline",
+      "distanceM": 279.5,
+      "intersects": false,
+      "lastEdited": "2021-01-27T04:01:33Z"
+    }
+  ],
+  "provider": {
+    "name": "OpenStreetMap via Overpass API",
+    "licence": "© OpenStreetMap contributors, ODbL 1.0",
+    "endpoint": "https://overpass-api.de/api/interpreter",
+    "osmBase": "2026-11-05T08:01:56Z",
+    "retrievedAt": "2026-11-05T08:02:59.281Z",
+    "bodySha256": "cbcb1fb3db3ec4820103dfd56441a9f65baa0981b63e28650287436d7e8447e4",
+    "cached": false
+  },
+  "site": "Synthetic 0.002° square at Mymensingh, Bangladesh (public place, not a farm)"
+}

@@ -89,3 +89,33 @@ export async function searchPlaces(query: string, language: string): Promise<Geo
     return { ok: false, reason: "upstream", message: "The place search service did not respond. Check your connection or enter coordinates instead." };
   }
 }
+
+const countryCache = new Map<string, { at: number; code: string | null }>();
+
+/**
+ * Country of a point, used ONLY as a routing hint for groundwater providers (never as proof of
+ * coverage). Same shared 1 req/s queue and identifying User-Agent as place search. The point is
+ * rounded to 0.1° (≈ 10 km) before it is sent, so the exact field location never leaves the
+ * server, and results are cached for 24 h. Returns null on any failure: the lookup continues
+ * through coordinate-based routing and the global network.
+ */
+export async function reverseCountry(lat: number, lon: number): Promise<string | null> {
+  if (process.env.GEOCODER_DISABLED === "1") return null;
+  const rlat = Math.round(lat * 10) / 10, rlon = Math.round(lon * 10) / 10;
+  const key = `${rlat},${rlon}`;
+  const hit = countryCache.get(key);
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.code;
+  if (!(await waitForSlot())) return null;
+  try {
+    const url = `https://nominatim.openstreetmap.org/reverse?${new URLSearchParams({ lat: String(rlat), lon: String(rlon), format: "jsonv2", zoom: "3", addressdetails: "1" })}`;
+    const res = await fetch(url, { headers: { "User-Agent": USER_AGENT, Accept: "application/json", "Accept-Language": "en" }, signal: AbortSignal.timeout(8000), cache: "no-store" });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { address?: { country_code?: string } };
+    const code = typeof body.address?.country_code === "string" && /^[a-z]{2}$/.test(body.address.country_code) ? body.address.country_code : null;
+    if (countryCache.size >= CACHE_MAX) countryCache.delete(countryCache.keys().next().value!);
+    countryCache.set(key, { at: Date.now(), code });
+    return code;
+  } catch {
+    return null;
+  }
+}

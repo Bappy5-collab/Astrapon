@@ -1,0 +1,152 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/water-trace.mts. Not a fixture and not an input to the product.",
+  "sourceId": "nasa-power-solar-re",
+  "generatedAt": "2026-11-05T08:02:59.279Z",
+  "outcome": "live_verified",
+  "checks": [
+    {
+      "id": "power:units",
+      "passed": true,
+      "detail": "kW-hr/m^2/day"
+    },
+    {
+      "id": "power:months",
+      "passed": true,
+      "detail": "3.28 4.24 4.95 5.17 4.88 4.21 4.32 4.33 4.17 4.10 4.08 3.29"
+    },
+    {
+      "id": "power:fill-is-missing",
+      "passed": true,
+      "detail": "0 missing day(s) kept as missing"
+    },
+    {
+      "id": "power:period",
+      "passed": true,
+      "detail": "2016-01-01 … 2025-12-31"
+    }
+  ],
+  "trace": {
+    "months": [
+      {
+        "month": 1,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 3.281408709677419,
+        "p10Psh": 2.1882200000000003,
+        "minPsh": 1.0277
+      },
+      {
+        "month": 2,
+        "validDays": 283,
+        "totalDays": 283,
+        "meanPsh": 4.239255123674914,
+        "p10Psh": 3.07514,
+        "minPsh": 1.0486
+      },
+      {
+        "month": 3,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 4.949594838709678,
+        "p10Psh": 3.50542,
+        "minPsh": 1.3519
+      },
+      {
+        "month": 4,
+        "validDays": 300,
+        "totalDays": 300,
+        "meanPsh": 5.172142000000002,
+        "p10Psh": 3.54968,
+        "minPsh": 0.9989
+      },
+      {
+        "month": 5,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 4.8751516129032275,
+        "p10Psh": 2.8687,
+        "minPsh": 1.1071
+      },
+      {
+        "month": 6,
+        "validDays": 300,
+        "totalDays": 300,
+        "meanPsh": 4.207308666666665,
+        "p10Psh": 1.93629,
+        "minPsh": 0.4666
+      },
+      {
+        "month": 7,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 4.31600516129032,
+        "p10Psh": 2.31565,
+        "minPsh": 0.8004
+      },
+      {
+        "month": 8,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 4.326116129032259,
+        "p10Psh": 2.5562899999999997,
+        "minPsh": 1.0118
+      },
+      {
+        "month": 9,
+        "validDays": 300,
+        "totalDays": 300,
+        "meanPsh": 4.167443666666669,
+        "p10Psh": 2.3745,
+        "minPsh": 0.8731
+      },
+      {
+        "month": 10,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 4.102107096774193,
+        "p10Psh": 2.49352,
+        "minPsh": 0.5038
+      },
+      {
+        "month": 11,
+        "validDays": 300,
+        "totalDays": 300,
+        "meanPsh": 4.076627000000002,
+        "p10Psh": 3.38079,
+        "minPsh": 0.9763
+      },
+      {
+        "month": 12,
+        "validDays": 310,
+        "totalDays": 310,
+        "meanPsh": 3.2884380645161317,
+        "p10Psh": 2.0658800000000004,
+        "minPsh": 0.7399
+      }
+    ],
+    "annualMeanPsh": 4.250133172492624,
+    "provenance": {
+      "provider": "NASA POWER",
+      "product": "Daily API, ALLSKY_SFC_SW_DWN, community RE",
+      "apiVersion": "v2.10.2",
+      "upstream": [
+        "SYN1DEG"
+      ],
+      "units": "kW-hr/m^2/day",
+      "fillValue": -999,
+      "cellNote": "All-sky irradiation on a horizontal surface for the POWER solar grid cell (≈ 1° × 1°), not measured at the field. Local shading is unknown.",
+      "url": "https://power.larc.nasa.gov/api/temporal/daily/point",
+      "retrievedAt": "2026-11-05T08:02:57.678Z",
+      "bodySha256": "2345869110ff5b00838cf38aacb73733ac96b22ffb04f1597c26261301a725de",
+      "requestedYears": [
+        2016,
+        2025
+      ],
+      "gridPoint": [
+        90.401,
+        24.751
+      ]
+    }
+  },
+  "site": "Mymensingh, Bangladesh (public place)"
+}

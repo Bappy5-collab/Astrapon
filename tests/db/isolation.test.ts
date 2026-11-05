@@ -399,5 +399,44 @@ describe.skipIf(!configured)("two-user isolation (live development project)", ()
     expect((await A.db.from("simulation_runs").delete().eq("id", runId)).error).toBeNull();
     expect((await admin.from("simulation_results").select("run_id").eq("run_id", runId)).data).toEqual([]);
   });
+
+  it("water & energy plans are owner-only, immutable versions and keep private inputs private", async () => {
+    // SYNTHETIC test rows; they contain a farmer-reported well depth to prove it stays private.
+    const row = (fieldId: string, version: number) => ({
+      field_id: fieldId,
+      version,
+      name: "Water test",
+      model_version: "1.0.0",
+      inputs: { schema: 1, lift: { kind: "well", depthM: { low: 7.5, high: 9 } } },
+      evidence: { surface: null, groundwater: null, solar: null },
+      result: { modelVersion: "1.0.0", options: [] },
+      inputs_sha256: "a".repeat(64),
+      result_sha256: "b".repeat(64),
+    });
+    const saved = await A.db.from("water_energy_plans").insert(row(a.field, 1)).select("id").single();
+    expect(saved.error).toBeNull();
+    // Version numbers are unique per field.
+    expect((await A.db.from("water_energy_plans").insert(row(a.field, 1))).error).not.toBeNull();
+    // B cannot read, attach to A's field, rename or delete.
+    expect((await B.db.from("water_energy_plans").select("id, inputs").eq("id", saved.data!.id)).data).toEqual([]);
+    expect((await B.db.from("water_energy_plans").select("id")).data).toEqual([]);
+    expect((await B.db.from("water_energy_plans").insert(row(a.field, 2))).error).not.toBeNull();
+    expect((await B.db.from("water_energy_plans").update({ name: "x" }).eq("id", saved.data!.id).select("id")).data).toEqual([]);
+    expect((await B.db.from("water_energy_plans").delete().eq("id", saved.data!.id).select("id")).data).toEqual([]);
+    // Anonymous sees nothing.
+    const anonClient = createClient<Database>(URL_!, PUBLISHABLE!, opts);
+    expect((await anonClient.from("water_energy_plans").select("id")).data ?? []).toEqual([]);
+    // Only the name can change; inputs and results are frozen (new version instead).
+    expect((await A.db.from("water_energy_plans").update({ name: "Renamed" }).eq("id", saved.data!.id)).error).toBeNull();
+    expect((await A.db.from("water_energy_plans").update({ inputs: {} } as never).eq("id", saved.data!.id)).error).not.toBeNull();
+    expect((await A.db.from("water_energy_plans").update({ result_sha256: "c".repeat(64) } as never).eq("id", saved.data!.id)).error).not.toBeNull();
+    // A link to a run that is not a finished run of this field is refused.
+    expect((await A.db.from("water_energy_plans").insert({ ...row(a.field, 3), run_id: "00000000-0000-4000-8000-000000000000" })).error).not.toBeNull();
+    // Reopening returns the stored row exactly.
+    const back = await A.db.from("water_energy_plans").select("inputs, result, inputs_sha256").eq("id", saved.data!.id).single();
+    expect(back.data!.inputs).toEqual(row(a.field, 1).inputs);
+    expect(back.data!.inputs_sha256).toBe("a".repeat(64));
+    expect((await A.db.from("water_energy_plans").delete().eq("id", saved.data!.id)).error).toBeNull();
+  });
 });
 

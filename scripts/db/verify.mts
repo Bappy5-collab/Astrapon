@@ -21,7 +21,7 @@ export const USER_TABLES = [
   "profiles", "farms", "fields", "field_scene_settings", "planting_zones", "crop_history", "soil_observations",
   "field_constraints", "farmer_priorities", "market_preferences", "evidence_retrievals", "evidence_aggregates",
   "scenarios", "simulation_input_snapshots", "snapshot_reference_datasets", "simulation_runs", "simulation_results",
-  "evidence_jobs", "snapshot_evidence_retrievals", "evidence_daily_series", "saved_plans",
+  "evidence_jobs", "snapshot_evidence_retrievals", "evidence_daily_series", "saved_plans", "water_energy_plans",
 ];
 export const REFERENCE_TABLES = ["reference_citations", "reference_datasets", "reference_items", "reference_item_citations"];
 

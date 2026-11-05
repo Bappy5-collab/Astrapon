@@ -32,6 +32,12 @@ export const ALLOWED_HOSTS = new Set([
   "sdmdataaccess.sc.egov.usda.gov",
   "rest.isric.org",
   "cmr.earthdata.nasa.gov",
+  // Water & Energy planner (Phase 10): bounded, user-triggered lookups; see docs/water-energy-providers.md.
+  "overpass-api.de", // OpenStreetMap water geometry (public instance; 1 request at a time)
+  "overpass.private.coffee", // listed public Overpass instance, used only when overpass-api.de is busy
+  "api.waterdata.usgs.gov", // USGS groundwater stations and field measurements
+  "hubeau.eaufrance.fr", // French groundwater levels (ADES)
+  "ggis.un-igrac.org", // IGRAC GGMN shared groundwater network
 ]);
 
 /**
@@ -39,7 +45,7 @@ export const ALLOWED_HOSTS = new Set([
  * Phase 4; on 2026-11-04 four and six parallel subset requests all answered 200 in ≈10–15 s, about
  * the time of one. Four in flight, with retries on 5xx, keeps a first greenness fetch to minutes.
  */
-const PER_HOST_CONCURRENCY: Record<string, number> = { "modis.ornl.gov": 4 };
+const PER_HOST_CONCURRENCY: Record<string, number> = { "modis.ornl.gov": 4, "overpass-api.de": 1, "overpass.private.coffee": 1 };
 const DEFAULT_CONCURRENCY = 2;
 const limitFor = (host: string) => PER_HOST_CONCURRENCY[host] ?? DEFAULT_CONCURRENCY;
 const DEFAULT_ATTEMPTS = 3;

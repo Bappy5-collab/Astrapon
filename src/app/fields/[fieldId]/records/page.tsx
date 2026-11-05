@@ -96,6 +96,11 @@ export default async function FieldPage({ params }: PageProps<"/fields/[fieldId]
             <ButtonLink href={`/fields/${field.id}/evidence`} variant="outlined" startIcon={<WbSunnyRoundedIcon />}>
               Weather and soil data
             </ButtonLink>
+            {field.area_ha !== null && (
+              <ButtonLink href={`/fields/${field.id}/water`} variant="outlined" startIcon={<WaterDropRoundedIcon />}>
+                Water & Energy
+              </ButtonLink>
+            )}
           </>
         }
       />

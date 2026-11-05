@@ -1,7 +1,7 @@
 {
   "_artifact": "Live schema verification of the Astrapon development Supabase project. Produced by scripts/db/verify.mts.",
   "project": "esav…wp",
-  "verifiedAt": "2026-11-02T06:57:13.148Z",
+  "verifiedAt": "2026-11-05T07:07:37.491Z",
   "outcome": "verified",
   "migrations": [
     {
@@ -39,6 +39,10 @@
     {
       "file": "20261102100000_saved_plans.sql",
       "sha256": "41e0ec0848536d7489556d42d7933ac314d7c0596cda637e60a77c826f28d2de"
+    },
+    {
+      "file": "20261105100000_water_energy_plans.sql",
+      "sha256": "17dad550877c5f997842b2ab509fbd8407731f661ae56af5ee590230dc28c8b9"
     }
   ],
   "referenceDatasets": [
@@ -87,17 +91,17 @@
     {
       "name": "migrations: local == remote history",
       "ok": true,
-      "detail": "9 recorded; missing []; changed []; extra []"
+      "detail": "10 recorded; missing []; changed []; extra []"
     },
     {
       "name": "tables: exactly the expected set",
       "ok": true,
-      "detail": "found 25: unexpected [], missing []"
+      "detail": "found 26: unexpected [], missing []"
     },
     {
       "name": "RLS enabled on every public table",
       "ok": true,
-      "detail": "25 tables"
+      "detail": "26 tables"
     },
     {
       "name": "anon has no privileges on user tables",
@@ -122,7 +126,7 @@
     {
       "name": "user-table policies are authenticated + owner-scoped",
       "ok": true,
-      "detail": "68 policies"
+      "detail": "72 policies"
     },
     {
       "name": "no write policies on reference tables",

@@ -1,0 +1,1379 @@
+{
+  "artifact": "LIVE VERIFICATION RECORD — produced by scripts/water-trace.mts. Not a fixture and not an input to the product.",
+  "sourceId": "groundwater-routing",
+  "generatedAt": "2026-11-05T07:06:31.521Z",
+  "outcome": "live_verified",
+  "checks": [
+    {
+      "id": "us-iowa:routing",
+      "passed": true,
+      "detail": "consulted usgs, igrac_ggmn"
+    },
+    {
+      "id": "us-iowa:no-provider-error",
+      "passed": true,
+      "detail": "none"
+    },
+    {
+      "id": "us-iowa:stations",
+      "passed": true,
+      "detail": "170 usgs station(s) in radius"
+    },
+    {
+      "id": "us-iowa:measurements",
+      "passed": true,
+      "detail": "2 with observations; latest 2007-09-26"
+    },
+    {
+      "id": "us-iowa:provenance",
+      "passed": true,
+      "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+    },
+    {
+      "id": "us-iowa:feet-to-metres",
+      "passed": true,
+      "detail": "42 ft → 12.802 m"
+    },
+    {
+      "id": "fr-toulouse:routing",
+      "passed": true,
+      "detail": "consulted hubeau, igrac_ggmn"
+    },
+    {
+      "id": "fr-toulouse:no-provider-error",
+      "passed": true,
+      "detail": "none"
+    },
+    {
+      "id": "fr-toulouse:stations",
+      "passed": true,
+      "detail": "135 hubeau station(s) in radius"
+    },
+    {
+      "id": "fr-toulouse:measurements",
+      "passed": true,
+      "detail": "6 with observations; latest 2026-11-02"
+    },
+    {
+      "id": "fr-toulouse:provenance",
+      "passed": true,
+      "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+    },
+    {
+      "id": "fr-toulouse:dedupe-mirrors",
+      "passed": true,
+      "detail": "122 Hub'Eau station(s) also served by GGMN were merged by BSS code (direct record kept)"
+    },
+    {
+      "id": "fr-toulouse:datum-derivation",
+      "passed": true,
+      "detail": "NGF level 133.83 m, ground 138.75 m NGF → 4.92 m (derived)"
+    },
+    {
+      "id": "au-wagga:routing",
+      "passed": true,
+      "detail": "consulted igrac_ggmn"
+    },
+    {
+      "id": "au-wagga:no-provider-error",
+      "passed": true,
+      "detail": "none"
+    },
+    {
+      "id": "au-wagga:stations",
+      "passed": true,
+      "detail": "39 igrac_ggmn station(s) in radius"
+    },
+    {
+      "id": "au-wagga:measurements",
+      "passed": true,
+      "detail": "6 with observations; latest 2023-03-01"
+    },
+    {
+      "id": "au-wagga:provenance",
+      "passed": true,
+      "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+    },
+    {
+      "id": "bd-mymensingh:routing",
+      "passed": true,
+      "detail": "consulted igrac_ggmn"
+    },
+    {
+      "id": "bd-mymensingh:no-provider-error",
+      "passed": true,
+      "detail": "none"
+    },
+    {
+      "id": "bd-mymensingh:honest-outcome",
+      "passed": true,
+      "detail": "0 station(s); outcomes igrac_ggmn=no_stations, bwdb=access_restricted, usgs=not_covered, hubeau=not_covered, bom=not_covered"
+    },
+    {
+      "id": "za-gauteng:routing",
+      "passed": true,
+      "detail": "consulted igrac_ggmn"
+    },
+    {
+      "id": "za-gauteng:no-provider-error",
+      "passed": true,
+      "detail": "none"
+    },
+    {
+      "id": "za-gauteng:stations",
+      "passed": true,
+      "detail": "32 igrac_ggmn station(s) in radius"
+    },
+    {
+      "id": "za-gauteng:measurements",
+      "passed": true,
+      "detail": "6 with observations; latest 2025-08-15"
+    },
+    {
+      "id": "za-gauteng:provenance",
+      "passed": true,
+      "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+    },
+    {
+      "id": "ke-nairobi:routing",
+      "passed": true,
+      "detail": "consulted igrac_ggmn"
+    },
+    {
+      "id": "ke-nairobi:no-provider-error",
+      "passed": true,
+      "detail": "none"
+    },
+    {
+      "id": "ke-nairobi:honest-outcome",
+      "passed": true,
+      "detail": "0 station(s); outcomes igrac_ggmn=no_stations, usgs=not_covered, hubeau=not_covered, bwdb=not_covered, bom=not_covered"
+    },
+    {
+      "id": "outage:partial-results",
+      "passed": true,
+      "detail": "{\"ggmn\":\"error\",\"hubeau\":\"records_available\",\"hubeauStations\":129,\"message\":\"The provider did not answer (SimulatedOutage: simulated outage of ggis.un-igrac.org). This is a temporary error, not “no groundwater”.\"}"
+    }
+  ],
+  "trace": {
+    "provider": "usgs",
+    "stationId": "USGS-420137093361501",
+    "authority": "U.S. Geological Survey",
+    "distanceKm": 1.11,
+    "aquifer": "N100GLCIAL",
+    "wellDepthM": 37.7952,
+    "groundElevation": {
+      "valueM": 282.2448,
+      "datum": "NGVD29",
+      "basis": "surveyed_or_provider"
+    },
+    "mirrors": [],
+    "recency": "historical",
+    "reasons": [
+      "1.1 km from the field edge",
+      "only older observations (latest 2007-09-26)",
+      "aquifer: N100GLCIAL"
+    ],
+    "latest": {
+      "time": "2007-09-26T18:33:00+00:00",
+      "kind": "depth_below_ground",
+      "originalValue": 42,
+      "originalUnit": "ft",
+      "valueM": 12.8016,
+      "datum": "land surface",
+      "levelState": "static",
+      "quality": "Approved; Static; GW level, airline",
+      "parameter": "72019 depth to water level, below land surface"
+    },
+    "measurementsReturned": 36
+  },
+  "cases": [
+    {
+      "id": "us-iowa",
+      "place": "Near Ames, Iowa, USA",
+      "expectation": "USGS national adapter must return stations and measurements.",
+      "countryHint": "us",
+      "radiusM": 10000,
+      "durationMs": 13661,
+      "providers": [
+        {
+          "id": "usgs",
+          "consulted": true,
+          "outcome": "historical_only",
+          "message": "170 monitoring well(s) within 10.0 km; observations requested for the nearest 6.",
+          "stationsFound": 186,
+          "stationsInRadius": 170,
+          "seriesRequested": 6,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/monitoring-locations/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:08.199Z",
+              "durationMs": 1758,
+              "bodySha256": "ea4e295d3682bce92c33d508d0bc8c7aae86fe9653c976664d644a3884ce1c63"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/latest-field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:09.961Z",
+              "durationMs": 10222,
+              "bodySha256": "9f07de2b0c9acc9f58c741107a2408963336e2c3e0de842bba476c5b535a656c"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:20.191Z",
+              "durationMs": 336,
+              "bodySha256": "05fd11aa096030f77f7ed2915f4dd40d7922e6b7cb1d0892ac59ed4f1b6ef7e9"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:20.192Z",
+              "durationMs": 665,
+              "bodySha256": "d784099a8bd8a22372a523b5b483f326128f0b0d41f540b8cbf615ddaa329f49"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:20.192Z",
+              "durationMs": 1004,
+              "bodySha256": "df36df781780108098043c1483bf978d59d7c70cb35426e9a4beed2e66604533"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:20.192Z",
+              "durationMs": 1330,
+              "bodySha256": "2e1aee5131b364effdd0328b3013689b2ea4c2b11f525e1a1b98d072068b40e1"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:20.192Z",
+              "durationMs": 1421,
+              "bodySha256": "07b17d9a6d8426c15f6cbc38513a955b1e302bc8f944e2e66268167dc8113035"
+            },
+            {
+              "url": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/field-measurements/items",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:20.192Z",
+              "durationMs": 1665,
+              "bodySha256": "e4567e066cdf89cffba616dd669f1a08678cf448aea8341e13ae088aa3eecc89"
+            }
+          ]
+        },
+        {
+          "id": "igrac_ggmn",
+          "consulted": true,
+          "outcome": "no_stations",
+          "message": "No monitoring wells within 10.0 km.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://ggis.un-igrac.org/geoserver/ows",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:08.200Z",
+              "durationMs": 1368,
+              "bodySha256": "a51fe86d162882899e5999962c7ae05cb748d0a9a41f7acf455b57b6fb79be73"
+            }
+          ]
+        },
+        {
+          "id": "hubeau",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bwdb",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bom",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        }
+      ],
+      "stationCounts": {
+        "total": 170,
+        "recent": 0,
+        "historical": 2,
+        "metadataOnly": 4
+      },
+      "sample": [
+        {
+          "provider": "usgs",
+          "stationId": "USGS-420137093361501",
+          "authority": "U.S. Geological Survey",
+          "distanceKm": 1.11,
+          "aquifer": "N100GLCIAL",
+          "wellDepthM": 37.7952,
+          "groundElevation": {
+            "valueM": 282.2448,
+            "datum": "NGVD29",
+            "basis": "surveyed_or_provider"
+          },
+          "mirrors": [],
+          "recency": "historical",
+          "reasons": [
+            "1.1 km from the field edge",
+            "only older observations (latest 2007-09-26)",
+            "aquifer: N100GLCIAL"
+          ],
+          "latest": {
+            "time": "2007-09-26T18:33:00+00:00",
+            "kind": "depth_below_ground",
+            "originalValue": 42,
+            "originalUnit": "ft",
+            "valueM": 12.8016,
+            "datum": "land surface",
+            "levelState": "static",
+            "quality": "Approved; Static; GW level, airline",
+            "parameter": "72019 depth to water level, below land surface"
+          },
+          "measurementsReturned": 36
+        },
+        {
+          "provider": "usgs",
+          "stationId": "USGS-420219093361301",
+          "authority": "U.S. Geological Survey",
+          "distanceKm": 1.39,
+          "aquifer": "N100GLCIAL",
+          "wellDepthM": 8.382,
+          "groundElevation": {
+            "valueM": 272.796,
+            "datum": "NGVD29",
+            "basis": "surveyed_or_provider"
+          },
+          "mirrors": [],
+          "recency": "historical",
+          "reasons": [
+            "1.4 km from the field edge",
+            "only older observations (latest 2005-06-07)",
+            "aquifer: N100GLCIAL"
+          ],
+          "latest": {
+            "time": "2005-06-07T17:39:00+00:00",
+            "kind": "depth_below_ground",
+            "originalValue": 13.74,
+            "originalUnit": "ft",
+            "valueM": 4.187952,
+            "datum": "land surface",
+            "levelState": "static",
+            "quality": "Approved; Static; GW level, electric tape",
+            "parameter": "72019 depth to water level, below land surface"
+          },
+          "measurementsReturned": 1
+        }
+      ],
+      "checks": [
+        {
+          "id": "us-iowa:routing",
+          "passed": true,
+          "detail": "consulted usgs, igrac_ggmn"
+        },
+        {
+          "id": "us-iowa:no-provider-error",
+          "passed": true,
+          "detail": "none"
+        },
+        {
+          "id": "us-iowa:stations",
+          "passed": true,
+          "detail": "170 usgs station(s) in radius"
+        },
+        {
+          "id": "us-iowa:measurements",
+          "passed": true,
+          "detail": "2 with observations; latest 2007-09-26"
+        },
+        {
+          "id": "us-iowa:provenance",
+          "passed": true,
+          "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+        },
+        {
+          "id": "us-iowa:feet-to-metres",
+          "passed": true,
+          "detail": "42 ft → 12.802 m"
+        }
+      ]
+    },
+    {
+      "id": "fr-toulouse",
+      "place": "Toulouse, France",
+      "expectation": "Hub'Eau national adapter must return stations and measurements; GGMN mirrors BRGM.",
+      "countryHint": "fr",
+      "radiusM": 10000,
+      "durationMs": 3111,
+      "providers": [
+        {
+          "id": "hubeau",
+          "consulted": true,
+          "outcome": "records_available",
+          "message": "135 monitoring well(s) within 10.0 km; observations requested for the nearest 6.",
+          "stationsFound": 140,
+          "stationsInRadius": 135,
+          "seriesRequested": 6,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/stations",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:21.859Z",
+              "durationMs": 953,
+              "bodySha256": "f5211fe6bceae7a1f6a3a0e6e01fd2230c02d1a791bfb78d41d8e4f85dc59e27"
+            },
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/chroniques",
+              "status": 206,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:22.817Z",
+              "durationMs": 185,
+              "bodySha256": "2cd539030318af9b6e1982cc9a847553f80f18689bc5df317d4b386f2be54207"
+            },
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/chroniques",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:22.817Z",
+              "durationMs": 361,
+              "bodySha256": "4811bdb9122cc1a232ede2b3d2e378b772bac0b9320149c82afd2d8bb59cee0a"
+            },
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/chroniques",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:22.817Z",
+              "durationMs": 536,
+              "bodySha256": "36f2c1539788f8d62a83695870466b8838ff8b212641986b552d36efe4c03a79"
+            },
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/chroniques",
+              "status": 206,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:22.817Z",
+              "durationMs": 539,
+              "bodySha256": "17753681fb240cab2d6ee62d780e6efce68c811b8ebeb0830865efae6ff4267e"
+            },
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/chroniques",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:22.817Z",
+              "durationMs": 713,
+              "bodySha256": "2f28fd20d09b962ec60d4db5ca27553678e0704c0f457fb614bf827776e484a6"
+            },
+            {
+              "url": "https://hubeau.eaufrance.fr/api/v1/niveaux_nappes/chroniques",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:22.817Z",
+              "durationMs": 715,
+              "bodySha256": "23c28d9ba0c0c224555884ee791ecadaed42646e3241fcccfbfe9b10e1677e3e"
+            }
+          ]
+        },
+        {
+          "id": "igrac_ggmn",
+          "consulted": true,
+          "outcome": "records_available",
+          "message": "122 monitoring well(s) within 10.0 km; observations requested for the nearest 6.",
+          "stationsFound": 126,
+          "stationsInRadius": 122,
+          "seriesRequested": 6,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://ggis.un-igrac.org/geoserver/ows",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:21.859Z",
+              "durationMs": 1296,
+              "bodySha256": "26ef436d8813e594931398a215a77a7c008a688622f6aa773599e83014e7059c"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/83947/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:23.160Z",
+              "durationMs": 715,
+              "bodySha256": "c23e051749af4b02a446396a33203ae0ff19dc8eb2fb3c9e80bddf7cd620a6a3"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/392420/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:23.160Z",
+              "durationMs": 1075,
+              "bodySha256": "37d3daaa9daeba242a0b5f330b3f6693eb46871a5fc8669a9385b39d95b0f0d6"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/83916/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:23.160Z",
+              "durationMs": 1339,
+              "bodySha256": "75231b3b822dae1d70b71ce286ac9d36692863516c24d658ebb35d9ee7721cb4"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/393244/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:23.160Z",
+              "durationMs": 1415,
+              "bodySha256": "f276fe735f1d0a351e299e6d199986558e2973a1350f5aa4b39cc2a24256d90d"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/393426/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:23.160Z",
+              "durationMs": 1706,
+              "bodySha256": "6b2a29ad84ccb74d1c180c9f3948995bd5785daefbdb2c79e0738b9efc4ca2da"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/392783/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:23.160Z",
+              "durationMs": 1809,
+              "bodySha256": "59416173278fd7271c397796e9eb6ac755b2353a3b89d809acbbcef15eeebc78"
+            }
+          ]
+        },
+        {
+          "id": "usgs",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bwdb",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bom",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        }
+      ],
+      "stationCounts": {
+        "total": 135,
+        "recent": 2,
+        "historical": 4,
+        "metadataOnly": 0
+      },
+      "sample": [
+        {
+          "provider": "hubeau",
+          "stationId": "09838D0727/F",
+          "authority": "BRGM / ADES (France)",
+          "distanceKm": 1.57,
+          "aquifer": "Alluvions de la Garonne moyenne autour de Toulouse",
+          "wellDepthM": 22.94,
+          "groundElevation": {
+            "valueM": 138.75,
+            "datum": "NGF",
+            "basis": "surveyed_or_provider"
+          },
+          "mirrors": [
+            {
+              "provider": "igrac_ggmn",
+              "stationId": "83947",
+              "recordUrl": "https://ggis.un-igrac.org/groundwater/record/83947"
+            }
+          ],
+          "recency": "recent",
+          "reasons": [
+            "1.6 km from the field edge",
+            "latest observation 2026-11-01",
+            "aquifer: Alluvions de la Garonne moyenne autour de Toulouse"
+          ],
+          "latest": {
+            "time": "2026-11-01",
+            "kind": "level_elevation",
+            "originalValue": 133.83,
+            "originalUnit": "m",
+            "valueM": 133.83,
+            "datum": "NGF",
+            "levelState": "unknown",
+            "quality": "Donnée brute; Non qualifié; Valeur mesurée",
+            "parameter": "niveau_nappe_eau (groundwater level, m NGF)"
+          },
+          "measurementsReturned": 50
+        },
+        {
+          "provider": "hubeau",
+          "stationId": "09845C1426/F",
+          "authority": "BRGM / ADES (France)",
+          "distanceKm": 4.49,
+          "aquifer": "Molasses du bassin de la Garonne - Sud Toulousain",
+          "wellDepthM": 67.5,
+          "groundElevation": {
+            "valueM": 147.68,
+            "datum": "NGF",
+            "basis": "surveyed_or_provider"
+          },
+          "mirrors": [
+            {
+              "provider": "igrac_ggmn",
+              "stationId": "83916",
+              "recordUrl": "https://ggis.un-igrac.org/groundwater/record/83916"
+            }
+          ],
+          "recency": "recent",
+          "reasons": [
+            "4.5 km from the field edge",
+            "latest observation 2026-11-02",
+            "aquifer: Molasses du bassin de la Garonne - Sud Toulousain"
+          ],
+          "latest": {
+            "time": "2026-11-02",
+            "kind": "level_elevation",
+            "originalValue": 142.6,
+            "originalUnit": "m",
+            "valueM": 142.6,
+            "datum": "NGF",
+            "levelState": "unknown",
+            "quality": "Donnée contrôlée niveau 1; Correcte; Valeur mesurée",
+            "parameter": "niveau_nappe_eau (groundwater level, m NGF)"
+          },
+          "measurementsReturned": 50
+        }
+      ],
+      "checks": [
+        {
+          "id": "fr-toulouse:routing",
+          "passed": true,
+          "detail": "consulted hubeau, igrac_ggmn"
+        },
+        {
+          "id": "fr-toulouse:no-provider-error",
+          "passed": true,
+          "detail": "none"
+        },
+        {
+          "id": "fr-toulouse:stations",
+          "passed": true,
+          "detail": "135 hubeau station(s) in radius"
+        },
+        {
+          "id": "fr-toulouse:measurements",
+          "passed": true,
+          "detail": "6 with observations; latest 2026-11-02"
+        },
+        {
+          "id": "fr-toulouse:provenance",
+          "passed": true,
+          "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+        },
+        {
+          "id": "fr-toulouse:dedupe-mirrors",
+          "passed": true,
+          "detail": "122 Hub'Eau station(s) also served by GGMN were merged by BSS code (direct record kept)"
+        },
+        {
+          "id": "fr-toulouse:datum-derivation",
+          "passed": true,
+          "detail": "NGF level 133.83 m, ground 138.75 m NGF → 4.92 m (derived)"
+        }
+      ]
+    },
+    {
+      "id": "au-wagga",
+      "place": "Wagga Wagga, NSW, Australia",
+      "expectation": "No direct BoM adapter (403 / bulk only); BoM bore levels via GGMN.",
+      "countryHint": "au",
+      "radiusM": 15000,
+      "durationMs": 1769,
+      "providers": [
+        {
+          "id": "igrac_ggmn",
+          "consulted": true,
+          "outcome": "historical_only",
+          "message": "39 monitoring well(s) within 15.0 km; observations requested for the nearest 6.",
+          "stationsFound": 41,
+          "stationsInRadius": 39,
+          "seriesRequested": 6,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://ggis.un-igrac.org/geoserver/ows",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:24.971Z",
+              "durationMs": 701,
+              "bodySha256": "fab8c29d27e49aded0cc61aed971f3a768c95e57c338a2954ee8c4eb96873c81"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/301514/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:25.673Z",
+              "durationMs": 332,
+              "bodySha256": "280c632592c85241ab399bd2f9423e0cf6ffa6e0819291e7cab72d52b4346354"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/301513/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:25.674Z",
+              "durationMs": 336,
+              "bodySha256": "db3430a4dee41652566ad786d77f061f42dfacccbcd81cc1f7c4c748bbd07924"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/301559/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:25.674Z",
+              "durationMs": 668,
+              "bodySha256": "f4a715003a00ee7870da5a3bc4951c0665829358788b179aacfd45cb3381e665"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/301515/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:25.674Z",
+              "durationMs": 683,
+              "bodySha256": "08a67072e07c9221fea1f8f38fbdcb9b5471b40af1713bcd974217cc9bd64ef7"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/301522/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:25.674Z",
+              "durationMs": 1034,
+              "bodySha256": "a8fd458969ea4e031c21c2bf001d6c7acc186ac94e3631d4fb7e749f87515f53"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/300025/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:25.674Z",
+              "durationMs": 1065,
+              "bodySha256": "d7539f9e2856a4a85e1c7b268d5d55d8cb5813f6489dc67a2b45b8ea684b1e63"
+            }
+          ]
+        },
+        {
+          "id": "bom",
+          "consulted": false,
+          "outcome": "not_integrated",
+          "message": "Automated requests to bom.gov.au were refused (HTTP 403) on 2026-11-05, and NGIS is a bulk download. BoM bore levels are reached through GGMN, which serves BoM as the original provider.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "usgs",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "hubeau",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bwdb",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        }
+      ],
+      "stationCounts": {
+        "total": 39,
+        "recent": 0,
+        "historical": 6,
+        "metadataOnly": 0
+      },
+      "sample": [
+        {
+          "provider": "igrac_ggmn",
+          "stationId": "301514",
+          "authority": "Australia - Bureau of Meteorology (BOM)",
+          "distanceKm": 0.41,
+          "aquifer": null,
+          "wellDepthM": null,
+          "groundElevation": {
+            "valueM": 181.88,
+            "datum": "a.m.s.l.",
+            "basis": "dem"
+          },
+          "mirrors": [],
+          "recency": "historical",
+          "reasons": [
+            "0.4 km from the field edge",
+            "only older observations (latest 2023-02-15)",
+            "aquifer not stated"
+          ],
+          "latest": {
+            "time": "2023-02-15T00:00:00.000Z",
+            "kind": "depth_below_ground",
+            "originalValue": 6.51,
+            "originalUnit": "m",
+            "valueM": 6.51,
+            "datum": "ground surface",
+            "levelState": "unknown",
+            "quality": null,
+            "parameter": "Water depth [from the ground surface]"
+          },
+          "measurementsReturned": 50
+        },
+        {
+          "provider": "igrac_ggmn",
+          "stationId": "301513",
+          "authority": "Australia - Bureau of Meteorology (BOM)",
+          "distanceKm": 0.62,
+          "aquifer": null,
+          "wellDepthM": null,
+          "groundElevation": {
+            "valueM": 182,
+            "datum": "a.m.s.l.",
+            "basis": "dem"
+          },
+          "mirrors": [],
+          "recency": "historical",
+          "reasons": [
+            "0.6 km from the field edge",
+            "only older observations (latest 2023-02-15)",
+            "aquifer not stated"
+          ],
+          "latest": {
+            "time": "2023-02-15T00:00:00.000Z",
+            "kind": "depth_below_ground",
+            "originalValue": 6.2,
+            "originalUnit": "m",
+            "valueM": 6.2,
+            "datum": "ground surface",
+            "levelState": "unknown",
+            "quality": null,
+            "parameter": "Water depth [from the ground surface]"
+          },
+          "measurementsReturned": 50
+        }
+      ],
+      "checks": [
+        {
+          "id": "au-wagga:routing",
+          "passed": true,
+          "detail": "consulted igrac_ggmn"
+        },
+        {
+          "id": "au-wagga:no-provider-error",
+          "passed": true,
+          "detail": "none"
+        },
+        {
+          "id": "au-wagga:stations",
+          "passed": true,
+          "detail": "39 igrac_ggmn station(s) in radius"
+        },
+        {
+          "id": "au-wagga:measurements",
+          "passed": true,
+          "detail": "6 with observations; latest 2023-03-01"
+        },
+        {
+          "id": "au-wagga:provenance",
+          "passed": true,
+          "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+        }
+      ]
+    },
+    {
+      "id": "bd-mymensingh",
+      "place": "Mymensingh, Bangladesh",
+      "expectation": "BWDB data only on registered request; GGMN expected to have no wells here, reported honestly.",
+      "countryHint": "bd",
+      "radiusM": 25000,
+      "durationMs": 687,
+      "providers": [
+        {
+          "id": "igrac_ggmn",
+          "consulted": true,
+          "outcome": "no_stations",
+          "message": "No monitoring wells within 25.0 km.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://ggis.un-igrac.org/geoserver/ows",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:26.741Z",
+              "durationMs": 686,
+              "bodySha256": "da0abff4f6a970e9a7c02025216dcb2103949881c0447ec811177dbe9004bc28"
+            }
+          ]
+        },
+        {
+          "id": "bwdb",
+          "consulted": false,
+          "outcome": "access_restricted",
+          "message": "The portal offers registration, a data application form and rate list. No public machine endpoint was found on 2026-11-05, so no BWDB record is fetched automatically.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "usgs",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "hubeau",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bom",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        }
+      ],
+      "stationCounts": {
+        "total": 0,
+        "recent": 0,
+        "historical": 0,
+        "metadataOnly": 0
+      },
+      "sample": [],
+      "checks": [
+        {
+          "id": "bd-mymensingh:routing",
+          "passed": true,
+          "detail": "consulted igrac_ggmn"
+        },
+        {
+          "id": "bd-mymensingh:no-provider-error",
+          "passed": true,
+          "detail": "none"
+        },
+        {
+          "id": "bd-mymensingh:honest-outcome",
+          "passed": true,
+          "detail": "0 station(s); outcomes igrac_ggmn=no_stations, bwdb=access_restricted, usgs=not_covered, hubeau=not_covered, bom=not_covered"
+        }
+      ]
+    },
+    {
+      "id": "za-gauteng",
+      "place": "Johannesburg area, South Africa (no national adapter)",
+      "expectation": "Global-source path outside any national adapter (South Africa DWS via GGMN).",
+      "countryHint": "za",
+      "radiusM": 25000,
+      "durationMs": 1934,
+      "providers": [
+        {
+          "id": "igrac_ggmn",
+          "consulted": true,
+          "outcome": "records_available",
+          "message": "32 monitoring well(s) within 25.0 km; observations requested for the nearest 6.",
+          "stationsFound": 61,
+          "stationsInRadius": 32,
+          "seriesRequested": 6,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://ggis.un-igrac.org/geoserver/ows",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:27.428Z",
+              "durationMs": 786,
+              "bodySha256": "971463b678957c2bea106e65c03e4c5ec8d59b652eeeeaa1e20c00cece7a9acc"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/825120/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:28.216Z",
+              "durationMs": 346,
+              "bodySha256": "4ba2d2a095ad281bca0a4b82d259afbb9ad99dbf7d9a8588ce923f7b47263cc4"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/825114/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:28.216Z",
+              "durationMs": 349,
+              "bodySha256": "8d2e29d84beb4502e93288e97e9258f9bcd980f20a9d4a8d19ebc50dd67e8ab5"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/825113/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:28.216Z",
+              "durationMs": 703,
+              "bodySha256": "5579b1370cd82e428c23a2870492c0380e0ec332c4adec44892f3e6a6a39971e"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/825112/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:28.216Z",
+              "durationMs": 743,
+              "bodySha256": "743caac37d733506af9d844ce5868f2462d8f0d698bc2515574659a908000569"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/825111/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:28.216Z",
+              "durationMs": 1100,
+              "bodySha256": "1f92dfd6c90f6227c26248459c01010e652a64f88699265c2719fc0de1d31d19"
+            },
+            {
+              "url": "https://ggis.un-igrac.org/groundwater/record/825192/measurements/WellLevelMeasurement/data",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:28.217Z",
+              "durationMs": 1142,
+              "bodySha256": "480e323bf14f2b0b0b73a6530c27f2f1ee0154c32e8f7bc8f6c6496e565ad248"
+            }
+          ]
+        },
+        {
+          "id": "usgs",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "hubeau",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bwdb",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bom",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        }
+      ],
+      "stationCounts": {
+        "total": 32,
+        "recent": 6,
+        "historical": 0,
+        "metadataOnly": 0
+      },
+      "sample": [
+        {
+          "provider": "igrac_ggmn",
+          "stationId": "825120",
+          "authority": "South Africa - Ministry of Water and Sanitation, Department of Water and Sanitation (DWS)",
+          "distanceKm": 22.07,
+          "aquifer": "Karst Belt",
+          "wellDepthM": null,
+          "groundElevation": {
+            "valueM": 1380,
+            "datum": "a.m.s.l.",
+            "basis": "surveyed_or_provider"
+          },
+          "mirrors": [],
+          "recency": "recent",
+          "reasons": [
+            "22.1 km from the field edge",
+            "latest observation 2025-04-15",
+            "aquifer: Karst Belt"
+          ],
+          "latest": {
+            "time": "2025-04-15T00:00:00.000Z",
+            "kind": "level_elevation",
+            "originalValue": 1368.2,
+            "originalUnit": "m",
+            "valueM": 1368.2,
+            "datum": "a.m.s.l.",
+            "levelState": "unknown",
+            "quality": null,
+            "parameter": "Water level elevation a.m.s.l."
+          },
+          "measurementsReturned": 50
+        },
+        {
+          "provider": "igrac_ggmn",
+          "stationId": "825114",
+          "authority": "South Africa - Ministry of Water and Sanitation, Department of Water and Sanitation (DWS)",
+          "distanceKm": 22.19,
+          "aquifer": "Karst Belt",
+          "wellDepthM": null,
+          "groundElevation": {
+            "valueM": 1385,
+            "datum": "a.m.s.l.",
+            "basis": "surveyed_or_provider"
+          },
+          "mirrors": [],
+          "recency": "recent",
+          "reasons": [
+            "22.2 km from the field edge",
+            "latest observation 2025-08-15",
+            "aquifer: Karst Belt"
+          ],
+          "latest": {
+            "time": "2025-08-15T00:00:00.000Z",
+            "kind": "level_elevation",
+            "originalValue": 1376.05,
+            "originalUnit": "m",
+            "valueM": 1376.05,
+            "datum": "a.m.s.l.",
+            "levelState": "unknown",
+            "quality": null,
+            "parameter": "Water level elevation a.m.s.l."
+          },
+          "measurementsReturned": 50
+        }
+      ],
+      "checks": [
+        {
+          "id": "za-gauteng:routing",
+          "passed": true,
+          "detail": "consulted igrac_ggmn"
+        },
+        {
+          "id": "za-gauteng:no-provider-error",
+          "passed": true,
+          "detail": "none"
+        },
+        {
+          "id": "za-gauteng:stations",
+          "passed": true,
+          "detail": "32 igrac_ggmn station(s) in radius"
+        },
+        {
+          "id": "za-gauteng:measurements",
+          "passed": true,
+          "detail": "6 with observations; latest 2025-08-15"
+        },
+        {
+          "id": "za-gauteng:provenance",
+          "passed": true,
+          "detail": "authority, record URL, retrieval time, original unit and parameter on every record"
+        }
+      ]
+    },
+    {
+      "id": "ke-nairobi",
+      "place": "Near Nairobi, Kenya (no national adapter)",
+      "expectation": "No-record path: global source consulted, result stated as none in the searched area.",
+      "countryHint": "ke",
+      "radiusM": 10000,
+      "durationMs": 797,
+      "providers": [
+        {
+          "id": "igrac_ggmn",
+          "consulted": true,
+          "outcome": "no_stations",
+          "message": "No monitoring wells within 10.0 km.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": [
+            {
+              "url": "https://ggis.un-igrac.org/geoserver/ows",
+              "status": 200,
+              "ok": true,
+              "retrievedAt": "2026-11-05T07:06:29.363Z",
+              "durationMs": 797,
+              "bodySha256": "cec1bbc920aea37a8a37db5354c06901c7da4d4067a1423a3f744903facbabce"
+            }
+          ]
+        },
+        {
+          "id": "usgs",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "hubeau",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bwdb",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        },
+        {
+          "id": "bom",
+          "consulted": false,
+          "outcome": "not_covered",
+          "message": "The searched area is outside this provider's jurisdiction.",
+          "stationsFound": 0,
+          "stationsInRadius": 0,
+          "seriesRequested": 0,
+          "truncated": false,
+          "requests": []
+        }
+      ],
+      "stationCounts": {
+        "total": 0,
+        "recent": 0,
+        "historical": 0,
+        "metadataOnly": 0
+      },
+      "sample": [],
+      "checks": [
+        {
+          "id": "ke-nairobi:routing",
+          "passed": true,
+          "detail": "consulted igrac_ggmn"
+        },
+        {
+          "id": "ke-nairobi:no-provider-error",
+          "passed": true,
+          "detail": "none"
+        },
+        {
+          "id": "ke-nairobi:honest-outcome",
+          "passed": true,
+          "detail": "0 station(s); outcomes igrac_ggmn=no_stations, usgs=not_covered, hubeau=not_covered, bwdb=not_covered, bom=not_covered"
+        }
+      ]
+    }
+  ],
+  "outage": {
+    "ggmn": "error",
+    "hubeau": "records_available",
+    "hubeauStations": 129,
+    "message": "The provider did not answer (SimulatedOutage: simulated outage of ggis.un-igrac.org). This is a temporary error, not “no groundwater”."
+  }
+}

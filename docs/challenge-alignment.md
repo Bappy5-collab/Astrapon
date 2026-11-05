@@ -4,7 +4,7 @@
 
 This is an **internal traceability record**, not NASA certification or endorsement. "Met" means the stated acceptance check passed in this repository's own tests on the development project; it does not mean agronomic validation.
 
-Last updated: Phase 7 (final review), 2026-11-02.
+Last updated: Phase 10 (Water & Energy planner), 2026-11-05. Phase 7: final review.
 
 **Kind:** *Core* = the challenge's stated objective. *Optional* = something the brief suggests or lists as a possibility. *Ours* = our product choice. **Status:** Met · Partial · Not implemented (scope decision stated) · Not applicable.
 
@@ -29,6 +29,7 @@ Last updated: Phase 7 (final review), 2026-11-02.
 | D4 | Saved work is private and reproducible. | Ours (contract) | RLS on 25 tables; `test:db` 17/17; immutable snapshots and results; identical re-run hashes (`simulation-trace.json`, `global-cases.json`); saved plans pinned to the result hash; new-session reopen and second-user 404 (`e2e6`). | Met | Not-found pages for another user's records return HTTP 200 with no data (streamed page). |
 | D5 | Map, imagery and geocoding terms respected. | Ours | Visible attribution; submit-only Nominatim with a shared 1 req/s queue and cache; no tile prefetch. | Met (development scale) | Production traffic needs a commercial or self-hosted provider. |
 | D6 | Evidence operations are bounded and honest. | Ours | Host allowlist, limits, timeouts, retries; persisted jobs; separate worker (local or GitHub Actions); stale and failed states; provider error pages redacted from messages (test). | Met | MODIS greenness is optional (own button, claimed last, not used by the engine); a first retrieval takes ≈ 2–3 min (last 10 years, 4 requests in flight). GitHub schedules can be delayed. |
+| D8 | Water-supply and pumping-energy trade-offs for each compared rotation (Water & Energy planner). | Ours (product extension; not a NASA requirement or endorsement) | `docs/water-energy-methodology.md`, `docs/water-energy-providers.md`; `water.test.ts` (35 tests incl. the synthetic pump/PV reference); `data/verification/water-power-solar.json`, `water-overpass.json`, `water-groundwater.json` (USGS + Hub'Eau national adapters, GGMN global route, AU/BD/ZA/KE cases, outage); `test:db` 18/18; E2E 20/20 with and without WebGL. NASA POWER solar has a traceable role (C1); engine demand reused on common inputs (C4); gaps and unknowns first-class (C5). | Met | Groundwater observations exist only where networks share them (none found near Mymensingh or Nairobi); BWDB and BoM direct are not machine-accessible; public Overpass is development-scale; no pump curve, suction or hourly operation; English only. |
 | D7 | Bilingual interface (English/Bangla). | Ours | Navigation, workspace, run journey, dates and digits. | Partial | Record forms, evidence texts and methodology are English (stated in Settings). |
 
 ## Optional considerations from the brief

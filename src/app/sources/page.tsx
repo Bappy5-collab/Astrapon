@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import { EVIDENCE_CLASS_INFO } from "@/domain/provenance/evidence";
 import { REFERENCE_SOURCES } from "@/domain/sources/references";
 import { DATA_SOURCES } from "@/domain/sources/registry";
+import { WATER_SOURCES } from "@/domain/water/sources";
 import type { DataSource, SourceDecision, SourceStatus } from "@/domain/sources/types";
 import { tokens } from "@/theme/tokens";
 
@@ -53,6 +54,33 @@ export default function SourcesPage() {
           <SourceCard key={s.id} s={s} />
         ))}
       </Stack>
+
+      <Typography variant="h3" component="h2" sx={{ mt: 8 }}>
+        Water & Energy sources
+      </Typography>
+      <Typography color="text.secondary" sx={{ mt: 1, maxWidth: 760 }}>
+        Used by the Water & Energy planner (an Astrapon extension). A groundwater lookup works for any location, but measured records exist only where a monitoring network shares them; coverage varies by country.
+      </Typography>
+      <Box component="ul" aria-label="Water and energy sources" sx={{ listStyle: "none", p: 0, m: 0, mt: 3 }}>
+        {WATER_SOURCES.map((w) => (
+          <Box component="li" key={w.id} sx={{ py: 1.5, borderBottom: `1px solid ${tokens.neutral[200]}` }}>
+            <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexWrap: "wrap", rowGap: 0.5 }}>
+              <Typography sx={{ fontWeight: 700 }}>{w.name}</Typography>
+              <Chip size="small" label={STATUS[w.status].label} sx={{ bgcolor: STATUS[w.status].bg, color: STATUS[w.status].fg, fontWeight: 600 }} />
+              <Chip size="small" variant="outlined" label={w.implemented ? "In the app" : "Not in the app"} />
+            </Stack>
+            <Typography variant="body2" color="text.secondary">
+              {w.producer}. {w.product}. Units: {w.units}. Licence: {w.licence}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ wordBreak: "break-word" }}>
+              Cannot establish: {w.cannotEstablish.join("; ")}. Evidence: {w.statusEvidence} (checked {w.checkedAt}).{" "}
+              <Link href={w.urls[0]} target="_blank" rel="noreferrer">
+                Official page
+              </Link>
+            </Typography>
+          </Box>
+        ))}
+      </Box>
 
       <Typography variant="h3" component="h2" sx={{ mt: 8 }}>
         Agronomic references

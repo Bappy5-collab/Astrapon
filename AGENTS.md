@@ -33,6 +33,7 @@ pnpm evidence:worker [--once]   # background worker for evidence jobs AND simula
 pnpm evidence:trace             # LIVE end-to-end trace → data/verification/evidence-trace.json
 pnpm simulation:trace           # LIVE simulation trace → data/verification/simulation-trace.json
 pnpm global:cases               # LIVE cases in Iowa, Bangladesh, Australia → data/verification/global-cases.json
+pnpm water:trace [power-solar|overpass|groundwater]   # LIVE Water & Energy providers → data/verification/water-*.json
 ```
 
 ## Rules that bite
@@ -97,6 +98,12 @@ pnpm global:cases               # LIVE cases in Iowa, Bangladesh, Australia → 
   - Turbopack is the default.
 - pnpm 12 blocks dependency build scripts. Review any new one and add it to `allowBuilds` in `pnpm-workspace.yaml` (unrs-resolver and esbuild are denied; prebuilt binaries suffice).
 
+- Water & Energy (`src/domain/water`, `src/server/water`, `src/components/water`; method `docs/water-energy-methodology.md`, providers `docs/water-energy-providers.md`):
+  - Its lookups (Overpass, groundwater adapters, POWER solar) are the one documented exception to "downloads only in the worker": small, bounded, user-triggered, timed out, cached in-process by a rounded box. Never add bulk/raster downloads there.
+  - Never fill an unknown groundwater depth, efficiency or route with a hidden default; starting values are applied only by an explicit button and labelled. A nearby well is only a labelled proxy scenario. Straight-line distance is never a pipe route. Unknown source capacity means supply feasibility unknown.
+  - Groundwater routing comes from coordinates; the country hint only orders providers; GGMN is always consulted. A provider timeout is an error state, never "no groundwater". New adapters go in `groundwater-adapters.ts` + `GROUNDWATER_PROVIDERS` + `WATER_SOURCES` with a live artifact.
+  - Bump `WATER_MODEL_VERSION` for any change to the methodology doc. `water_energy_plans` rows are immutable except `name`; saving recomputes on the server and re-derives demand from the stored run.
+
 ## Phase status
 
 Phases 0–3 are complete. Phase 3 (prompt 3) delivered:
@@ -127,8 +134,18 @@ Phase 6 (prompt 6) delivered the interactive simulation and explanations (engine
 
 Phase 7 (prompt 7) was the final review and release candidate: visual sweep, performance measurement and fixes, accounting/sensitivity tests, three live global cases (`pnpm global:cases`), error redaction, README/operations/submission docs and the release gate (`docs/release-readiness.md`). Publishing (push/redeploy) and the AI key are owner actions.
 
-The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
+Phase 10 (prompt 8) delivered the Water & Energy planner (see `docs/implementation-status.md`). The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 
 ## End-of-phase duties
 
 Run the checks and inspect the UI. Update this file, `docs/implementation-status.md`, and `docs/challenge-alignment.md`. Commit task-owned changes locally and do not push.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

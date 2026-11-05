@@ -1,9 +1,14 @@
+import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import Chip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { Metadata } from "next";
+
+import { RunWaterCard } from "@/components/water/RunWaterCard";
+import { demandFromResult } from "@/domain/water/demand";
+import type { PlannerResult } from "@/domain/water/plan";
 import { notFound } from "next/navigation";
 
 import { RunExplorer } from "@/components/compare/RunExplorer";
@@ -36,6 +41,7 @@ export default async function RunPage({ params }: PageProps<"/runs/[runId]">) {
   const st = RUN_STATUS[run.status];
   const crumbs = [{ href: "/runs", label: t("nav.runs") }, ...(scenario ? [{ href: `/fields/${scenario.fieldId}/records`, label: scenario.fieldName }, { href: `/scenarios/${scenario.id}`, label: "Settings" }] : [])];
   const scenarioId = scenario?.id ?? null;
+  const water = result && scenario && run.status === "succeeded" ? await user.supabase.from("water_energy_plans").select("id, version, name, created_at, result").eq("run_id", run.id).order("version", { ascending: false }).limit(1).maybeSingle() : null;
 
   const rerun = async () => {
     "use server";
@@ -77,6 +83,16 @@ export default async function RunPage({ params }: PageProps<"/runs/[runId]">) {
           details={<RunResult result={result} resultSha256={run.resultSha256} inputDigest={run.inputDigest} />}
           actions={{ save: savePlan, update: updatePlan, remove: deletePlan, deleteRun, rerun: scenarioId ? rerun : null, savePriorities: scenarioId ? savePriorities : null, draft }}
         />
+      )}
+      {result && scenario && run.status === "succeeded" && (
+        <Box sx={{ mt: 3 }}>
+          <RunWaterCard
+            fieldId={scenario.fieldId}
+            runId={run.id}
+            demand={demandFromResult(result)}
+            saved={water?.data ? { id: water.data.id, version: water.data.version, name: water.data.name, createdAt: water.data.created_at, result: water.data.result as unknown as PlannerResult } : null}
+          />
+        </Box>
       )}
     </Container>
   );
