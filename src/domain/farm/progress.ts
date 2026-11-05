@@ -113,11 +113,10 @@ export function fieldSteps(fieldId: string, f: FieldFacts): FieldStep[] {
       id: "water_energy",
       title: "Plan water and pumping energy",
       why: "Find water near your field and see the pump power and solar panels each option would need.",
-      status: f.waterPlanCount ? `${plural(f.waterPlanCount, "saved version")}` : f.hasBoundary ? "Not planned yet" : "Draw the field first",
+      status: f.waterPlanCount ? `${plural(f.waterPlanCount, "saved version")}` : !f.hasBoundary ? "Draw the field first" : f.latestRunId ? "Not planned yet" : "Best after a comparison (you can start now)",
       href: `/fields/${fieldId}/water${f.latestRunId ? `?run=${f.latestRunId}` : ""}`,
       action: f.waterPlanCount ? "Open Water & Energy" : "Plan water & energy",
       done: f.waterPlanCount > 0,
-      optional: true,
     },
   ];
   // The first required step not done is "next"; optional steps never block it.

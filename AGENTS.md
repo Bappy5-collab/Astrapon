@@ -134,7 +134,7 @@ Phase 6 (prompt 6) delivered the interactive simulation and explanations (engine
 
 Phase 7 (prompt 7) was the final review and release candidate: visual sweep, performance measurement and fixes, accounting/sensitivity tests, three live global cases (`pnpm global:cases`), error redaction, README/operations/submission docs and the release gate (`docs/release-readiness.md`). Publishing (push/redeploy) and the AI key are owner actions.
 
-Phase 10 (prompt 8) delivered the Water & Energy planner. Phase 11 redesigned the home page around an animated 3D Earth (`src/components/home`; markers are only the live test locations, labelled as test squares) and added the optional Water & Energy step to the field path (see `docs/implementation-status.md`). The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
+Phase 10 (prompt 8) delivered the Water & Energy planner. Phase 11 redesigned the home page around an animated 3D Earth (`src/components/home`; markers are only the live test locations, labelled as test squares) and added Water & Energy as a main (required) step of the field path, after the comparison (see `docs/implementation-status.md`). The next phase follows the owner's next prompt. The designated Astrapon dev Supabase project is configured in `.env.local` (owner-confirmed new project); scripts verify its ref before running.
 
 ## End-of-phase duties
 

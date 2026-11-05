@@ -28,6 +28,7 @@ describe("field steps", () => {
   it("optional steps never block the next required step", () => {
     const s = fieldSteps("f1", { ...EMPTY, hasBoundary: true, historyCount: 2, datedHistoryCount: 2 });
     expect(nextStep(s)?.id).toBe("weather");
+    expect(s.find((x) => x.id === "water_energy")?.state).toBe("todo");
     expect(s.find((x) => x.id === "soil_water")?.state).toBe("optional");
     expect(s.find((x) => x.id === "priorities")?.state).toBe("optional");
   });
@@ -42,12 +43,13 @@ describe("field steps", () => {
   it("a soil survey counts as soil, and a finished run links to the result", () => {
     const s = fieldSteps("f1", { ...EMPTY, hasBoundary: true, historyCount: 2, datedHistoryCount: 2, hasSoilSurvey: true, waterSaved: true, prioritiesSaved: true, hasWeather: true, scenarioCount: 1, latestRunId: "r9" });
     expect(stepsDone(s)).toBe(6);
-    expect(nextStep(s)).toBeNull();
-    expect(s.find((x) => x.id === "compare")?.href).toBe("/runs/r9");
-    // Water & Energy is optional and opens with the latest comparison.
+    // Water & Energy is a main step: after the comparison it is next, and it opens with the latest comparison.
     const w = s.find((x) => x.id === "water_energy")!;
-    expect(w.state).toBe("optional");
+    expect(nextStep(s)?.id).toBe("water_energy");
     expect(w.href).toBe("/fields/f1/water?run=r9");
-    expect(fieldSteps("f1", { ...EMPTY, waterPlanCount: 2 }).find((x) => x.id === "water_energy")?.state).toBe("done");
+    expect(s.find((x) => x.id === "compare")?.href).toBe("/runs/r9");
+    const all = fieldSteps("f1", { ...EMPTY, hasBoundary: true, historyCount: 2, datedHistoryCount: 2, hasSoilSurvey: true, waterSaved: true, prioritiesSaved: true, hasWeather: true, scenarioCount: 1, latestRunId: "r9", waterPlanCount: 1 });
+    expect(stepsDone(all)).toBe(7);
+    expect(nextStep(all)).toBeNull();
   });
 });

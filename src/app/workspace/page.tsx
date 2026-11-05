@@ -69,12 +69,12 @@ export default async function MyFieldsPage() {
         </Box>
       ) : (
         <>
-          {![...facts.values()].some((f) => f.latestRunId) && (
+          {![...facts.values()].some((f) => f.waterPlanCount > 0) && (
             <Box component="section" aria-labelledby="path-title" sx={{ mb: 3, p: { xs: 2, md: 2.5 }, borderRadius: `${radius.lg + 4}px`, bgcolor: tokens.forest[900], color: color.onForest }}>
               <Typography id="path-title" variant="h6" component="h2" sx={{ color: color.accent }}>
-                Your path to a first result
+                Your path to a full plan
               </Typography>
-              <Box component="ol" sx={{ m: 0, mt: 1.5, p: 0, listStyle: "none", display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" } }}>
+              <Box component="ol" sx={{ m: 0, mt: 1.5, p: 0, listStyle: "none", display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(5, 1fr)" } }}>
                 {PATH.map((t, i) => (
                   <Stack component="li" key={t} direction="row" spacing={1.25} sx={{ alignItems: "flex-start" }}>
                     <Box aria-hidden sx={{ flexShrink: 0, width: 28, height: 28, borderRadius: "50%", display: "grid", placeItems: "center", bgcolor: color.accent, color: color.accentInk, fontWeight: 800, fontSize: "0.9rem" }}>
@@ -87,7 +87,7 @@ export default async function MyFieldsPage() {
                 ))}
               </Box>
               <Typography variant="caption" component="p" sx={{ mt: 1.5, color: color.onForestMuted }}>
-                Each field card below shows its next step. Water & Energy (pumps and solar) is an optional extra once you have a result.
+                Each field card below shows its next step. Water & Energy uses the comparison&apos;s irrigation need to work out pumps and solar panels.
               </Typography>
             </Box>
           )}
@@ -111,6 +111,6 @@ export default async function MyFieldsPage() {
   );
 }
 
-const PATH = ["Draw the field on the map", "Add one or two past seasons with dates", "Press “Get weather” (it downloads in the background)", "Start a comparison and open the result"];
+const PATH = ["Draw the field on the map", "Add one or two past seasons with dates", "Press “Get weather” (it downloads in the background)", "Start a comparison (choose “Fully irrigated” if you irrigate)", "Plan water and pumping energy, then save it"];
 
 const EMPTY = { hasBoundary: false, historyCount: 0, datedHistoryCount: 0, soilCount: 0, hasSoilSurvey: false, waterSaved: false, prioritiesSaved: false, hasWeather: false, weatherPending: false, scenarioCount: 0, latestRunId: null, waterPlanCount: 0 };
