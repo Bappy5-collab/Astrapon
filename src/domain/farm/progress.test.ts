@@ -14,12 +14,13 @@ const EMPTY: FieldFacts = {
   weatherPending: false,
   scenarioCount: 0,
   latestRunId: null,
+  waterPlanCount: 0,
 };
 
 describe("field steps", () => {
   it("starts with drawing the field", () => {
     const s = fieldSteps("f1", EMPTY);
-    expect(s.map((x) => x.id)).toEqual(["boundary", "history", "soil_water", "priorities", "weather", "compare"]);
+    expect(s.map((x) => x.id)).toEqual(["boundary", "history", "soil_water", "priorities", "weather", "compare", "water_energy"]);
     expect(nextStep(s)?.id).toBe("boundary");
     expect(stepsDone(s)).toBe(0);
   });
@@ -42,6 +43,11 @@ describe("field steps", () => {
     const s = fieldSteps("f1", { ...EMPTY, hasBoundary: true, historyCount: 2, datedHistoryCount: 2, hasSoilSurvey: true, waterSaved: true, prioritiesSaved: true, hasWeather: true, scenarioCount: 1, latestRunId: "r9" });
     expect(stepsDone(s)).toBe(6);
     expect(nextStep(s)).toBeNull();
-    expect(s.at(-1)?.href).toBe("/runs/r9");
+    expect(s.find((x) => x.id === "compare")?.href).toBe("/runs/r9");
+    // Water & Energy is optional and opens with the latest comparison.
+    const w = s.find((x) => x.id === "water_energy")!;
+    expect(w.state).toBe("optional");
+    expect(w.href).toBe("/fields/f1/water?run=r9");
+    expect(fieldSteps("f1", { ...EMPTY, waterPlanCount: 2 }).find((x) => x.id === "water_energy")?.state).toBe("done");
   });
 });

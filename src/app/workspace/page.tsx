@@ -68,14 +68,49 @@ export default async function MyFieldsPage() {
           </Stack>
         </Box>
       ) : (
-        <FieldGrid label="Your fields">
-          {fields.map((f) => (
-            <FieldCard key={f.id} id={f.id} name={f.name} farmName={f.farmName} areaHa={f.area_ha} steps={fieldSteps(f.id, facts.get(f.id) ?? EMPTY)} />
-          ))}
-        </FieldGrid>
+        <>
+          {![...facts.values()].some((f) => f.latestRunId) && (
+            <Box component="section" aria-labelledby="path-title" sx={{ mb: 3, p: { xs: 2, md: 2.5 }, borderRadius: `${radius.lg + 4}px`, bgcolor: tokens.forest[900], color: color.onForest }}>
+              <Typography id="path-title" variant="h6" component="h2" sx={{ color: color.accent }}>
+                Your path to a first result
+              </Typography>
+              <Box component="ol" sx={{ m: 0, mt: 1.5, p: 0, listStyle: "none", display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" } }}>
+                {PATH.map((t, i) => (
+                  <Stack component="li" key={t} direction="row" spacing={1.25} sx={{ alignItems: "flex-start" }}>
+                    <Box aria-hidden sx={{ flexShrink: 0, width: 28, height: 28, borderRadius: "50%", display: "grid", placeItems: "center", bgcolor: color.accent, color: color.accentInk, fontWeight: 800, fontSize: "0.9rem" }}>
+                      {i + 1}
+                    </Box>
+                    <Typography variant="body2" sx={{ color: color.onForest, pt: 0.4 }}>
+                      {t}
+                    </Typography>
+                  </Stack>
+                ))}
+              </Box>
+              <Typography variant="caption" component="p" sx={{ mt: 1.5, color: color.onForestMuted }}>
+                Each field card below shows its next step. Water & Energy (pumps and solar) is an optional extra once you have a result.
+              </Typography>
+            </Box>
+          )}
+          <FieldGrid label="Your fields">
+            {fields.map((f) => (
+              <FieldCard key={f.id} id={f.id} name={f.name} farmName={f.farmName} areaHa={f.area_ha} steps={fieldSteps(f.id, facts.get(f.id) ?? EMPTY)} />
+            ))}
+            <Box component="li" sx={{ minHeight: 180 }}>
+              <ButtonLink
+                href="/fields/new"
+                startIcon={<AddRoundedIcon />}
+                sx={{ width: "100%", height: "100%", minHeight: 180, borderRadius: `${radius.lg + 4}px`, border: `2px dashed ${color.lineStrong}`, color: tokens.forest[700], fontWeight: 700, "&:hover": { borderColor: tokens.forest[500], bgcolor: color.surfaceRaised } }}
+              >
+                Add another field
+              </ButtonLink>
+            </Box>
+          </FieldGrid>
+        </>
       )}
     </Container>
   );
 }
 
-const EMPTY = { hasBoundary: false, historyCount: 0, datedHistoryCount: 0, soilCount: 0, hasSoilSurvey: false, waterSaved: false, prioritiesSaved: false, hasWeather: false, weatherPending: false, scenarioCount: 0, latestRunId: null };
+const PATH = ["Draw the field on the map", "Add one or two past seasons with dates", "Press “Get weather” (it downloads in the background)", "Start a comparison and open the result"];
+
+const EMPTY = { hasBoundary: false, historyCount: 0, datedHistoryCount: 0, soilCount: 0, hasSoilSurvey: false, waterSaved: false, prioritiesSaved: false, hasWeather: false, weatherPending: false, scenarioCount: 0, latestRunId: null, waterPlanCount: 0 };

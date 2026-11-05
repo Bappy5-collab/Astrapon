@@ -98,7 +98,7 @@ export async function listScenarios(db: Db) {
 export async function fieldFacts(db: Db, fieldIds: string[]): Promise<Map<string, FieldFacts>> {
   const out = new Map<string, FieldFacts>();
   if (!fieldIds.length) return out;
-  const [fields, history, soil, water, prio, retr, jobs, scen] = await Promise.all([
+  const [fields, history, soil, water, prio, retr, jobs, scen, wplans] = await Promise.all([
     db.from("fields").select("id, area_ha").in("id", fieldIds),
     db.from("crop_history").select("field_id, planted_on, harvested_on").in("field_id", fieldIds),
     db.from("soil_observations").select("field_id").in("field_id", fieldIds),
@@ -107,8 +107,9 @@ export async function fieldFacts(db: Db, fieldIds: string[]): Promise<Map<string
     db.from("evidence_retrievals").select("field_id, source_id").in("field_id", fieldIds).in("source_id", ["nasa-power-daily", "usda-ssurgo-sda"]),
     db.from("evidence_jobs").select("field_id").in("field_id", fieldIds).eq("source_id", "nasa-power-daily").in("status", ["queued", "running"]),
     db.from("scenarios").select("id, field_id").in("field_id", fieldIds),
+    db.from("water_energy_plans").select("field_id").in("field_id", fieldIds),
   ]);
-  for (const r of [fields, history, soil, water, prio, retr, jobs, scen]) if (r.error) throw new Error("Could not load field progress");
+  for (const r of [fields, history, soil, water, prio, retr, jobs, scen, wplans]) if (r.error) throw new Error("Could not load field progress");
   const scenarioField = new Map(scen.data!.map((s) => [s.id, s.field_id]));
   const latestRun = new Map<string, { id: string; at: string }>();
   if (scenarioField.size) {
@@ -140,6 +141,7 @@ export async function fieldFacts(db: Db, fieldIds: string[]): Promise<Map<string
       weatherPending: count(jobs.data!, f.id) > 0,
       scenarioCount: scen.data!.filter((s) => s.field_id === f.id).length,
       latestRunId: latestRun.get(f.id)?.id ?? null,
+      waterPlanCount: count(wplans.data!, f.id),
     });
   }
   return out;

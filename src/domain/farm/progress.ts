@@ -21,9 +21,11 @@ export type FieldFacts = {
   scenarioCount: number;
   /** Id of the newest finished run, if any. */
   latestRunId: string | null;
+  /** Saved Water & Energy versions for the field. */
+  waterPlanCount: number;
 };
 
-export type StepId = "boundary" | "history" | "soil_water" | "priorities" | "weather" | "compare";
+export type StepId = "boundary" | "history" | "soil_water" | "priorities" | "weather" | "compare" | "water_energy";
 export type StepState = "done" | "next" | "todo" | "optional";
 
 export type FieldStep = {
@@ -106,6 +108,16 @@ export function fieldSteps(fieldId: string, f: FieldFacts): FieldStep[] {
       href: f.latestRunId ? `/runs/${f.latestRunId}` : `${rec}#compare`,
       action: f.latestRunId ? "See results" : f.scenarioCount ? "Run a comparison" : "Start a comparison",
       done: Boolean(f.latestRunId),
+    },
+    {
+      id: "water_energy",
+      title: "Plan water and pumping energy",
+      why: "Find water near your field and see the pump power and solar panels each option would need.",
+      status: f.waterPlanCount ? `${plural(f.waterPlanCount, "saved version")}` : f.hasBoundary ? "Not planned yet" : "Draw the field first",
+      href: `/fields/${fieldId}/water${f.latestRunId ? `?run=${f.latestRunId}` : ""}`,
+      action: f.waterPlanCount ? "Open Water & Energy" : "Plan water & energy",
+      done: f.waterPlanCount > 0,
+      optional: true,
     },
   ];
   // The first required step not done is "next"; optional steps never block it.
